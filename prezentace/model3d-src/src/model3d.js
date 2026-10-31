@@ -538,7 +538,7 @@ function postav(kontejner) {
 
     /* štítky: projekce kotev do obrazovky */
     const vidim = OTOCNY ? {} : TRI_PATRA ? { vaha: krok === 2, foto: krok === 1, ai: krok >= 3 }
-      : { jidelna: krok === 0, mycka: krok === 0, foto: krok === 1 && vyfoceno, vaha: krok >= 2, ai: krok >= 3 };
+      : { foto: true };  /* jeden pás: celou dobu jen „Fotka talíře: co zbylo“, ostatní popisky jsou vpravo na slajdu */
     for (const id in stitky) {
       const s = stitky[id];
       const p = s.bod.clone().project(kamera);
