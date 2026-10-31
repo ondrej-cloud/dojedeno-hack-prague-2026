@@ -50,28 +50,49 @@
     }
   }
 
-  let raf = null, casovac = null;
+  let raf = null, casovac = null, pripraven = true;
+  s.querySelector('.kino-spust').addEventListener('click', () => window.deck.dalsi());
   function zastav() { if (raf) cancelAnimationFrame(raf); raf = null; clearTimeout(casovac); casovac = null; }
   function hotovo() { zastav(); vykresli(1); }
   function spust() {
     zastav();
+    pripraven = false;
+    s.classList.remove('uvod-pripraven');
     /* běží-li filmové 3D otevření (js/uvod3d.js), 2D scéna je skrytá: jen konečný stav */
     if (s.classList.contains('kino')) { vykresli(1); return; }
     vykresli(0);
-    if (REDUKCE) { vykresli(1); return; }
+    if (REDUKCE) {
+      vykresli(1);
+      queueMicrotask(() => { if (s.classList.contains('aktivni') && +s.dataset.k === 0) window.deck.dalsi(); });
+      return;
+    }
     casovac = setTimeout(() => {
       const t0 = performance.now();
       const tik = t => {
         const p = Math.min(1, (t - t0) / TRVANI);
         vykresli(p);
         raf = p < 1 ? requestAnimationFrame(tik) : null;
+        if (p >= 1 && s.classList.contains('aktivni') && +s.dataset.k === 0) window.deck.dalsi();
       };
       raf = requestAnimationFrame(tik);
     }, ZPOZDENI);
   }
 
-  s.addEventListener('vstup', e => { if (e.detail.dopredu) spust(); else hotovo(); });
-  s.addEventListener('krok', e => { if (e.detail.k >= 1 || e.detail.hned) hotovo(); });
+  function priprav() {
+    if (s.classList.contains('kino')) return;
+    zastav(); vykresli(0); pripraven = true; s.classList.add('uvod-pripraven');
+  }
+  s.addEventListener('pred-dalsi', e => {
+    if (!s.classList.contains('kino') && +s.dataset.k === 0 && pripraven) { e.preventDefault(); spust(); }
+  });
+  s.addEventListener('pred-predchozi', e => {
+    if (!s.classList.contains('kino') && +s.dataset.k === 0) { e.preventDefault(); priprav(); }
+  });
+  s.addEventListener('vstup', () => { if (+s.dataset.k === 0) priprav(); else hotovo(); });
+  s.addEventListener('krok', e => {
+    if (e.detail.k >= 1) { hotovo(); s.classList.remove('uvod-pripraven'); }
+    else priprav();
+  });
   s.addEventListener('odchod', zastav);
   s.addEventListener('tisk', () => { hotovo(); s.dataset.k = '1'; });
   hotovo();

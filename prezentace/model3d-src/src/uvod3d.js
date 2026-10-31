@@ -7,9 +7,10 @@
    Ladění: ?uvodcas=6.5 v adrese zmrazí krok 0 v daném čase. Sestavuje se esbuildem do js/uvod3d.js (IIFE). */
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
+import { screenBounds } from './projection.js';
 
 const REDUKCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const KONEC = 13.2;             /* od této chvíle drží poslední záběr (s jemným pohybem kamery) */
+const KONEC = 13.2;             /* po konci filmu následuje automaticky titulní kompozice */
 const LET_ZAC = 8.6, LET_KON = 11.2;
 
 const omez = (x, a, b) => Math.max(a, Math.min(b, x));
@@ -19,7 +20,7 @@ const sinIO = u => 0.5 - 0.5 * Math.cos(Math.PI * u);
 const kubIO = u => (u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2);
 
 function postav(s, kontejner) {
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.0;
@@ -295,7 +296,7 @@ function postav(s, kontejner) {
 
   function scena3(t, cas) {
     /* světla */
-    reflektor.intensity = 46 * sinIO(u01(t, 0.35, 2.1)) * (1 - 0.35 * u01(t, 8.3, 10.5));
+    reflektor.intensity = 46 * (0.12 + 0.88 * sinIO(u01(t, 0.35, 2.1))) * (1 - 0.35 * u01(t, 8.3, 10.5));
     const salU = sinIO(u01(t, 4.6, 7.8));
     sal.intensity = 1.5 * salU;
     nebe.intensity = 0.45 * salU;
@@ -327,7 +328,33 @@ function postav(s, kontejner) {
   }
 
   return {
-    vykresli(t, cas) { velikost(); scena3(t, cas); renderer.render(scena, kamera); },
+    vykresli(t, cas) { kbelik.visible = true; velikost(); scena3(t, cas); renderer.render(scena, kamera); },
+    snimekKbeliku() {
+      const bounds = screenBounds(telo, kamera, 1920, 1080);
+      const visible = scena.children.map(child => [child, child.visible]);
+      const background = scena.background, fog = scena.fog;
+      const image = document.createElement('canvas');
+      // A transparent snapshot keeps the same bucket visible while the dining room fades.
+      try {
+        scena.children.forEach(child => { if (child !== kbelik && !child.isLight) child.visible = false; });
+        scena.background = null; scena.fog = null;
+        renderer.setClearColor(0x000000, 0);
+        renderer.render(scena, kamera);
+        const scale = renderer.domElement.width / 1920;
+        image.width = Math.ceil(bounds.width * scale);
+        image.height = Math.ceil(bounds.height * scale);
+        image.getContext('2d').drawImage(renderer.domElement,
+          bounds.left * scale, bounds.top * scale, bounds.width * scale, bounds.height * scale,
+          0, 0, image.width, image.height);
+      } finally {
+        visible.forEach(([child, value]) => { child.visible = value; });
+        scena.background = background; scena.fog = fog;
+        renderer.setClearColor(0x050506, 1);
+      }
+      kbelik.visible = false;
+      renderer.render(scena, kamera);
+      return { image, bounds };
+    },
   };
 }
 
@@ -340,24 +367,93 @@ function spust() {
   s.classList.add('kino');
 
   const testCas = parseFloat(new URLSearchParams(location.search).get('uvodcas'));
-  let raf = 0, t0 = 0, bezi = false;
+  let raf = 0, t0 = 0, bezi = false, automaticky = false, filmCas = 0, pripraven = true;
+  let presun = null, presunModel = null, presunTimer = null, revealTimer = null;
+
+  function uklidPresun() {
+    clearTimeout(presunTimer);
+    clearTimeout(revealTimer);
+    if (presun) { presun.getAnimations().forEach(a => a.cancel()); presun.remove(); }
+    if (presunModel) presunModel.transitionAnchor(false);
+    presun = presunModel = null;
+    s.classList.remove('presun-kose');
+  }
+
+  function presunKos() {
+    uklidPresun();
+    const model = s.querySelector('.produkt3d-platno');
+    if (!model || !model.__m3d) return;
+    const target = model.__m3d.transitionAnchor(true);
+    presunModel = model.__m3d;
+    try {
+      const { image, bounds } = api.snimekKbeliku();
+      const slot = s.querySelector('.produkt3d');
+      // Offsets use the unscaled 1920×1080 stage, so this also works in fullscreen.
+      const x = slot.offsetLeft + target.left, y = slot.offsetTop + target.top;
+      image.className = 'kino-kos-presun';
+      Object.assign(image.style, { left: bounds.left + 'px', top: bounds.top + 'px',
+        width: bounds.width + 'px', height: bounds.height + 'px' });
+      presun = image;
+      s.classList.add('presun-kose');
+      s.appendChild(image);
+      const end = `translate(${x - bounds.left}px, ${y - bounds.top}px) scale(${target.width / bounds.width}, ${target.height / bounds.height})`;
+      image.animate([{ transform: 'none' }, { transform: end }],
+        { duration: 1600, easing: 'cubic-bezier(.45,0,.2,1)', fill: 'forwards' });
+      image.animate([{ opacity: 1 }, { opacity: 0 }],
+        { delay: 1600, duration: 350, fill: 'forwards' });
+      revealTimer = setTimeout(() => presunModel?.transitionReveal(), 1600);
+      presunTimer = setTimeout(uklidPresun, 2000);
+    } catch (error) {
+      uklidPresun();
+      console.warn('Přesun koše není dostupný, používám prolnutí.', error);
+    }
+  }
 
   function smycka(ted) {
     if (!bezi) return;
     const t = Math.min((ted - t0) / 1000, KONEC + 30);
+    filmCas = t;
     api.vykresli(Math.min(t, KONEC), ted / 1000);
+    if (automaticky && t >= KONEC && s.classList.contains('aktivni') && +s.dataset.k === 0) {
+      automaticky = false;
+      window.deck.dalsi();
+      return;
+    }
     raf = requestAnimationFrame(smycka);
   }
-  function zastav() { bezi = false; cancelAnimationFrame(raf); }
-  function hrajOd(t) {
+  function zastav() { bezi = false; automaticky = false; cancelAnimationFrame(raf); }
+  function hrajOd(t, auto = false) {
     zastav();
+    uklidPresun();
+    pripraven = false;
+    s.classList.remove('uvod-pripraven');
     if (Number.isFinite(testCas)) { api.vykresli(testCas, testCas); return; }
-    if (REDUKCE) { api.vykresli(KONEC, 0); return; }
+    if (REDUKCE) {
+      api.vykresli(KONEC, 0);
+      if (auto) queueMicrotask(() => {
+        if (s.classList.contains('aktivni') && +s.dataset.k === 0) window.deck.dalsi();
+      });
+      return;
+    }
     t0 = performance.now() - t * 1000;
+    automaticky = auto;
     bezi = true;
     raf = requestAnimationFrame(smycka);
   }
-  const konec = () => hrajOd(KONEC);
+  function priprav() {
+    zastav(); uklidPresun();
+    pripraven = true; filmCas = 0;
+    s.classList.add('uvod-pripraven');
+    api.vykresli(Number.isFinite(testCas) ? testCas : 0, 0);
+    s.querySelector('.produkt3d-platno')?.__m3d?.stop();
+  }
+
+  s.addEventListener('pred-dalsi', e => {
+    if (+s.dataset.k === 0 && pripraven) { e.preventDefault(); hrajOd(0, true); }
+  });
+  s.addEventListener('pred-predchozi', e => {
+    if (+s.dataset.k === 0) { e.preventDefault(); priprav(); }
+  });
 
   /* 3D točna produktu vpravo v titulní kompozici: připojí se až při prvním kroku 1 (ať během filmu neběží druhé WebGL) */
   function produkt() {
@@ -371,17 +467,22 @@ function spust() {
   }
 
   s.addEventListener('krok', e => {
-    const { k } = e.detail;
-    if (k >= 1) { zastav(); produkt(); }
-    else if (s.classList.contains('aktivni')) konec();
+    const { k, hned } = e.detail;
+    if (k >= 1) {
+      const animovat = bezi && filmCas >= 11.6 && !hned && !REDUKCE;
+      zastav(); produkt();
+      s.classList.remove('uvod-pripraven');
+      if (animovat) presunKos(); else uklidPresun();
+    } else if (s.classList.contains('aktivni')) priprav();
   });
   s.addEventListener('vstup', e => {
     if (+(s.dataset.k || 0) >= 1) { zastav(); produkt(); return; }
-    if (e.detail.dopredu) hrajOd(0); else konec();
+    priprav();
   });
-  s.addEventListener('odchod', zastav);
+  s.addEventListener('odchod', () => { zastav(); uklidPresun(); });
   s.addEventListener('tisk', () => {
     zastav();
+    uklidPresun();
     produkt();
     const el = s.querySelector('[data-model3d]');
     if (el && el.__m3d) el.__m3d.vykresli();
