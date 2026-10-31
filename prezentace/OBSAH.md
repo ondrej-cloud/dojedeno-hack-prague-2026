@@ -249,7 +249,9 @@ Pořadí: úvod, problém, insight, pás, demo, z dat rovnou opatření, kdo z t
 ### 07 · `s-kdo` · Kdo z toho co má
 - Tři hlavní karty (vedoucí jídelny, ředitel, městská část jako budoucí plátce), krok 1: „Proč do toho jídelna půjde“. Kuchařky, žáci a rodiče jsou na slajdu 08.
 
-### 08 · `s-zapojeni` · Zapojíme celou školu (kritérium Zapojení komunity)
+### 08 · `s-zapojeni` · Kdo se zapojí a co z toho má (kritérium Zapojení komunity)
+- **Spojuje dřívější „Kdo z toho co má“ a „Zapojíme celou školu“.** Čtyři karty: vedoucí a kuchařky (ví, co děti nejedí; úpravy s námi, práce navíc ne), ředitel (ušetří za suroviny, ekologický projekt, pilot zdarma), žáci a učitelé (soutěž tříd, data do výuky), městská část · plátce (srovná své školy, Praha 4 a Zachraň oběd). Rodiče vypadli. Krok 1 beze změny (Brno a Hejčín).
+- *Původní znění:*
 - Čtyři skupiny: kuchařky a vedoucí navrhují úpravy s námi, žáci soutěž tříd, učitelé data do výuky, rodiče přehled.
 - **Krok 1:** Brno 80 kg → 19 kg v den, kdy děti vážily samy (Mendelova univerzita 2025, s. 19); telefonát se správkyní jídelny v Hejčíně: zní to dobře, kuchařkám to práci nepřidá, chybí souhlas ředitele. Správkyni necitovat doslova.
 

@@ -14,3 +14,8 @@
 #s-zapojeni .z-sipka { font-size: 0.55em; font-weight: 600; color: var(--text3); }
 #s-zapojeni .z-hejcin { display: flex; flex-direction: column; box-shadow: var(--stin), inset 0 0 0 3px var(--zelena); }
 #s-zapojeni .z-hejcin h2 { margin-top: 14px; font-size: 44px; line-height: 1.1; letter-spacing: -0.02em; }
+
+/* městská část: odznak „budoucí plátce“ */
+#s-zapojeni .z-platce { box-shadow: var(--stin), inset 0 0 0 3px var(--zelena); }
+#s-zapojeni .z-platce { position: relative; }
+#s-zapojeni .z-odznak { position: absolute; top: 30px; right: 30px; padding: 4px 14px 6px; border-radius: var(--pilulka); background: var(--zelena-svetla); color: var(--zelena); font-size: 18px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
