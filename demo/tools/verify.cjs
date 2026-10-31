@@ -11,12 +11,19 @@ const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console'
 const external=[];page.on('request',r=>{if(!r.url().startsWith('http://127.0.0.1:8080/'))external.push(r.url())});
 await page.addInitScript(()=>{navigator.mediaDevices.getUserMedia=async()=>{throw new DOMException('Permission denied','NotAllowedError')};});
 await page.route('**/config.json',r=>{const c=JSON.parse(fs.readFileSync(path.join(root,'config.json')));c.analysis={mode:'demo'};c.camera.source='local';c.detection.enabled=false;return r.fulfill({json:c});});await page.goto('http://127.0.0.1:8080');await page.waitForFunction(()=>window.demo);
-const data=await page.evaluate(()=>demo.getData());assert(Math.abs(data.totals.kg-1700)<1e-6);
+const data=await page.evaluate(()=>demo.getData());assert(Math.abs(data.totals.kg-1400)<1e-6);
 const month=JSON.parse(fs.readFileSync(path.join(root,'data/month.json')));const config=JSON.parse(fs.readFileSync(path.join(root,'config.json')));
 for(const d of month.days){assert(Math.abs(d.dishes.reduce((n,x)=>n+x.plateKg,0)-d.plateKg)<1e-6);assert(Math.abs(d.dishes.reduce((n,x)=>n+x.unservedKg,0)-d.unservedKg)<1e-6);assert(Math.abs(Object.values(d.components).reduce((a,b)=>a+b,0)-d.plateKg)<1e-6);}
 assert.equal(config.day.dishes.reduce((s,d)=>s+d.kg,0),config.day.plateKg+config.day.unservedKg+config.day.prepKg);
 const overflow=[];
-for(let s=1;s<=8;s++){await page.keyboard.press(String(s));if(s===3)await page.keyboard.press('ArrowRight');await page.waitForTimeout(2900);assert.equal(await page.locator('#progress').innerText(),`${s} / 8`);await page.screenshot({path:path.join(root,`screenshots/step-${s}.png`)});const items=await page.evaluate(()=>[...document.querySelectorAll('main .panel,main .summary,main .note,main .under-camera')].filter(e=>{const r=e.getBoundingClientRect();return r.bottom>997||r.right>1849}).map(e=>e.className));if(items.length)overflow.push({s,items});}
+for(let s=1;s<=8;s++){await page.keyboard.press(String(s));if(s===3)await page.keyboard.press('ArrowRight');await page.waitForTimeout(2900);assert.equal(await page.locator('#progress').innerText(),`${s} / 8`);
+const screen=(await page.locator('#scene').innerText()).replace(/\u00a0/g,' ');
+assert(!/CO₂|CO2|120 000|−20 %/.test(screen),'stale claims removed');
+if(s===4)assert.match(screen,/13,90 Kč/);
+if(s===5){assert.match(screen,/70 kg/);assert.match(screen,/3 145 Kč/);assert.match(screen,/75 porcí/);}
+if(s===6){assert.match(screen,/672 kg/);assert.match(screen,/62 160 Kč/);assert.match(screen,/1 505 porcí/);const rows=await page.locator('.ranking-row .name').allTextContents();assert.match(rows[0],/Špenát/);assert.match(rows[1],/Koprov/);}
+if(s===7){assert.match(screen,/35 porcí méně/);assert.match(screen,/60 000 Kč/);assert.match(screen,/Příklad, ne slib/);assert.match(screen,/47 %/);}
+await page.screenshot({path:path.join(root,`screenshots/step-${s}.png`)});const items=await page.evaluate(()=>[...document.querySelectorAll('main .panel,main .summary,main .note,main .under-camera')].filter(e=>{const r=e.getBoundingClientRect();return r.bottom>997||r.right>1849}).map(e=>e.className));if(items.length)overflow.push({s,items});}
 for(let s=7;s>=1;s--){await page.keyboard.press('ArrowLeft');assert.equal(await page.locator('#progress').innerText(),`${s} / 8`);}
 await page.keyboard.press('2');await page.keyboard.press('r');await page.waitForTimeout(1800);assert.match(await page.locator('#results').innerText(),/Čekám na talíř/);
 for(const key of ['PageDown','Space'])await page.keyboard.press(key);assert.equal((await page.evaluate(()=>demo.getState())).step,3);await page.keyboard.press('PageDown');assert.equal((await page.evaluate(()=>demo.getState())).captured,true);await page.keyboard.press('PageDown');assert.equal((await page.evaluate(()=>demo.getState())).step,4);

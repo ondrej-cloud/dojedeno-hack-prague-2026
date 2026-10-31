@@ -42,19 +42,21 @@ V režimu `local` se kamera ptá na oprávnění při otevření. Nejprve otevř
 
 ## Obsah
 
-- `config.json`: škola, datum, menu, vzor a zbytek, cena/kg, CO₂ faktor, kamera, denní souhrn, žákovská obrazovka a roční přepočet.
+- `config.json`: škola, datum, menu, vzor a zbytek, cena/kg, kamera, denní souhrn, žákovská obrazovka a samostatný příklad roční úspory.
 - `assets/plate-full.jpg` a `assets/plate-leftover.jpg`: neutrální ilustrace. Nahraďte vlastními fotkami se stejnými názvy; ideálně 1600 × 1000. Stránku poté obnovte. Fotografie se ořízne na panel kamery.
 - `data/month.json`: 20 deterministicky vygenerovaných ukázkových dní. Každý den obsahuje hlavní jídla, polévku a doplněk, rozpad původu odpadu, vydané hmotnosti a části jídla.
 - `tools/generate_month.py`: generátor, standardní Python bez závislostí. Spusťte `python3 tools/generate_month.py` po změně receptů, poměrů nebo seedu.
 - `screenshots/`: snímky všech osmi kroků.
 
-Měsíc má přesně 1 700 kg (48 % talíře, 43 % nevydané, 9 % příprava), při 37 Kč/kg je to 62 900 Kč a při faktoru 2,5 celkem 4,25 t CO₂e. CO₂e je orientační odhad. Každý den má přibližně 450 obědů, jídla mají různé návratové poměry. Složky z talířů jsou 44 % příloha, 20 % maso, 19 % omáčka, 13 % polévka, 4 % doplněk. Poměry jsou záměrně připravené pro scénář, nejde o skutečně měřenou školu.
+Měsíc má přesně 1 400 kg (48 % talíře, 43 % nevydané, 9 % příprava), tedy průměrně 70 kg denně. Ze zbytků na talířích je 672 kg, při modelové ceně surovin 92,5 Kč/kg je to 62 160 Kč. Cena odpovídá 37 Kč za oběd o 400 g; jde o jednotný orientační přepočet, ne receptové kalkulace. Nevydaných 602 kg odpovídá 1 505 standardním porcím po 400 g. Jde o ekvivalent porcí, ne skutečný počet talířů. Denní ukázka má 34 kg z talířů (3 145 Kč), 30 kg nevydaného (75 referenčních porcí), 6 kg přípravy a celkem 70 kg. Nevydané jídlo ani přípravu finančně nesčítáme s talíři.
+
+Částka za jednotlivý talíř se zaokrouhluje na desetihaléře: 150 g × 92,5 Kč/kg = 13,875 Kč, zobrazeno 13,90 Kč. Měsíční i denní souhrny se počítají z celé příslušné hmotnosti. Emisní přepočty se nepoužívají. Složky z talířů jsou 44 % příloha, 20 % maso, 19 % omáčka, 13 % polévka a 4 % doplněk. Dataset je syntetický a není měřením školy v Hejčíně.
 
 U hlavních jídel se počet vydaných porcí `servings` sčítá přesně na denní počet obědů `lunches`. Skutečná průměrná hmotnost vydané porce je `servedPortionKg = servedKg / servings`; zahrnuje různé velikosti porcí žáků. Samostatné `portionKg` označuje standardní referenční porci pro přepočet **nevydaného** jídla (400 g u hlavního jídla, 200 g u polévky), nikoli průměrnou porci každého žáka.
 
-Doporučení se počítají ze součtů jednotlivých jídel a částí měsíčního datasetu. `assumptions` v month.json obsahuje modelové podíly dosažitelného zlepšení. Doporučení pro rizoto převádí nevydanou hmotnost na porce; koprovka a polévky používají poměr vrácené a vydané hmotnosti. Úspory opatření se překrývají a **nesčítají se**. U darování je Kč hodnota zachráněného jídla, nikoli úspora nákupu.
+Pořadí jídel se řadí podle podílu vrácené a vydané hmotnosti: špenát 47 %, koprovka 43 %. Uvedené kilogramy v žebříčku patří jen zbytkům z talířů. Doporučení pro rizoto vychází z průměrných 38 nevydaných referenčních porcí a scénářového snížení na 3, tedy vařit o 35 porcí méně. Podíl příloh se počítá z měsíčních dat. Ostatní doporučení navazují na podklady prezentace (5–9 % nevyzvednutých obědů, polévku jí pětina žáků, Zachraň oběd, Brno 80 → 19 kg); nejsou výsledkem našeho pilotu. Karty neslibují individuální úspory ani je nesčítají.
 
-Roční cíl = průměrný denní odpad × 190 školních dní × 20 %. Vyjde 3 230 kg a 119 510 Kč; na obrazovce zaokrouhleně ~3,2 t a ~120 000 Kč. Jde o cíl pilotu. Žákovská obrazovka je samostatný ukázkový den se zlepšením (82 %), nikoli tentýž den jako 38 % v denním přehledu.
+Roční příklad je samostatný: 600 000 Kč za suroviny ve zbytcích na talířích u školy s 500 žáky × 10 % = 60 000 Kč. Není extrapolací ukázkového měsíce ani dosaženým výsledkem nebo slibem. Žákovská obrazovka je samostatný ukázkový den se zlepšením (82 %), nikoli tentýž den jako 38 % v denním přehledu.
 
 Hmotnost plné porce i zbytku a snědené procento se odvozují ze složek `plate` v configu. U denního přehledu musí součet `day.dishes[].kg` souhlasit se součtem tří původů odpadu. Po úpravě konfigurace obnovte stránku.
 

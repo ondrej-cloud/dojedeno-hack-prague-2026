@@ -1,5 +1,7 @@
 # Oprava dat pro demo „Dojedeno“ (vlož do Codexu jako další zprávu)
 
+**Stav 31. 10. 2026: zapracováno do dema.** Přegenerovaný měsíc má přesně 672 kg z talířů / 62 160 Kč a 602 kg nevydaného / 1 505 ekvivalentních porcí po 400 g. Níže uvedené měsíční hodnoty byly orientační. Částka za 150 g se z 13,875 Kč zaokrouhluje na desetihaléře (13,90 Kč).
+
 Uprav prosím čísla v demu podle ověřených dat. Logiku a design neměň.
 
 1. **Cena:** `config.json` → `cenaZaKg: 92.5` s popiskem „cena surovin: 37 Kč za oběd / porce 400 g“. Dosavadních 37 Kč za kg je chyba.
