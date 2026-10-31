@@ -1,0 +1,20 @@
+'use strict';
+const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+const assert=require('node:assert/strict');
+(async()=>{const browser=await chromium.launch({executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',headless:true});try{
+const context=await browser.newContext({ignoreHTTPSErrors:true});
+const desktop=await context.newPage(),phone=await context.newPage();const errors=[];for(const p of [desktop,phone])p.on('pageerror',e=>errors.push(e.message));
+await desktop.route('**/config.json',async r=>{const response=await r.fetch();const c=await response.json();c.analysis={mode:'demo'};return r.fulfill({json:c});});await desktop.goto('http://127.0.0.1:8080');await desktop.waitForFunction(()=>window.demo);
+const status=await (await context.request.get('http://127.0.0.1:8080/api/status')).json();
+await phone.addInitScript(()=>{let present=false;const c=document.createElement('canvas');c.width=480;c.height=360;const x=c.getContext('2d');function draw(){x.fillStyle='#303030';x.fillRect(0,0,480,360);if(present){x.fillStyle='#dadada';x.beginPath();x.ellipse(240,180,90,80,0,0,Math.PI*2);x.fill();}}draw();setInterval(draw,100);window.object=v=>{present=v;draw();};navigator.mediaDevices.getUserMedia=async()=>c.captureStream(10);});
+const url=new URL(status.phoneUrl);url.hostname='127.0.0.1';await phone.goto(url.href);await phone.locator('#start').click();
+await desktop.waitForFunction(()=>demo.getState().detectorState==='empty',{},{timeout:15000});
+await phone.evaluate(()=>object(true));await desktop.waitForFunction(()=>demo.getState().step===2,{},{timeout:15000});
+await desktop.waitForTimeout(4500);assert.equal(await desktop.evaluate(()=>demo.getState().step),2);
+await phone.evaluate(()=>object(false));await desktop.waitForFunction(()=>demo.getState().step===3,{},{timeout:15000});
+await phone.evaluate(()=>object(true));await desktop.waitForFunction(()=>demo.getState().step===4,{},{timeout:15000});
+assert.match(await desktop.locator('#results').innerText(),/150 g/);
+await desktop.waitForTimeout(1200);await desktop.screenshot({path:'demo/screenshots/mobile-auto-result.png'});
+await phone.locator('#stop').click();await desktop.keyboard.press('r');await desktop.waitForTimeout(3000);assert.equal(await desktop.evaluate(()=>demo.getState().step),1);assert.match(await desktop.locator('#auto-status').innerText(),/Připojte mobil/);
+assert.deepEqual(errors,[]);console.log('PASS: phone frontend -> HTTPS JPEG upload -> local desktop preview -> both automatic detections/results; stop/disconnect does not replay stale frame.');
+}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

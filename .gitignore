@@ -1,0 +1,21 @@
+# Local credentials, pairing tokens and certificates
+**/.local/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Dependencies and caches
+.venv/
+venv/
+node_modules/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# OS/editor artifacts
+.DS_Store
+*.log

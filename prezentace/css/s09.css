@@ -1,0 +1,48 @@
+/* 09 · konkurence: tabulka 1180 px + důkaz vpravo, pod tím zelený řádek Dojedeno (krok 1). Mřížka sloupců je stejná
+   v tabulce i v našem řádku, aby Dojedeno sedělo přesně pod firmami. */
+
+#s-konkurence { --k-sloupce: 300px 360px 1fr; }
+
+#s-konkurence .k-radek { display: grid; grid-template-columns: 1180px minmax(0, 1fr); gap: 48px; margin-top: var(--mezera); align-items: stretch; }
+#s-konkurence .k-levy { min-width: 0; }
+
+#s-konkurence .k-tabulka { padding: 22px 36px 12px; }
+#s-konkurence .k-hlava,
+#s-konkurence .k-firma { display: grid; grid-template-columns: var(--k-sloupce); gap: 24px; align-items: center; }
+#s-konkurence .k-hlava { padding: 0 0 14px; font-size: 22px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; }
+#s-konkurence .k-firma { min-height: 100px; padding: 14px 0; border-top: 1px solid var(--linka); font-size: 28px; line-height: 1.3; }
+#s-konkurence .k-firma b { display: block; font-size: 32px; letter-spacing: -0.01em; }
+#s-konkurence .k-firma small { display: block; font-size: 22px; color: var(--text3); margin-top: 2px; }
+#s-konkurence .k-firma span { text-wrap: pretty; }
+
+/* řádky nastupují po 90 ms až po kartě */
+#s-konkurence.kresli .k-firma { animation: s09-radek 600ms var(--ven) calc(260ms + var(--n) * 90ms) both; }
+@keyframes s09-radek { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+/* důkaz vpravo */
+#s-konkurence .k-dukaz { display: flex; flex-direction: column; justify-content: center; padding: 40px 44px; }
+#s-konkurence .k-dukaz-ikona { width: 76px; height: 76px; color: var(--zelena); margin-bottom: 28px; }
+#s-konkurence .k-dukaz .cislo { font-size: 150px; }
+#s-konkurence .k-minus { margin-right: 0.02em; }
+#s-konkurence .k-dukaz .pod-cislo { margin-top: 20px; font-size: 30px; color: var(--text); }
+#s-konkurence .k-dukaz-pata { margin-top: 14px; }
+
+/* krok 1: náš řádek, stejné sloupce jako tabulka (odsazení karty 36 px), vlevo kruh s talířem */
+#s-konkurence .k-my {
+  position: relative; display: grid; grid-template-columns: var(--k-sloupce); gap: 24px; align-items: center;
+  margin-top: 28px; padding: 24px 36px; min-height: 120px; border-radius: var(--r);
+  background: var(--zelena-svetla); color: var(--zelena); font-size: 30px; line-height: 1.3; font-weight: 600;
+  box-shadow: inset 0 0 0 3px var(--zelena);
+}
+#s-konkurence .k-my-jmeno { display: flex; align-items: center; gap: 18px; }
+#s-konkurence .k-my-znak { flex: none; width: 64px; height: 64px; border-radius: 50%; background: var(--zelena); color: #fff; display: grid; place-items: center; }
+#s-konkurence .k-my-znak svg { width: 44px; height: 44px; }
+#s-konkurence .k-my b { display: block; font-size: 36px; letter-spacing: -0.01em; }
+#s-konkurence .k-my small { display: block; font-size: 22px; font-weight: 600; opacity: 0.8; margin-top: 2px; }
+#s-konkurence .k-my-jak { font-weight: 700; color: var(--text); }
+#s-konkurence .k-my[data-krok] { transform: translateY(24px) scale(0.98); transition: opacity 560ms var(--ven), transform 560ms var(--ven); }
+#s-konkurence .k-my[data-krok].je { transform: none; }
+
+#s-konkurence .k-veta { margin-top: 22px; font-size: 30px; font-weight: 600; color: var(--text2); }
+#s-konkurence .k-veta[data-krok] { transition-delay: 160ms; }
+#s-konkurence.hned .k-veta[data-krok] { transition-delay: 0ms; }

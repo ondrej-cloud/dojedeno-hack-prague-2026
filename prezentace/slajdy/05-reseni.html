@@ -1,0 +1,89 @@
+<!-- 05 · řešení: produktová ilustrace sestavy (kbelík na váze, telefon na tyči, karta přehledu), kroky 1–3 zvýrazní váhu, telefon a přehled -->
+<section class="slajd" id="s-reseni" data-nazev="Dojedeno: váha, telefon a AI" data-kroky="3">
+  <h1>Dojedeno: váha, telefon a&nbsp;AI.</h1>
+
+  <div class="model3d bez-vstupu" data-model3d role="img" aria-label="3D model: kbelík na váze, nad ním na tyči telefon, talíř se zbytkem se vyklopí do kbelíku"></div>
+
+  <div class="sestava" role="img" aria-label="Kbelík na zbytky stojí na váze, nad ním na tyči starý telefon, který se dívá do kbelíku a posílá záznamy do přehledu">
+    <svg class="kresba" viewBox="0 0 1000 720" width="1000" height="720" aria-hidden="true">
+      <ellipse class="stin-podlahy" cx="410" cy="676" rx="320" ry="16"/>
+
+      <!-- zorné pole kamery -->
+      <g class="zorne-pole">
+        <polygon class="kuzel" points="393,178 258,296 552,296"/>
+        <path class="paprsek" d="M393 178 L258 296 M393 178 L552 296"/>
+      </g>
+
+      <!-- tyč a rameno -->
+      <g class="cast-drzak">
+        <path class="obrys" pathLength="1" d="M608 594 V76 Q608 62 594 62 H446"/>
+        <rect class="obrys vypln" pathLength="1" x="430" y="52" width="18" height="22" rx="5"/>
+      </g>
+
+      <!-- telefon -->
+      <g class="cast-telefon">
+        <rect class="obrys vypln" pathLength="1" x="353" y="34" width="80" height="144" rx="16"/>
+        <rect class="displej" x="361" y="46" width="64" height="120" rx="9"/>
+        <circle class="tecka-mereni" cx="393" cy="100" r="9"/>
+        <path class="obrys" pathLength="1" d="M383 170 h20"/>
+      </g>
+
+      <!-- kbelík -->
+      <g class="cast-kbelik">
+        <path class="obrys vypln" pathLength="1" d="M262 304 H548 L528 580 Q527 594 513 594 H297 Q283 594 282 580 Z"/>
+        <rect class="obrys vypln" pathLength="1" x="244" y="290" width="322" height="20" rx="10"/>
+        <path class="zebro" d="M336 334 L343 562 M405 334 V562 M474 334 L467 562"/>
+      </g>
+
+      <!-- váha -->
+      <g class="cast-vaha">
+        <rect class="obrys vypln" pathLength="1" x="170" y="594" width="470" height="60" rx="18"/>
+        <rect class="displej-vahy" x="345" y="608" width="120" height="32" rx="8"/>
+        <text class="cislo-vahy" x="405" y="631" text-anchor="middle">150 g</text>
+        <path class="obrys" pathLength="1" d="M214 654 v12 M596 654 v12"/>
+      </g>
+
+      <!-- spojení telefon → přehled -->
+      <path class="cast-spojeni" d="M440 92 C 560 40, 640 120, 688 190"/>
+
+      <!-- karta přehledu -->
+      <g class="cast-prehled" transform="translate(690 168)">
+        <rect class="karta-svg" x="0" y="0" width="300" height="372" rx="24"/>
+        <circle class="logo-kruh" cx="36" cy="40" r="14"/>
+        <circle class="logo-oblouk" cx="36" cy="40" r="8" pathLength="100"/>
+        <text class="nadpis-karty" x="60" y="47">Dnes</text>
+        <line class="linka" x1="24" y1="76" x2="276" y2="76"/>
+        <text class="cas" x="24" y="110">12:41</text>
+        <text class="radek" x="24" y="140">Guláš – knedlík</text>
+        <text class="gramy" x="276" y="140" text-anchor="end">150 g</text>
+        <line class="linka" x1="24" y1="164" x2="276" y2="164"/>
+        <text class="cas" x="24" y="198">12:41</text>
+        <text class="radek dojedeno" x="24" y="228">✓ dojedeno</text>
+        <line class="linka" x1="24" y1="252" x2="276" y2="252"/>
+        <rect class="sloupek" x="34" y="314" width="28" height="30" rx="6"/>
+        <rect class="sloupek" x="86" y="290" width="28" height="54" rx="6"/>
+        <rect class="sloupek" x="138" y="300" width="28" height="44" rx="6"/>
+        <rect class="sloupek" x="190" y="278" width="28" height="66" rx="6"/>
+        <rect class="sloupek posledni" x="242" y="304" width="28" height="40" rx="6"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="popisky">
+    <div class="popisek p1" data-krok="1">
+      <div class="kruh"><svg class="ilu" viewBox="0 0 64 64"><path d="M14 28h36" vector-effect="non-scaling-stroke"/><path d="M32 28v6" vector-effect="non-scaling-stroke"/><path d="M12 52l4-18h32l4 18z" vector-effect="non-scaling-stroke"/><rect x="26" y="40" width="12" height="6" rx="1.5" vector-effect="non-scaling-stroke"/></svg></div>
+      <div><h2>Váha změří kolik.</h2><p class="stitek">gramy z&nbsp;každého talíře</p></div>
+    </div>
+    <div class="popisek p2" data-krok="2">
+      <div class="kruh"><svg class="ilu"><use href="#i-telefon"/></svg></div>
+      <div><h2>Telefon vyfotí co.</h2><p class="stitek">starý mobil nad kbelíkem</p></div>
+    </div>
+    <div class="popisek p3" data-krok="3">
+      <div class="kruh"><svg class="ilu"><use href="#i-ai"/></svg></div>
+      <div><h2>AI pozná jídlo z&nbsp;dnešního menu.</h2><p class="stitek">knedlík, omáčka, maso…</p></div>
+    </div>
+    <p class="pointa" data-krok="3"><svg class="ilu"><use href="#i-kuchar"/></svg>Kuchařky nedělají nic navíc.</p>
+  </div>
+
+  <script type="application/json" class="poznamky-data">["1:50–2:10 · Ondra", "Proto jsme udělali Dojedeno. Pod kbelík na zbytky dáme obyčejnou váhu a nad něj starý telefon.", "[mezerník] Zvýrazní se váha: Váha změří, kolik se vyhodilo.", "[mezerník] Zvýrazní se telefon: Telefon vyfotí, co to bylo.", "[mezerník] Zvýrazní se přehled, dole naskočí „Kuchařky nedělají nic navíc“: A umělá inteligence pozná jídlo z dnešního menu. Kuchařky přitom nedělají nic navíc, škrábou talíře jako vždycky.", "51 slov, asi 23 s.", "Zdroje: vlastní návrh. Princip kamera a váha u koše používají Winnow, Orbisk a Leanpath (Z8)."]</script>
+</section>
