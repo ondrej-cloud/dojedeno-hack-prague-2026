@@ -18,7 +18,6 @@
 <link rel="stylesheet" href="css/s06.css">
 <link rel="stylesheet" href="css/s06a.css">
 <link rel="stylesheet" href="css/s06b.css">
-<link rel="stylesheet" href="css/s06c.css">
 <link rel="stylesheet" href="css/s07.css">
 <link rel="stylesheet" href="css/s08.css">
 <link rel="stylesheet" href="css/s08b.css">
@@ -246,11 +245,13 @@
   <script type="application/json" class="poznamky-data">["1:25–1:55 · Ondra", "Tohle je naše stanice v jídelně: otočný pás, nad ním kamera a vedle kbelík na váze. Žáci odkládají tácy zvenku, kuchařka je bere uvnitř.", "[mezerník] Tác jede, kamera ho za jízdy vyfotí a pás ho doveze ke kbelíku.", "[mezerník] Kuchařka talíř vysype jako vždycky a váha přičte gramy.", "[mezerník] Fotku a gramy spojíme podle pořadí. Když si pořadím nejsme jistí, uložíme to jako společnou dávku. Kuchařky nedělají nic navíc.", "V pilotu kamera Raspberry Pi, v demu mobil. Varianta se třemi pásy je v záloze.", "Zdroje: vlastní návrh; přesnost přiřazení ověří pilot na ručně zvážených tácech."]</script>
 </section>
 
-<!-- 06a · ukázka: dva talíře z jídelny (místo 8krokového dema). Krok 1: kamera vyfotí talíř 1, sken, analýza (složky, gramy, snědeno);
+<!-- 06a · ukázka: dva talíře z jídelny a z nich data (místo 8krokového dema). Kroky 4–6: obě tečky ze souhrnu přeletí do mřížky,
+     naroste den (412 talířů), pak sloupce za 2 týdny a měsíc a co se vrací nejvíc. Krok 1: kamera vyfotí talíř 1, sken, analýza (složky, gramy, snědeno);
      krok 2: talíř 2 je prázdný → dojedeno; krok 3: oba výsledky se filmově spojí do prvních dvou bodů dat.
      Fotky: assets/talir1.jpg a assets/talir2.jpg (když chybí, kreslí se talíř v SVG). Čísla: JSON .dt-data níž (dosaďte ze svého natočeného běhu). -->
-<section class="slajd" id="s-dva-talire" data-nazev="Ukázka: dva talíře" data-kroky="3">
-  <h1>Ukázka: dva talíře z&nbsp;naší jídelny.</h1>
+<section class="slajd" id="s-dva-talire" data-nazev="Ukázka: dva talíře → data" data-kroky="6">
+  <h1 class="dt-nadpis"><span class="n1">Ukázka: dva talíře z&nbsp;naší jídelny.</span><span class="n2">Z&nbsp;talířů je den. Z&nbsp;dnů měsíc.</span></h1>
+  <p class="dr-stitek">Ukázková data</p>
 
   <div class="dt-kamera bez-vstupu" aria-label="Pohled kamery nad pásem">
     <div class="dt-snimek dt-s1">
@@ -297,18 +298,8 @@
     <span class="dt-dal">Tak začínají data.</span>
   </div>
 
-  <script type="application/json" class="dt-data">{"talir1":{"slozky":[{"nazev":"Knedlík","g":90},{"nazev":"Guláš","g":60}],"porce_g":400},"talir2":{"g":4}}</script>
-  <script type="application/json" class="poznamky-data">["1:55–2:30 · Ondra · ukázka (natočené dva talíře z naší jídelny)", "Takhle to vypadá v jídelně. Kamera nad pásem vidí talíř.", "[mezerník] Talíř 1: AI pozná guláš s knedlíkem, váha řekne sto padesát gramů. Zbyl hlavně knedlík, dítě snědlo asi dvě třetiny.", "[mezerník] Talíř 2 je prázdný: čtyři gramy, pod deset gramů je dojedeno.", "[mezerník] A z těchhle dvou talířů začínají data.", "Fotky z natočeného běhu: prezentace/assets/talir1.jpg a talir2.jpg, čísla v JSON .dt-data na slajdu. Živé demo je v příloze.", "Zdroje: prototyp; hodnoty z natočené ukázky (doplnit skutečné)."]</script>
-</section>
-
-<!-- 06c · data rostou: krok 0 jeden den (412 teček = talíře, zelené dojedené), krok 1 dva týdny (sloupce dnů 1–10),
-     krok 2 měsíc (dny 11–20 + co se vrací nejvíc). Ukázková data z demo/data/month.json (talíře, kg za den). -->
-<section class="slajd" id="s-data-rostou" data-nazev="Z talířů je den, z dnů měsíc" data-kroky="2">
-  <h1>Z&nbsp;talířů je den. Z&nbsp;dnů měsíc.</h1>
-  <p class="dr-stitek">Ukázková data</p>
-
   <div class="dr-pocitadlo">
-    <p class="dr-obdobi"><span data-jen-krok="0" class="bez-posunu">1 den</span><span data-jen-krok="1" class="bez-posunu">2 týdny</span><span data-jen-krok="2" class="bez-posunu">1 měsíc</span></p>
+    <p class="dr-obdobi"><span class="o4">1 den</span><span class="o5">2 týdny</span><span class="o6">1 měsíc</span></p>
     <p class="dr-cislo"><b class="dr-kg">34</b><small>kg</small></p>
     <p class="dr-pod">zbytků z&nbsp;talířů</p>
     <p class="dr-druhe"><span class="dr-kc">3&nbsp;145</span>&nbsp;Kč za suroviny</p>
@@ -318,14 +309,15 @@
     <div class="dr-tecky" aria-label="412 talířů za den, zelené dojedené"></div>
     <p class="dr-tecky-pop"><span class="zel"></span>dojedeno 38&nbsp;% <span class="ora"></span>se zbytkem</p>
     <svg class="dr-graf" viewBox="0 0 1120 560" role="img" aria-label="Zbytky z talířů za 20 školních dní"></svg>
-    <div class="dr-nej" data-krok="2">
+    <div class="dr-nej">
       <p class="dr-nej-nad">Nejčastěji se vrací</p>
       <p class="dr-nej-jidlo">Špenát s&nbsp;bramborem a&nbsp;vejcem</p>
       <p class="dr-nej-cislo">47&nbsp;<small>% porce</small></p>
     </div>
   </div>
 
-  <script type="application/json" class="poznamky-data">["2:30–2:55 · Ondra", "Z talířů je den: čtyři sta dvanáct talířů, třicet čtyři kila zbytků.", "[mezerník] Za dva týdny už vidíme vzorce.", "[mezerník] A za měsíc je jasné, co se nejí: špenát se vrací ze čtyřiceti sedmi procent. Z toho rovnou navrhneme opatření.", "Ukázková data, skutečná dá až pilot.", "Zdroje: ukázková data dema (demo/data/month.json); špenát ~47 % (Z2, Z3: 190 g z ~400 g)."]</script>
+  <script type="application/json" class="dt-data">{"talir1":{"slozky":[{"nazev":"Knedlík","g":90},{"nazev":"Guláš","g":60}],"porce_g":400},"talir2":{"g":4}}</script>
+  <script type="application/json" class="poznamky-data">["1:55–2:50 · Ondra · ukázka: dva natočené talíře a z nich data", "Takhle to vypadá v jídelně. Kamera nad pásem vidí talíř.", "[mezerník] Talíř 1: AI pozná guláš s knedlíkem, váha řekne sto padesát gramů. Zbyl hlavně knedlík.", "[mezerník] Talíř 2 je prázdný: čtyři gramy, to je dojedeno.", "[mezerník] Z těchhle dvou talířů začínají data.", "[mezerník] Tečky přeletí do mřížky a naroste celý den: čtyři sta dvanáct talířů, třicet čtyři kila zbytků.", "[mezerník] Za dva týdny už vidíme vzorce.", "[mezerník] A za měsíc je jasné, co se nejí: špenát se vrací ze čtyřiceti sedmi procent. Z toho navrhneme opatření.", "Fotky z natočeného běhu: prezentace/assets/talir1.jpg a talir2.jpg, čísla v JSON .dt-data. Den a měsíc jsou ukázková data. Živé demo je v příloze.", "Zdroje: prototyp; den a měsíc ukázková data (demo/data/month.json); špenát ~47 % (Z2, Z3)."]</script>
 </section>
 
 <!-- 07 · co jídelna dostane: měření → (krok 1) analýza → (krok 2) opatření; krok 3 jeden řádek: příklad −30 % = 180 000 Kč ročně (výslovně příklad) -->
@@ -1264,7 +1256,6 @@
 <script src="js/s02.js"></script>
 <script src="js/s06a.js"></script>
 <script src="js/s06b.js"></script>
-<script src="js/s06c.js"></script>
 <script src="js/s10b.js"></script>
 <script src="js/deck.js"></script>
 </body>
