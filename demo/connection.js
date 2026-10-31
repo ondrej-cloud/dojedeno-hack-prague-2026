@@ -58,24 +58,37 @@
     return hosted ? remoteFetch(path, options, true) : fetch(path, options);
   };
   window.prepareDemoConfig = async function (config) {
-    if (!hosted) return config;
+    const mode = new URLSearchParams(location.search).get('mode');
     const copy = JSON.parse(JSON.stringify(config));
+    function sample() {
+      copy.analysis = { ...copy.analysis, mode: 'demo' };
+      copy.camera = { ...copy.camera, source: 'none' };
+      copy.detection = { ...copy.detection, enabled: false };
+      document.documentElement.classList.remove('live-connected');
+      const badge = document.querySelector('#stage header .badge');
+      if (badge) badge.textContent = 'Ukázková data';
+      return copy;
+    }
+    if (mode === 'sample') return sample();
+    if (!hosted && config.camera?.source !== 'mobile') return config;
     const abort = new AbortController();
-    const timer = setTimeout(() => abort.abort(), 12000);
+    const timer = setTimeout(() => abort.abort(), mode === 'live' ? 12000 : 1800);
     try {
       const response = await window.demoApiFetch('/api/status', { signal: abort.signal });
       if (!response.ok) throw new Error('Živý server neodpovídá. Zkontrolujte připojení Macu.');
       const status = await response.json();
+      if (mode !== 'live' && (!status.connected || status.lastFrameAgeMs >= 5000)) return sample();
       if (!status.analysis?.configured) throw new Error('Na Macu není nastavený klíč Claude. Doplňte jej a obnovte stránku.');
       copy.analysis = { ...copy.analysis, mode: 'claude', quantityMode: 'scale', weightSource: 'scale_display' };
       copy.camera = { ...copy.camera, source: 'mobile' };
       copy.detection = { ...copy.detection, enabled: true };
       document.documentElement.classList.add('live-connected');
       const badge = document.querySelector('#stage header .badge');
-      if (badge) badge.textContent = 'Prototyp · živé měření';
+      if (badge) badge.textContent = 'Živé měření';
       return copy;
     } catch (error) {
       document.documentElement.classList.remove('live-connected');
+      if (mode !== 'live') return sample();
       if (error.name === 'AbortError' || error instanceof TypeError) throw new Error('Živý server není dostupný. Zkontrolujte připojení Macu a obnovte stránku.');
       throw error;
     } finally { clearTimeout(timer); }
