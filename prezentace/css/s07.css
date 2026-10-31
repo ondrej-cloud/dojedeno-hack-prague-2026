@@ -8,9 +8,15 @@
 #s-dostane .kruh .ilu { width: 42px; height: 42px; }
 #s-dostane .sipka { align-self: center; width: 64px; height: 64px; color: var(--text3); }
 
-/* měření: čipy */
-#s-dostane .cipy { list-style: none; margin: 34px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
-#s-dostane .cipy li { padding: 10px 22px 12px; border-radius: var(--pilulka); background: var(--stranka); font-size: 28px; font-weight: 600; }
+/* měření: ukázka záznamu, jeden řádek = jeden talíř (čas · jídlo a část · gramy) */
+#s-dostane .zaznam { list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-direction: column; }
+#s-dostane .zaznam li { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: 14px; padding: 10px 0; border-top: 1px solid var(--linka); }
+#s-dostane .zaznam li:last-child { border-bottom: 1px solid var(--linka); }
+#s-dostane .zaznam .cas { font-size: 20px; font-weight: 600; color: var(--text3); font-variant-numeric: tabular-nums; }
+#s-dostane .zaznam b { font-size: 26px; line-height: 1.15; }
+#s-dostane .zaznam b small { display: block; font-size: 20px; font-weight: 500; color: var(--text2); }
+#s-dostane .zaznam .g { font-size: 26px; font-weight: 700; color: var(--oranz); font-variant-numeric: tabular-nums; }
+#s-dostane .zaznam .g.ok { color: var(--zelena); }
 
 /* analýza: dvě otázky */
 #s-dostane .otazky { list-style: none; margin: 34px 0 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
@@ -39,29 +45,6 @@
 #s-dostane .priklad .cislo small { color: var(--zelena); opacity: 0.75; }
 #s-dostane .vysvetleni { font-size: 32px; font-weight: 600; line-height: 1.3; }
 #s-dostane .vysvetleni .mala { display: block; margin-top: 6px; color: var(--text2); font-weight: 500; font-size: 24px; }
-
-/* měření: týden bez čísel (jen tvar) */
-#s-dostane .tyden { margin-top: auto; height: 150px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; align-items: end; }
-#s-dostane .tyden div { height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 8px; }
-#s-dostane .tyden i { display: block; width: 100%; border-radius: 8px 8px 4px 4px; background: var(--oranz-svetla); transform-origin: bottom; }
-#s-dostane .tyden div:last-child i { background: var(--oranz2); }
-#s-dostane .tyden span { font-size: 22px; font-weight: 600; color: var(--text3); }
-#s-dostane.kresli .tyden i { animation: s07-roste 800ms var(--ven) both; }
-#s-dostane.kresli .tyden div:nth-child(2) i { animation-delay: 80ms; }
-#s-dostane.kresli .tyden div:nth-child(3) i { animation-delay: 160ms; }
-#s-dostane.kresli .tyden div:nth-child(4) i { animation-delay: 240ms; }
-#s-dostane.kresli .tyden div:nth-child(5) i { animation-delay: 320ms; }
-@keyframes s07-roste { from { transform: scaleY(0); } to { transform: none; } }
-
-/* analýza: porce špenátu, 47 % zbude */
-#s-dostane .spenat { margin-top: auto; }
-#s-dostane .spenat-titul { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 26px; }
-#s-dostane .spenat-titul span { color: var(--oranz); font-weight: 700; }
-#s-dostane .porce { margin-top: 12px; height: 44px; border-radius: 12px; background: var(--zelena-svetla); overflow: hidden; position: relative; }
-#s-dostane .porce i { position: absolute; right: 0; top: 0; bottom: 0; width: 47%; background: var(--oranz2); transform-origin: right center; }
-#s-dostane .f2.je .porce i { animation: s07-porce 900ms var(--ven) 350ms both; }
-@keyframes s07-porce { from { transform: scaleX(0); } to { transform: none; } }
-#s-dostane.hned .porce i, #s-dostane.hned .tyden i { animation: none !important; }
 
 /* interaktivní posuvník příkladu: přetažením se mění podíl a částka (js/s07.js) */
 #s-dostane .priklad .vysvetleni { flex: 1; min-width: 0; }
