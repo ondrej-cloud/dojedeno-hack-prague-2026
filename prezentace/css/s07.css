@@ -24,11 +24,11 @@
 
 /* opatření: seznam, položky nastupují po sobě */
 #s-dostane .f3 { box-shadow: var(--stin), inset 0 0 0 3px var(--zelena); }
-#s-dostane .kroky-opatreni { list-style: none; margin: 20px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+#s-dostane .kroky-opatreni { list-style: none; margin: 30px 0 0; padding: 0; display: flex; flex-direction: column; gap: 26px; }
 #s-dostane .kroky-opatreni li { display: grid; grid-template-columns: 1fr; padding-left: 30px; position: relative; }
-#s-dostane .kroky-opatreni li::before { content: ""; position: absolute; left: 0; top: 12px; width: 12px; height: 12px; border-radius: 50%; background: var(--zelena); }
-#s-dostane .kroky-opatreni b { font-size: 27px; line-height: 1.2; }
-#s-dostane .kroky-opatreni span { font-size: 22px; line-height: 1.3; color: var(--text2); }
+#s-dostane .kroky-opatreni li::before { content: ""; position: absolute; left: 0; top: 15px; width: 12px; height: 12px; border-radius: 50%; background: var(--zelena); }
+#s-dostane .kroky-opatreni b { font-size: 32px; line-height: 1.2; }
+#s-dostane .kroky-opatreni span { font-size: 24px; line-height: 1.3; color: var(--text2); margin-top: 4px; }
 #s-dostane .f3.je .kroky-opatreni li { animation: s07-polozka 520ms var(--ven) both; }
 #s-dostane .f3.je .kroky-opatreni li:nth-child(1) { animation-delay: 250ms; }
 #s-dostane .f3.je .kroky-opatreni li:nth-child(2) { animation-delay: 380ms; }
@@ -39,26 +39,8 @@
 #s-dostane.hned .kroky-opatreni li { animation: none !important; }
 
 /* příklad */
-#s-dostane .priklad { position: absolute; left: 80px; right: 80px; top: 832px; height: 148px; display: flex; align-items: center; gap: 40px; padding: 0 44px; border-radius: var(--r); background: var(--zelena-svetla); }
+#s-dostane .priklad { position: absolute; left: 80px; right: 80px; top: 832px; height: 148px; display: flex; align-items: center; justify-content: center; gap: 36px; padding: 0 44px; border-radius: var(--r); background: var(--zelena-svetla); }
 #s-dostane .znacka { flex: none; padding: 8px 20px 10px; border-radius: var(--pilulka); box-shadow: inset 0 0 0 2px var(--zelena); color: var(--zelena); font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
-#s-dostane .priklad .cislo { flex: none; color: var(--zelena); font-size: 96px; }
+#s-dostane .priklad .cislo { flex: none; color: var(--zelena); font-size: 88px; }
 #s-dostane .priklad .cislo small { color: var(--zelena); opacity: 0.75; }
-#s-dostane .vysvetleni { font-size: 32px; font-weight: 600; line-height: 1.3; }
-#s-dostane .vysvetleni .mala { display: block; margin-top: 6px; color: var(--text2); font-weight: 500; font-size: 24px; }
-
-/* interaktivní posuvník příkladu: přetažením se mění podíl a částka (js/s07.js) */
-#s-dostane .priklad .vysvetleni { flex: 1; min-width: 0; }
-#s-dostane .procento { color: var(--zelena); font-variant-numeric: tabular-nums; }
-#s-dostane .posuvnik { flex: none; width: 380px; display: flex; flex-direction: column; gap: 8px; cursor: pointer; }
-#s-dostane .posuvnik .popis { font-size: 22px; font-weight: 700; color: var(--zelena); text-transform: uppercase; letter-spacing: 0.06em; }
-#s-dostane .posuvnik .meze { display: flex; justify-content: space-between; font-size: 20px; color: var(--text2); font-variant-numeric: tabular-nums; }
-#s-dostane .posuvnik input { -webkit-appearance: none; appearance: none; width: 100%; height: 40px; margin: 0; background: transparent; cursor: grab; }
-#s-dostane .posuvnik input:active { cursor: grabbing; }
-#s-dostane .posuvnik input::-webkit-slider-runnable-track { height: 10px; border-radius: 999px;
-  background: linear-gradient(to right, var(--zelena) 0 var(--plneni, 31%), rgba(36, 138, 61, 0.18) var(--plneni, 31%) 100%); }
-#s-dostane .posuvnik input::-webkit-slider-thumb { -webkit-appearance: none; width: 36px; height: 36px; margin-top: -13px; border-radius: 50%;
-  background: #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06), 0 4px 14px rgba(0, 0, 0, 0.18); transition: transform 160ms var(--ven); }
-#s-dostane .posuvnik input:active::-webkit-slider-thumb { transform: scale(1.12); }
-#s-dostane .posuvnik input:focus-visible { outline: none; }
-@media print { #s-dostane .posuvnik { display: none; } }
-#s-dostane .priklad .cislo { min-width: 440px; }
+#s-dostane .vysvetleni { font-size: 36px; font-weight: 600; line-height: 1.3; }

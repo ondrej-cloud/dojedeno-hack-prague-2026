@@ -88,14 +88,12 @@
 - **Nadpis:** „Z dat rovnou opatření.“
 - **Tři fáze s šipkami, které se odkrývají po krocích:**
   - **Měření** (každý den): kg, jídla, části jídla, talíře.
-  - **Analýza** (měsíčně): co se nejí, kolik se uvaří navíc.
-  - **Opatření:**
-    - nevařit navíc nad objednávky (podle zbytků v nádobách z výdeje),
-    - upravit špenát a další recepty a porce,
-    - polévky (jí je pětina žáků),
-    - nevyzvednuté porce darovat přes Zachraň oběd (5–9 % se nevyzvedne),
-    - soutěž tříd.
-- **Poslední krok:** „Příklad: ušetříme-li 10 %, je to 60 000 Kč ročně na školu“. Viditelně jako příklad, ne slib.
+  - **Analýza** (měsíčně): co se nejí, kolik obědů zbude.
+  - **Opatření (tři, každé z dat):**
+    - ubrat, co děti nechávají (zbývá knedlík → méně knedlíku, přídavek na požádání),
+    - změnit jídla, která se nejí (špenát: zbude skoro polovina porce),
+    - nevyzvednuté obědy darovat přes Zachraň oběd (5–9 % se nevyzvedne).
+- **Poslední krok:** jeden řádek „Příklad: o 10 % méně zbytků z talířů = 60 000 Kč ročně na školu“. Bez posuvníku.
 
 ### 08 · `s-kdo` · 3:45–4:05
 - **Nadpis:** „Kdo z toho co má.“
