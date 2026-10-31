@@ -6,11 +6,17 @@
     <div class="karta faze f1">
       <p class="kdy">Každý den</p>
       <div class="hlava"><span class="kruh"><svg class="ilu" viewBox="0 0 64 64" aria-hidden="true"><path d="M14 28h36" vector-effect="non-scaling-stroke"/><path d="M32 28v6" vector-effect="non-scaling-stroke"/><path d="M12 52l4-18h32l4 18z" vector-effect="non-scaling-stroke"/><rect x="26" y="40" width="12" height="6" rx="1.5" vector-effect="non-scaling-stroke"/></svg></span><h2>Měření</h2></div>
-      <ul class="zaznam" aria-label="Ukázka záznamu: každý talíř zvlášť">
-        <li><span class="cas">12:41</span><b>Guláš<small>knedlík</small></b><span class="g">150 g</span></li>
-        <li><span class="cas">12:41</span><b>Rizoto<small>rýže</small></b><span class="g">90 g</span></li>
-        <li><span class="cas">12:42</span><b>Guláš<small>dojedeno</small></b><span class="g ok">0 g</span></li>
-      </ul>
+      <div class="jeden-talir" aria-label="Ukázka záznamu jednoho talíře: guláš, zbyl knedlík, 150 g">
+        <svg class="mini-talir" viewBox="0 0 220 220" aria-hidden="true">
+          <circle class="okraj" cx="110" cy="110" r="96"/>
+          <circle class="vnitr" cx="110" cy="110" r="70"/>
+          <circle class="vysec priloha" cx="110" cy="110" r="25" pathLength="100"/>
+          <circle class="vysec omacka" cx="110" cy="110" r="25" pathLength="100"/>
+        </svg>
+        <p class="gramy">150&nbsp;g</p>
+        <p class="co">zbyl knedlík</p>
+        <p class="kdy-talir">každý talíř zvlášť</p>
+      </div>
     </div>
 
     <svg class="ilu sipka s1" data-krok="1" aria-hidden="true"><use href="#i-sipka"/></svg>

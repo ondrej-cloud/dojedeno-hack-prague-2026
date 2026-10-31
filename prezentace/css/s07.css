@@ -8,15 +8,17 @@
 #s-dostane .kruh .ilu { width: 42px; height: 42px; }
 #s-dostane .sipka { align-self: center; width: 64px; height: 64px; color: var(--text3); }
 
-/* měření: ukázka záznamu, jeden řádek = jeden talíř (čas · jídlo a část · gramy) */
-#s-dostane .zaznam { list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-direction: column; }
-#s-dostane .zaznam li { display: grid; grid-template-columns: auto 1fr auto; align-items: baseline; gap: 14px; padding: 10px 0; border-top: 1px solid var(--linka); }
-#s-dostane .zaznam li:last-child { border-bottom: 1px solid var(--linka); }
-#s-dostane .zaznam .cas { font-size: 20px; font-weight: 600; color: var(--text3); font-variant-numeric: tabular-nums; }
-#s-dostane .zaznam b { font-size: 26px; line-height: 1.15; }
-#s-dostane .zaznam b small { display: block; font-size: 20px; font-weight: 500; color: var(--text2); }
-#s-dostane .zaznam .g { font-size: 26px; font-weight: 700; color: var(--oranz); font-variant-numeric: tabular-nums; }
-#s-dostane .zaznam .g.ok { color: var(--zelena); }
+/* měření: jeden talíř jako příklad (stejný talíř s knedlíkem jako na insightu) */
+#s-dostane .jeden-talir { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+#s-dostane .mini-talir { width: 170px; height: 170px; }
+#s-dostane .mini-talir .okraj { fill: #fff; stroke: var(--text); stroke-width: 3; }
+#s-dostane .mini-talir .vnitr { fill: none; stroke: var(--linka); stroke-width: 2; }
+#s-dostane .mini-talir .vysec { fill: none; stroke-width: 50; transform: rotate(-90deg); transform-origin: 110px 110px; }
+#s-dostane .mini-talir .priloha { stroke: #efe2c4; stroke-dasharray: 55 100; }
+#s-dostane .mini-talir .omacka { stroke: var(--oranz2); stroke-dasharray: 15 100; stroke-dashoffset: -55; }
+#s-dostane .gramy { margin-top: 16px; font-size: 64px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; color: var(--oranz); }
+#s-dostane .co { margin-top: 8px; font-size: 30px; font-weight: 700; }
+#s-dostane .kdy-talir { margin-top: 6px; font-size: 22px; color: var(--text3); }
 
 /* analýza: dvě otázky */
 #s-dostane .otazky { list-style: none; margin: 34px 0 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
