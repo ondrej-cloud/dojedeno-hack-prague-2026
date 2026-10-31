@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="cs">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dojedeno — méně odpadu ve školní jídelně</title>
+<style>
+@page{size:A4;margin:0}
+*{box-sizing:border-box}body{margin:0;background:#e9eae6;color:#19372b;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.sheet{width:210mm;min-height:297mm;margin:24px auto;padding:8mm 14mm 5mm;background:#fcfcf8;box-shadow:0 8px 50px #19372b14}
+header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4mm}.brand{display:flex;gap:9px;align-items:center}.brand svg{width:37px;height:37px}.brand strong{font-size:23px;letter-spacing:-1px}.brand small{display:block;font-size:9px;color:#52675b;letter-spacing:.5px}.tag{font-size:9px;text-align:right;line-height:1.55;letter-spacing:.6px;text-transform:uppercase;color:#52675b}
+h1{font-size:31px;letter-spacing:-1.5px;line-height:1.08;margin:0 0 3mm;font-weight:750}p{margin:0}a{color:inherit;text-decoration:none}.lead{font-size:13px;line-height:1.5;max-width:620px;color:#42564a}
+.value{display:grid;grid-template-columns:1.1fr 1fr;gap:7mm;margin:3mm 0;padding:2.5mm 5mm;background:#e9f1e5;border-radius:3mm}.value strong{display:block;font-size:26px;letter-spacing:-.8px}.value .saving strong{color:#a74b19;font-size:23px}.value p{font-size:10.5px;line-height:1.4;margin-top:1mm}.value small{display:block;font-size:9px;line-height:1.35;color:#56665a;margin-top:1.5mm}
+h2{font-size:15px;letter-spacing:-.3px;margin:0 0 2.5mm}.eyebrow{font-size:9px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:#5a735c;margin-bottom:2mm}.flow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4mm;margin:3mm 0}.flow article{border-left:2px solid #bad2b3;padding-left:3mm}.flow strong{font-size:11px;display:block;margin-bottom:1mm}.flow p,.note{font-size:10px;line-height:1.45;color:#4a5c50}.note{margin:2mm 0 3mm}.note b{color:#19372b}
+.kpi p+p{margin-top:1.5mm}
+table{border-collapse:collapse;width:100%;font-size:11px;line-height:1.4}th{text-align:left;font-size:8.5px;letter-spacing:.8px;text-transform:uppercase;color:#66756a;padding:0 3mm 2mm 0;border-bottom:1px solid #b9cabb}td{padding:1.5mm 3mm 1.5mm 0;border-bottom:1px solid #dce3d8;vertical-align:top}td:first-child{width:30%;font-weight:650}td:last-child{padding-right:0;color:#42564a}td b{color:#19372b}
+.rules{margin:2mm 0;padding:3mm 4mm;border:1px solid #c9d6c3;border-radius:2mm}.rules h2{font-size:12px;margin-bottom:1mm}.rules p{font-size:10.5px;line-height:1.45;color:#42564a}
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;margin:2mm 0}.timeline article{border-top:3px solid #779c6d;padding-top:2mm}.timeline strong{display:block;font-size:13px;margin-bottom:1mm}.timeline p{font-size:10px;line-height:1.4;color:#42564a}.timing-note{font-size:9px;line-height:1.4;color:#627064;margin:2mm 0 2mm}
+.kpi{font-size:10px;line-height:1.45;padding:2.5mm 0;border-top:1px solid #dce3d8}.kpi b{font-weight:700}
+.cta{display:grid;grid-template-columns:1.6fr 1fr;gap:5mm;background:#19372b;color:#fff;padding:4mm 5mm;border-radius:3mm;margin-top:2mm}.cta h2{font-size:16px;color:#fff;margin-bottom:1.5mm}.cta p{font-size:10px;line-height:1.45;color:#e2e9de}.cta .pilot{font-size:9px;line-height:1.5;border-left:1px solid #6b8273;padding-left:4mm}.cta a{display:block;font-weight:650;font-size:12px;margin-top:2mm;color:#e6f4bd}
+footer{margin-top:2mm;font-size:8px;line-height:1.45;color:#647267}footer a{text-decoration:underline;text-underline-offset:2px}sup{font-size:8px}
+@media print{body{background:#fff}.sheet{margin:0;box-shadow:none}}
+@media screen and (max-width:800px){.sheet{margin:0;width:100%;padding:24px;min-height:100vh}h1{font-size:32px}.cta{grid-template-columns:1fr}.cta .pilot{padding:0;border:0}}
+</style>
+<main class="sheet">
+  <header>
+    <div class="brand"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="white" stroke="#c4cfbf"/><circle cx="24" cy="24" r="12" fill="none" stroke="#dde5d7"/><circle cx="24" cy="24" r="17" fill="none" stroke="#398044" stroke-width="4" stroke-linecap="round" stroke-dasharray="76 107" transform="rotate(-90 24 24)"/></svg><div><strong>Dojedeno</strong><small>Vážíme to vážně.</small></div></div>
+    <div class="tag">Pro vedení škol a jídelen<br>Nabídka pilotního ověření</div>
+  </header>
+
+  <h1>Méně jídla v koši.<br>Lepší rozhodnutí v kuchyni.</h1>
+  <p class="lead">Navrhovaná služba pro školní jídelny: měření zbytků, společný výběr opatření<br>a ověření jejich dopadu. Máme prototyp; spolehlivost v provozu teprve ověří pilot.</p>
+
+  <section class="value" aria-label="Proč se měřením zabývat">
+    <div><strong>Méně odpadu na oběd</strong><p>Hlavní dopad: <b>gramy vráceného potravinového gastroodpadu na skutečně vydaný oběd.</b> Výchozí stav teprve změříme.</p><small>Peníze jsou vedlejší ukazatel. Sytost a spokojenost dětí nesmí klesnout.</small></div>
+    <div class="saving"><strong>−10 % → 60 000 Kč</strong><p>Model 500 žáků: 600 000 Kč ročně v surovinách ve zbytcích z talířů.<sup><a href="#sources">1</a></sup> Desetina = hodnota 60 000 Kč.</p><small>Nejde automaticky o úsporu nákupů. Od skutečné úspory nákupů odečteme náklady na opatření a službu.</small></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Od měření ke změně</div>
+    <div class="flow">
+      <article><strong>01 · Fotka před vysypáním</strong><p>Na jednom pásu kamera zachytí zbytky ještě na talíři, před smícháním.</p></article>
+      <article><strong>02 · Jeden kbelík na váze</strong><p>Přírůstek hmotnosti spojíme s fotkou podle pořadí, pokud se pořadí zachová.</p></article>
+      <article><strong>03 · Přehled a opatření</strong><p>Vedoucí dostane denní data, návrh změny a srovnání podobných menu před a po.</p></article>
+    </div>
+    <p class="note">Při změně pořadí nebo více vysypáních najednou neslibujeme údaj za každý talíř. Nejasné párování označíme; průchodnost a přesnost ověříme ručním vzorkem.</p>
+  </section>
+
+  <section>
+    <h2>Co škola podle dat skutečně změní</h2>
+    <table>
+      <thead><tr><th>Zjištění</th><th>Návrh k ověření s vedoucí jídelny</th></tr></thead>
+      <tbody>
+        <tr><td>Vrací se hodně přílohy</td><td><b>Ověřit velikost porce a důvod vracení.</b> Dobrovolně menší příloha s možností přidání; nezhoršit sytost a respektovat věk i výživové normy.</td></tr>
+        <tr><td>Opakovaně zbývá<br>stejné jídlo</td><td><b>Upravit recepturu nebo podání.</b> Změnu vybrat s vedoucí jídelny. Při dalším srovnatelném podání porovnat zbytky i ohlas dětí.</td></tr>
+        <tr><td>Zůstává nevydané jídlo</td><td><b>Zpřesnit vařené množství podle odběru.</b> Upravit rezervu či vařit po dávkách, dovolí-li to provoz. Zachovat dostupnost objednaných obědů. Nevyzvednutý oběd není automaticky odpad.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <aside class="rules">
+    <h2>A co spotřební koš?</h2>
+    <p>Změny receptur a porcí musí respektovat výživové normy pro věk strávníků a režim jídelny.<sup>2</sup> <b>Schvaluje je vedoucí jídelny a kontroluje ve svém normovacím systému.</b> Sledujeme i sytost a přijetí jídla; méně odpadu nesmí znamenat hladové děti.</p>
+  </aside>
+
+  <section>
+    <h2>Šest týdnů od zprovoznění a souhlasu jídelny</h2>
+    <div class="timeline">
+      <article><strong>1.–2. týden</strong><p>Výchozí měření bez změny provozu a kontrola kvality záznamů.</p></article>
+      <article><strong>3.–4. týden</strong><p>První změna vybraná s vedoucí; sledujeme odpad i přijetí jídla.</p></article>
+      <article><strong>5.–6. týden</strong><p>Ověření při opakovaném podání, případně druhá úprava a vyhodnocení.</p></article>
+    </div>
+    <p class="timing-note">Nejvýše dvě varianty změn. Při malém počtu srovnatelných opakování označíme výsledek jako neprůkazný. Šest týdnů není slib finálně ověřené sestavy ani prokázané úspory.</p>
+  </section>
+
+  <div class="kpi"><p><b>Hlavní KPI, denně:</b> gramy vráceného potravinového gastroodpadu / skutečně vydaný oběd ve sledovaném provozu. Výchozí stav změříme v 1.–2. týdnu; porovnáme podobná menu a účast.</p><p><b>Vedlejší evidence:</b> nevydané porce a jejich osud — darováno / dále využito / odpad. Odděleně sledujeme spokojenost a dostatečnost porcí.</p></div>
+
+  <section class="cta">
+    <div><h2>1 jídelna · pilot za odhadem 16 000 Kč</h2><p>Návrh nákladů na vybavení, provoz a práci týmu; ceny neověřené. Nezahrnuje dosavadní ani další vývoj produkčního řešení. Výstup: výchozí přehled, denní data, návrh opatření a vyhodnocení.</p><a href="https://dojezeno.netlify.app">Prototyp → dojezeno.netlify.app</a></div>
+    <div class="pilot"><b>Plánované místo</b><br>Školní jídelna v Hejčíně<br>Olomouc · Olomoucký kraj<br><br>Přesný název školy, termín a souhlas s pilotem zatím nejsou potvrzené.</div>
+  </section>
+
+  <footer id="sources">
+    <b>Podklady:</b> <a href="https://mzp.gov.cz/cz/system/files?file=2026-06/OCEO-Jak_setrit_jidlem_ve_skolnich_jidelnach-20260608.pdf">1 · Prague Food Waste: Jak šetřit jídlem ve školních jídelnách (2025), s. 9, 12–14.</a>
+    <a href="https://msmt.gov.cz/media/wp-content/uploads/2026/07/107-2005-1.7.2026.pdf">2 · MŠMT: konsolidované znění vyhlášky 107/2005 Sb. (2026)</a>;
+    <a href="https://edu.gov.cz/novy-spotrebni-kos-skolni-jidelny-maji-na-zmeny-cas-do-zari-2027/">MŠMT: přechodné období do 31. 8. 2027.</a> Konkrétní režim ověříme s jídelnou. Stav nabídky: 31. 10. 2026.
+  </footer>
+</main>
+</html>

@@ -55,9 +55,11 @@ def build():
         copy('demo/assets/' + name, 'demo/assets/' + name)
     copy('demo/data/month.json', 'demo/data/month.json')
     copy('demo/screenshots/step-4.png', 'demo/screenshots/step-4.png')
+    for name in ['index.html', 'dojedeno-onepager.pdf', 'nahled.png']:
+        copy('materialy/onepager/' + name, 'onepager/' + name)
 
     html = (ROOT / 'prezentace/index.html').read_text()
-    html = html.replace('../demo/screenshots/', 'demo/screenshots/')
+    html = html.replace('../demo/screenshots/', 'demo/screenshots/').replace('../materialy/onepager/', 'onepager/')
     html = replace_once(html, '<script src="js/model3d.js">', '<script src="demo/connection.js"></script>\n<script src="js/model3d.js">')
     section_pattern = r'(<section[^>]+id="s-ukazka"[\s\S]*?)(</section>)'
     match = re.search(section_pattern, html)
@@ -66,7 +68,11 @@ def build():
     section = match.group(1)
     section = re.sub(r'<div class="demo-chyba bez-vstupu" hidden>[\s\S]*?</div>',
         '<div class="demo-chyba bez-vstupu" hidden><p class="nadpis">Ukázku se nepodařilo načíst</p><p>Obnovte stránku. Šipkou doprava lze pokračovat dál.</p></div>', section, count=1)
-    notes = ['Demo prototypu · webová verze',
+    notes_match = re.search(r'<script type="application/json" class="poznamky-data">([\s\S]*?)</script>', section)
+    if not notes_match:
+        raise RuntimeError('Demo speaker notes not found')
+    notes = json.loads(notes_match.group(1))
+    notes += ['Webová verze · připojení',
              'Bez připojení k živému serveru ukazuje demo připravené fotografie a data. Pro živé měření otevřete chráněný prezentační odkaz nebo zadejte přístupový kód přes tlačítko Živé demo.',
              'V živém režimu tlačítko Mobil zobrazí QR. Telefon otevře HTTPS stránku a povolí kameru. Mac se serverem a tunelem musí zůstat zapnutý a online.',
              'Claude čte displej váhy na snímku; denní a měsíční přehledy zůstávají ukázková data.']

@@ -46,3 +46,5 @@
 #s-konkurence .k-veta { margin-top: 22px; font-size: 30px; font-weight: 600; color: var(--text2); }
 #s-konkurence .k-veta[data-krok] { transition-delay: 160ms; }
 #s-konkurence.hned .k-veta[data-krok] { transition-delay: 0ms; }
+
+#s-rizika .r-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:50px}#s-rizika article{padding:38px;min-height:480px}#s-rizika article>span{font-size:26px;font-weight:700;color:var(--zelena)}#s-rizika h2{font-size:52px;line-height:1.15;margin:35px 0 28px}#s-rizika article p{font-size:28px;line-height:1.5;color:var(--text2)}#s-rizika .r-bottom{font-size:38px;font-weight:650;margin-top:54px}

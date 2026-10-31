@@ -1,106 +1,26 @@
 <!-- 05 · návrh pilotní sestavy: tři patra pásu a snímání talířů před vysypáním; váha pod samostatným kbelíkem. -->
 <section class="slajd" id="s-reseni" data-nazev="Návrh pilotní sestavy: kamery, váha a AI" data-kroky="3">
-  <h1>Dojedeno: kamery, váha a&nbsp;AI.</h1>
+  <h1>Jeden pás. Jeden vážený kbelík.</h1>
   <p class="navrh-modelu bez-vstupu">Návrh pilotní sestavy</p>
 
   <div class="model3d bez-vstupu" data-model3d role="img" aria-label="Návrh sestavy: kamery snímají talíře na třech patrech pásu před vysypáním, samostatný kbelík stojí na váze"></div>
 
   <div class="sestava" role="img" aria-label="Schéma tří pásů se snímáním talířů, samostatného váženého kbelíku a přiřazení fotky k přírůstku váhy; nejisté případy zůstávají společnou dávkou">
-    <svg class="kresba" viewBox="0 0 1000 720" width="1000" height="720" aria-hidden="true">
-      <ellipse class="stin-podlahy" cx="485" cy="690" rx="430" ry="13"/>
-      <g class="cast-drzak"><path class="obrys" pathLength="1" d="M95 125v540m430-540v540M80 665h35m395 0h30"/></g>
-      <g transform="translate(0 0)">
-        <g class="cast-pasy">
-          <rect class="obrys vypln" pathLength="1" x="80" y="194" width="460" height="30" rx="15"/>
-          <path class="zebro" d="M100 208h420"/>
-          <circle class="obrys" pathLength="1" cx="100" cy="209" r="7"/><circle class="obrys" pathLength="1" cx="520" cy="209" r="7"/>
-          <path class="smer-pasu" d="M130 242h56m-10-7 10 7-10 7"/>
-          <text class="popis-schematu" x="202" y="249">pás 1</text>
-        </g>
-        <g class="cast-talire">
-          <rect class="tac" x="250" y="180" width="185" height="13" rx="6"/>
-          <ellipse class="obrys vypln" pathLength="1" cx="345" cy="170" rx="64" ry="19"/>
-          <ellipse class="talir-vnitrek" cx="345" cy="168" rx="44" ry="12"/>
-          <ellipse class="zbytek" cx="330" cy="167" rx="19" ry="7"/><ellipse class="priloha" cx="365" cy="168" rx="12" ry="6"/>
-        </g>
-        <g class="zorne-pole"><polygon class="kuzel" points="447,104 294,169 395,169"/><path class="paprsek" d="M447 104 294 169M447 104 395 169"/></g>
-        <g class="cast-telefon">
-          <path class="obrys" pathLength="1" d="M528 157V86h-51"/>
-          <rect class="obrys vypln" pathLength="1" x="414" y="74" width="66" height="29" rx="8"/>
-          <rect class="displej" x="422" y="80" width="50" height="10" rx="4"/>
-          <circle class="tecka-mereni" cx="447" cy="102" r="5"/>
-        </g>
-      </g>
-      <g transform="translate(0 170)">
-        <g class="cast-pasy">
-          <rect class="obrys vypln" pathLength="1" x="80" y="194" width="460" height="30" rx="15"/>
-          <path class="zebro" d="M100 208h420"/>
-          <circle class="obrys" pathLength="1" cx="100" cy="209" r="7"/><circle class="obrys" pathLength="1" cx="520" cy="209" r="7"/>
-          <path class="smer-pasu" d="M130 242h56m-10-7 10 7-10 7"/>
-          <text class="popis-schematu" x="202" y="249">pás 2</text>
-        </g>
-        <g class="cast-talire">
-          <rect class="tac" x="250" y="180" width="185" height="13" rx="6"/>
-          <ellipse class="obrys vypln" pathLength="1" cx="345" cy="170" rx="64" ry="19"/>
-          <ellipse class="talir-vnitrek" cx="345" cy="168" rx="44" ry="12"/>
-          <ellipse class="zbytek" cx="330" cy="167" rx="19" ry="7"/><ellipse class="priloha" cx="365" cy="168" rx="12" ry="6"/>
-        </g>
-        <g class="zorne-pole"><polygon class="kuzel" points="447,104 294,169 395,169"/><path class="paprsek" d="M447 104 294 169M447 104 395 169"/></g>
-        <g class="cast-telefon">
-          <path class="obrys" pathLength="1" d="M528 157V86h-51"/>
-          <rect class="obrys vypln" pathLength="1" x="414" y="74" width="66" height="29" rx="8"/>
-          <rect class="displej" x="422" y="80" width="50" height="10" rx="4"/>
-          <circle class="tecka-mereni" cx="447" cy="102" r="5"/>
-        </g>
-      </g>
-      <g transform="translate(0 340)">
-        <g class="cast-pasy">
-          <rect class="obrys vypln" pathLength="1" x="80" y="194" width="460" height="30" rx="15"/>
-          <path class="zebro" d="M100 208h420"/>
-          <circle class="obrys" pathLength="1" cx="100" cy="209" r="7"/><circle class="obrys" pathLength="1" cx="520" cy="209" r="7"/>
-          <path class="smer-pasu" d="M130 242h56m-10-7 10 7-10 7"/>
-          <text class="popis-schematu" x="202" y="249">pás 3</text>
-        </g>
-        <g class="cast-talire">
-          <rect class="tac" x="250" y="180" width="185" height="13" rx="6"/>
-          <ellipse class="obrys vypln" pathLength="1" cx="345" cy="170" rx="64" ry="19"/>
-          <ellipse class="talir-vnitrek" cx="345" cy="168" rx="44" ry="12"/>
-          <ellipse class="zbytek" cx="330" cy="167" rx="19" ry="7"/><ellipse class="priloha" cx="365" cy="168" rx="12" ry="6"/>
-        </g>
-        <g class="zorne-pole"><polygon class="kuzel" points="447,104 294,169 395,169"/><path class="paprsek" d="M447 104 294 169M447 104 395 169"/></g>
-        <g class="cast-telefon">
-          <path class="obrys" pathLength="1" d="M528 157V86h-51"/>
-          <rect class="obrys vypln" pathLength="1" x="414" y="74" width="66" height="29" rx="8"/>
-          <rect class="displej" x="422" y="80" width="50" height="10" rx="4"/>
-          <circle class="tecka-mereni" cx="447" cy="102" r="5"/>
-        </g>
-      </g>
-      <path class="presun-talire" d="M555 536c30-20 46-92 86-113m-8-4 10 2-3 10"/>
-      <text class="popis-schematu" x="635" y="382">vysypání</text>
-      <g class="cast-kbelik">
-        <path class="obrys vypln" pathLength="1" d="M646 425h202l-17 187q-2 13-15 13H678q-13 0-15-13z"/>
-        <ellipse class="obrys vypln" pathLength="1" cx="747" cy="425" rx="108" ry="23"/>
-        <ellipse class="zbytky-kbelik" cx="747" cy="426" rx="90" ry="15"/>
-        <path class="zebro" d="M700 462l5 134m42-134v134m47-134-5 134"/>
-      </g>
-      <g class="cast-vaha">
-        <rect class="obrys vypln" pathLength="1" x="610" y="627" width="282" height="47" rx="13"/>
-        <rect class="displej-vahy" x="692" y="637" width="118" height="28" rx="6"/>
-        <text class="cislo-vahy" x="751" y="657" text-anchor="middle">+150 g</text>
-        <path class="obrys" pathLength="1" d="M633 674v10m236-10v10"/>
-      </g>
-      <path class="cast-spojeni" d="M540 87h70M892 649h58V323"/>
-      <g class="cast-prehled" transform="translate(610 42)">
-        <rect class="karta-svg" width="350" height="274" rx="24"/>
-        <circle class="logo-kruh" cx="33" cy="39" r="13"/><circle class="logo-oblouk" cx="33" cy="39" r="7" pathLength="100"/>
-        <text class="nadpis-karty" x="57" y="47">Přiřazení událostí</text>
-        <line class="linka" x1="22" y1="71" x2="328" y2="71"/>
-        <text class="radek" x="24" y="106">Fotka + čas + váha</text>
-        <text class="cas" x="24" y="140">Návrh přiřazení k talíři</text>
-        <line class="linka" x1="22" y1="165" x2="328" y2="165"/>
-        <text class="radek" x="24" y="204">Při nejistotě:</text>
-        <text class="radek dojedeno" x="24" y="240">společná dávka</text>
-      </g>
+    <svg class="kresba" viewBox="0 0 1000 720" role="img" aria-label="Jeden pás, kamera nad talířem a oddělený kbelík na váze">
+      <rect x="35" y="300" width="575" height="65" rx="28" fill="#497a67"/>
+      <path d="M70 365v230m500-230v230M72 343h495" fill="none" stroke="#a0a4a0" stroke-width="16"/>
+      <path d="M120 330h100m-20-15 20 15-20 15" fill="none" stroke="#cfe6d7" stroke-width="5"/>
+      <ellipse cx="427" cy="312" rx="85" ry="27" fill="white" stroke="#d2d2d7" stroke-width="3"/>
+      <ellipse cx="414" cy="310" rx="28" ry="13" fill="#ead9b5"/><ellipse cx="461" cy="312" rx="17" ry="11" fill="#cf8c55"/>
+      <path d="M545 300V145H420" fill="none" stroke="#989f99" stroke-width="9"/>
+      <rect x="381" y="139" width="82" height="17" rx="6" fill="#333"/>
+      <path d="m422 159-73 143h146z" fill="#30d158" opacity=".13"/>
+      <path d="M660 342h235l-23 220q-94 38-188 0z" fill="white" stroke="#c5cbc6" stroke-width="4"/>
+      <ellipse cx="777" cy="342" rx="119" ry="29" fill="#f5f5f7" stroke="#c5cbc6" stroke-width="4"/>
+      <rect x="640" y="590" width="280" height="30" rx="10" fill="#c6cbc6"/>
+      <rect x="722" y="601" width="110" height="40" rx="8" fill="#1d1d1f"/><text x="777" y="629" text-anchor="middle" fill="#30d158" font-size="26">váha</text>
+      <path d="M560 270q100-70 160 30" stroke="#c9601b" fill="none" stroke-width="4" stroke-dasharray="8 9"/>
+      <text x="190" y="670" fill="#6e6e73" font-size="27">fotka + pořadí</text><text x="680" y="690" fill="#6e6e73" font-size="27">přírůstek váhy</text>
     </svg>
   </div>
 
@@ -115,10 +35,10 @@
     </div>
     <div class="popisek p3" data-krok="3">
       <div class="kruh"><svg class="ilu"><use href="#i-ai"/></svg></div>
-      <div><h2>AI navrhne přiřazení.</h2><p class="stitek">čas + pořadí + odhad z&nbsp;fotky<br>při nejistotě společná dávka</p></div>
+      <div><h2>Spojíme podle pořadí.</h2><p class="stitek">pokud se pořadí při vysypání nezmění</p></div>
     </div>
-    <p class="pointa" data-krok="3"><svg class="ilu"><use href="#i-kuchar"/></svg>Bez zastavování talířů</p>
+    <p class="pointa" data-krok="3"><svg class="ilu"><use href="#i-kuchar"/></svg>Cíl: bez zastavování talířů</p>
   </div>
 
-  <script type="application/json" class="poznamky-data">["1:50–2:10 · Ondra", "Tohle je návrh pilotní sestavy pro naše tři pásy. Talíře se vyfotí cestou, ještě před vysypáním. Kbelík stojí zvlášť na váze.", "[mezerník] Kamery: chceme zachytit talíře automaticky bez zastavování. Záběr pro každé patro, umístění a potřebný počet kamer musíme ověřit v jídelně; model je schéma, nikoli hotová instalace.", "[mezerník] Váha: skutečná hmotnost pochází z přírůstku váhy kbelíku. Jeden talíř může být vyškrábnutý vícekrát a více talířů může skončit v jedné dávce.", "[mezerník] AI rozpozná zbytky a navrhne přiřazení fotek k přírůstkům podle času, pořadí a odhadu z fotografie. Nejde o jisté pořadí napříč třemi pásy. Při souběhu nebo nejistotě necháme společnou dávku, případně hmotnost bez přiřazení k talíři.", "Bez zastavování talířů je cíl návrhu. Průchodnost, zakrývání talířů a správnost přiřazení ověříme v pilotu. Odhad z fotky nesmí nahradit naměřenou hmotnost. Současné živé demo váží talíř přímo; párování pásů s váhou kbelíku ještě není implementované.", "Zdroje: vlastní návrh pilotní sestavy a párování událostí. Model nepředstavuje ověřenou přesnost ani potvrzené finální vybavení."]</script>
+  <script type="application/json" class="poznamky-data">["1:30–1:55 · Ondra", "Navrhujeme jednoduchou stanici: jeden pás, telefon nad talířem a kbelík na váze. Fotíme ještě před smícháním zbytků. Přírůstek váhy přiřadíme podle pořadí, pouze pokud se pořadí při vysypávání zachová.", "[kroky 1–3] Fotka, váha, přiřazení. Při souběhu nebo porušení pořadí zůstává společná dávka. Cílem je běžný provoz bez zastavování; zatím to není ověřená instalace.", "Hejčín má podle zadání tři patra pásu. Možnost vymezit jeden sledovaný tok a samostatný kbelík musí potvrdit jídelna. Není-li to možné, tento jednoduchý pilot tam nelze slibovat; složitější varianta je v záloze.", "Zdroje: vlastní návrh, přesnost a potřebné vybavení ověří pilot."]</script>
 </section>

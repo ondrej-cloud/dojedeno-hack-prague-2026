@@ -17,3 +17,10 @@
 #s-problem .pas-text .pod b { color: var(--text); }
 #s-problem .tecky { display: block; width: 1020px; height: 230px; margin-top: -26px; }
 #s-problem .legenda-tecek { position: absolute; right: 44px; bottom: 18px; font-size: 22px; }
+
+#s-problem .hlavni>.stitek {margin-bottom:4px}
+#s-problem .hlavni .pod-cislo {font-size:31px}
+#s-problem .pas-text .stitek {font-size:23px}
+#s-problem .pas-text .pod {font-size:27px}
+#s-problem .legenda-tecek {font-size:21px;right:40px}
+#s-problem .zdroj a {color:inherit;text-decoration-color:var(--linka2);text-underline-offset:3px}
