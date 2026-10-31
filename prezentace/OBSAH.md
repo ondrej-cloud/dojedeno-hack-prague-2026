@@ -66,10 +66,11 @@
 - **Pointa:** „Když se měří, vyhazuje se méně.“ U argumentu, že jídelny nevědí, co vyhazují, v poznámkách říkat „podle nás“.
 
 ### 05 · `s-reseni` · 1:50–2:10
-- **Nadpis:** „Dojedeno: váha, telefon a AI.“
-- **Hlavní prvek:** čistá ilustrace z jedné sady: kbelík na váze, nad ním na tyči starý telefon a vedle karta přehledu.
-- **Kroky 1–3, popisky:** „Váha změří kolik.“ / „Telefon vyfotí co.“ / „AI pozná jídlo z dnešního menu.“
-- **Dole:** „Kuchařky nedělají nic navíc.“
+- **Nadpis:** „Dojedeno: kamery, váha a AI.“
+- **Hlavní prvek:** návrh pilotní sestavy: tři pásy nad sebou, snímání talířů před vysypáním a samostatný kbelík na váze. Stejný model je v titulním kroku 1.1. Počet a umístění kamer ověříme v provozu.
+- **Kroky 1–3, popisky:** „Fotíme talíře na pásu.“ / „Vážíme, co přibylo.“ / „AI navrhne přiřazení.“
+- **Přiřazení:** čas, pořadí a odhad z fotky jsou vodítka; přesné gramy na talíř nejsou zaručené. Při nejistotě zůstává společná dávka, bez vymyšleného rozdělení hmotnosti. Ukázkových +150 g v animaci není výsledek pilotu.
+- **Dole:** „Bez zastavování talířů“. Jde o návrh k ověření. Současné živé demo dál rozpoznává talíř a čte displej váhy na jeho fotce.
 
 ### 06 · `s-jak` · 2:10–3:20, z toho asi 60 s živá ukázka prototypu v jiném okně
 - **Nadpis:** „Každý talíř se zapíše sám.“

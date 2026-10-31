@@ -1,5 +1,5 @@
-/* Dojedeno · 3D model sestavy (kbelík na váze, telefon na tyči, talíř se zbytkem) jako produktová fotka v prohlížeči.
-   Kroky slajdu: 0 celek, 1 váha (talíř se vyklopí, displej 0 → 150 g), 2 telefon (záběr kamery do kbelíku), 3 AI (štítek s jídlem).
+/* Dojedeno · návrh pilotní sestavy (tři patra pásu, snímání talířů a samostatně vážený kbelík) jako produktová fotka v prohlížeči.
+   Kroky slajdu: 0 celek, 1 fotka na pásu, 2 přírůstek váhy při vysypání, 3 návrh přiřazení. Animace je ilustrativní.
    Připojení: prvek s atributem data-model3d uvnitř .slajd; poslouchá události slajdu 'vstup', 'krok', 'odchod', 'tisk'.
    Sestavuje se esbuildem do js/model3d.js (IIFE, funguje z file://). Bez sítě. */
 import * as THREE from 'three';
@@ -41,7 +41,7 @@ const clamp01 = t => Math.max(0, Math.min(1, t));
 
 function postav(kontejner) {
   vlozStyl();
-  const OTOCNY = kontejner.dataset.model3d === 'otocny';  /* točna: bez kroků, štítků a talíře, pomalu se otáčí */
+  const OTOCNY = kontejner.dataset.model3d === 'otocny';  /* titul: stejná sestava v pomalém náhledu, bez kroků a štítků */
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
   renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
@@ -65,7 +65,7 @@ function postav(kontejner) {
   hlavni.position.set(1.4, 4.6, 2.2);
   hlavni.castShadow = true;
   hlavni.shadow.mapSize.set(2048, 2048);
-  hlavni.shadow.camera.left = -1.6; hlavni.shadow.camera.right = 1.6;
+  hlavni.shadow.camera.left = -3.4; hlavni.shadow.camera.right = 2.4;
   hlavni.shadow.camera.top = 2.2; hlavni.shadow.camera.bottom = -1.2;
   hlavni.shadow.camera.near = 0.5; hlavni.shadow.camera.far = 10;
   hlavni.shadow.radius = 6;
@@ -188,66 +188,65 @@ function postav(kontejner) {
   const hrbolkyNa = h => { hrbolky.position.y = KBELIK_Y + 0.02 + h; };
   hrbolkyNa(NAPLN_ZAC);
 
-  /* tyč s ramenem a telefon kamerou dolů nad středem kbelíku */
-  const TYC_X = 0, TYC_Z = -0.42, TYC_V = 1.62;
-  const tyc = stin(new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, TYC_V, 24), hlinik));
-  tyc.position.set(TYC_X, PLOSINA_Y + TYC_V / 2, TYC_Z);
-  sestava.add(tyc);
-  const patka = stin(new THREE.Mesh(new RoundedBoxGeometry(0.14, 0.03, 0.08, 4, 0.01), hlinik));
-  patka.position.set(TYC_X, PLOSINA_Y + 0.05, TYC_Z + 0.02);
-  sestava.add(patka);
-  const RAMENO_Y = PLOSINA_Y + TYC_V - 0.02;
-  const rameno = stin(new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.014, 0.44, 20), hlinik));
-  rameno.rotation.x = Math.PI / 2;
-  rameno.position.set(TYC_X, RAMENO_Y, TYC_Z + 0.22);
-  sestava.add(rameno);
-  const kloub = stin(new THREE.Mesh(new THREE.SphereGeometry(0.026, 24, 16), hlinik));
-  kloub.position.set(TYC_X, RAMENO_Y, TYC_Z);
-  sestava.add(kloub);
-  const telefon = new THREE.Group();
-  telefon.position.set(TYC_X, RAMENO_Y - 0.03, 0);
-  sestava.add(telefon);
-  const drzak = stin(new THREE.Mesh(new RoundedBoxGeometry(0.05, 0.03, 0.05, 3, 0.008), grafit));
-  drzak.position.y = 0.01;
-  telefon.add(drzak);
-  const tělo = stin(new THREE.Mesh(new RoundedBoxGeometry(0.078, 0.009, 0.16, 6, 0.004), grafit));
-  tělo.position.y = -0.012;
-  telefon.add(tělo);
-  const displejTel = new THREE.Mesh(new RoundedBoxGeometry(0.072, 0.002, 0.152, 4, 0.0015), sklo);
-  displejTel.position.y = -0.007;
-  telefon.add(displejTel);
-  const objektiv = new THREE.Mesh(new THREE.CylinderGeometry(0.009, 0.009, 0.004, 32), sklo);
-  objektiv.position.set(-0.018, -0.018, -0.055);
-  telefon.add(objektiv);
-  const krouzek = new THREE.Mesh(new THREE.TorusGeometry(0.0095, 0.0016, 10, 36), hlinik);
-  krouzek.rotation.x = Math.PI / 2;
-  krouzek.position.copy(objektiv.position);
-  krouzek.position.y -= 0.002;
-  telefon.add(krouzek);
-  const blesk = new THREE.PointLight(0xffffff, 0, 1.6, 2);
-  blesk.position.set(-0.018, -0.03, -0.055);
-  telefon.add(blesk);
+  /* Tři patra návratového pásu. Kamery ilustrují pokrytí každého patra;
+     přesný počet a umístění určí až ověření výhledu v jídelně. */
+  const PATRA = [0.52, 1.06, 1.60];
+  const PAS_X = -1.55, PAS_Z = -0.12, PAS_DELKA = 1.95, PAS_SIRKA = 0.70;
+  const FOTO_X = -1.03;
+  const pasMat = new THREE.MeshStandardMaterial({ color: 0x29453e, roughness: 0.88 });
+  const tacekMat = new THREE.MeshPhysicalMaterial({ color: 0xd6ddd9, roughness: 0.55, clearcoat: 0.18 });
+  const beamMat = new THREE.MeshBasicMaterial({ color: 0x30d158, transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide });
+  const ringMat = new THREE.MeshBasicMaterial({ color: 0x30d158, transparent: true, opacity: 0, depthWrite: false });
+  const snimace = [];
+  const pasy = new THREE.Group();
+  sestava.add(pasy);
+  function kvadr(w,h,d,x,y,z,mat=nerez,r=0.012) {
+    const m=stin(new THREE.Mesh(new RoundedBoxGeometry(w,h,d,3,r),mat));
+    m.position.set(x,y,z);pasy.add(m);return m;
+  }
+  for (const x of [PAS_X-PAS_DELKA/2+0.07,PAS_X+PAS_DELKA/2-0.07]) {
+    for (const z of [PAS_Z-PAS_SIRKA/2,PAS_Z+PAS_SIRKA/2]) {
+      kvadr(0.045,1.64,0.045,x,0.84,z);
+      kvadr(0.12,0.035,0.12,x,0.02,z,grafit);
+    }
+  }
+  for (const [index,y] of PATRA.entries()) {
+    kvadr(PAS_DELKA,0.065,PAS_SIRKA,PAS_X,y-0.045,PAS_Z);
+    kvadr(PAS_DELKA-0.05,0.018,PAS_SIRKA-0.08,PAS_X,y,PAS_Z,pasMat);
+    for (const z of [-1,1]) kvadr(PAS_DELKA,0.025,0.025,PAS_X,y+0.025,PAS_Z+z*(PAS_SIRKA/2-0.01),hlinik,0.008);
+    // Direction markings on the moving surface.
+    for (const x of [-2.16,-1.69]) {
+      const arrow=new THREE.Shape();
+      arrow.moveTo(-0.08,-0.025);arrow.lineTo(0.005,-0.025);arrow.lineTo(0.005,-0.055);
+      arrow.lineTo(0.085,0);arrow.lineTo(0.005,0.055);arrow.lineTo(0.005,0.025);arrow.lineTo(-0.08,0.025);
+      const mark=new THREE.Mesh(new THREE.ShapeGeometry(arrow),new THREE.MeshBasicMaterial({color:0x76bca0,side:THREE.DoubleSide}));
+      mark.rotation.x=-Math.PI/2;mark.position.set(x,y+0.011,PAS_Z+0.19);pasy.add(mark);
+    }
+    // A clamp and short arm mount the phone above this level, not over the bin.
+    kvadr(0.045,0.30,0.045,FOTO_X,y+0.15,PAS_Z-0.38,hlinik,0.008);
+    kvadr(0.035,0.035,0.38,FOTO_X,y+0.30,PAS_Z-0.19,hlinik,0.008);
+    const telefon=new THREE.Group();telefon.position.set(FOTO_X,y+0.28,PAS_Z);pasy.add(telefon);
+    const teloTel=stin(new THREE.Mesh(new RoundedBoxGeometry(0.12,0.016,0.23,5,0.008),grafit));telefon.add(teloTel);
+    const screen=new THREE.Mesh(new RoundedBoxGeometry(0.108,0.003,0.216,4,0.005),sklo);screen.position.y=0.009;telefon.add(screen);
+    const objektiv=new THREE.Mesh(new THREE.CylinderGeometry(0.014,0.014,0.005,24),sklo);objektiv.position.set(-0.025,-0.011,-0.075);telefon.add(objektiv);
+    const lensRing=new THREE.Mesh(new THREE.TorusGeometry(0.015,0.002,8,24),hlinik);lensRing.rotation.x=Math.PI/2;lensRing.position.copy(objektiv.position);lensRing.position.y-=0.003;telefon.add(lensRing);
+    const light=new THREE.PointLight(0xffffff,0,0.7,2);light.position.set(FOTO_X,y+0.24,PAS_Z);pasy.add(light);
+    const beam=new THREE.Mesh(new THREE.ConeGeometry(0.21,0.24,48,1,true),beamMat);
+    beam.position.set(FOTO_X,y+0.14,PAS_Z);pasy.add(beam);
+    const ring=new THREE.Mesh(new THREE.TorusGeometry(0.215,0.004,8,64),ringMat);
+    ring.rotation.x=Math.PI/2;ring.position.set(FOTO_X,y+0.025,PAS_Z);pasy.add(ring);
+    snimace.push({beam,ring,light});
+  }
+  const zaber=snimace[0].beam,zaberKruh=snimace[0].ring;
+  // Shared data connection is schematic; it does not depict a proven matching algorithm.
+  const spojeni=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([
+    new THREE.Vector3(FOTO_X,0.10,PAS_Z-0.38),new THREE.Vector3(-0.65,0.08,-0.50),new THREE.Vector3(0,0.08,-0.42)
+  ]),24,0.006,8,false),new THREE.MeshStandardMaterial({color:0x248a3d,roughness:0.7}));
+  sestava.add(spojeni);
 
-  /* záběr kamery: průsvitný kužel od objektivu k okraji kbelíku */
-  const objektivSvet = new THREE.Vector3(TYC_X - 0.018, RAMENO_Y - 0.048, -0.055);
-  const okrajY = KBELIK_Y + VYSKA + 0.012 - objektivSvet.y;
-  const zaber = new THREE.Mesh(
-    new THREE.ConeGeometry(R_HORE + 0.04, Math.abs(okrajY), 64, 1, true),
-    new THREE.MeshBasicMaterial({ color: 0x30d158, transparent: true, opacity: 0, depthWrite: false, side: THREE.DoubleSide }),
-  );
-  zaber.position.set(objektivSvet.x, objektivSvet.y + okrajY / 2, objektivSvet.z);
-  sestava.add(zaber);
-  const zaberKruh = new THREE.Mesh(
-    new THREE.TorusGeometry(R_HORE + 0.04, 0.004, 8, 96),
-    new THREE.MeshBasicMaterial({ color: 0x30d158, transparent: true, opacity: 0 }),
-  );
-  zaberKruh.rotation.x = Math.PI / 2;
-  zaberKruh.position.set(0, KBELIK_Y + VYSKA + 0.02, 0);
-  sestava.add(zaberKruh);
-
-  /* talíř se zbytkem nad kbelíkem (jako by ho držela kuchařka), mírně nakloněný */
+  /* Talíř na prostředním pásu; jeho přesun a vysypání jsou jen schématická animace. */
   const talir = new THREE.Group();
-  const TALIR_ZAC = new THREE.Vector3(0.42, KBELIK_Y + VYSKA + 0.2, 0.34);
+  const TALIR_ZAC = new THREE.Vector3(FOTO_X, PATRA[1] + 0.045, PAS_Z);
   talir.scale.setScalar(1.2);
   scena.add(talir);
   const talirProfil = [
@@ -270,21 +269,31 @@ function postav(kontejner) {
   pridejJidlo(new THREE.CylinderGeometry(0.04, 0.04, 0.022, 32), knedlik, -0.06, -0.05, 1, 1.1);
   pridejJidlo(new THREE.SphereGeometry(0.03, 24, 16), omacka, 0.06, 0.05, 0.4);
 
+  // Three trays remain in the rack; the middle plate illustrates a single disposal.
+  for (const [index,y] of PATRA.entries()) {
+    const tray=stin(new THREE.Mesh(new RoundedBoxGeometry(0.49,0.024,0.40,4,0.015),tacekMat));
+    tray.position.set(FOTO_X,y+0.023,PAS_Z);scena.add(tray);
+    if (index!==1) {
+      const plate=talir.clone(true);plate.position.set(FOTO_X,y+0.045,PAS_Z);
+      plate.rotation.y=index===0?0.35:-0.35;scena.add(plate);
+    }
+  }
   function talirPoloha(t) {
-    /* t 0 → 1: naklonění a vyklopení nad kbelík */
-    const u = easeIO(clamp01(t / 0.35));
-    talir.position.copy(TALIR_ZAC).lerp(new THREE.Vector3(0.2, KBELIK_Y + VYSKA + 0.26, 0.16), u);
-    talir.rotation.set(0.45 + (-0.25 - 0.45) * u, 0, -0.35 + (1.3 + 0.35) * u);
+    const lift=easeIO(clamp01(t/0.62));
+    const tip=easeIO(clamp01((t-0.62)/0.38));
+    talir.position.copy(TALIR_ZAC).lerp(new THREE.Vector3(0.17,KBELIK_Y+VYSKA+0.29,0.08),lift);
+    talir.position.y+=Math.sin(Math.PI*lift)*0.18;
+    talir.rotation.set(-0.08*tip,0,1.20*tip);
   }
 
-  /* cílové kamery pro kroky; kamera plynule doplouvá */
+  /* Wider view keeps all levels and the independently weighed bin visible. */
   const POHLEDY = [
-    { poz: new THREE.Vector3(2.3, 1.55, 2.9), cil: new THREE.Vector3(0.05, 0.76, 0.05) },   // 0 celek
-    { poz: new THREE.Vector3(2.05, 1.25, 2.9), cil: new THREE.Vector3(0.06, 0.66, 0.12) },  // 1 váha + vyklopení
-    { poz: new THREE.Vector3(1.8, 2.5, 2.2), cil: new THREE.Vector3(0, 1.08, 0) },        // 2 telefon a záběr
-    { poz: new THREE.Vector3(2.3, 1.55, 2.9), cil: new THREE.Vector3(0.05, 0.78, 0.05) },   // 3 AI, celek
+    { poz: new THREE.Vector3(3.35,2.65,4.65), cil: new THREE.Vector3(-1.0,0.97,-0.05) },
+    { poz: new THREE.Vector3(3.55,2.80,4.80), cil: new THREE.Vector3(-1.05,0.90,-0.05) },
+    { poz: new THREE.Vector3(3.10,2.20,4.20), cil: new THREE.Vector3(-0.74,0.82,0.04) },
+    { poz: new THREE.Vector3(3.35,2.65,4.65), cil: new THREE.Vector3(-1.0,0.97,-0.05) },
   ];
-  const kamPoz = POHLEDY[0].poz.clone(), kamCil = POHLEDY[0].cil.clone();
+  const kamPoz=POHLEDY[0].poz.clone(),kamCil=POHLEDY[0].cil.clone();
 
   /* štítky (HTML nad 3D, kotvené k bodům ve scéně) */
   const stitky = {};
@@ -295,14 +304,14 @@ function postav(kontejner) {
     kontejner.appendChild(e);
     stitky[id] = { e, bod };
   }
-  stitek('vaha', '<span class="tecka"></span>Váha: <b class="o" data-g>+0 g</b>', new THREE.Vector3(0, 0.36, 0.56));
-  stitek('foto', '<span class="tecka"></span>Fotka kbelíku před a po', new THREE.Vector3(0.0, RAMENO_Y + 0.06, 0.0));
-  stitek('ai', '<span class="tecka"></span>Segedínský guláš · knedlík <b class="o">150 g</b>', new THREE.Vector3(0, KBELIK_Y + VYSKA + 0.12, 0));
+  stitek('vaha', '<span class="tecka"></span>Přírůstek: <b class="o" data-g>+0 g</b>', new THREE.Vector3(0.15, 0.38, 0.62));
+  stitek('foto', '<span class="tecka"></span>Talíř A · fotka + čas', new THREE.Vector3(FOTO_X, 1.97, PAS_Z));
+  stitek('ai', 'Nejisté přiřazení → společná dávka', new THREE.Vector3(-1.10, 0.12, 0.62));
   const vahaText = stitky.vaha.e.querySelector('[data-g]');
 
   /* stav */
   let krok = 0, bezi = false, raf = 0, sirka = 0, vyska = 0;
-  let vyklopeniStart = null;  /* čas začátku vyklopení (krok 1), null = klid */
+  let vyklopeniStart = null;  /* čas začátku vyklopení (krok 2), null = klid */
   let fotoStart = null;
   let t0 = performance.now(), holdTime = null;
 
@@ -318,6 +327,7 @@ function postav(kontejner) {
   /* konečné stavy kroků (pro skok, zpět a tisk) */
   function stavPredVyklopenim() {
     talir.visible = true;
+    talir.scale.setScalar(1.2);
     talirPoloha(0);
     talirMesh.material.opacity = 1;
     jidlo.forEach(j => { j.m.visible = true; j.m.position.copy(j.start); j.m.rotation.copy(j.startRot); });
@@ -341,7 +351,7 @@ function postav(kontejner) {
     /* jídlo sjede z talíře a padá do kbelíku (parabola), postupně */
     const cilY = KBELIK_Y + 0.02 + NAPLN_KONEC;
     jidlo.forEach((j, n) => {
-      const s = 0.25 + n * 0.08, u = clamp01((t - s) / 0.75);
+      const s = 0.85 + n * 0.08, u = clamp01((t - s) / 0.65);
       if (u <= 0) { j.m.visible = true; j.m.position.copy(j.start); return; }
       if (u >= 1) { j.m.visible = false; return; }
       /* přepočet do světa: z polohy na talíři k cíli v kbelíku */
@@ -354,14 +364,14 @@ function postav(kontejner) {
       j.m.rotation.x = j.startRot.x + u * 3;
       j.m.visible = true;
     });
-    const naplnU = ease(clamp01((t - 0.75) / 0.6));
+    const naplnU = ease(clamp01((t - 1.1) / 0.6));
     const h = NAPLN_ZAC + (NAPLN_KONEC - NAPLN_ZAC) * naplnU;
     nastavNapln(h); hrbolkyNa(h);
-    const gU = ease(clamp01((t - 0.7) / 0.9));
+    const gU = ease(clamp01((t - 1.1) / 0.9));
     displej(ZBYTEK_G * gU, gU >= 1 ? 'ustaleno' : '');
     vahaText.textContent = `+${Math.round(ZBYTEK_G * gU)} g`;
-    if (t > 1.5) {
-      const f = clamp01((t - 1.5) / 0.4);
+    if (t > 2.0) {
+      const f = clamp01((t - 2.0) / 0.4);
       talir.position.y += f * 0.25;
       talir.scale.setScalar(1.2 * (1 - f * 0.999));
       if (f >= 1) { talir.visible = false; talir.scale.setScalar(1.2); vyklopeniStart = null; stavPoVyklopeni(); }
@@ -378,26 +388,27 @@ function postav(kontejner) {
     kamCil.lerp(cil.cil, k);
     const dych = REDUKCE ? 0 : Math.sin((cas - t0) / 2600) * 0.12;
     const poz = kamPoz.clone();
-    const uhel = dych * 0.35 + tah + (OTOCNY && !REDUKCE ? (cas - t0) / 1000 * 0.16 : 0);
-    poz.x = kamPoz.x * Math.cos(uhel) - kamPoz.z * Math.sin(uhel);
-    poz.z = kamPoz.x * Math.sin(uhel) + kamPoz.z * Math.cos(uhel);
+    const uhel = dych * 0.35 + tah + (OTOCNY && !REDUKCE ? Math.sin((cas-t0)/6000)*0.14 : 0);
+    const dx=kamPoz.x-kamCil.x,dz=kamPoz.z-kamCil.z;
+    poz.x = kamCil.x + dx * Math.cos(uhel) - dz * Math.sin(uhel);
+    poz.z = kamCil.z + dx * Math.sin(uhel) + dz * Math.cos(uhel);
     kamera.position.copy(poz);
     kamera.lookAt(kamCil);
 
     if (vyklopeniStart !== null) animujVyklopeni(cas);
 
     /* záběr kamery (krok 2): kužel a kroužek, záblesk objektivu */
-    const zaberCil = krok === 2 ? 1 : 0;
+    const zaberCil = OTOCNY ? 0.45 : krok === 1 ? 1 : 0;
     zaber.material.opacity += (zaberCil * 0.14 - zaber.material.opacity) * 0.1;
     zaberKruh.material.opacity += (zaberCil * 0.9 - zaberKruh.material.opacity) * 0.1;
     if (fotoStart !== null) {
       const f = (cas - fotoStart) / 1000;
-      blesk.intensity = f < 0.5 ? Math.sin(Math.PI * clamp01(f / 0.5)) * 6 : 0;
+      snimace.forEach(({light}) => { light.intensity = f < 0.5 ? Math.sin(Math.PI * clamp01(f / 0.5)) * 0.6 : 0; });
       if (f > 0.6) fotoStart = null;
     }
 
     /* štítky: projekce kotev do obrazovky */
-    const vidim = OTOCNY ? {} : { vaha: krok >= 1, foto: krok === 2, ai: krok >= 3 };
+    const vidim = OTOCNY ? {} : { vaha: krok === 2, foto: krok === 1, ai: krok >= 3 };
     for (const id in stitky) {
       const s = stitky[id];
       const p = s.bod.clone().project(kamera);
@@ -421,10 +432,10 @@ function postav(kontejner) {
       if (OTOCNY) return;
       const byl = krok;
       krok = k;
-      if (k === 0) { vyklopeniStart = null; stavPredVyklopenim(); }
-      else if (k >= 1 && byl < 1 && !hned && !REDUKCE) { stavPredVyklopenim(); vyklopeniStart = performance.now() + 450; }
-      else if (k >= 1 && (hned || REDUKCE || byl >= 1) && vyklopeniStart === null) stavPoVyklopeni();
-      if (k === 2 && !hned && !REDUKCE) fotoStart = performance.now() + 500;
+      if (k < 2) { vyklopeniStart=null;fotoStart=null;stavPredVyklopenim(); }
+      else if (k === 2 && byl < 2 && !hned && !REDUKCE) { stavPredVyklopenim(); vyklopeniStart=performance.now()+300; }
+      else { vyklopeniStart=null;stavPoVyklopeni(); }
+      if (k === 1 && !hned && !REDUKCE) fotoStart=performance.now()+400;
       if (hned) { const c = POHLEDY[Math.min(k, POHLEDY.length - 1)]; kamPoz.copy(c.poz); kamCil.copy(c.cil); }
       if (!bezi) snimek(performance.now());
     },
@@ -442,7 +453,7 @@ function postav(kontejner) {
     },
   };
   stavPredVyklopenim();
-  if (OTOCNY) { talir.visible = false; jidlo.forEach(j => { j.m.visible = false; }); }
+  // The title shows the same three loaded trays, without simulating a measured result.
 
   /* tažením myší se sestava otáčí (prezentující ji může před porotou natočit) */
   let tah = 0, tahZac = 0, x0 = 0, tahnu = false;

@@ -106,3 +106,5 @@
   #s-uvod.kino { background: #fff !important; }
   #s-uvod.kino .kino3d, #s-uvod.kino .kino-vineta, #s-uvod.kino .kino-titulek, #s-uvod.kino .kino-pocitadlo, #s-uvod .kino-kos-presun { display: none !important; }
 }
+
+#s-uvod .produkt-navrh{position:absolute;left:960px;top:966px;width:860px;text-align:center;font-size:23px;color:var(--text2);transition-delay:700ms}
