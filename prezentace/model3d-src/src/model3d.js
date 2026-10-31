@@ -169,7 +169,8 @@ function postav(kontejner) {
   const napln = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 1, 96), zbytky);
   napln.receiveShadow = true;
   sestava.add(napln);
-  const NAPLN_ZAC = 0.3, NAPLN_KONEC = 0.335;
+  /* titul (OTOCNY) navazuje na úvodní film: kbelík přijede skoro plný a s jídlem na povrchu */
+  const NAPLN_ZAC = OTOCNY ? 0.56 : 0.3, NAPLN_KONEC = 0.335;
   function nastavNapln(h) {
     napln.geometry.dispose();
     napln.geometry = new THREE.CylinderGeometry(stena(0.02 + h) - 0.02, R_DNO - 0.035, h, 96);
@@ -266,6 +267,26 @@ function postav(kontejner) {
   const jidlo = [];
   /* jídla jako v úvodním filmu (jidla.js), talíř je tu 1,25× větší; sledovaný talíř nese guláš s knedlíkem */
   const GEO_J = geometrieJidel(), MAT_J = materialyJidel();
+
+  /* titul: na hladině zbytků leží skutečné kousky jídla, stejně jako na konci úvodního filmu */
+  const hromadka = new THREE.Group();
+  if (OTOCNY) {
+    const DRUHY = ['kned', 'kned', 'maso', 'spagety', 'ryze', 'kase', 'kure', 'rizek', 'hrasek', 'mrkev', 'okurka', 'omacka', 'zeli', 'kned'];
+    const nah = (() => { let x = 19; return () => ((x = (x * 16807) % 2147483647) / 2147483647); })();
+    for (let n = 0; n < 70; n++) {
+      const druh = DRUHY[n % DRUHY.length];
+      const m = stin(new THREE.Mesh(GEO_J[druh], MAT_J[druh]));
+      const a = nah() * Math.PI * 2, d = Math.sqrt(nah()) * 0.27;
+      m.position.set(Math.cos(a) * d, -nah() * 0.012, Math.sin(a) * d);
+      m.rotation.set((nah() - 0.5) * 0.6, nah() * Math.PI * 2, (nah() - 0.5) * 0.4);
+      m.scale.setScalar(1.25 * (druh === 'rizek' || druh === 'kase' || druh === 'ryze' ? 0.6 : 1));
+      if (druh === 'zeli') m.rotation.x = 1.5;
+      hromadka.add(m);
+    }
+    hromadka.position.y = KBELIK_Y + 0.02 + NAPLN_ZAC;
+    hrbolky.visible = false;
+  }
+  sestava.add(hromadka);
   for (const m of [...obed(0, GEO_J, MAT_J).children]) {
     m.position.multiplyScalar(1.25); m.scale.multiplyScalar(1.25);
     talir.add(m);
@@ -580,12 +601,14 @@ function postav(kontejner) {
     transitionAnchor(hold) {
       if (hold && holdTime === null) holdTime = performance.now();
       if (!hold && holdTime !== null) { t0 += performance.now() - holdTime; holdTime = null; }
-      [kbelik, vnitrek, napln, hrbolky].forEach(object => { object.visible = !hold; });
+      [kbelik, vnitrek, napln, hrbolky, hromadka].forEach(object => { object.visible = !hold; });
+      if (OTOCNY) hrbolky.visible = false;
       snimek(performance.now());
       return screenBounds(kbelik, kamera, sirka, vyska);
     },
     transitionReveal() {
-      [kbelik, vnitrek, napln, hrbolky].forEach(object => { object.visible = true; });
+      [kbelik, vnitrek, napln, hromadka].forEach(object => { object.visible = true; });
+      hrbolky.visible = !OTOCNY;
       snimek(performance.now());
     },
   };

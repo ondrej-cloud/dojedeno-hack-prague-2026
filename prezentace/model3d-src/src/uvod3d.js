@@ -8,11 +8,12 @@
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 import { RECEPTY, materialyJidel, geometrieJidel } from './jidla.js';
 import { screenBounds } from './projection.js';
 
 const REDUKCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const KONEC = 13.2;             /* po konci filmu následuje automaticky titulní kompozice */
+const PAUZA = 1.0;              /* po dopadu posledního kousku sekunda klidu, pak teprve přesun kbelíku */
 const LET_ZAC = 8.6, LET_KON = 11.2;
 
 const omez = (x, a, b) => Math.max(a, Math.min(b, x));
@@ -44,9 +45,10 @@ function postav(s, kontejner) {
   const porcelan = new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.16, clearcoat: 0.9, clearcoatRoughness: 0.08 });
   const MAT = materialyJidel();
   const { gulas, maso, kned: knedlik, zeli } = MAT;
-  const deska = new THREE.MeshPhysicalMaterial({ color: 0xe9e5dd, roughness: 0.42, clearcoat: 0.25 });
-  const nohyMat = new THREE.MeshStandardMaterial({ color: 0x3a3a3e, metalness: 0.6, roughness: 0.4 });
-  const lavice = new THREE.MeshStandardMaterial({ color: 0x55555b, roughness: 0.6 });
+  const deska = new THREE.MeshPhysicalMaterial({ color: 0xd8c09a, roughness: 0.48, clearcoat: 0.35, clearcoatRoughness: 0.3 });
+  const hranaMat = new THREE.MeshStandardMaterial({ color: 0x8a6f4c, roughness: 0.55 });
+  const nohyMat = new THREE.MeshPhysicalMaterial({ color: 0xc9ccd2, metalness: 0.7, roughness: 0.28, clearcoat: 0.4 });
+  const zidleMat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.38, clearcoat: 0.5, clearcoatRoughness: 0.25 });
   const podlahaMat = new THREE.MeshStandardMaterial({ color: 0x1e1e21, roughness: 0.78, metalness: 0.0 });
   const plast = new THREE.MeshPhysicalMaterial({ color: 0xfbfbfc, roughness: 0.42, clearcoat: 0.35, clearcoatRoughness: 0.4, side: THREE.DoubleSide });
   const plastVnitrek = new THREE.MeshPhysicalMaterial({ color: 0xeeeef0, roughness: 0.55, side: THREE.BackSide });
@@ -62,26 +64,35 @@ function postav(s, kontejner) {
   podlaha.receiveShadow = true;
   scena.add(podlaha);
 
-  /* tři řady po sedmi stolech; prostřední řada je ta z úvodního záběru */
+  /* tři řady po sedmi stolech; prostřední řada je ta z úvodního záběru.
+     Deska ze světlého dřeva se zaoblenou hranou a tmavší ABS hranou, čtyři kovové nohy; židle se přidají k táckům níž. */
   const STOLY_Z = [0, -2.3, -4.6, -6.9, -9.2, -11.5, -13.8];
   const STOLY_X = [0, -7.6, 7.6];
   const DESKA_Y = 0.76, DELKA = 6.8, SIRKA = 0.9;
-  for (const sx of STOLY_X) for (const z of STOLY_Z) {
-    const d = new THREE.Mesh(new THREE.BoxGeometry(DELKA, 0.04, SIRKA), deska);
-    d.position.set(sx, DESKA_Y - 0.02, z);
-    d.castShadow = true; d.receiveShadow = true;
-    scena.add(d);
-    for (const x of [-DELKA / 2 + 0.25, DELKA / 2 - 0.25]) {
-      const n = new THREE.Mesh(new THREE.BoxGeometry(0.06, DESKA_Y - 0.04, SIRKA - 0.2), nohyMat);
-      n.position.set(sx + x, (DESKA_Y - 0.04) / 2, z);
-      n.castShadow = true;
-      scena.add(n);
-    }
-    for (const dz of [-0.78, 0.78]) {
-      const l = new THREE.Mesh(new THREE.BoxGeometry(DELKA - 0.4, 0.05, 0.32), lavice);
-      l.position.set(sx, 0.45, z + dz);
-      l.castShadow = true; l.receiveShadow = true;
-      scena.add(l);
+  const deskaGeo = new RoundedBoxGeometry(DELKA, 0.036, SIRKA, 3, 0.014);
+  const hranaGeo = new RoundedBoxGeometry(DELKA + 0.006, 0.014, SIRKA + 0.006, 2, 0.006);
+  const nohaGeo = new THREE.CylinderGeometry(0.022, 0.02, DESKA_Y - 0.04, 16);
+  const ramGeo = new THREE.BoxGeometry(DELKA - 0.5, 0.05, 0.03);
+  const POCET_STOLU = STOLY_X.length * STOLY_Z.length;
+  const desky = new THREE.InstancedMesh(deskaGeo, deska, POCET_STOLU);
+  const hrany = new THREE.InstancedMesh(hranaGeo, hranaMat, POCET_STOLU);
+  const nohy = new THREE.InstancedMesh(nohaGeo, nohyMat, POCET_STOLU * 4);
+  const ramy = new THREE.InstancedMesh(ramGeo, nohyMat, POCET_STOLU * 2);
+  [desky, hrany, nohy, ramy].forEach(m => { m.castShadow = true; m.receiveShadow = true; scena.add(m); });
+  {
+    const o = new THREE.Object3D();
+    let ns = 0, nn = 0, nr = 0;
+    for (const sx of STOLY_X) for (const z of STOLY_Z) {
+      o.rotation.set(0, 0, 0); o.scale.set(1, 1, 1);
+      o.position.set(sx, DESKA_Y - 0.018, z); o.updateMatrix(); desky.setMatrixAt(ns, o.matrix);
+      o.position.set(sx, DESKA_Y - 0.026, z); o.updateMatrix(); hrany.setMatrixAt(ns, o.matrix);
+      ns++;
+      for (const x of [-DELKA / 2 + 0.22, DELKA / 2 - 0.22]) for (const dz of [-SIRKA / 2 + 0.12, SIRKA / 2 - 0.12]) {
+        o.position.set(sx + x, (DESKA_Y - 0.04) / 2, z + dz); o.updateMatrix(); nohy.setMatrixAt(nn++, o.matrix);
+      }
+      for (const dz of [-SIRKA / 2 + 0.12, SIRKA / 2 - 0.12]) {
+        o.position.set(sx, DESKA_Y - 0.07, z + dz); o.updateMatrix(); ramy.setMatrixAt(nr++, o.matrix);
+      }
     }
   }
 
@@ -125,6 +136,31 @@ function postav(s, kontejner) {
   const N = talire.length;
   const HRDINA = talire.findIndex(p => p.z > 0.1 && Math.abs(p.x - 0.428) < 0.01);
   const P0 = talire[HRDINA].clone();
+
+  /* židle u každého tácu: skořepina ze sedáku a opěradla (barevný plast), čtyři kovové nohy; mírně nepravidelně odsunuté */
+  {
+    const skorepina = mergeGeometries([
+      new RoundedBoxGeometry(0.4, 0.03, 0.38, 2, 0.012).translate(0, 0.45, 0),
+      new RoundedBoxGeometry(0.4, 0.27, 0.026, 2, 0.012).rotateX(-0.12).translate(0, 0.66, 0.19),
+    ]);
+    const nozky = mergeGeometries([[-0.17, -0.16], [0.17, -0.16], [-0.17, 0.16], [0.17, 0.16]]
+      .map(([x, z]) => new THREE.CylinderGeometry(0.011, 0.011, 0.44, 10).translate(x, 0.22, z)));
+    const zidle = new THREE.InstancedMesh(skorepina, zidleMat, talire.length);
+    const zidleNohy = new THREE.InstancedMesh(nozky, nohyMat, talire.length);
+    [zidle, zidleNohy].forEach(m => { m.castShadow = true; m.receiveShadow = true; scena.add(m); });
+    const BARVY = [0x6f9a83, 0x5f8b74, 0x7da690, 0x668f7a].map(c => new THREE.Color(c));
+    const nah = (n => () => (n = (n * 16807) % 2147483647) / 2147483647)(5);
+    const o = new THREE.Object3D();
+    talire.forEach((p, i) => {
+      const strana = tacRot[i] === 0 ? 1 : -1;
+      o.position.set(p.x + 0.07 + (nah() - 0.5) * 0.06, 0, p.z + strana * (0.42 + nah() * 0.08));
+      o.rotation.set(0, tacRot[i] + (nah() - 0.5) * 0.16, 0);
+      o.updateMatrix();
+      zidle.setMatrixAt(i, o.matrix); zidleNohy.setMatrixAt(i, o.matrix);
+      zidle.setColorAt(i, BARVY[Math.floor(nah() * BARVY.length)]);
+    });
+    zidle.instanceColor.needsUpdate = true;
+  }
 
   const nahoda = (n => () => (n = (n * 16807) % 2147483647) / 2147483647)(11);
   const otoceni = talire.map(() => nahoda() * Math.PI * 2);
@@ -194,6 +230,8 @@ function postav(s, kontejner) {
     hrbolky.add(h);
   }
   const NAPLN_MIN = 0.05, NAPLN_MAX = 0.6;
+  /* hladina stoupá hlavně zpočátku, pozdější kousky tak zůstanou nahoře vidět jako hromádka */
+  const hladina = podil => NAPLN_MIN + (NAPLN_MAX - NAPLN_MIN) * (1 - Math.pow(1 - omez(podil, 0, 1), 3));
   let poslNapln = -1;
   function nastavNapln(h) {
     if (Math.abs(h - poslNapln) < 0.002) return;
@@ -251,8 +289,10 @@ function postav(s, kontejner) {
       const pol = { mesh: im[r.geo], k, start: svet.clone(), rotY: rot + (r.rot || 0), s: r.s || [1, 1, 1], naklon: r.naklon || 0, leti: letici[i] };
       if (pol.leti) {
         pol.t0 = startTalire.get(i) + n * 0.045;
-        const a = nahoda() * Math.PI * 2, d = Math.sqrt(nahoda()) * 0.2;
+        const a = nahoda() * Math.PI * 2, d = Math.sqrt(nahoda()) * 0.3;
         pol.cil = new THREE.Vector3(KB.x + Math.cos(a) * d, 0, KB.z + Math.sin(a) * d);
+        pol.klid = [nahoda() * Math.PI * 2, (nahoda() - 0.5) * 0.5, nahoda() * 0.006];  /* natočení, náklon a výška na hromádce */
+        pol.uhel = a; pol.dRel = Math.sqrt(nahoda());
         pol.dur = 0.85 + pol.start.distanceTo(KB) * 0.06;
         pol.vyska = 0.35 + pol.start.distanceTo(KB) * 0.07;
         pol.spin = (nahoda() - 0.5) * 9;
@@ -261,30 +301,45 @@ function postav(s, kontejner) {
     });
   });
   const pocetLeticich = polozky.filter(p => p.leti).length;
+  /* kousky zůstávají v kbelíku: každý si sedne na hladinu, jaká byla v okamžiku jeho dopadu, a další ho pak zasypou */
+  const leticiPol = polozky.filter(p => p.leti).sort((a, b) => (a.t0 + a.dur) - (b.t0 + b.dur));
+  leticiPol.forEach((p, n) => {
+    p.hDopad = hladina((n + 1) / leticiPol.length);
+    /* místo dopadu vždy uvnitř kbelíku: poloměr hladiny v té výšce, s rezervou na velikost kousku */
+    const r = (stena(0.02 + p.hDopad) - 0.11) * MER * p.dRel;
+    p.cil.set(KB.x + Math.cos(p.uhel) * r, 0, KB.z + Math.sin(p.uhel) * r);
+  });
+  const konecFilmu = leticiPol.length ? leticiPol[leticiPol.length - 1].t0 + leticiPol[leticiPol.length - 1].dur + PAUZA : 13.2;
+  hrbolky.visible = false;  /* povrch tvoří skutečné kousky jídla */
   for (const k in im) im[k].instanceColor.needsUpdate = true;
 
-  function nastavPolozky(t) {
+  const SKRYT = new THREE.Vector3(0, -10, 0);
+  function nastavPolozky(t, jenKos = false) {
     let dopadlo = 0;
     for (const p of polozky) {
       pom.rotation.set(p.naklon, p.rotY, 0);
       pom.scale.set(p.s[0], p.s[1], p.s[2]);
       if (!p.leti || t <= p.t0) {
         pom.position.copy(p.start);
+        if (jenKos) { pom.position.copy(SKRYT); pom.scale.setScalar(0.0001); }
       } else {
         const u = (t - p.t0) / p.dur;
         if (u >= 1) {
-          pom.position.set(0, -10, 0);
-          pom.scale.setScalar(0.0001);
+          /* leží v kbelíku na hromádce */
+          pom.position.set(p.cil.x, vrchNaplne(p.hDopad) + p.klid[2], p.cil.z);
+          pom.rotation.set(p.naklon * 0.4 + p.klid[1], p.klid[0], p.klid[1] * 0.6);
+          pom.scale.multiplyScalar(1.35);
           dopadlo += 1;
         } else {
           const e = sinIO(u);
           pom.position.lerpVectors(p.start, p.cil, e);
-          const cilY = vrchNaplne(NAPLN_MIN + (NAPLN_MAX - NAPLN_MIN) * 0.6);
+          const cilY = vrchNaplne(p.hDopad);
           pom.position.y = p.start.y + (cilY - p.start.y) * e + Math.sin(Math.PI * e) * p.vyska;
           pom.rotation.x += u * p.spin;
           pom.rotation.z += u * p.spin * 0.6;
-          if (u > 0.85) pom.scale.multiplyScalar(1 - (u - 0.85) / 0.15 * 0.6);
+          pom.scale.multiplyScalar(1 + 0.35 * hladke(u));
           dopadlo += hladke(omez((u - 0.8) / 0.2, 0, 1));
+          if (jenKos) { pom.position.copy(SKRYT); pom.scale.setScalar(0.0001); }
         }
       }
       pom.updateMatrix();
@@ -334,7 +389,7 @@ function postav(s, kontejner) {
     naKbelik.intensity = 38 * sinIO(u01(t, 8.4, 10.2));
     /* jídlo, kbelík a počítadlo */
     const podil = nastavPolozky(t);
-    nastavNapln(NAPLN_MIN + (NAPLN_MAX - NAPLN_MIN) * podil);
+    nastavNapln(hladina(podil));
     if (pocitadloCislo) {
       pocitadloCislo.textContent = String(Math.round(31 * podil));
       pocitadlo.classList.toggle('je', t >= LET_ZAC + 0.1);
@@ -358,8 +413,10 @@ function postav(s, kontejner) {
     kamera.updateProjectionMatrix();
   }
 
+  let posledniT = 0;
   return {
-    vykresli(t, cas) { kbelik.visible = true; velikost(); scena3(t, cas); renderer.render(scena, kamera); },
+    konec: konecFilmu,
+    vykresli(t, cas) { posledniT = t; kbelik.visible = true; for (const k in im) im[k].visible = true; velikost(); scena3(t, cas); renderer.render(scena, kamera); },
     snimekKbeliku() {
       const bounds = screenBounds(telo, kamera, 1920, 1080);
       const visible = scena.children.map(child => [child, child.visible]);
@@ -367,7 +424,9 @@ function postav(s, kontejner) {
       const image = document.createElement('canvas');
       // A transparent snapshot keeps the same bucket visible while the dining room fades.
       try {
-        scena.children.forEach(child => { if (child !== kbelik && !child.isLight) child.visible = false; });
+        /* jen kbelík a jídlo, které v něm leží (kousky na stolech se na chvíli schovají) */
+        nastavPolozky(posledniT, true);
+        scena.children.forEach(child => { if (child !== kbelik && !child.isLight && !Object.values(im).includes(child)) child.visible = false; });
         scena.background = null; scena.fog = null;
         renderer.setClearColor(0x000000, 0);
         renderer.render(scena, kamera);
@@ -381,8 +440,10 @@ function postav(s, kontejner) {
         visible.forEach(([child, value]) => { child.visible = value; });
         scena.background = background; scena.fog = fog;
         renderer.setClearColor(0x050506, 1);
+        nastavPolozky(posledniT);
       }
       kbelik.visible = false;
+      for (const k in im) im[k].visible = false;  /* jídlo v kbelíku odjíždí se snímkem */
       renderer.render(scena, kamera);
       return { image, bounds };
     },
@@ -446,6 +507,7 @@ function spust() {
 
   function smycka(ted) {
     if (!bezi) return;
+    const KONEC = api.konec;
     const t = Math.min((ted - t0) / 1000, KONEC + 30);
     filmCas = t;
     api.vykresli(Math.min(t, KONEC), ted / 1000);
@@ -464,7 +526,7 @@ function spust() {
     s.classList.remove('uvod-pripraven');
     if (Number.isFinite(testCas)) { api.vykresli(testCas, testCas); return; }
     if (REDUKCE) {
-      api.vykresli(KONEC, 0);
+      api.vykresli(api.konec, 0);
       if (auto) queueMicrotask(() => {
         if (s.classList.contains('aktivni') && +s.dataset.k === 0) window.deck.dalsi();
       });
