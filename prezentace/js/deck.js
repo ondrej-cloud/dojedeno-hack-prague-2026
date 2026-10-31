@@ -8,9 +8,6 @@
   const plocha = document.querySelector('.plocha');
   const slajdy = Array.from(document.querySelectorAll('.slajd'));
   const N = slajdy.length;
-  const prvniZaloha = slajdy.findIndex(s => s.hasAttribute('data-zaloha'));
-  const konecPitche = slajdy.findIndex(s => s.hasAttribute('data-konec'));
-  const pocetHlavnich = prvniZaloha < 0 ? N : prvniZaloha;
   const hudCas = document.getElementById('hud-cas');
   const poznamky = document.getElementById('poznamky');
   const cerna = document.getElementById('cerna');
@@ -110,10 +107,10 @@
     if (!prubeh) return;
     const oblouk = prubeh.querySelector('.jidlo');
     const delka = 2 * Math.PI * 34;
-    const podil = pocetHlavnich > 1 ? Math.min(1, i / (pocetHlavnich - 1)) : 1;
+    const podil = N > 1 ? i / (N - 1) : 1;
     oblouk.style.strokeDasharray = delka;
     oblouk.style.strokeDashoffset = delka * (1 - podil);
-    prubeh.classList.toggle('skryty', slajdy[i].hasAttribute('data-bez-prubehu') || slajdy[i].hasAttribute('data-zaloha'));
+    prubeh.classList.toggle('skryty', slajdy[i].hasAttribute('data-bez-prubehu'));
   }
 
   function prejdi(n, dozadu, cilovyKrok) {
@@ -140,7 +137,6 @@
   }
   function dalsi() {
     spustHodiny();
-    if (slajdy[i].hasAttribute('data-konec') && krok === kroku(slajdy[i])) return;
     if (!slajdy[i].dispatchEvent(new CustomEvent('pred-dalsi', { cancelable: true }))) return;
     if (krok < kroku(slajdy[i])) { nastavKrok(krok + 1); history.replaceState(null, '', '#' + (i + 1) + '.' + krok); }
     else prejdi(i + 1);
@@ -204,8 +200,7 @@
       case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown': case 'Enter': e.preventDefault(); dalsi(); break;
       case 'ArrowLeft': case 'ArrowUp': case 'PageUp': case 'Backspace': e.preventDefault(); predchozi(); break;
       case 'Home': e.preventDefault(); prejdi(0); break;
-      case 'End': e.preventDefault(); prejdi(konecPitche < 0 ? N - 1 : konecPitche); break;
-      case 'q': case 'Q': if (prvniZaloha >= 0) { e.preventDefault(); prejdi(prvniZaloha); } break;
+      case 'End': e.preventDefault(); prejdi(N - 1); break;
       case 'f': case 'F':
         if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen().catch(() => {});
         break;

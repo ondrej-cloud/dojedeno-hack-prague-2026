@@ -1,1 +1,77 @@
-#s-jak .j-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:50px}#s-jak .j-flow article{padding:32px 28px;min-height:420px}#s-jak .j-number{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;color:var(--zelena);background:var(--zelena-svetla);font-weight:800}#s-jak h2{font-size:36px;line-height:1.15;margin:26px 0 18px}#s-jak .j-flow p{font-size:28px;line-height:1.4;color:var(--text2)}#s-jak .j-example{font-weight:750;font-size:38px;margin-top:32px;letter-spacing:-1px}#s-jak .j-weight{color:var(--zelena)}#s-jak .j-limits{margin-top:42px;padding:28px 34px;background:var(--zelena-svetla);border-radius:22px;font-size:30px;line-height:1.5}#s-jak .j-limits p+p{font-size:25px;margin-top:8px;color:var(--text2)}
+/* 06 · jak to funguje: osa s uzly (y 272–336), 4 karty (od y 360), dole gastronádoby a pilulka; postup čáry podle data-k */
+#s-jak .osa { position: absolute; left: 80px; right: 80px; top: 272px; height: 64px; }
+/* středy sloupců: šířka karty (1760 − 3 × 28) / 4 = 419, středy 209,5 / 656,5 / 1103,5 / 1550,5 */
+#s-jak .kolej { position: absolute; left: 209.5px; width: 1341px; top: 30px; height: 4px; border-radius: 2px; background: var(--linka2); overflow: hidden; }
+#s-jak .postup { position: absolute; inset: 0; background: var(--zelena); transform-origin: left center; transform: scaleX(0); transition: transform 700ms var(--ven); }
+#s-jak[data-k="2"] .postup { transform: scaleX(0.3333); }
+#s-jak[data-k="3"] .postup { transform: scaleX(0.6667); }
+#s-jak[data-k="4"] .postup, #s-jak[data-k="5"] .postup { transform: scaleX(1); }
+#s-jak.hned .postup, #s-jak.hned .uzel { transition: none; }
+#s-jak .uzel {
+  position: absolute; top: 0; width: 64px; height: 64px; margin-left: -32px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--karta); box-shadow: inset 0 0 0 2px var(--linka2);
+  font-weight: 800; font-size: 30px; color: var(--text3); font-variant-numeric: tabular-nums;
+  transition: background 500ms var(--ven), color 500ms var(--ven), box-shadow 500ms var(--ven), transform 500ms var(--ven);
+}
+#s-jak .u1 { left: 209.5px; } #s-jak .u2 { left: 656.5px; } #s-jak .u3 { left: 1103.5px; } #s-jak .u4 { left: 1550.5px; }
+#s-jak:is([data-k="1"], [data-k="2"], [data-k="3"], [data-k="4"], [data-k="5"]) .u1,
+#s-jak:is([data-k="2"], [data-k="3"], [data-k="4"], [data-k="5"]) .u2,
+#s-jak:is([data-k="3"], [data-k="4"], [data-k="5"]) .u3,
+#s-jak:is([data-k="4"], [data-k="5"]) .u4 { background: var(--zelena); color: #fff; box-shadow: none; }
+#s-jak[data-k="1"] .u1, #s-jak[data-k="2"] .u2, #s-jak[data-k="3"] .u3, #s-jak[data-k="4"] .u4 { transform: scale(1.12); box-shadow: 0 0 0 10px rgba(48, 209, 88, 0.18); }
+
+/* karty */
+#s-jak .karty { position: absolute; left: 80px; right: 80px; top: 364px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+#s-jak .karta { display: flex; flex-direction: column; min-height: 404px; padding: 26px 30px 30px; }
+#s-jak .karta h2 { margin-top: 26px; font-size: 36px; }
+#s-jak .karta .stitek { margin-top: 10px; font-size: 26px; line-height: 1.3; }
+#s-jak .obraz { height: 200px; border-radius: var(--r2); background: var(--stranka); display: grid; place-items: center; overflow: hidden; }
+
+/* 1 · displej váhy */
+#s-jak .vaha-displej { display: flex; align-items: baseline; gap: 4px; padding: 18px 30px 20px; border-radius: 16px; background: var(--text); color: var(--zelena-zivá); font-weight: 800; font-size: 72px; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18); }
+#s-jak .vaha-displej .plus { font-weight: 700; opacity: 0.8; }
+#s-jak .vaha-displej small { font-size: 0.5em; font-weight: 700; margin-left: 6px; opacity: 0.85; }
+
+/* 2 · před a po (pohled shora do kbelíku) */
+#s-jak .pred-po { display: flex; align-items: center; gap: 14px; }
+#s-jak .pred-po figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+#s-jak .pred-po svg:not(.ilu) { width: 132px; height: 132px; overflow: visible; }
+#s-jak .pred-po figcaption { font-size: 22px; font-weight: 600; color: var(--text2); }
+#s-jak .okraj-kbeliku { fill: var(--karta); stroke: var(--text); stroke-width: 3; }
+#s-jak .zbytek { fill: var(--oranz-svetla); stroke: var(--oranz2); stroke-width: 2.5; stroke-linejoin: round; }
+#s-jak .zbytek.novy { fill: var(--oranz2); stroke: var(--oranz); }
+#s-jak .detekce { fill: none; stroke: var(--zelena); stroke-width: 3; stroke-dasharray: 5 6; stroke-linecap: round; }
+#s-jak .k2.je .detekce { animation: s06-detekce 900ms var(--ven) 400ms both; transform-origin: 73px 83px; }
+@keyframes s06-detekce { from { opacity: 0; transform: scale(1.5); } to { opacity: 1; transform: none; } }
+#s-jak .sipka-mala { width: 36px; height: 36px; color: var(--text3); margin-bottom: 30px; }
+
+/* 3 · menu */
+#s-jak .menu { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+#s-jak .menu-titul { font-size: 22px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; }
+#s-jak .volba { display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px 12px; border-radius: var(--pilulka); background: var(--karta); font-size: 26px; font-weight: 600; color: var(--text3); box-shadow: inset 0 0 0 2px var(--linka); }
+#s-jak .volba .ilu { width: 26px; height: 26px; }
+#s-jak .volba.vybrana { background: var(--zelena-svetla); color: var(--zelena); box-shadow: none; }
+#s-jak .k3.je .volba.vybrana { animation: s06-vyber 700ms var(--ven) 450ms both; }
+@keyframes s06-vyber { from { background: var(--karta); color: var(--text3); box-shadow: inset 0 0 0 2px var(--linka); } to { background: var(--zelena-svetla); color: var(--zelena); box-shadow: none; } }
+
+/* 4 · oznámení jako na iPhonu */
+#s-jak .oznameni { width: 340px; display: grid; grid-template-columns: 52px 1fr; gap: 14px; padding: 16px 18px 18px; border-radius: 22px; background: rgba(255, 255, 255, 0.92); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 12px 28px rgba(0, 0, 0, 0.12); }
+#s-jak .k4.je .oznameni { animation: s06-oznameni 650ms var(--ven) 250ms both; }
+@keyframes s06-oznameni { from { opacity: 0; transform: translateY(-24px) scale(0.96); } to { opacity: 1; transform: none; } }
+#s-jak .appka { width: 52px; height: 52px; border-radius: 13px; background: var(--karta); box-shadow: inset 0 0 0 1.5px var(--linka2); display: grid; place-items: center; }
+#s-jak .appka svg { width: 40px; height: 40px; }
+#s-jak .appka circle { fill: none; stroke: var(--linka2); stroke-width: 6; }
+#s-jak .appka .oblouk { stroke: var(--zelena); stroke-dasharray: 70 100; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 32px 32px; }
+#s-jak .obsah-oznameni p { margin: 0; }
+#s-jak .hlavicka { display: flex; justify-content: space-between; font-size: 18px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.04em; }
+#s-jak .co { font-size: 22px; font-weight: 700; line-height: 1.25; margin-top: 2px; }
+#s-jak .kolik { font-size: 30px; font-weight: 800; color: var(--oranz); font-variant-numeric: tabular-nums; line-height: 1.2; }
+
+/* krok 5 · dole */
+#s-jak .dole { position: absolute; left: 80px; right: 80px; top: 852px; display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+#s-jak .gastro { display: flex; align-items: center; gap: 22px; max-width: 1080px; font-size: 30px; line-height: 1.35; color: var(--text2); }
+#s-jak .gastro b { color: var(--text); }
+#s-jak .gastro .ilu { flex: none; width: 64px; height: 64px; color: var(--text); }
+#s-jak .zive { font-size: 34px; padding: 20px 38px 22px 32px; white-space: nowrap; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18); transition-delay: 600ms; }
+#s-jak.hned .zive { transition-delay: 0ms; }
+#s-jak .zive .tecka { width: 18px; height: 18px; }

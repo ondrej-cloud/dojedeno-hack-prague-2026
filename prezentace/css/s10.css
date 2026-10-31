@@ -1,1 +1,66 @@
-#s-pilot .p-place{font-size:30px;color:var(--text2);margin-top:22px}#s-pilot .p-stages{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:48px}#s-pilot .p-stages article{border-top:7px solid var(--zelena);padding:26px 28px;background:white;border-radius:0 0 22px 22px}#s-pilot .p-stages b{font-size:30px;color:var(--zelena)}#s-pilot .p-stages h2{font-size:44px;margin:18px 0}#s-pilot .p-stages p{font-size:29px;line-height:1.4;color:var(--text2)}#s-pilot .p-summary{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;padding:30px 36px;background:var(--zelena-svetla);border-radius:22px;margin-top:40px}#s-pilot .p-summary span{font-size:27px;font-weight:700}#s-pilot .p-summary strong{display:block;font-size:76px;letter-spacing:-2px;line-height:1.2}#s-pilot .p-summary small{font-size:22px}#s-pilot .p-summary p{font-size:30px;line-height:1.5;margin-top:24px}
+/* 10 · pilot: časová osa přes celou šířku (čára 3 px, čtyři body), pod ní tři karty stejné výšky:
+   rozpočet (širší, počítadlo), rizika a partneři (krok 1). */
+
+#s-pilot .p-osa {
+  position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+  margin: var(--mezera) 0 0; padding: 0; list-style: none;
+}
+/* čára mezi středy prvního a posledního bodu (body mají 64 px a jsou vlevo ve sloupci) */
+#s-pilot .p-osa::before {
+  content: ""; position: absolute; left: 32px; right: calc((100% - 96px) / 4 - 32px); top: 31px; height: 3px;
+  border-radius: 2px; background: var(--linka2); transform-origin: left center;
+}
+#s-pilot.kresli .p-osa::before { animation: s10-cara 1100ms var(--kresli) 150ms both; }
+@keyframes s10-cara { from { transform: scaleX(0); } to { transform: none; } }
+
+#s-pilot .p-osa li { position: relative; z-index: 1; min-width: 0; }
+#s-pilot .p-bod {
+  display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%;
+  background: var(--karta); box-shadow: var(--stin), inset 0 0 0 3px var(--linka2);
+  font-weight: 800; font-size: 30px; font-variant-numeric: tabular-nums; color: var(--text2);
+}
+#s-pilot .p-osa li:first-child .p-bod { background: var(--zelena); color: #fff; box-shadow: var(--stin); }
+#s-pilot .p-bod.p-cil { color: var(--zelena); }
+#s-pilot .p-bod.p-cil svg { width: 36px; height: 36px; }
+#s-pilot .p-osa h3 { margin-top: 20px; font-size: 34px; letter-spacing: -0.01em; }
+#s-pilot .p-osa p { margin-top: 6px; font-size: 26px; line-height: 1.3; color: var(--text2); }
+#s-pilot.kresli .p-osa li { animation: s10-bod 600ms var(--ven) calc(250ms + var(--n) * 220ms) both; }
+@keyframes s10-bod { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* karty */
+#s-pilot .p-dole { display: grid; grid-template-columns: 640px 1fr 1fr; gap: 32px; margin-top: 56px; align-items: stretch; }
+#s-pilot .p-dole .karta { padding: 30px 36px; min-height: 440px; }
+#s-pilot .p-dole .stitek { margin-bottom: 18px; }
+
+#s-pilot .p-rozpocet .cislo { font-size: 128px; }
+#s-pilot .p-odhad { margin-top: 18px; }
+#s-pilot .p-odhad span {
+  display: inline-block; padding: 6px 18px 8px; border-radius: var(--pilulka);
+  background: var(--oranz-svetla); color: var(--oranz); font-size: 22px; font-weight: 700;
+}
+#s-pilot .p-polozky { display: flex; flex-wrap: wrap; gap: 10px 12px; margin: 28px 0 0; padding: 0; list-style: none; }
+#s-pilot .p-polozky li {
+  padding: 8px 18px 10px; border-radius: var(--pilulka); background: var(--stranka);
+  font-size: 24px; font-weight: 600; color: var(--text2);
+}
+
+#s-pilot .p-rizika ul,
+#s-pilot .p-partneri ul { margin: 0; padding: 0; list-style: none; }
+#s-pilot .p-rizika li,
+#s-pilot .p-partneri li { padding: 14px 0; border-top: 1px solid var(--linka); }
+#s-pilot .p-rizika li:first-child,
+#s-pilot .p-partneri li:first-child { border-top: none; padding-top: 0; }
+#s-pilot .p-rizika b,
+#s-pilot .p-partneri b { display: block; font-size: 30px; line-height: 1.2; letter-spacing: -0.01em; }
+#s-pilot .p-rizika span,
+#s-pilot .p-partneri span { display: block; margin-top: 4px; font-size: 24px; line-height: 1.3; color: var(--text2); }
+
+#s-pilot .p-prvni {
+  display: flex; align-items: center; gap: 14px; margin-top: 16px; padding: 12px 18px; border-radius: var(--r2);
+  background: var(--zelena-svetla); color: var(--zelena); font-size: 24px; font-weight: 700;
+}
+#s-pilot .p-prvni svg { flex: none; width: 36px; height: 36px; }
+
+/* krok 1: partneři přijedou 120 ms po rizicích */
+#s-pilot .p-partneri[data-krok] { transition-delay: 120ms; }
+#s-pilot.hned .p-partneri[data-krok] { transition-delay: 0ms; }

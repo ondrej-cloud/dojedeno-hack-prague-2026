@@ -1,15 +1,63 @@
-<!-- 07 · hlavní denní KPI a návrh nejvýše dvou iterací pilotu. -->
-<section class="slajd" id="s-dostane" data-nazev="Měříme dopad změny, ne jen odpad" data-kroky="1">
-  <h1>Měříme dopad změny, ne jen odpad.</h1>
+<!-- 07 · co jídelna dostane: měření → (krok 1) analýza → (krok 2) opatření; krok 3 příklad 10 % = 60 000 Kč (výslovně příklad) -->
+<section class="slajd" id="s-dostane" data-nazev="Z dat rovnou opatření" data-kroky="3">
+  <h1>Z dat rovnou opatření.</h1>
+
   <div class="tok rozbal">
-    <div class="karta faze"><p class="kdy">1.–2. týden</p><svg class="ilu" aria-hidden="true"><use href="#i-vaha"/></svg><h2>Výchozí stav</h2><p>Každý den zvážíme vrácený potravinový odpad a&nbsp;spočítáme vydané obědy.</p><p class="detail">Stejný sledovaný provoz a&nbsp;hranice měření.</p></div>
-    <div class="karta faze"><p class="kdy">3.–4. týden</p><svg class="ilu" aria-hidden="true"><use href="#i-kuchar"/></svg><h2>Jedna změna</h2><p>S&nbsp;kuchařkami vybereme úpravu receptury nebo volitelnou menší přílohu.</p><p class="detail">S&nbsp;možností přidání a&nbsp;dodržením výživových norem.</p></div>
-    <div class="karta faze"><p class="kdy">5.–6. týden</p><svg class="ilu" aria-hidden="true"><use href="#i-graf"/></svg><h2>Ověřit a&nbsp;doladit</h2><p>Porovnáme výsledek s&nbsp;výchozím stavem. Nejvýše dvě iterace opatření.</p><p class="detail">Zohledníme menu, počet strávníků a&nbsp;zpětnou vazbu.</p></div>
+    <div class="karta faze f1">
+      <p class="kdy">Každý den</p>
+      <div class="hlava"><span class="kruh"><svg class="ilu" viewBox="0 0 64 64" aria-hidden="true"><path d="M14 28h36" vector-effect="non-scaling-stroke"/><path d="M32 28v6" vector-effect="non-scaling-stroke"/><path d="M12 52l4-18h32l4 18z" vector-effect="non-scaling-stroke"/><rect x="26" y="40" width="12" height="6" rx="1.5" vector-effect="non-scaling-stroke"/></svg></span><h2>Měření</h2></div>
+      <ul class="cipy">
+        <li>kilogramy</li><li>jídla</li><li>části jídla</li><li>talíře</li>
+      </ul>
+      <div class="tyden" aria-hidden="true">
+        <div><i style="height:46%"></i><span>Po</span></div>
+        <div><i style="height:72%"></i><span>Út</span></div>
+        <div><i style="height:58%"></i><span>St</span></div>
+        <div><i style="height:90%"></i><span>Čt</span></div>
+        <div><i style="height:64%"></i><span>Pá</span></div>
+      </div>
+    </div>
+
+    <svg class="ilu sipka s1" data-krok="1" aria-hidden="true"><use href="#i-sipka"/></svg>
+
+    <div class="karta faze f2" data-krok="1">
+      <p class="kdy">Každý měsíc</p>
+      <div class="hlava"><span class="kruh"><svg class="ilu" aria-hidden="true"><use href="#i-graf"/></svg></span><h2>Analýza</h2></div>
+      <ul class="otazky">
+        <li>Co se nejí?</li>
+        <li>Kolik se uvaří navíc?</li>
+      </ul>
+      <div class="spenat">
+        <p class="spenat-titul"><b>Špenát</b><span>zbude 47&nbsp;% porce</span></p>
+        <div class="porce"><i></i></div>
+      </div>
+    </div>
+
+    <svg class="ilu sipka s2" data-krok="2" aria-hidden="true"><use href="#i-sipka"/></svg>
+
+    <div class="karta faze f3" data-krok="2">
+      <p class="kdy">Hned</p>
+      <div class="hlava"><span class="kruh"><svg class="ilu" aria-hidden="true"><use href="#i-fajfka"/></svg></span><h2>Opatření</h2></div>
+      <ul class="kroky-opatreni">
+        <li><b>Vařit podle vydaných obědů</b><span>5–9&nbsp;% žáků si zaplacený oběd nevyzvedne</span></li>
+        <li><b>Upravit špenát, recepty a&nbsp;porce</b><span>podle toho, co se nejí</span></li>
+        <li><b>Polévky</b><span>jí je jen pětina žáků</span></li>
+        <li><b>Nevydané porce darovat</b><span>přes aplikaci Zachraň oběd</span></li>
+        <li><b>Soutěž tříd</b><span>obrazovka v&nbsp;jídelně</span></li>
+      </ul>
+    </div>
   </div>
-  <div class="kpi" data-krok="1">
-    <div class="kpi-metrika"><p class="kpi-nazev">Hlavní KPI · každý den</p><h2>g gastroodpadu z talířů<br>na vydaný oběd</h2><p>Naměřená hmotnost / skutečně vydané obědy</p></div>
-    <div class="kpi-cil"><p>Návrhový cíl pilotu</p><strong>−10&nbsp;%</strong><span>proti výchozímu stavu z&nbsp;1.–2. týdne<br>Výsledek zatím nemáme.</span></div>
+
+  <div class="priklad" data-krok="3">
+    <span class="znacka">Příklad</span>
+    <p class="cislo male"><span data-pocitej="60000" data-od="0">60&nbsp;000</span><small>Kč</small></p>
+    <p class="vysvetleni">ročně na školu, když ušetříme <b class="procento">10&nbsp;%</b> zbytků z&nbsp;talířů.<span class="mala">600&nbsp;000&nbsp;Kč × podíl · příklad, ne slib</span></p>
+    <label class="posuvnik" data-interaktivni>
+      <span class="popis">Kolik ušetříme?</span>
+      <input type="range" min="1" max="30" step="1" value="10" aria-label="Podíl ušetřených zbytků z talířů v procentech">
+      <span class="meze"><span>1&nbsp;%</span><span>30&nbsp;%</span></span>
+    </label>
   </div>
-  <p class="model-hodnoty">Modelový příklad: −10&nbsp;% z&nbsp;600&nbsp;000&nbsp;Kč = 60&nbsp;000&nbsp;Kč ročně jako modelová hodnota omezených zbytků. Ne čistá úspora.</p>
-<script type="application/json" class="poznamky-data">["3:10–3:35 · Spoluhráč", "Nejdřív dva týdny měříme výchozí stav. Pak s kuchařkami vybereme jednu změnu, třeba recepturu nebo volitelnou menší přílohu s možností přidání. Poslední dva týdny výsledek ověříme a případně doladíme. Cíl návrhu je o deset procent méně vráceného odpadu na vydaný oběd. Výsledek zatím nemáme.", "[mezerník] Hlavní KPI: gramy vráceného potravinového gastroodpadu na vydaný oběd za den ve stejném sledovaném provozu. Hmotnost měří váha, počet obědů převezmeme ze skutečného výdeje. Při měření jen části provozu musí jmenovatel odpovídat téže části.", "Výchozí hodnota není odhad studie: změří se v 1.–2. týdnu. Za každou fázi použijeme součet naměřených gramů dělený součtem odpovídajících vydaných obědů. Porovnáváme také skladbu menu, docházku a změny provozu; bez kontrolní skupiny nelze každý rozdíl připsat opatření.", "Šest týdnů je navržené rozvržení 2 týdny výchozí měření + 2 týdny první opatření + 2 týdny ověření či doladění, nejvýše dvě iterace. Souhlas školy, dostupný čas a rozpočet ještě nejsou potvrzeny.", "Fotografie poskytují odhad typu a poměru zbytků, nikoli naměřené gramy ingrediencí. Nevyvozovat hmotnost jednotlivých surovin násobením vizuálního podílu. Požadovaná hmotnost KPI je přímo zvážená.", "Menší příloha pouze volitelně, s možností přidání a při dodržení výživových norem. Cílem není hlad ani tlak děti dojídat. Recepturu i porce navrhneme s personálem a ověříme u strávníků.", "60 000 Kč je vedlejší modelový přepočet 10 % z odhadu hodnoty surovin 600 000 Kč pro školu s 500 žáky. Předpokládá stejnou průměrnou hodnotu omezeného odpadu. Pokud děti snědí více stejně uvařeného jídla, méně odpadu nemusí snížit nákupy. Skutečná peněžní úspora vzniká až změřeným poklesem nákupů nebo provozních nákladů po odečtení nákladů systému a opatření. Zdroj základu: https://mzp.gov.cz/cz/system/files?file=2026-06/OCEO-Jak_setrit_jidlem_ve_skolnich_jidelnach-20260608.pdf · s. 9 a 12."]</script>
+
+  <script type="application/json" class="poznamky-data">["3:20–3:45 · Spoluhráč", "Samotná data nic neušetří. Proto z nich rovnou děláme opatření. Každý den měříme kilogramy, jídla a talíře.", "[mezerník] Analýza: Jednou za měsíc jídelna uvidí, co se nejí a kolik se vaří navíc.", "[mezerník] Opatření: A dostane konkrétní kroky. Vařit podle vydaných obědů, protože pět až devět procent dětí si oběd nevyzvedne. Upravit špenát a porce. Nevydané porce darovat přes Zachraň oběd.", "[mezerník] Příklad 60 000 Kč: Pro představu: když ušetříme deset procent zbytků z talířů, škola ušetří šedesát tisíc korun ročně. Je to příklad, ne slib.", "Asi 70 slov, 30 s (slot 25 s: když se nestíhá, vynechat první větu).", "[interaktivně] V kroku 3 jde myší přetáhnout posuvník (1–30 %) a částka se přepočítá (600 000 Kč × podíl). Říkat „výpočet, příklad“, nikdy „ušetříme“. Po puštění posuvníku klikr zase ovládá prezentaci.", "Zdroje: 5–9 % nevyzvednutých obědů (Z1, tisková zpráva Prague Food Waste); špenát 190 z ~400 g a polévku jí pětina žáků (Z2 Echo24, Z3 Blesk); Zachraň oběd (Z5, Z6); příklad: 10 % z 600 000 Kč za zbytky z talířů u školy s 500 žáky (Z1–Z3), náš výpočet."]</script>
 </section>
