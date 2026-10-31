@@ -16,3 +16,5 @@ main{height:892px;padding-top:30px}footer{height:84px;font-size:19px;color:#7480
 .analysis-actions:has(.weight-correction[open]){flex-wrap:wrap}.weight-correction[open]{flex-basis:100%}
 
 .camera-box:has(.remote-live:not([hidden]))>img,.camera-box:has(video:not([hidden]))>img{visibility:hidden}
+
+.results:has(.offline-notice) .waiting{height:calc(100% - 110px)}.offline-notice{font-size:17px;line-height:1.5;background:#fff4df;color:#755321;border-radius:12px;padding:16px;margin:0}

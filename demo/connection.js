@@ -60,13 +60,14 @@
   window.prepareDemoConfig = async function (config) {
     const mode = new URLSearchParams(location.search).get('mode');
     const copy = JSON.parse(JSON.stringify(config));
-    function sample() {
+    function sample(notice = null) {
+      copy.connectionNotice = notice;
       copy.analysis = { ...copy.analysis, mode: 'demo' };
       copy.camera = { ...copy.camera, source: 'none' };
       copy.detection = { ...copy.detection, enabled: false };
       document.documentElement.classList.remove('live-connected');
       const badge = document.querySelector('#stage header .badge');
-      if (badge) badge.textContent = 'Ukázková data';
+      if (badge) badge.textContent = notice ? 'Ukázková data · offline' : 'Ukázková data';
       return copy;
     }
     if (mode === 'sample') return sample();
@@ -88,9 +89,13 @@
       return copy;
     } catch (error) {
       document.documentElement.classList.remove('live-connected');
-      if (mode !== 'live') return sample();
-      if (error.name === 'AbortError' || error instanceof TypeError) throw new Error('Živý server není dostupný. Zkontrolujte připojení Macu a obnovte stránku.');
-      throw error;
+      // A live connection failure must never trap the presenter in a dead end.
+      // Make the data source explicit and allow the complete manual walkthrough.
+      const url = new URL(location.href);
+      url.searchParams.set('mode', 'sample');
+      url.searchParams.delete('phone');
+      history.replaceState(null, '', url.pathname + url.search + url.hash);
+      return sample('Živé spojení není dostupné. Pokračujte šipkami s ukázkovými daty, nebo zkuste znovu Živé měření.');
     } finally { clearTimeout(timer); }
   };
 
