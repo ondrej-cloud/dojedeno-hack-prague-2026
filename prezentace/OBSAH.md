@@ -1,3 +1,5 @@
+> Pořadí aktualizováno: slajd s třípásovým modelem (`90-tri-pasy.html`) je za závěrem jako záloha pro oponenturu (#12). Hlavní část má 11 slajdů, demo je #6. Níže uvedené označení 05 popisuje původní obsah tohoto přesunutého slajdu.
+
 # Obsah prezentace Dojedeno: závazná čísla a obsah slajdů
 
 **Používej jen čísla z tohoto souboru.** Ondra je ověřil (Z1–Z8) a každé je tu se zdrojem. Kdykoli je u čísla poznámka „výpočet“ nebo „příklad“, musí to tak zaznít i na slajdu nebo v poznámkách řečníka.
