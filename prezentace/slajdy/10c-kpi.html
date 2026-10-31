@@ -1,0 +1,79 @@
+<!-- 10c · KPI a dopad (šablona „KPI a dopad“): krok 0 hlavní KPI (gastroodpad z talířů na strávníka a den, výchozí stav
+     změříme v týdnech 1–2, cíl −10 % jako příklad), krok 1 další dvě KPI (nevydané porce rozdělené na nevyzvednuté a navíc,
+     úspora za suroviny) a řádek o kvalitě měření, krok 2 impakt a udržitelnost: dopad, co zůstane, replikace.
+     Čísla jen z OBSAH.md (doplněk 31. 10.): žádné vlastní výchozí gramy. -->
+<section class="slajd" id="s-kpi" data-nazev="KPI a dopad" data-kroky="2">
+  <h1>Co budeme měřit a&nbsp;co se změní.</h1>
+
+  <div class="k-karty rozbal">
+    <article class="karta k-hlavni">
+      <p class="k-stitek"><span class="k-pilulka">Hlavní KPI</span></p>
+      <div class="k-hlava">
+        <svg class="ilu k-ikona" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-talir"/></svg>
+        <div><h2>Gastroodpad z&nbsp;talířů</h2><p class="k-jednotka">gramy na strávníka a&nbsp;den</p></div>
+      </div>
+      <div class="k-dvojice">
+        <div class="k-vychozi">
+          <p class="velke-pismo">Výchozí stav</p>
+          <p class="k-hodnota"><span class="k-otaznik">?&nbsp;g</span></p>
+          <p class="k-pod">změříme v&nbsp;týdnech 1–2</p>
+        </div>
+        <svg class="k-sipka" viewBox="0 0 120 40" aria-hidden="true"><path d="M6 20h96M88 8l14 12-14 12"/></svg>
+        <div class="k-cil">
+          <p class="velke-pismo">Cíl</p>
+          <p class="k-hodnota zelena">−<span data-pocitej="10" data-od="0">10</span>&nbsp;%</p>
+          <p class="k-pod"><span class="k-priklad">příklad</span></p>
+        </div>
+      </div>
+    </article>
+
+    <article class="karta k-porce" data-krok="1">
+      <p class="k-stitek velke-pismo">Nevydané porce za den</p>
+      <div class="k-vetev">
+        <svg class="ilu k-ikona-m" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-clovek"/></svg>
+        <div><b>Objednané, nevyzvednuté</b><span>5–9&nbsp;% žáků · jídelna je musí uvařit</span><em>→ darovat přes Zachraň oběd</em></div>
+      </div>
+      <div class="k-vetev">
+        <svg class="ilu k-ikona-m" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-gastro"/></svg>
+        <div><b>Uvařené navíc</b><span>to, co se uvaří nad objednávky</span><em>→ vařit podle dat</em></div>
+      </div>
+    </article>
+
+    <article class="karta k-penize" data-krok="1">
+      <p class="k-stitek velke-pismo">Vedlejší: úspora za suroviny</p>
+      <svg class="ilu k-ikona-m k-mince" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-graf"/></svg>
+      <p class="cislo male"><span data-pocitej="60000" data-od="0">60&nbsp;000</span><small>Kč</small></p>
+      <p class="k-pod-cislo">ročně při −10&nbsp;% · škola s&nbsp;500 žáky</p>
+      <p class="k-poznamka"><span class="k-priklad">příklad</span> jen suroviny, skutečná úspora je vyšší</p>
+    </article>
+  </div>
+
+  <p class="k-kvalita" data-krok="1"><svg class="ilu" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-fajfka"/></svg><b>Kvalita měření:</b>&nbsp;podíl táců správně přiřazených k&nbsp;váze · ověříme ručním vážením</p>
+
+  <div class="k-impakt" data-krok="2">
+    <p class="k-impakt-stitek velke-pismo">Impakt a&nbsp;udržitelnost</p>
+    <div class="k-sloupce">
+      <div class="k-sloupec">
+        <svg class="ilu k-ikona-s" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-kbelik"/></svg>
+        <div><h3>Dopad</h3><p>Méně gastroodpadu. Jídelna konečně ví, co děti nejedí.</p></div>
+      </div>
+      <div class="k-sloupec">
+        <svg class="ilu k-ikona-s" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-skola"/></svg>
+        <div><h3>Co zůstane</h3><p>Systém, data a&nbsp;návyky v&nbsp;jídelně. Další krok: žáci a&nbsp;učitelé, soutěž tříd.</p></div>
+      </div>
+      <div class="k-sloupec">
+        <svg class="ilu k-ikona-s" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-svet"/></svg>
+        <div><h3>Replikace</h3><p><b class="zelena"><span data-pocitej="8891" data-od="0">8&nbsp;891</span> jídelen</b> v&nbsp;ČR. Další jídelna v&nbsp;Olomouci, pak Praha.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" class="poznamky-data">[
+    "~0:30 · Spoluhráč",
+    "Co budeme měřit? Hlavní číslo je gastroodpad z talířů na strávníka a den. Výchozí stav změříme v prvních dvou týdnech pilotu, cíl je třeba minus deset procent. To je příklad, ne slib.",
+    "[mezerník] Nevydané porce rozdělíme: objednané obědy, které si žák nevyzvedne, jídelna uvařit musí. Ty chceme darovat přes Zachraň oběd. Zbytek je vaření navíc a ten upraví data. Vedlejší efekt jsou peníze: deset procent je u školy s pěti sty žáky šedesát tisíc ročně, jen za suroviny.",
+    "[mezerník] A co zůstane? Systém, data a návyky v jídelně. A dá se to zopakovat: v Česku je 8 891 jídelen.",
+    "Asi 90 slov. Kdyby se porota ptala, proč hlavní KPI není celkový odpad: nevydané porce jídelna musí uvařit podle objednávek, to, kolik děti nedojí, ovlivnit jde. Pozor: 600 000 Kč (a tedy 60 000 Kč) je jen za talíře a jen suroviny.",
+    "Zdroje: Z1 Prague Food Waste 2024 (5–9 % nevyzvednutých obědů), Z1–Z3 (600 000 Kč ročně, 1 200 Kč na žáka, jen suroviny), Z4 sborník From Plate To Waste 2025 (8 891 jídelen), Z5 Zachraň jídlo (Zachraň oběd), Z6 Praha 4. Výpočet 10 % = 60 000 Kč je příklad."
+  ]</script>
+</section>

@@ -41,7 +41,7 @@
 #s-jak .zbytek { fill: var(--oranz-svetla); stroke: var(--oranz2); stroke-width: 2.5; stroke-linejoin: round; }
 #s-jak .zbytek.novy { fill: var(--oranz2); stroke: var(--oranz); }
 #s-jak .detekce { fill: none; stroke: var(--zelena); stroke-width: 3; stroke-dasharray: 5 6; stroke-linecap: round; }
-#s-jak .k2.je .detekce { animation: s06-detekce 900ms var(--ven) 400ms both; transform-origin: 73px 83px; }
+#s-jak .k1.je .detekce { animation: s06-detekce 900ms var(--ven) 400ms both; transform-origin: 73px 83px; }
 @keyframes s06-detekce { from { opacity: 0; transform: scale(1.5); } to { opacity: 1; transform: none; } }
 #s-jak .sipka-mala { width: 36px; height: 36px; color: var(--text3); margin-bottom: 30px; }
 

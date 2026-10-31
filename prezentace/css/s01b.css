@@ -1,0 +1,28 @@
+/* 01b · kdo jsme. Nadtitul + věta projektu (60 px, dva řádky) v pruhu nadpisu; tři štítky od 330, tým od 650 (krok 1).
+   Karty týmu s třídou .doplnit mají tečkovaný okraj: jména a role ještě doplníme. */
+#s-kdo-jsme .nadtitul { color: var(--zelena); margin: 0 0 14px; }
+#s-kdo-jsme h1 { font-size: 60px; line-height: 1.1; min-height: 0; max-width: 1500px; }
+
+#s-kdo-jsme .stitky { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 56px; }
+#s-kdo-jsme .stitek-karta { display: flex; flex-direction: column; gap: 6px; min-height: 290px; padding: 36px 40px; }
+#s-kdo-jsme .stitek-karta .ikona { width: 64px; height: 64px; margin-bottom: 10px; }
+#s-kdo-jsme .stitek-karta .velke-pismo { color: var(--text3); }
+#s-kdo-jsme .hodnota { font-size: 36px; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
+#s-kdo-jsme .pod { font-size: 26px; line-height: 1.35; color: var(--text2); }
+
+#s-kdo-jsme .tym { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-top: 48px; }
+#s-kdo-jsme .clen { display: flex; align-items: center; gap: 26px; padding: 40px 34px; min-height: 210px; border-radius: var(--r); background: var(--karta); box-shadow: var(--stin); }
+#s-kdo-jsme .monogram { flex: none; width: 124px; height: 124px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--zelena-svetla); color: var(--zelena); font-size: 52px; font-weight: 800; }
+#s-kdo-jsme .jmeno { font-size: 32px; font-weight: 700; line-height: 1.2; }
+#s-kdo-jsme .role { font-size: 26px; color: var(--text2); margin-top: 4px; }
+#s-kdo-jsme .clen.doplnit { background: transparent; box-shadow: none; outline: 3px dashed var(--linka2); outline-offset: -3px; }
+#s-kdo-jsme .clen.doplnit .monogram { background: var(--linka); color: var(--text3); }
+#s-kdo-jsme .clen.doplnit .jmeno, #s-kdo-jsme .clen.doplnit .role { color: var(--text3); }
+/* členové týmu nastupují postupně */
+#s-kdo-jsme .tym.je .clen { animation: s01b-clen 600ms var(--ven) both; }
+#s-kdo-jsme .tym.je .clen:nth-child(2) { animation-delay: 90ms; }
+#s-kdo-jsme .tym.je .clen:nth-child(3) { animation-delay: 180ms; }
+#s-kdo-jsme .tym.je .clen:nth-child(4) { animation-delay: 270ms; }
+#s-kdo-jsme.hned .tym .clen { animation: none; }
+@keyframes s01b-clen { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }

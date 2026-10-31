@@ -23,3 +23,16 @@
 #s-kdo .vedlejsi.je .mala-osoba:nth-child(3) { animation-delay: 180ms; }
 @keyframes s08-vstup { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
 #s-kdo.hned .mala-osoba { animation: none !important; }
+
+/* krok 2: pruh „Proč do toho jídelna půjde“ s pilulkami, které nastupují po sobě */
+#s-kdo .proc-jidelna { position: absolute; left: var(--okraj-x); right: var(--okraj-x); bottom: 56px; display: flex; align-items: center; gap: 26px; padding: 18px 26px; border-radius: var(--r); background: var(--zelena-svetla); }
+#s-kdo .proc-titul { flex: none; font-size: 26px; font-weight: 800; color: var(--zelena); }
+#s-kdo .proc-jidelna ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 10px; }
+#s-kdo .proc-jidelna li { padding: 8px 18px 10px; border-radius: var(--pilulka); background: var(--karta); font-size: 23px; font-weight: 600; color: var(--text); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+#s-kdo .proc-jidelna.je li { animation: s08-pil 500ms var(--ven) calc(150ms + var(--n) * 90ms) both; }
+#s-kdo.hned .proc-jidelna li { animation: none; }
+@keyframes s08-pil { from { opacity: 0; transform: translateY(10px) scale(0.96); } to { opacity: 1; transform: none; } }
+#s-kdo .proc-jidelna { bottom: 34px; gap: 20px; padding: 14px 22px; }
+#s-kdo .proc-titul { font-size: 24px; }
+#s-kdo .proc-jidelna ul { flex-wrap: nowrap; gap: 8px; }
+#s-kdo .proc-jidelna li { font-size: 22px; padding: 7px 15px 9px; white-space: nowrap; }

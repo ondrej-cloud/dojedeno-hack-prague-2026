@@ -137,3 +137,105 @@
 - **Schody rozšíření:** škola v Hejčíně, Olomouc → 3 jídelny (plán rozšíření) → městská část → Praha → celá ČR.
 - **Krok 1, závěrečná věta:** „IKEA na Zličíně snížila odpad o polovinu. My to dáme každé školní jídelně, za cenu mobilu a váhy.“
 - **Na konci:** „Dojedeno · Vážíme to vážně“ a „Děkujeme“.
+
+---
+
+## Doplněk 31. 10. večer (po mentoringu): závazné pro nové slajdy
+
+### Rozhodnutí
+- **Pilot:** **1 jídelna u nás ve škole (Olomouc-Hejčín)**, start **leden 2027**, **6 týdnů**. Musí se vejít mezi listopad 2026 a galavečer **30. 3. 2027**, evaluace do **10. 5. 2027**.
+- **Sestava v prezentaci:** **jeden pás, jedna kamera nad pásem, jeden kbelík na váze**. Fotka talíře na pásu se k přírůstku váhy přiřadí **podle pořadí**. Při nejistotě se vážení uloží jako **společná dávka**. Verze se třemi pásy je jen záložní slajd (90).
+- **Hardware pilotu:** kamera **Raspberry Pi** (Zero 2 W + Camera Module 3) nad pásem a **USB váha pod kbelíkem**. **V demu je mobil.**
+- **Fotíme talíř na pásu, ne kbelík.** Kbelík řekne **kolik**, fotka talíře řekne **co** (příloha, maso, omáčka). Díky tomu upravíme jen tu část porce, kterou děti nejedí. Neubíráme celou porci, takže hlad nehrozí. Navíc přídavek na požádání.
+- **Mluvit o gastroodpadu, ne o bioodpadu.** Zbytky jídla obsahují maso, omáčky a tuky, nejde jen o rostlinný bioodpad. Gastroodpad se zpracovává hůř a musí ho odvážet specializovaná firma.
+
+### KPI
+1. **Hlavní KPI: gastroodpad z talířů na strávníka a den (g).**
+   - Výchozí stav změříme v pilotu, v týdnech 1–2. **Žádné vlastní číslo předem nepiš.**
+   - Cíl uváděj jen jako příklad: −10 % = 60 000 Kč ročně u školy s 500 žáky.
+2. **Nevydané porce za den (ks), rozdělené na dvě skupiny:**
+   - **objednané, ale nevyzvednuté:** 5–9 % žáků. Jídelna je **musí uvařit**, protože jsou objednané, takže je neovlivníme. Řešení: darovat přes Zachraň oběd.
+   - **uvařené navíc.**
+   - V pilotu zjistíme, **co se s nevydanými porcemi dnes děje** (snědí se později, darují, nebo vyhodí).
+3. **Vedlejší KPI: úspora nákladů jídelny (Kč za suroviny).** Pozor: 600 000 Kč je **jen za talíře** a **jen suroviny**, skutečná ztráta je vyšší (práce, energie, odvoz gastroodpadu).
+4. **Kvalita měření:** podíl táců správně přiřazených k váze. Ověří se na ručně zvážených tácech.
+
+**Proč je hlavní KPI na talíře:** nevydané porce jídelna musí uvařit podle objednávek. To, kolik děti nedojí, ovlivnit jde (porce, složky, recepty).
+
+### Timeline pilotu
+| Kdy | Fáze | Co se děje |
+|---|---|---|
+| listopad–prosinec 2026 | Příprava | Souhlas ředitele a vedoucí jídelny. Hygiena a GDPR (kamera jen na pás, žádné obličeje). Nákup a instalace. Test na ručně zvážených tácech. Zjistit, co se děje s nevydanými porcemi. |
+| leden 2027, týdny 1–2 | Měření bez zásahu | Výchozí stav KPI. |
+| leden 2027, týden 3 | Data → úpravy | S vedoucí jídelny upravíme porce složek, recepty a polévky. Úpravy jen v rámci výživových norem. |
+| leden–únor 2027, týdny 4–6 | Měření po úpravě | Porovnání s výchozím stavem. |
+| únor–březen 2027 | Iterace | Další kola úprava → 2 týdny měření, dokud se KPI neustálí (předpoklad 2 kola). |
+| 30. 3. 2027 | Gala | Výsledky pilotu. |
+| do 10. 5. 2027 | Evaluace | Zpráva a návrh rozšíření (další jídelna v Olomouci, Praha). |
+
+### Rozpočet pilotu: 1 jídelna, celkem 34 000 Kč (vše z Hack Prague)
+Ceny jsou včetně DPH. **OVĚŘENO** = cena z odkazu v `rozpocet_pilotu.xlsx` od Codexu, **ODHAD** = náš odhad.
+
+| Kategorie | Položka | Ks | Kč/ks | Kč | Stav |
+|---|---|---|---|---|---|
+| Materiál | Raspberry Pi Zero 2 W | 2 | 489 | 978 | OVĚŘENO |
+| Materiál | Raspberry Pi Camera Module 3 | 2 | 896 | 1 792 | OVĚŘENO |
+| Materiál | Kabel kamery pro Pi Zero | 2 | 100 | 200 | ODHAD |
+| Materiál | Napájecí zdroj 12,5 W | 2 | 200 | 400 | OVĚŘENO |
+| Materiál | microSD 32 GB | 2 | 349 | 698 | OVĚŘENO |
+| Materiál | Krabička a držák kamery nad pás | 2 | 400 | 800 | ODHAD |
+| Materiál | LED lampička s klipem | 2 | 253 | 506 | OVĚŘENO |
+| Materiál | Váha 60 kg s USB pod kbelík (PCE-PB 60N) | 1 | 6 121 | 6 121 | OVĚŘENO |
+| Materiál | Plošinová váha 150 kg na nádoby z výdeje | 1 | 1 518 | 1 518 | OVĚŘENO |
+| Materiál | Sběrná stanice (Raspberry Pi 5, zdroj, karta) | 1 | 2 200 | 2 200 | ODHAD |
+| Materiál | Montážní materiál, lišty, omyvatelný kryt | 1 | 1 200 | 1 200 | ODHAD |
+| Materiál | Monitor do jídelny pro žáky (použitý) | 1 | 2 000 | 2 000 | ODHAD |
+| Služby | AI model Haiku 5.5 + server na 5 měsíců | 1 | 1 500 | 1 500 | VÝPOČET |
+| Služby | LTE router + data na 5 měsíců | 1 | 2 250 | 2 250 | ODHAD |
+| Propagace | Plakáty, žebříček tříd, odměna vítězné třídě | 1 | 3 000 | 3 000 | ODHAD |
+| Lidé | Validační vážení táců (DPP) | 24 h | 200 | 4 800 | ODHAD (min. mzda 2026: 134,40 Kč/h) |
+| Lidé | Poděkování personálu jídelny (poukazy) | 1 | 1 000 | 1 000 | ODHAD |
+| | **Mezisoučet** | | | **30 963** | |
+| | **Rezerva (asi 10 %)** | | | **3 037** | |
+| | **Celkem** | | | **34 000** | |
+
+**Součty podle kategorií:**
+- Materiál 18 413 Kč
+- Služby 3 750 Kč
+- Propagace 3 000 Kč
+- Lidé 5 800 Kč
+- Rezerva 3 037 Kč
+
+### Rizika
+Zkratky: **P** = pravděpodobnost, **D** = dopad (1 = nízká/nízký, 3 = vysoká/vysoký).
+
+| Riziko | P | D | Opatření |
+|---|---|---|---|
+| Jídelna nebo škola odmítne (obava z kontroly, z práce navíc) | 2 | 3 | Pilot zdarma, žádná práce navíc, data patří jídelně, souhlas ředitele předem |
+| Hygiena, GDPR, legislativa (HACCP, kamera ve škole, výživové normy) | 2 | 3 | Kamera jen na pás, bez obličejů. Zařízení mimo přípravu jídla, omyvatelné kryty. Úpravy jen v rámci výživových norem. |
+| Rychlý výdej: talíře se slijí, vysype se jich víc najednou | 3 | 2 | Přiřazení podle pořadí, při nejistotě společná dávka. Hlavní KPI stojí na celkové váze, ta je přesná. Ověření na ručně zvážených tácech. |
+| Menší porce: děti budou mít hlad | 1 | 2 | Upravujeme jen složky, které se nejedí. Přídavek na požádání. |
+| Kuchařky to budou brát jako kontrolu | 2 | 2 | Vedoucí jídelny navrhuje úpravy s námi, výsledky jsou pomoc, ne hodnocení. Poděkování. |
+| Technika (Wi-Fi v kuchyni, výpadek) | 2 | 1 | LTE, ukládání v zařízení |
+
+### Proč to školy zatím nekupují (náš argument, ne fakt)
+- Za suroviny platí rodiče, takže úspora se v rozpočtu školy přímo neprojeví a chybí na to položka.
+- Hotové systémy jsou stavěné pro hotely, restaurace a catering: předplatné, zahraniční servis.
+- Kbelík řekne kolik, ale ne co. Jídelna pak neví, co změnit.
+- Instalace, hygiena a GDPR jsou pro malou jídelnu náročné.
+
+**Naše výhoda:** minimální zátěž pro jídelnu, jsme místní, levný hardware a víme, co se nejí (složky).
+
+### Proč do toho jídelna půjde
+- Pilot je zdarma.
+- Kuchařky nedělají nic navíc.
+- Jídelna konečně ví, co děti nejedí.
+- Dodržíme výživové normy.
+- Ušetří na surovinách.
+- Získá podklad pro darování (Zachraň oběd).
+- Škola má hotový ekologický projekt pro žáky.
+
+### Co dál (není součást hackathonového pilotu)
+- Zapojení žáků a učitelů: soutěž tříd, výuka v biologii a ekologii, žákovský tým dat.
+- Rozbor podle dnů v týdnu (návštěvnost).
+- Rozšíření: další jídelna v Olomouci, Praha (Praha 4 už jídelny zapojila do Zachraň oběd), celkem 8 891 jídelen v ČR.
