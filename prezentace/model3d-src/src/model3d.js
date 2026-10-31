@@ -292,7 +292,8 @@ function postav(kontejner) {
      Krok 1: pás 3 s veze tác k odběru, pak záblesk a fotka; krok 2: kuchařka vezme talíř a vysype ho; krok 3: spojení podle pořadí. */
   const KAR = { Y: PATRA[0], XC: -1.72, ZC: -0.02, L: 1.30, R: 0.42, PASKA: 0.30 };
   const OBVOD = 2 * KAR.L + 2 * Math.PI * KAR.R;
-  const S_ODBER = KAR.L - 0.06, S_ZAC = 0.10;
+  const S_ODBER = KAR.L + Math.PI * KAR.R / 2, S_ZAC = 0.10, S_FOTO = KAR.L / 2 + 0.32;  /* odběr = vrchol oblouku u kbelíku, foto za jízdy */
+  let vyfoceno = false;
   const tacky = [];
   let pasB = S_ZAC, pasAnim = null;
   function bodPasu(s) {
@@ -336,7 +337,7 @@ function postav(kontejner) {
     kvadr(0.055, 0.02, Z1 - Z0, XC, VYS, (Z0 + Z1) / 2, hlinik, 0.006);
     for (const zc of [ZC + R, ZC - R]) { kvadr(0.055, 0.02, 0.48, XC, HORNI, zc, hlinik, 0.006); }
     /* kamera Raspberry Pi nad místem odběru */
-    const odber = bodPasu(S_ODBER), KX = odber.x, KZ = odber.z;
+    const odber = bodPasu(S_FOTO), KX = odber.x, KZ = odber.z;
     kvadr(0.04, 0.62, 0.04, KX, Y + 0.31, KZ - 0.36, hlinik, 0.008);
     kvadr(0.03, 0.03, 0.40, KX, Y + 0.60, KZ - 0.18, hlinik, 0.008);
     const kam = new THREE.Group(); kam.position.set(KX, Y + 0.57, KZ); pasy.add(kam);
@@ -369,6 +370,9 @@ function postav(kontejner) {
     const p0 = bodPasu(b);
     TALIR_ZAC.set(p0.x, KAR.Y + 0.034, p0.z);
   }
+  /* zelený kroužek kolem sledovaného talíře (jen u něj, ne u kulis) */
+  const zvyrazneni = new THREE.Mesh(new THREE.TorusGeometry(0.19, 0.009, 10, 72), new THREE.MeshBasicMaterial({ color: 0x30d158 }));
+  zvyrazneni.rotation.x = Math.PI / 2; zvyrazneni.position.y = 0.036; talir.add(zvyrazneni);
   function talirPoloha(t) {
     const lift=easeIO(clamp01(t/0.62));
     const tip=easeIO(clamp01((t-0.62)/0.38));
@@ -405,7 +409,7 @@ function postav(kontejner) {
     stitek('foto', '<span class="tecka"></span>Talíř A · fotka + čas', new THREE.Vector3(FOTO_X, PATRA[PATRA.length - 1] + 0.37, PAS_Z));
     stitek('ai', 'Nejisté přiřazení → společná dávka', new THREE.Vector3(-1.10, 0.12, 0.62));
   } else {
-    const o = bodPasu(S_ODBER);
+    const o = bodPasu(S_FOTO);
     stitek('foto', '<span class="tecka"></span>Fotka talíře: <b class="o">co zbylo</b>', new THREE.Vector3(o.x, KAR.Y + 0.72, o.z));
     stitek('ai', '<span class="tecka"></span>Talíř 1 ↔ <b class="o">+150 g</b> · podle pořadí', new THREE.Vector3(0, KBELIK_Y + VYSKA + 0.16, 0));
     stitek('jidelna', 'Jídelna · <b>žáci odkládají tácy</b>', new THREE.Vector3(KAR.XC - 0.55, KAR.Y + 0.32, KAR.ZC + KAR.R + 0.30));
@@ -431,6 +435,7 @@ function postav(kontejner) {
   /* konečné stavy kroků (pro skok, zpět a tisk) */
   function stavPredVyklopenim() {
     talir.visible = true;
+    zvyrazneni.visible = !OTOCNY && !TRI_PATRA;
     talir.scale.setScalar(1.2);
     talirPoloha(0);
     talirMesh.material.opacity = 1;
@@ -450,6 +455,7 @@ function postav(kontejner) {
   function animujVyklopeni(cas) {
     const t = (cas - vyklopeniStart) / 1000;
     if (t < 0) return;
+    zvyrazneni.visible = false;
     talir.visible = true;
     talirPoloha(clamp01(t / 0.9));
     /* jídlo sjede z talíře a padá do kbelíku (parabola), postupně */
@@ -502,9 +508,14 @@ function postav(kontejner) {
     if (!TRI_PATRA) {
       if (OTOCNY && !REDUKCE) { pasB = S_ZAC + ((cas - t0) / 1000) * 0.10; }
       else if (pasAnim) {
+        /* plynulá jízda: krátký rozjezd a dojezd, jinak stálá rychlost; fotka v okamžiku průjezdu pod kamerou */
         const u = clamp01((cas - pasAnim.start) / pasAnim.dur);
-        pasB = pasAnim.from + (pasAnim.to - pasAnim.from) * easeIO(u);
-        if (u >= 1) { pasAnim = null; fotoStart = cas + 120; }
+        const TA = 0.15, TD = 0.15, VM = 1 / (1 - TA / 2 - TD / 2);
+        const e = u < TA ? 0.5 * VM * u * u / TA : u < 1 - TD ? 0.5 * VM * TA + VM * (u - TA) : 1 - 0.5 * VM * (1 - u) * (1 - u) / TD;
+        const predtim = pasB;
+        pasB = pasAnim.from + (pasAnim.to - pasAnim.from) * Math.min(1, Math.max(0, e));
+        if (!vyfoceno && predtim < S_FOTO && pasB >= S_FOTO) { vyfoceno = true; fotoStart = cas; }
+        if (u >= 1) pasAnim = null;
       }
       polozTacky(pasB);
       if (vyklopeniStart === null && talir.visible) { talirPoloha(0); talir.rotation.y = 0.4; }
@@ -512,7 +523,8 @@ function postav(kontejner) {
     if (vyklopeniStart !== null) animujVyklopeni(cas);
 
     /* záběr kamery (krok 1): kužel a kroužek, záblesk objektivu */
-    const zaberCil = OTOCNY ? 0.45 : (krok === 1 && !pasAnim) ? 1 : 0;
+    const fotoTed = fotoStart !== null && cas - fotoStart < 900;
+    const zaberCil = OTOCNY ? 0.45 : TRI_PATRA ? (krok === 1 ? 1 : 0) : (krok === 1 ? (fotoTed ? 1 : 0.3) : 0);
     zaber.material.opacity += (zaberCil * 0.14 - zaber.material.opacity) * 0.1;
     zaberKruh.material.opacity += (zaberCil * 0.9 - zaberKruh.material.opacity) * 0.1;
     if (fotoStart !== null) {
@@ -523,7 +535,7 @@ function postav(kontejner) {
 
     /* štítky: projekce kotev do obrazovky */
     const vidim = OTOCNY ? {} : TRI_PATRA ? { vaha: krok === 2, foto: krok === 1, ai: krok >= 3 }
-      : { jidelna: krok === 0 || (krok === 1 && !!pasAnim), mycka: krok === 0 || (krok === 1 && !!pasAnim), foto: krok === 1 && !pasAnim, vaha: krok >= 2, ai: krok >= 3 };
+      : { jidelna: krok === 0, mycka: krok === 0, foto: krok === 1 && vyfoceno, vaha: krok >= 2, ai: krok >= 3 };
     for (const id in stitky) {
       const s = stitky[id];
       const p = s.bod.clone().project(kamera);
@@ -549,9 +561,9 @@ function postav(kontejner) {
       krok = k;
       if (!TRI_PATRA) {
         pasAnim = null;
-        if (k === 0) pasB = S_ZAC;
-        else if (k === 1 && byl < 1 && !hned && !REDUKCE) { pasB = S_ZAC; pasAnim = { start: performance.now() + 250, from: S_ZAC, to: S_ODBER, dur: 3000 }; }
-        else pasB = S_ODBER;
+        if (k === 0) { pasB = S_ZAC; vyfoceno = false; }
+        else if (k === 1 && byl < 1 && !hned && !REDUKCE) { pasB = S_ZAC; vyfoceno = false; pasAnim = { start: performance.now() + 250, from: S_ZAC, to: S_ODBER, dur: 3400 }; }
+        else { pasB = S_ODBER; vyfoceno = true; }
         polozTacky(pasB);
       }
       if (k < 2) { vyklopeniStart=null;fotoStart=null;stavPredVyklopenim(); }
