@@ -91,6 +91,7 @@ function go(n,automatic=false){
  const target=Math.max(1,Math.min(8,n));
  if(isLiveAnalysis()&&target>=3&&target<=4&&!liveAnalysis.ready('reference')){autoStatus('Nejdřív vyfoťte plnou porci s čitelnou váhou.');return;}
  if(isLiveAnalysis()&&target===4&&!liveAnalysis.ready('leftover')){autoStatus('Počkejte na výsledek nebo pořiďte nový snímek zbytků.');return;}
+ if(target!==step)captureGate?.reset();
  if(isLiveAnalysis())liveAnalysis.navigate(target);
  if(!automatic){if(target===1)resetAuto();else pauseAuto();}
  const outgoing=step<=4&&target===5?$(".camera-box")?.cloneNode(true):null;
@@ -118,44 +119,55 @@ Promise.all(['config.json','data/month.json'].map(async path=>{const r=await fet
 
 // Presence uses local image changes. Live food analysis and scale OCR run only on capture.
 let outlineDetector=null,liveBounds=null,frozenBounds=null;
+let captureGate=null;
+const settleCanvas=document.createElement('canvas');settleCanvas.width=256;settleCanvas.height=192;
+const settleContext=settleCanvas.getContext('2d',{willReadFrequently:true});
 let detector=null,autoEnabled=false,firstCapturedAt=0,lastSampleAt=0,lastFrameKey=null,referenceRemoved=false;
 const detectorCanvas=document.createElement('canvas');detectorCanvas.width=64;detectorCanvas.height=48;
 const detectorContext=detectorCanvas.getContext('2d',{willReadFrequently:true});
 const remoteFrame=document.createElement('canvas');let remoteAt=0,remoteSerial=0,remoteWasFresh=false,remoteServerId=null;
 const remoteFresh=()=>remoteAt>0&&performance.now()-remoteAt<5000;
-function initAuto(){detector=new PlatePresence(config.detection||{});outlineDetector=new PlatePresence(config.detection||{});autoEnabled=config.detection?.enabled!==false;setInterval(samplePresence,100);updateAutoButton();}
+function initAuto(){captureGate=new CaptureSettle();detector=new PlatePresence(config.detection||{});outlineDetector=new PlatePresence(config.detection||{});autoEnabled=config.detection?.enabled!==false;setInterval(samplePresence,100);updateAutoButton();}
 function updateAutoButton(){$('#auto-button').textContent=autoEnabled?'Auto ●':'Ručně';$('#auto-button').classList.toggle('active',autoEnabled);}
 function resetAuto(calibrate=false){
+ captureGate?.reset();
  if(isLiveAnalysis())liveAnalysis.reset();
  if(calibrate){detector?.reset();outlineDetector?.reset();}else{detector?.pause();outlineDetector?.pause();}
  liveBounds=null;frozenBounds=null;autoEnabled=config.detection?.enabled!==false;lastSampleAt=0;lastFrameKey=null;firstCapturedAt=0;referenceRemoved=false;updateAutoButton();
 }
-function pauseAuto(){autoEnabled=false;updateAutoButton();}
+function pauseAuto(){captureGate?.reset();autoEnabled=false;updateAutoButton();}
 function toggleAuto(){if(config?.camera?.source==='none')return;if(autoEnabled)pauseAuto();else{resetAuto();autoEnabled=true;updateAutoButton();go(1,true);}}
 function autoStatus(text){const el=$('#auto-status');if(el)el.textContent=text;}
+function waitForPlacement(source,width,height,now,result){
+ const present=result.state==='present'&&result.coverage>=detector.options.presenceCoverage;
+ settleContext.drawImage(source,0,0,width,height,0,0,256,192);
+ const stable=captureGate.sample(settleContext.getImageData(0,0,256,192).data,256,192,now,present);
+ autoStatus(!present?'Položte talíř na váhu a dejte ruce pryč':stable.moving?'Ještě pohyb · čekám na ustálení talíře a displeje':`Talíř položte, ruce pryč · fotím za ${Math.max(1,Math.ceil(stable.remainingMs/1000))} s klidu`);
+ return stable.ready;
+}
 function samplePresence(){
  if(!config||step>4)return;
  if(!useCamera){autoStatus('Statická fotografie · C zapne kameru');return;}
  let source,key,width,height;
  if(config.camera.source==='mobile'){
-  if(!remoteFresh()){autoStatus('Připojte mobil · tlačítko Mobil dole');liveBounds=null;paintOutline();if(remoteWasFresh){detector.pause();outlineDetector.pause();remoteWasFresh=false;}return;}
+  if(!remoteFresh()){captureGate?.reset();autoStatus('Připojte mobil · tlačítko Mobil dole');liveBounds=null;paintOutline();if(remoteWasFresh){detector.pause();outlineDetector.pause();remoteWasFresh=false;}return;}
   source=remoteFrame;key=remoteSerial;width=source.width;height=source.height;remoteWasFresh=true;
- }else{source=$('video');if(!source||source.readyState<2||!stream?.getVideoTracks().some(t=>t.readyState==='live')){autoStatus('Čekám na kameru · povolte přístup nebo použijte šipky');return;}key=source.currentTime;width=source.videoWidth;height=source.videoHeight;}
+ }else{source=$('video');if(!source||source.readyState<2||!stream?.getVideoTracks().some(t=>t.readyState==='live')){captureGate?.reset();autoStatus('Čekám na kameru · povolte přístup nebo použijte šipky');return;}key=source.currentTime;width=source.videoWidth;height=source.videoHeight;}
  if(key===lastFrameKey)return;
- const now=performance.now();if(lastSampleAt&&now-lastSampleAt>1600){detector.pause();outlineDetector.pause();}lastSampleAt=now;lastFrameKey=key;
+ const now=performance.now();if(lastSampleAt&&now-lastSampleAt>1600){captureGate?.reset();detector.pause();outlineDetector.pause();}lastSampleAt=now;lastFrameKey=key;
  liveBounds=measureOutline(source);paintOutline();
  if(!autoEnabled){autoStatus('Ruční režim · A zapne automatické snímání');return;}
  detectorContext.drawImage(source,0,0,width,height,0,0,64,48);
  const result=detector.sample(detectorContext.getImageData(0,0,64,48).data,64,48,now);
  if(result.state==='calibrating'){autoStatus(`Nechte místo prázdné · kalibrace ${Math.round(result.calibrationProgress*100)} %`);return;}
- if(step===1){autoStatus(result.state==='present'?'Odeberte a vraťte talíř · nebo zvolte Vyfotit teď':detector.arrivalSince!==null?'Talíř v záběru · čekám na ustálení…':'Připraveno · vložte talíř, nebo zvolte Vyfotit teď');if(result.event==='arrived'){firstCapturedAt=now;go(2,true);}}
+ if(step===1){if(waitForPlacement(source,width,height,now,result)){firstCapturedAt=now;go(2,true);}}
  else if(step===2){
   if(result.state==='empty')referenceRemoved=true;
   const state=isLiveAnalysis()?liveAnalysis.states.reference:null,ready=!isLiveAnalysis()||liveAnalysis.ready('reference');
   autoStatus(!ready?(state?.status==='pending'?'Analyzuji zachycený talíř…':state?.status==='done'?liveAnalysis.problem('reference'):'Analýzu zopakujte tlačítkem Nový snímek'):referenceRemoved?'Reference uložená · připravuji další talíř':'Vzor uložen · odeberte talíř z obrazu');
   if(ready&&now-firstCapturedAt>=1500&&referenceRemoved){go(3,true);}
  }
- else if(step===3&&!captured){autoStatus('Připraveno · vložte druhý talíř se zbytky');if(result.event==='arrived'||(referenceRemoved&&result.state==='present'&&result.coverage>=detector.options.presenceCoverage&&result.motion<=detector.options.maxMotion)){next(true);if(!isLiveAnalysis())later(()=>{if(autoEnabled)go(4,true);},2600);}}
+ else if(step===3&&!captured){if(waitForPlacement(source,width,height,now,result)){next(true);if(!isLiveAnalysis())later(()=>{if(autoEnabled)go(4,true);},2600);}}
  else if(step===3){const state=isLiveAnalysis()?liveAnalysis.states.leftover:null;autoStatus(state?.status==='done'||state?.status==='error'?'Upravte záběr váhy a zvolte Nový snímek':'Zpracovávám druhý talíř…');}
  else if(step===4)autoStatus('Hotovo · → denní přehled · R nové měření');
 }
