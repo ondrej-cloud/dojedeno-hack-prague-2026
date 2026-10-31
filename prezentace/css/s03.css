@@ -1,24 +1,44 @@
-/* 03 · přesně vymezený graf a dvě rozdílné cesty měření. */
-#s-zdroje h1 {font-size:70px}
-#s-zdroje .pruh-blok {margin-top:28px}
-#s-zdroje .meritko {font-size:26px;color:var(--text2);margin-bottom:20px}
-#s-zdroje .pruh {display:flex;gap:6px;height:144px}
-#s-zdroje .seg {display:flex;align-items:center;padding-left:32px;border-radius:18px;color:#fff;font-weight:800;font-size:72px;letter-spacing:-.03em;font-variant-numeric:tabular-nums;transform-origin:left center}
-#s-zdroje .talire {background:var(--oranz2)}
-#s-zdroje .nevydane {background:var(--oranz)}
-#s-zdroje .priprava {background:var(--seda);font-size:44px;padding-left:0;justify-content:center}
-#s-zdroje .legenda {display:flex;gap:6px;margin-top:16px}
-#s-zdroje .legenda p {padding-left:32px;font-size:28px;font-weight:600;color:var(--text2);white-space:nowrap}
-#s-zdroje .legenda .l-priprava {padding-left:0;text-align:center}
-#s-zdroje .karty {display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:42px}
-#s-zdroje .karta {padding:32px 40px;min-height:266px}
-#s-zdroje .karta-talire {box-shadow:var(--stin),inset 0 0 0 3px var(--zelena)}
-#s-zdroje .oblast {font-size:23px;font-weight:700;color:var(--zelena);margin-bottom:20px}
-#s-zdroje .karta h2 {font-size:40px}
-#s-zdroje .pod {margin-top:20px;font-size:30px;line-height:1.4;color:var(--text2)}
-#s-zdroje .jmenovatel {position:absolute;left:80px;right:80px;bottom:112px;font-size:25px;color:var(--text2)}
-#s-zdroje.kresli .seg {animation:s03-roste 700ms var(--ven) both}
-#s-zdroje.kresli .nevydane {animation-delay:100ms}
-#s-zdroje.kresli .priprava {animation-delay:200ms}
-@keyframes s03-roste {from {transform:scaleX(0)}to {transform:none}}
-#s-zdroje .zdroj a {color:inherit;text-decoration-color:var(--linka2);text-underline-offset:3px}
+/* 03 · dva zdroje. Pruh 100 % na 272 (výška 150), legenda pod ním; karty od 560 zarovnané na úseky pruhu (43 | 57).
+   Krok 1: zvýrazněné 43 %, krok 2: zvýrazněné 48 %, ostatní úseky zhasnou na 25 %. */
+
+#s-zdroje .pruh-blok { margin-top: var(--mezera); }
+#s-zdroje .pruh { display: flex; gap: 6px; height: 150px; }
+#s-zdroje .seg {
+  display: flex; align-items: center; padding-left: 32px; border-radius: 18px; color: #fff;
+  font-weight: 800; font-size: 72px; letter-spacing: -0.03em; font-variant-numeric: tabular-nums;
+  transform-origin: left center; transition: opacity 500ms var(--ven), filter 500ms var(--ven);
+}
+#s-zdroje .seg.nevydane { background: var(--oranz); }
+#s-zdroje .seg.talire { background: var(--oranz2); }
+#s-zdroje .seg.priprava { background: var(--seda); font-size: 44px; padding-left: 0; justify-content: center; }
+#s-zdroje.kresli .seg { animation: s03-roste 900ms var(--ven) both; }
+#s-zdroje.kresli .seg.talire { animation-delay: 160ms; }
+#s-zdroje.kresli .seg.priprava { animation-delay: 320ms; }
+#s-zdroje.kresli .seg span { animation: s03-text 500ms var(--ven) 700ms both; }
+@keyframes s03-roste { from { transform: scaleX(0); } to { transform: none; } }
+@keyframes s03-text { from { opacity: 0; } to { opacity: 1; } }
+
+#s-zdroje .legenda { display: flex; gap: 6px; margin-top: 16px; }
+#s-zdroje .legenda p { padding-left: 32px; font-size: 28px; font-weight: 600; color: var(--text2); transition: opacity 500ms var(--ven); white-space: nowrap; }
+#s-zdroje .legenda .l-priprava { padding-left: 0; text-align: center; }
+
+#s-zdroje[data-k="1"] .seg:not(.nevydane), #s-zdroje[data-k="1"] .legenda p:not(.l-nevydane) { opacity: 0.25; }
+#s-zdroje[data-k="2"] .seg:not(.talire), #s-zdroje[data-k="2"] .legenda p:not(.l-talire) { opacity: 0.25; }
+
+/* karty: levá pod 43 %, pravá pod 48 % + 9 % */
+#s-zdroje .karty { display: grid; grid-template-columns: 43fr 57fr; gap: 6px 32px; margin-top: 48px; }
+#s-zdroje .karta { min-height: 330px; padding: 34px 40px; }
+#s-zdroje .karta-1 { display: flex; flex-direction: column; gap: 18px; }
+#s-zdroje .karta-1 .ikona { width: 76px; height: 76px; }
+#s-zdroje .karta h2 { font-size: 46px; }
+#s-zdroje .pod { margin-top: 12px; font-size: 30px; line-height: 1.4; color: var(--text2); }
+#s-zdroje .pod b { color: var(--text); }
+#s-zdroje .pod b.oranz { color: var(--oranz); }
+#s-zdroje .pod.mensi { font-size: 27px; }
+#s-zdroje[data-k="2"] .karta-1.je { opacity: 0.4; }
+
+#s-zdroje .karta-2 { display: grid; grid-template-columns: 250px 1fr; gap: 40px; align-items: center; }
+#s-zdroje .talir { width: 250px; height: 250px; display: block; }
+#s-zdroje .kolac { stroke: var(--oranz2); stroke-dasharray: 0 188.5; transition: stroke-dasharray 1100ms var(--ven) 250ms; }
+#s-zdroje .karta-2.je .kolac { stroke-dasharray: 88.6 188.5; }   /* 47 % z obvodu 2π · 30 */
+#s-zdroje.hned .kolac { transition: none; }
