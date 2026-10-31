@@ -1,0 +1,4 @@
+[build]
+  base = "."
+  command = "python3 prezentace/build.py && python3 tools/export_netlify.py"
+  publish = "netlify-drop"
