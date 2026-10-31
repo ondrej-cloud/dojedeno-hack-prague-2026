@@ -6,11 +6,8 @@
     "Kuřecí rizoto se zeleninou",
     "Hovězí vývar s nudlemi"
   ],
-  "pricePerKg": 37,
-  "co2Factor": 2.5,
+  "pricePerKg": 92.5,
   "finishedThresholdGrams": 10,
-  "schoolDaysPerYear": 190,
-  "pilotReduction": 0.2,
   "camera": {
     "labelContains": "iPhone",
     "source": "mobile"
@@ -42,22 +39,22 @@
   },
   "day": {
     "plates": 412,
-    "plateKg": 41,
-    "unservedKg": 37,
-    "prepKg": 7,
+    "plateKg": 34,
+    "unservedKg": 30,
+    "prepKg": 6,
     "finishedPercent": 38,
     "dishes": [
       {
         "name": "Segedínský guláš s knedlíkem",
-        "kg": 46
+        "kg": 38
       },
       {
         "name": "Kuřecí rizoto se zeleninou",
-        "kg": 29
+        "kg": 24
       },
       {
         "name": "Hovězí vývar s nudlemi",
-        "kg": 10
+        "kg": 8
       }
     ]
   },
@@ -94,5 +91,8 @@
     "mode": "claude",
     "quantityMode": "relative",
     "weightSource": "scale_display"
-  }
+  },
+  "annualPlateCost": 600000,
+  "exampleReduction": 0.1,
+  "referencePortionKg": 0.4
 }

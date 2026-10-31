@@ -2,30 +2,25 @@
   "synthetic": true,
   "seed": 2026,
   "assumptions": {
-    "riceReductionFraction": 0.9210526315789473,
-    "recipeReduction": 0.25,
-    "sideReduction": 0.2,
-    "soupReduction": 0.3,
-    "donationFraction": 0.25,
-    "competitionReduction": 0.1
+    "riceReductionFraction": 0.9210526315789473
   },
   "days": [
     {
       "day": 1,
-      "lunches": 461,
-      "plateKg": 34.7736,
-      "unservedKg": 31.15135,
-      "prepKg": 6.52005,
+      "lunches": 452,
+      "plateKg": 32.91024,
+      "unservedKg": 29.48209,
+      "prepKg": 6.17067,
       "dishes": [
         {
           "id": "main-2",
           "name": "Kuřecí rizoto se zeleninou",
           "type": "main",
           "portionKg": 0.4,
-          "servings": 231,
-          "servedPortionKg": 0.2048263998296785,
-          "plateKg": 15.140767475409836,
-          "servedKg": 47.31489836065574,
+          "servings": 226,
+          "servedPortionKg": 0.19813941099666332,
+          "plateKg": 14.32944220327869,
+          "servedKg": 44.77950688524591,
           "unservedKg": 15.200000000000001
         },
         {
@@ -33,109 +28,109 @@
           "name": "Rajská omáčka s těstovinami",
           "type": "main",
           "portionKg": 0.4,
-          "servings": 230,
-          "servedPortionKg": 0.20571694939415539,
-          "plateKg": 13.721320524590164,
-          "servedKg": 47.31489836065574,
-          "unservedKg": 12.836215000000001
+          "servings": 226,
+          "servedPortionKg": 0.19813941099666327,
+          "plateKg": 12.986056996721311,
+          "servedKg": 44.7795068852459,
+          "unservedKg": 11.333881
         },
         {
           "id": "soup-0",
           "name": "Hovězí vývar s nudlemi",
           "type": "soup",
           "portionKg": 0.2,
-          "plateKg": 4.520568000000001,
-          "servedKg": 25.114266666666673,
-          "unservedKg": 3.1151350000000004
+          "plateKg": 4.2783312,
+          "servedKg": 23.768506666666667,
+          "unservedKg": 2.9482090000000003
         },
         {
           "id": "side",
           "name": "Salát / dezert",
           "type": "side",
-          "plateKg": 1.3909440000000002,
-          "servedKg": 9.272960000000001,
+          "plateKg": 1.3164096,
+          "servedKg": 8.776064000000002,
           "unservedKg": 0
         }
       ],
       "components": {
-        "Příloha": 15.300384000000001,
-        "Maso": 6.954720000000001,
-        "Omáčka": 6.606984000000001,
-        "Polévka": 4.520568000000001,
-        "Dezert / salát": 1.3909440000000002
+        "Příloha": 14.4805056,
+        "Maso": 6.582048,
+        "Omáčka": 6.2529456,
+        "Polévka": 4.2783312,
+        "Dezert / salát": 1.3164096
       }
     },
     {
       "day": 2,
-      "lunches": 450,
-      "plateKg": 40.33584,
-      "unservedKg": 36.13419,
-      "prepKg": 7.56297,
+      "lunches": 454,
+      "plateKg": 27.8208,
+      "unservedKg": 24.9228,
+      "prepKg": 5.2164,
       "dishes": [
         {
           "id": "main-1",
           "name": "Čočka na kyselo s vejcem",
           "type": "main",
           "portionKg": 0.4,
-          "servings": 225,
-          "servedPortionKg": 0.22891451076923072,
-          "plateKg": 22.14747891692307,
-          "servedKg": 51.50576492307691,
-          "unservedKg": 16.260385499999998
+          "servings": 227,
+          "servedPortionKg": 0.16407037089668894,
+          "plateKg": 14.897589677419356,
+          "servedKg": 37.24397419354839,
+          "unservedKg": 11.215259999999999
         },
         {
           "id": "main-6",
           "name": "Kuře na paprice s rýží",
           "type": "main",
           "portionKg": 0.4,
-          "servings": 225,
-          "servedPortionKg": 0.22891451076923075,
-          "plateKg": 11.331268283076922,
-          "servedKg": 51.50576492307692,
-          "unservedKg": 16.260385499999998
+          "servings": 227,
+          "servedPortionKg": 0.16407037089668888,
+          "plateKg": 8.193674322580643,
+          "servedKg": 37.243974193548375,
+          "unservedKg": 11.215259999999999
         },
         {
           "id": "soup-1",
           "name": "Čočková",
           "type": "soup",
           "portionKg": 0.2,
-          "plateKg": 5.2436592,
-          "servedKg": 9.533925818181817,
-          "unservedKg": 3.613419
+          "plateKg": 3.616704,
+          "servedKg": 6.575825454545454,
+          "unservedKg": 2.49228
         },
         {
           "id": "side",
           "name": "Salát / dezert",
           "type": "side",
-          "plateKg": 1.6134336,
-          "servedKg": 10.756224000000001,
+          "plateKg": 1.112832,
+          "servedKg": 7.418880000000001,
           "unservedKg": 0
         }
       ],
       "components": {
-        "Příloha": 17.747769599999998,
-        "Maso": 8.067168,
-        "Omáčka": 7.6638095999999996,
-        "Polévka": 5.2436592,
-        "Dezert / salát": 1.6134336
+        "Příloha": 12.241152,
+        "Maso": 5.56416,
+        "Omáčka": 5.285952,
+        "Polévka": 3.616704,
+        "Dezert / salát": 1.112832
       }
     },
     {
       "day": 3,
-      "lunches": 443,
-      "plateKg": 40.47072,
-      "unservedKg": 36.25502,
-      "prepKg": 7.58826,
+      "lunches": 462,
+      "plateKg": 35.10048,
+      "unservedKg": 31.44418,
+      "prepKg": 6.58134,
       "dishes": [
         {
           "id": "main-2",
           "name": "Kuřecí rizoto se zeleninou",
           "type": "main",
           "portionKg": 0.4,
-          "servings": 221,
-          "servedPortionKg": 0.21407620674271874,
-          "plateKg": 15.13946934084507,
-          "servedKg": 47.31084169014084,
+          "servings": 231,
+          "servedPortionKg": 0.17763184196085605,
+          "plateKg": 13.130545757746479,
+          "servedKg": 41.03295549295775,
           "unservedKg": 15.200000000000001
         },
         {
@@ -143,109 +138,109 @@
           "name": "Rybí filé s bramborovou kaší",
           "type": "main",
           "portionKg": 0.4,
-          "servings": 222,
-          "servedPortionKg": 0.21311189950513892,
-          "plateKg": 18.451228259154927,
-          "servedKg": 47.31084169014084,
-          "unservedKg": 17.429518
+          "servings": 231,
+          "servedPortionKg": 0.17763184196085602,
+          "plateKg": 16.00285264225352,
+          "servedKg": 41.03295549295774,
+          "unservedKg": 13.099762
         },
         {
           "id": "soup-2",
           "name": "Kulajda",
           "type": "soup",
           "portionKg": 0.2,
-          "plateKg": 5.2611936,
-          "servedKg": 9.565806545454546,
-          "unservedKg": 3.6255020000000004
+          "plateKg": 4.5630624,
+          "servedKg": 8.29647709090909,
+          "unservedKg": 3.144418
         },
         {
           "id": "side",
           "name": "Salát / dezert",
           "type": "side",
-          "plateKg": 1.6188288,
-          "servedKg": 10.792192,
+          "plateKg": 1.4040192,
+          "servedKg": 9.360128000000001,
           "unservedKg": 0
         }
       ],
       "components": {
-        "Příloha": 17.8071168,
-        "Maso": 8.094144,
-        "Omáčka": 7.6894368,
-        "Polévka": 5.2611936,
-        "Dezert / salát": 1.6188288
+        "Příloha": 15.4442112,
+        "Maso": 7.020096,
+        "Omáčka": 6.6690911999999996,
+        "Polévka": 4.5630624,
+        "Dezert / salát": 1.4040192
       }
     },
     {
       "day": 4,
-      "lunches": 455,
-      "plateKg": 45.52176,
-      "unservedKg": 40.77991,
-      "prepKg": 8.53533,
+      "lunches": 470,
+      "plateKg": 36.9768,
+      "unservedKg": 33.12505,
+      "prepKg": 6.93315,
       "dishes": [
         {
           "id": "main-3",
           "name": "Svíčková na smetaně s knedlíkem",
           "type": "main",
           "portionKg": 0.4,
-          "servings": 228,
-          "servedPortionKg": 0.4142879473684211,
-          "plateKg": 22.66983648,
-          "servedKg": 94.45765200000001,
-          "unservedKg": 18.350959500000002
+          "servings": 235,
+          "servedPortionKg": 0.3264972765957446,
+          "plateKg": 18.414446399999996,
+          "servedKg": 76.72685999999999,
+          "unservedKg": 14.906272500000002
         },
         {
           "id": "main-8",
           "name": "Špagety s boloňskou omáčkou",
           "type": "main",
           "portionKg": 0.4,
-          "servings": 227,
-          "servedPortionKg": 0.4161130044052863,
-          "plateKg": 15.11322432,
-          "servedKg": 94.457652,
-          "unservedKg": 18.350959500000002
+          "servings": 235,
+          "servedPortionKg": 0.3264972765957447,
+          "plateKg": 12.2762976,
+          "servedKg": 76.72686,
+          "unservedKg": 14.906272500000002
         },
         {
           "id": "soup-3",
           "name": "Bramboračka",
           "type": "soup",
           "portionKg": 0.2,
-          "plateKg": 5.9178288000000006,
-          "servedKg": 32.87682666666667,
-          "unservedKg": 4.077991
+          "plateKg": 4.806984,
+          "servedKg": 26.705466666666666,
+          "unservedKg": 3.3125050000000003
         },
         {
           "id": "side",
           "name": "Salát / dezert",
           "type": "side",
-          "plateKg": 1.8208704,
-          "servedKg": 12.139136,
+          "plateKg": 1.479072,
+          "servedKg": 9.86048,
           "unservedKg": 0
         }
       ],
       "components": {
-        "Příloha": 20.0295744,
-        "Maso": 9.104352,
-        "Omáčka": 8.6491344,
-        "Polévka": 5.9178288000000006,
-        "Dezert / salát": 1.8208704
+        "Příloha": 16.269792,
+        "Maso": 7.39536,
+        "Omáčka": 7.025592,
+        "Polévka": 4.806984,
+        "Dezert / salát": 1.479072
       }
     },
     {
       "day": 5,
-      "lunches": 446,
-      "plateKg": 34.53456,
-      "unservedKg": 30.93721,
-      "prepKg": 6.47523,
+      "lunches": 434,
+      "plateKg": 32.09952,
+      "unservedKg": 28.75582,
+      "prepKg": 6.01866,
       "dishes": [
         {
           "id": "main-2",
           "name": "Kuřecí rizoto se zeleninou",
           "type": "main",
           "portionKg": 0.4,
-          "servings": 223,
-          "servedPortionKg": 0.3135041539975937,
-          "plateKg": 22.37165642926829,
-          "servedKg": 69.9114263414634,
+          "servings": 217,
+          "servedPortionKg": 0.2994560143868719,
+          "plateKg": 20.794225639024386,
+          "servedKg": 64.9819551219512,
           "unservedKg": 15.200000000000001
         },
         {
@@ -253,494 +248,549 @@
           "name": "Smažený sýr s bramborem",
           "type": "main",
           "portionKg": 0.4,
-          "servings": 223,
-          "servedPortionKg": 0.3135041539975939,
-          "plateKg": 6.2920283707317095,
-          "servedKg": 69.91142634146344,
-          "unservedKg": 12.643489
+          "servings": 217,
+          "servedPortionKg": 0.2994560143868721,
+          "plateKg": 5.848375960975612,
+          "servedKg": 64.98195512195124,
+          "unservedKg": 10.680238000000001
         },
         {
           "id": "soup-4",
           "name": "Zeleninová",
           "type": "soup",
           "portionKg": 0.2,
-          "plateKg": 4.4894928,
-          "servedKg": 24.941626666666668,
-          "unservedKg": 3.0937210000000004
+          "plateKg": 4.1729376,
+          "servedKg": 23.182986666666668,
+          "unservedKg": 2.875582
         },
         {
           "id": "side",
           "name": "Salát / dezert",
           "type": "side",
-          "plateKg": 1.3813824,
-          "servedKg": 9.209216,
+          "plateKg": 1.2839808,
+          "servedKg": 8.559872,
           "unservedKg": 0
         }
       ],
       "components": {
-        "Příloha": 15.1952064,
-        "Maso": 6.906912,
-        "Omáčka": 6.5615664,
-        "Polévka": 4.4894928,
-        "Dezert / salát": 1.3813824
+        "Příloha": 14.1237888,
+        "Maso": 6.419904,
+        "Omáčka": 6.098908799999999,
+        "Polévka": 4.1729376,
+        "Dezert / salát": 1.2839808
       }
     },
     {
       "day": 6,
-      "lunches": 452,
-      "plateKg": 36.28464,
-      "unservedKg": 32.50499,
-      "prepKg": 6.80337,
-      "dishes": [
-        {
-          "id": "main-5",
-          "name": "Rajská omáčka s těstovinami",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 226,
-          "servedPortionKg": 0.2835271248352476,
-          "plateKg": 18.582367761702127,
-          "servedKg": 64.07713021276597,
-          "unservedKg": 14.6272455
-        },
-        {
-          "id": "main-10",
-          "name": "Buchtičky se šodó",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 226,
-          "servedPortionKg": 0.2835271248352476,
-          "plateKg": 11.533883438297872,
-          "servedKg": 64.07713021276597,
-          "unservedKg": 14.6272455
-        },
-        {
-          "id": "soup-5",
-          "name": "Rajská",
-          "type": "soup",
-          "portionKg": 0.2,
-          "plateKg": 4.717003200000001,
-          "servedKg": 26.205573333333337,
-          "unservedKg": 3.250499
-        },
-        {
-          "id": "side",
-          "name": "Salát / dezert",
-          "type": "side",
-          "plateKg": 1.4513856,
-          "servedKg": 9.675904000000001,
-          "unservedKg": 0
-        }
-      ],
-      "components": {
-        "Příloha": 15.9652416,
-        "Maso": 7.256928000000001,
-        "Omáčka": 6.894081600000001,
-        "Polévka": 4.717003200000001,
-        "Dezert / salát": 1.4513856
-      }
-    },
-    {
-      "day": 7,
-      "lunches": 452,
-      "plateKg": 41.7648,
-      "unservedKg": 37.4143,
-      "prepKg": 7.8309,
-      "dishes": [
-        {
-          "id": "main-6",
-          "name": "Kuře na paprice s rýží",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 226,
-          "servedPortionKg": 0.1848,
-          "plateKg": 9.188256,
-          "servedKg": 41.7648,
-          "unservedKg": 16.836434999999998
-        },
-        {
-          "id": "main-0",
-          "name": "Koprová omáčka s vejcem a bramborem",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 226,
-          "servedPortionKg": 0.1848,
-          "plateKg": 25.476528,
-          "servedKg": 41.7648,
-          "unservedKg": 16.836434999999998
-        },
-        {
-          "id": "soup-0",
-          "name": "Hovězí vývar s nudlemi",
-          "type": "soup",
-          "portionKg": 0.2,
-          "plateKg": 5.429424,
-          "servedKg": 30.163466666666668,
-          "unservedKg": 3.74143
-        },
-        {
-          "id": "side",
-          "name": "Salát / dezert",
-          "type": "side",
-          "plateKg": 1.670592,
-          "servedKg": 11.13728,
-          "unservedKg": 0
-        }
-      ],
-      "components": {
-        "Příloha": 18.376512,
-        "Maso": 8.352960000000001,
-        "Omáčka": 7.935312000000001,
-        "Polévka": 5.429424,
-        "Dezert / salát": 1.670592
-      }
-    },
-    {
-      "day": 8,
-      "lunches": 454,
-      "plateKg": 41.11968,
-      "unservedKg": 36.83638,
-      "prepKg": 7.70994,
-      "dishes": [
-        {
-          "id": "main-7",
-          "name": "Rybí filé s bramborovou kaší",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 227,
-          "servedPortionKg": 0.1833530374986569,
-          "plateKg": 16.232244409756095,
-          "servedKg": 41.621139512195114,
-          "unservedKg": 16.576370999999998
-        },
-        {
-          "id": "main-1",
-          "name": "Čočka na kyselo s vejcem",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 227,
-          "servedPortionKg": 0.18335303749865692,
-          "plateKg": 17.897089990243902,
-          "servedKg": 41.62113951219512,
-          "unservedKg": 16.576370999999998
-        },
-        {
-          "id": "soup-1",
-          "name": "Čočková",
-          "type": "soup",
-          "portionKg": 0.2,
-          "plateKg": 5.345558400000001,
-          "servedKg": 9.719197090909091,
-          "unservedKg": 3.683638
-        },
-        {
-          "id": "side",
-          "name": "Salát / dezert",
-          "type": "side",
-          "plateKg": 1.6447872000000001,
-          "servedKg": 10.965248,
-          "unservedKg": 0
-        }
-      ],
-      "components": {
-        "Příloha": 18.0926592,
-        "Maso": 8.223936,
-        "Omáčka": 7.8127392,
-        "Polévka": 5.345558400000001,
-        "Dezert / salát": 1.6447872000000001
-      }
-    },
-    {
-      "day": 9,
-      "lunches": 462,
-      "plateKg": 44.41008,
-      "unservedKg": 39.78403,
-      "prepKg": 8.32689,
-      "dishes": [
-        {
-          "id": "main-2",
-          "name": "Kuřecí rizoto se zeleninou",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 231,
-          "servedPortionKg": 0.284944081632653,
-          "plateKg": 21.063066514285712,
-          "servedKg": 65.82208285714285,
-          "unservedKg": 15.200000000000001
-        },
-        {
-          "id": "main-3",
-          "name": "Svíčková na smetaně s knedlíkem",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 231,
-          "servedPortionKg": 0.28494408163265306,
-          "plateKg": 15.797299885714285,
-          "servedKg": 65.82208285714286,
-          "unservedKg": 20.605627
-        },
-        {
-          "id": "soup-2",
-          "name": "Kulajda",
-          "type": "soup",
-          "portionKg": 0.2,
-          "plateKg": 5.773310400000001,
-          "servedKg": 10.496928,
-          "unservedKg": 3.978403
-        },
-        {
-          "id": "side",
-          "name": "Salát / dezert",
-          "type": "side",
-          "plateKg": 1.7764032,
-          "servedKg": 11.842688,
-          "unservedKg": 0
-        }
-      ],
-      "components": {
-        "Příloha": 19.5404352,
-        "Maso": 8.882016,
-        "Omáčka": 8.4379152,
-        "Polévka": 5.773310400000001,
-        "Dezert / salát": 1.7764032
-      }
-    },
-    {
-      "day": 10,
-      "lunches": 470,
-      "plateKg": 40.99296,
-      "unservedKg": 36.72286,
-      "prepKg": 7.68618,
-      "dishes": [
-        {
-          "id": "main-9",
-          "name": "Smažený sýr s bramborem",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 235,
-          "servedPortionKg": 0.43873832108317207,
-          "plateKg": 9.27931549090909,
-          "servedKg": 103.10350545454544,
-          "unservedKg": 16.525287
-        },
-        {
-          "id": "main-3",
-          "name": "Svíčková na smetaně s knedlíkem",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 235,
-          "servedPortionKg": 0.43873832108317207,
-          "plateKg": 24.744841309090905,
-          "servedKg": 103.10350545454544,
-          "unservedKg": 16.525287
-        },
-        {
-          "id": "soup-3",
-          "name": "Bramboračka",
-          "type": "soup",
-          "portionKg": 0.2,
-          "plateKg": 5.3290847999999995,
-          "servedKg": 29.606026666666665,
-          "unservedKg": 3.6722859999999997
-        },
-        {
-          "id": "side",
-          "name": "Salát / dezert",
-          "type": "side",
-          "plateKg": 1.6397183999999998,
-          "servedKg": 10.931455999999999,
-          "unservedKg": 0
-        }
-      ],
-      "components": {
-        "Příloha": 18.0369024,
-        "Maso": 8.198592,
-        "Omáčka": 7.7886624,
-        "Polévka": 5.3290847999999995,
-        "Dezert / salát": 1.6397183999999998
-      }
-    },
-    {
-      "day": 11,
-      "lunches": 434,
-      "plateKg": 43.644,
-      "unservedKg": 39.09775,
-      "prepKg": 8.18325,
-      "dishes": [
-        {
-          "id": "main-10",
-          "name": "Buchtičky se šodó",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 217,
-          "servedPortionKg": 0.3709628264208909,
-          "plateKg": 14.489807999999998,
-          "servedKg": 80.49893333333333,
-          "unservedKg": 17.5939875
-        },
-        {
-          "id": "main-4",
-          "name": "Segedínský guláš s knedlíkem",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 217,
-          "servedPortionKg": 0.37096282642089096,
-          "plateKg": 21.734712000000002,
-          "servedKg": 80.49893333333334,
-          "unservedKg": 17.5939875
-        },
-        {
-          "id": "soup-4",
-          "name": "Zeleninová",
-          "type": "soup",
-          "portionKg": 0.2,
-          "plateKg": 5.67372,
-          "servedKg": 31.52066666666667,
-          "unservedKg": 3.909775
-        },
-        {
-          "id": "side",
-          "name": "Salát / dezert",
-          "type": "side",
-          "plateKg": 1.74576,
-          "servedKg": 11.6384,
-          "unservedKg": 0
-        }
-      ],
-      "components": {
-        "Příloha": 19.20336,
-        "Maso": 8.7288,
-        "Omáčka": 8.29236,
-        "Polévka": 5.67372,
-        "Dezert / salát": 1.74576
-      }
-    },
-    {
-      "day": 12,
       "lunches": 451,
-      "plateKg": 44.1888,
-      "unservedKg": 39.5858,
-      "prepKg": 8.2854,
+      "plateKg": 30.2232,
+      "unservedKg": 27.07495,
+      "prepKg": 5.66685,
       "dishes": [
-        {
-          "id": "main-0",
-          "name": "Koprová omáčka s vejcem a bramborem",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 226,
-          "servedPortionKg": 0.1803181120943953,
-          "plateKg": 24.858654933333334,
-          "servedKg": 40.751893333333335,
-          "unservedKg": 17.81361
-        },
         {
           "id": "main-5",
           "name": "Rajská omáčka s těstovinami",
           "type": "main",
           "portionKg": 0.4,
           "servings": 225,
-          "servedPortionKg": 0.1811195259259259,
-          "plateKg": 11.818049066666665,
-          "servedKg": 40.75189333333333,
-          "unservedKg": 17.81361
+          "servedPortionKg": 0.23721282269503544,
+          "plateKg": 15.478136680851062,
+          "servedKg": 53.372885106382974,
+          "unservedKg": 12.183727500000002
+        },
+        {
+          "id": "main-10",
+          "name": "Buchtičky se šodó",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 226,
+          "servedPortionKg": 0.23616320843532293,
+          "plateKg": 9.607119319148936,
+          "servedKg": 53.37288510638298,
+          "unservedKg": 12.183727500000002
         },
         {
           "id": "soup-5",
           "name": "Rajská",
           "type": "soup",
           "portionKg": 0.2,
-          "plateKg": 5.744544,
-          "servedKg": 31.914133333333336,
-          "unservedKg": 3.95858
+          "plateKg": 3.929016,
+          "servedKg": 21.827866666666665,
+          "unservedKg": 2.707495
         },
         {
           "id": "side",
           "name": "Salát / dezert",
           "type": "side",
-          "plateKg": 1.767552,
-          "servedKg": 11.78368,
+          "plateKg": 1.208928,
+          "servedKg": 8.059520000000001,
           "unservedKg": 0
         }
       ],
       "components": {
-        "Příloha": 19.443072,
-        "Maso": 8.837760000000001,
-        "Omáčka": 8.395872,
-        "Polévka": 5.744544,
-        "Dezert / salát": 1.767552
+        "Příloha": 13.298207999999999,
+        "Maso": 6.04464,
+        "Omáčka": 5.742408,
+        "Polévka": 3.929016,
+        "Dezert / salát": 1.208928
       }
     },
     {
-      "day": 13,
+      "day": 7,
       "lunches": 435,
-      "plateKg": 43.94112,
-      "unservedKg": 39.36392,
-      "prepKg": 8.23896,
+      "plateKg": 37.03968,
+      "unservedKg": 33.18138,
+      "prepKg": 6.94494,
       "dishes": [
-        {
-          "id": "main-2",
-          "name": "Kuřecí rizoto se zeleninou",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 218,
-          "servedPortionKg": 0.3098125178389398,
-          "plateKg": 21.61252124444444,
-          "servedKg": 67.53912888888888,
-          "unservedKg": 15.200000000000001
-        },
         {
           "id": "main-6",
           "name": "Kuře na paprice s rýží",
           "type": "main",
           "portionKg": 0.4,
+          "servings": 218,
+          "servedPortionKg": 0.20438063023534106,
+          "plateKg": 9.802095026086956,
+          "servedKg": 44.55497739130435,
+          "unservedKg": 14.931621
+        },
+        {
+          "id": "main-11",
+          "name": "Špenát s bramborem a vejcem",
+          "type": "main",
+          "portionKg": 0.4,
           "servings": 217,
-          "servedPortionKg": 0.3112402252944188,
-          "plateKg": 14.858608355555555,
-          "servedKg": 67.53912888888888,
-          "unservedKg": 20.227528
+          "servedPortionKg": 0.2053224764576237,
+          "plateKg": 20.94083937391304,
+          "servedKg": 44.55497739130434,
+          "unservedKg": 14.931621
         },
         {
           "id": "soup-0",
           "name": "Hovězí vývar s nudlemi",
           "type": "soup",
           "portionKg": 0.2,
-          "plateKg": 5.7123456,
-          "servedKg": 31.735253333333333,
-          "unservedKg": 3.936392
+          "plateKg": 4.8151584,
+          "servedKg": 26.75088,
+          "unservedKg": 3.318138
         },
         {
           "id": "side",
           "name": "Salát / dezert",
           "type": "side",
-          "plateKg": 1.7576448,
-          "servedKg": 11.717632,
+          "plateKg": 1.4815871999999999,
+          "servedKg": 9.877248,
           "unservedKg": 0
         }
       ],
       "components": {
-        "Příloha": 19.3340928,
-        "Maso": 8.788224,
-        "Omáčka": 8.3488128,
-        "Polévka": 5.7123456,
-        "Dezert / salát": 1.7576448
+        "Příloha": 16.2974592,
+        "Maso": 7.407935999999999,
+        "Omáčka": 7.037539199999999,
+        "Polévka": 4.8151584,
+        "Dezert / salát": 1.4815871999999999
       }
     },
     {
-      "day": 14,
+      "day": 8,
       "lunches": 465,
-      "plateKg": 41.55456,
-      "unservedKg": 37.22596,
-      "prepKg": 7.79148,
+      "plateKg": 38.86416,
+      "unservedKg": 34.81581,
+      "prepKg": 7.28703,
+      "dishes": [
+        {
+          "id": "main-7",
+          "name": "Rybí filé s bramborovou kaší",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 232,
+          "servedPortionKg": 0.16956083263246421,
+          "plateKg": 15.341864136585363,
+          "servedKg": 39.338113170731695,
+          "unservedKg": 15.6671145
+        },
+        {
+          "id": "main-0",
+          "name": "Koprová omáčka s vejcem a bramborem",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 233,
+          "servedPortionKg": 0.16883310373704594,
+          "plateKg": 16.91538866341463,
+          "servedKg": 39.3381131707317,
+          "unservedKg": 15.6671145
+        },
+        {
+          "id": "soup-1",
+          "name": "Čočková",
+          "type": "soup",
+          "portionKg": 0.2,
+          "plateKg": 5.0523408,
+          "servedKg": 9.18607418181818,
+          "unservedKg": 3.4815810000000003
+        },
+        {
+          "id": "side",
+          "name": "Salát / dezert",
+          "type": "side",
+          "plateKg": 1.5545664,
+          "servedKg": 10.363776,
+          "unservedKg": 0
+        }
+      ],
+      "components": {
+        "Příloha": 17.1002304,
+        "Maso": 7.772832,
+        "Omáčka": 7.3841904,
+        "Polévka": 5.0523408,
+        "Dezert / salát": 1.5545664
+      }
+    },
+    {
+      "day": 9,
+      "lunches": 464,
+      "plateKg": 37.28112,
+      "unservedKg": 33.39767,
+      "prepKg": 6.99021,
       "dishes": [
         {
           "id": "main-2",
           "name": "Kuřecí rizoto se zeleninou",
           "type": "main",
           "portionKg": 0.4,
+          "servings": 232,
+          "servedPortionKg": 0.18524502873563217,
+          "plateKg": 13.752590933333334,
+          "servedKg": 42.97684666666667,
+          "unservedKg": 15.200000000000001
+        },
+        {
+          "id": "main-1",
+          "name": "Čočka na kyselo s vejcem",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 232,
+          "servedPortionKg": 0.18524502873563217,
+          "plateKg": 17.190738666666668,
+          "servedKg": 42.97684666666667,
+          "unservedKg": 14.857902999999999
+        },
+        {
+          "id": "soup-2",
+          "name": "Kulajda",
+          "type": "soup",
+          "portionKg": 0.2,
+          "plateKg": 4.846545600000001,
+          "servedKg": 8.81190109090909,
+          "unservedKg": 3.339767
+        },
+        {
+          "id": "side",
+          "name": "Salát / dezert",
+          "type": "side",
+          "plateKg": 1.4912448,
+          "servedKg": 9.941632,
+          "unservedKg": 0
+        }
+      ],
+      "components": {
+        "Příloha": 16.4036928,
+        "Maso": 7.456224000000001,
+        "Omáčka": 7.0834128000000005,
+        "Polévka": 4.846545600000001,
+        "Dezert / salát": 1.4912448
+      }
+    },
+    {
+      "day": 10,
+      "lunches": 448,
+      "plateKg": 28.33584,
+      "unservedKg": 25.38419,
+      "prepKg": 5.31297,
+      "dishes": [
+        {
+          "id": "main-9",
+          "name": "Smažený sýr s bramborem",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 224,
+          "servedPortionKg": 0.2560839198606272,
+          "plateKg": 5.1626518243902435,
+          "servedKg": 57.36279804878048,
+          "unservedKg": 7.645770999999998
+        },
+        {
+          "id": "main-2",
+          "name": "Kuřecí rizoto se zeleninou",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 224,
+          "servedPortionKg": 0.2560839198606272,
+          "plateKg": 18.35609537560976,
+          "servedKg": 57.36279804878049,
+          "unservedKg": 15.200000000000001
+        },
+        {
+          "id": "soup-3",
+          "name": "Bramboračka",
+          "type": "soup",
+          "portionKg": 0.2,
+          "plateKg": 3.6836592,
+          "servedKg": 20.464773333333333,
+          "unservedKg": 2.538419
+        },
+        {
+          "id": "side",
+          "name": "Salát / dezert",
+          "type": "side",
+          "plateKg": 1.1334336,
+          "servedKg": 7.556224,
+          "unservedKg": 0
+        }
+      ],
+      "components": {
+        "Příloha": 12.4677696,
+        "Maso": 5.667168,
+        "Omáčka": 5.3838096,
+        "Polévka": 3.6836592,
+        "Dezert / salát": 1.1334336
+      }
+    },
+    {
+      "day": 11,
+      "lunches": 448,
+      "plateKg": 29.56128,
+      "unservedKg": 26.48198,
+      "prepKg": 5.54274,
+      "dishes": [
+        {
+          "id": "main-10",
+          "name": "Buchtičky se šodó",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 224,
+          "servedPortionKg": 0.26079785714285714,
+          "plateKg": 10.5153696,
+          "servedKg": 58.41872,
+          "unservedKg": 11.916891
+        },
+        {
+          "id": "main-3",
+          "name": "Svíčková na smetaně s knedlíkem",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 224,
+          "servedPortionKg": 0.26079785714285714,
+          "plateKg": 14.0204928,
+          "servedKg": 58.41872,
+          "unservedKg": 11.916891
+        },
+        {
+          "id": "soup-4",
+          "name": "Zeleninová",
+          "type": "soup",
+          "portionKg": 0.2,
+          "plateKg": 3.8429664000000003,
+          "servedKg": 21.349813333333337,
+          "unservedKg": 2.6481980000000003
+        },
+        {
+          "id": "side",
+          "name": "Salát / dezert",
+          "type": "side",
+          "plateKg": 1.1824512,
+          "servedKg": 7.883008,
+          "unservedKg": 0
+        }
+      ],
+      "components": {
+        "Příloha": 13.0069632,
+        "Maso": 5.912256,
+        "Omáčka": 5.6166432,
+        "Polévka": 3.8429664000000003,
+        "Dezert / salát": 1.1824512
+      }
+    },
+    {
+      "day": 12,
+      "lunches": 459,
+      "plateKg": 30.16032,
+      "unservedKg": 27.01862,
+      "prepKg": 5.65506,
+      "dishes": [
+        {
+          "id": "main-11",
+          "name": "Špenát s bramborem a vejcem",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 229,
+          "servedPortionKg": 0.14772256343679924,
+          "plateKg": 15.899379502702699,
+          "servedKg": 33.828467027027024,
+          "unservedKg": 12.158379
+        },
+        {
+          "id": "main-4",
+          "name": "Segedínský guláš s knedlíkem",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 230,
+          "servedPortionKg": 0.14708029142185666,
+          "plateKg": 9.133686097297298,
+          "servedKg": 33.82846702702703,
+          "unservedKg": 12.158379
+        },
+        {
+          "id": "soup-5",
+          "name": "Rajská",
+          "type": "soup",
+          "portionKg": 0.2,
+          "plateKg": 3.9208416,
+          "servedKg": 21.782453333333336,
+          "unservedKg": 2.701862
+        },
+        {
+          "id": "side",
+          "name": "Salát / dezert",
+          "type": "side",
+          "plateKg": 1.2064128,
+          "servedKg": 8.042752,
+          "unservedKg": 0
+        }
+      ],
+      "components": {
+        "Příloha": 13.2705408,
+        "Maso": 6.032064,
+        "Omáčka": 5.7304607999999995,
+        "Polévka": 3.9208416,
+        "Dezert / salát": 1.2064128
+      }
+    },
+    {
+      "day": 13,
+      "lunches": 439,
+      "plateKg": 37.63872,
+      "unservedKg": 33.71802,
+      "prepKg": 7.05726,
+      "dishes": [
+        {
+          "id": "main-2",
+          "name": "Kuřecí rizoto se zeleninou",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 219,
+          "servedPortionKg": 0.2338508690770267,
+          "plateKg": 16.388268904918032,
+          "servedKg": 51.21334032786885,
+          "unservedKg": 15.200000000000001
+        },
+        {
+          "id": "main-5",
+          "name": "Rajská omáčka s těstovinami",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 220,
+          "servedPortionKg": 0.23278791058122203,
+          "plateKg": 14.851868695081965,
+          "servedKg": 51.21334032786885,
+          "unservedKg": 15.146218000000003
+        },
+        {
+          "id": "soup-0",
+          "name": "Hovězí vývar s nudlemi",
+          "type": "soup",
+          "portionKg": 0.2,
+          "plateKg": 4.8930336,
+          "servedKg": 27.18352,
+          "unservedKg": 3.3718020000000006
+        },
+        {
+          "id": "side",
+          "name": "Salát / dezert",
+          "type": "side",
+          "plateKg": 1.5055488,
+          "servedKg": 10.036992,
+          "unservedKg": 0
+        }
+      ],
+      "components": {
+        "Příloha": 16.5610368,
+        "Maso": 7.527744,
+        "Omáčka": 7.1513568,
+        "Polévka": 4.8930336,
+        "Dezert / salát": 1.5055488
+      }
+    },
+    {
+      "day": 14,
+      "lunches": 466,
+      "plateKg": 34.40064,
+      "unservedKg": 30.81724,
+      "prepKg": 6.45012,
+      "dishes": [
+        {
+          "id": "main-1",
+          "name": "Čočka na kyselo s vejcem",
+          "type": "main",
+          "portionKg": 0.4,
           "servings": 233,
-          "servedPortionKg": 0.20848869491627878,
-          "plateKg": 15.544917092957746,
-          "servedKg": 48.57786591549296,
+          "servedPortionKg": 0.19765008445244361,
+          "plateKg": 18.420987870967746,
+          "servedKg": 46.05246967741936,
+          "unservedKg": 13.867758
+        },
+        {
+          "id": "main-6",
+          "name": "Kuře na paprice s rýží",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 233,
+          "servedPortionKg": 0.19765008445244353,
+          "plateKg": 10.131543329032256,
+          "servedKg": 46.052469677419346,
+          "unservedKg": 13.867758
+        },
+        {
+          "id": "soup-1",
+          "name": "Čočková",
+          "type": "soup",
+          "portionKg": 0.2,
+          "plateKg": 4.4720832,
+          "servedKg": 8.131060363636363,
+          "unservedKg": 3.0817240000000004
+        },
+        {
+          "id": "side",
+          "name": "Salát / dezert",
+          "type": "side",
+          "plateKg": 1.3760256000000002,
+          "servedKg": 9.173504000000001,
+          "unservedKg": 0
+        }
+      ],
+      "components": {
+        "Příloha": 15.136281600000002,
+        "Maso": 6.880128000000001,
+        "Omáčka": 6.5361216,
+        "Polévka": 4.4720832,
+        "Dezert / salát": 1.3760256000000002
+      }
+    },
+    {
+      "day": 15,
+      "lunches": 449,
+      "plateKg": 34.28976,
+      "unservedKg": 30.71791,
+      "prepKg": 6.42933,
+      "dishes": [
+        {
+          "id": "main-2",
+          "name": "Kuřecí rizoto se zeleninou",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 224,
+          "servedPortionKg": 0.17895184104627765,
+          "plateKg": 12.827267966197182,
+          "servedKg": 40.085212394366195,
           "unservedKg": 15.200000000000001
         },
         {
@@ -748,209 +798,209 @@
           "name": "Rybí filé s bramborovou kaší",
           "type": "main",
           "portionKg": 0.4,
-          "servings": 232,
-          "servedPortionKg": 0.20938735308402134,
-          "plateKg": 18.94536770704225,
-          "servedKg": 48.57786591549295,
-          "unservedKg": 18.303364000000002
-        },
-        {
-          "id": "soup-1",
-          "name": "Čočková",
-          "type": "soup",
-          "portionKg": 0.2,
-          "plateKg": 5.4020928,
-          "servedKg": 9.821986909090908,
-          "unservedKg": 3.7225960000000002
-        },
-        {
-          "id": "side",
-          "name": "Salát / dezert",
-          "type": "side",
-          "plateKg": 1.6621824,
-          "servedKg": 11.081216000000001,
-          "unservedKg": 0
-        }
-      ],
-      "components": {
-        "Příloha": 18.284006400000003,
-        "Maso": 8.310912,
-        "Omáčka": 7.8953664,
-        "Polévka": 5.4020928,
-        "Dezert / salát": 1.6621824
-      }
-    },
-    {
-      "day": 15,
-      "lunches": 464,
-      "plateKg": 36.52608,
-      "unservedKg": 32.72128,
-      "prepKg": 6.84864,
-      "dishes": [
-        {
-          "id": "main-3",
-          "name": "Svíčková na smetaně s knedlíkem",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 232,
-          "servedPortionKg": 0.32668800000000003,
-          "plateKg": 18.18998784,
-          "servedKg": 75.791616,
-          "unservedKg": 14.724576
-        },
-        {
-          "id": "main-8",
-          "name": "Špagety s boloňskou omáčkou",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 232,
-          "servedPortionKg": 0.32668800000000003,
-          "plateKg": 12.126658560000001,
-          "servedKg": 75.791616,
-          "unservedKg": 14.724576
+          "servings": 225,
+          "servedPortionKg": 0.1781564995305164,
+          "plateKg": 15.633232833802815,
+          "servedKg": 40.08521239436619,
+          "unservedKg": 12.446118999999998
         },
         {
           "id": "soup-2",
           "name": "Kulajda",
           "type": "soup",
           "portionKg": 0.2,
-          "plateKg": 4.7483904,
-          "servedKg": 8.63343709090909,
-          "unservedKg": 3.2721280000000004
+          "plateKg": 4.4576688,
+          "servedKg": 8.104852363636363,
+          "unservedKg": 3.071791
         },
         {
           "id": "side",
           "name": "Salát / dezert",
           "type": "side",
-          "plateKg": 1.4610432,
-          "servedKg": 9.740288,
+          "plateKg": 1.3715904,
+          "servedKg": 9.143936000000002,
           "unservedKg": 0
         }
       ],
       "components": {
-        "Příloha": 16.071475200000002,
-        "Maso": 7.305216000000001,
-        "Omáčka": 6.9399552,
-        "Polévka": 4.7483904,
-        "Dezert / salát": 1.4610432
+        "Příloha": 15.0874944,
+        "Maso": 6.857952000000001,
+        "Omáčka": 6.5150544,
+        "Polévka": 4.4576688,
+        "Dezert / salát": 1.3715904
       }
     },
     {
       "day": 16,
-      "lunches": 448,
-      "plateKg": 41.95584,
-      "unservedKg": 37.58544,
-      "prepKg": 7.86672,
+      "lunches": 431,
+      "plateKg": 32.79936,
+      "unservedKg": 29.38276,
+      "prepKg": 6.14988,
       "dishes": [
         {
-          "id": "main-4",
-          "name": "Segedínský guláš s knedlíkem",
+          "id": "main-3",
+          "name": "Svíčková na smetaně s knedlíkem",
           "type": "main",
           "portionKg": 0.4,
-          "servings": 224,
-          "servedPortionKg": 0.43183714285714286,
-          "plateKg": 26.117510400000004,
-          "servedKg": 96.73152,
-          "unservedKg": 16.913448
+          "servings": 216,
+          "servedPortionKg": 0.31508644444444445,
+          "plateKg": 16.33408128,
+          "servedKg": 68.058672,
+          "unservedKg": 13.222242000000001
         },
         {
-          "id": "main-9",
-          "name": "Smažený sýr s bramborem",
+          "id": "main-8",
+          "name": "Špagety s boloňskou omáčkou",
           "type": "main",
           "portionKg": 0.4,
-          "servings": 224,
-          "servedPortionKg": 0.4318371428571427,
-          "plateKg": 8.705836799999997,
-          "servedKg": 96.73151999999996,
-          "unservedKg": 16.913448
+          "servings": 215,
+          "servedPortionKg": 0.3165519627906977,
+          "plateKg": 10.88938752,
+          "servedKg": 68.058672,
+          "unservedKg": 13.222242000000001
         },
         {
           "id": "soup-3",
           "name": "Bramboračka",
           "type": "soup",
           "portionKg": 0.2,
-          "plateKg": 5.4542592,
-          "servedKg": 30.301440000000003,
-          "unservedKg": 3.758544
+          "plateKg": 4.2639168000000005,
+          "servedKg": 23.688426666666672,
+          "unservedKg": 2.938276
         },
         {
           "id": "side",
           "name": "Salát / dezert",
           "type": "side",
-          "plateKg": 1.6782336000000002,
-          "servedKg": 11.188224000000002,
+          "plateKg": 1.3119744,
+          "servedKg": 8.746496,
           "unservedKg": 0
         }
       ],
       "components": {
-        "Příloha": 18.4605696,
-        "Maso": 8.391168,
-        "Omáčka": 7.971609600000001,
-        "Polévka": 5.4542592,
-        "Dezert / salát": 1.6782336000000002
+        "Příloha": 14.4317184,
+        "Maso": 6.559872,
+        "Omáčka": 6.2318784,
+        "Polévka": 4.2639168000000005,
+        "Dezert / salát": 1.3119744
       }
     },
     {
       "day": 17,
-      "lunches": 448,
-      "plateKg": 34.65168,
-      "unservedKg": 31.04213,
-      "prepKg": 6.49719,
+      "lunches": 453,
+      "plateKg": 39.3792,
+      "unservedKg": 35.2772,
+      "prepKg": 7.3836,
       "dishes": [
         {
           "id": "main-2",
           "name": "Kuřecí rizoto se zeleninou",
           "type": "main",
           "portionKg": 0.4,
-          "servings": 224,
-          "servedPortionKg": 0.25679369999999996,
-          "plateKg": 18.406972416,
-          "servedKg": 57.521788799999996,
+          "servings": 226,
+          "servedPortionKg": 0.352738355277358,
+          "plateKg": 25.510037853658527,
+          "servedKg": 79.7188682926829,
           "unservedKg": 15.200000000000001
         },
         {
-          "id": "main-10",
-          "name": "Buchtičky se šodó",
+          "id": "main-9",
+          "name": "Smažený sýr s bramborem",
           "type": "main",
           "portionKg": 0.4,
-          "servings": 224,
-          "servedPortionKg": 0.25679369999999996,
-          "plateKg": 10.353921984,
-          "servedKg": 57.521788799999996,
-          "unservedKg": 12.737917000000001
+          "servings": 227,
+          "servedPortionKg": 0.3511844418179865,
+          "plateKg": 7.1746981463414645,
+          "servedKg": 79.71886829268294,
+          "unservedKg": 16.549480000000003
         },
         {
           "id": "soup-4",
           "name": "Zeleninová",
           "type": "soup",
           "portionKg": 0.2,
-          "plateKg": 4.5047184,
-          "servedKg": 25.026213333333335,
-          "unservedKg": 3.104213
+          "plateKg": 5.119295999999999,
+          "servedKg": 28.44053333333333,
+          "unservedKg": 3.5277200000000004
         },
         {
           "id": "side",
           "name": "Salát / dezert",
           "type": "side",
-          "plateKg": 1.3860672,
-          "servedKg": 9.240448,
+          "plateKg": 1.575168,
+          "servedKg": 10.50112,
           "unservedKg": 0
         }
       ],
       "components": {
-        "Příloha": 15.2467392,
-        "Maso": 6.9303360000000005,
-        "Omáčka": 6.5838192,
-        "Polévka": 4.5047184,
-        "Dezert / salát": 1.3860672
+        "Příloha": 17.326848,
+        "Maso": 7.87584,
+        "Omáčka": 7.482048,
+        "Polévka": 5.119295999999999,
+        "Dezert / salát": 1.575168
       }
     },
     {
       "day": 18,
+      "lunches": 453,
+      "plateKg": 29.85984,
+      "unservedKg": 26.74944,
+      "prepKg": 5.59872,
+      "dishes": [
+        {
+          "id": "main-5",
+          "name": "Rajská omáčka s těstovinami",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 226,
+          "servedPortionKg": 0.23332392393146298,
+          "plateKg": 15.292049974468084,
+          "servedKg": 52.731206808510635,
+          "unservedKg": 12.037248
+        },
+        {
+          "id": "main-10",
+          "name": "Buchtičky se šodó",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 227,
+          "servedPortionKg": 0.23229606523572963,
+          "plateKg": 9.491617225531913,
+          "servedKg": 52.73120680851063,
+          "unservedKg": 12.037248
+        },
+        {
+          "id": "soup-5",
+          "name": "Rajská",
+          "type": "soup",
+          "portionKg": 0.2,
+          "plateKg": 3.8817792,
+          "servedKg": 21.565440000000002,
+          "unservedKg": 2.674944
+        },
+        {
+          "id": "side",
+          "name": "Salát / dezert",
+          "type": "side",
+          "plateKg": 1.1943936,
+          "servedKg": 7.962624,
+          "unservedKg": 0
+        }
+      ],
+      "components": {
+        "Příloha": 13.138329599999999,
+        "Maso": 5.971968,
+        "Omáčka": 5.6733696,
+        "Polévka": 3.8817792,
+        "Dezert / salát": 1.1943936
+      }
+    },
+    {
+      "day": 19,
       "lunches": 459,
-      "plateKg": 44.89488,
-      "unservedKg": 40.21833,
-      "prepKg": 8.41779,
+      "plateKg": 29.91888,
+      "unservedKg": 26.80233,
+      "prepKg": 5.60979,
       "dishes": [
         {
           "id": "main-6",
@@ -958,10 +1008,65 @@
           "type": "main",
           "portionKg": 0.4,
           "servings": 230,
-          "servedPortionKg": 0.19519513043478265,
-          "plateKg": 9.876873600000001,
-          "servedKg": 44.89488000000001,
-          "unservedKg": 18.0982485
+          "servedPortionKg": 0.15647555387523632,
+          "plateKg": 7.917663026086958,
+          "servedKg": 35.98937739130435,
+          "unservedKg": 12.0610485
+        },
+        {
+          "id": "main-11",
+          "name": "Špenát s bramborem a vejcem",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 229,
+          "servedPortionKg": 0.15715885323713688,
+          "plateKg": 16.915007373913042,
+          "servedKg": 35.989377391304345,
+          "unservedKg": 12.0610485
+        },
+        {
+          "id": "soup-0",
+          "name": "Hovězí vývar s nudlemi",
+          "type": "soup",
+          "portionKg": 0.2,
+          "plateKg": 3.8894544000000004,
+          "servedKg": 21.608080000000005,
+          "unservedKg": 2.6802330000000003
+        },
+        {
+          "id": "side",
+          "name": "Salát / dezert",
+          "type": "side",
+          "plateKg": 1.1967552000000001,
+          "servedKg": 7.9783680000000015,
+          "unservedKg": 0
+        }
+      ],
+      "components": {
+        "Příloha": 13.164307200000001,
+        "Maso": 5.983776000000001,
+        "Omáčka": 5.6845872,
+        "Polévka": 3.8894544000000004,
+        "Dezert / salát": 1.1967552000000001
+      }
+    },
+    {
+      "day": 20,
+      "lunches": 457,
+      "plateKg": 37.34016,
+      "unservedKg": 33.45056,
+      "prepKg": 7.00128,
+      "dishes": [
+        {
+          "id": "main-7",
+          "name": "Rybí filé s bramborovou kaší",
+          "type": "main",
+          "portionKg": 0.4,
+          "servings": 228,
+          "servedPortionKg": 0.16576985879332473,
+          "plateKg": 14.740255843902437,
+          "servedKg": 37.79552780487804,
+          "unservedKg": 15.052752000000002
         },
         {
           "id": "main-0",
@@ -969,145 +1074,35 @@
           "type": "main",
           "portionKg": 0.4,
           "servings": 229,
-          "servedPortionKg": 0.19604751091703057,
-          "plateKg": 27.385876800000002,
-          "servedKg": 44.89488,
-          "unservedKg": 18.0982485
-        },
-        {
-          "id": "soup-5",
-          "name": "Rajská",
-          "type": "soup",
-          "portionKg": 0.2,
-          "plateKg": 5.8363344,
-          "servedKg": 32.424080000000004,
-          "unservedKg": 4.021833
-        },
-        {
-          "id": "side",
-          "name": "Salát / dezert",
-          "type": "side",
-          "plateKg": 1.7957952000000001,
-          "servedKg": 11.971968000000002,
-          "unservedKg": 0
-        }
-      ],
-      "components": {
-        "Příloha": 19.7537472,
-        "Maso": 8.978976000000001,
-        "Omáčka": 8.530027200000001,
-        "Polévka": 5.8363344,
-        "Dezert / salát": 1.7957952000000001
-      }
-    },
-    {
-      "day": 19,
-      "lunches": 439,
-      "plateKg": 39.5688,
-      "unservedKg": 35.44705,
-      "prepKg": 7.41915,
-      "dishes": [
-        {
-          "id": "main-7",
-          "name": "Rybí filé s bramborovou kaší",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 219,
-          "servedPortionKg": 0.18288286000668222,
-          "plateKg": 15.62002507317073,
-          "servedKg": 40.05134634146341,
-          "unservedKg": 15.951172499999998
-        },
-        {
-          "id": "main-1",
-          "name": "Čočka na kyselo s vejcem",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 220,
-          "servedPortionKg": 0.18205157427937915,
-          "plateKg": 17.22207892682927,
-          "servedKg": 40.051346341463415,
-          "unservedKg": 15.951172499999998
-        },
-        {
-          "id": "soup-0",
-          "name": "Hovězí vývar s nudlemi",
-          "type": "soup",
-          "portionKg": 0.2,
-          "plateKg": 5.143944,
-          "servedKg": 28.57746666666667,
-          "unservedKg": 3.544705
-        },
-        {
-          "id": "side",
-          "name": "Salát / dezert",
-          "type": "side",
-          "plateKg": 1.5827520000000002,
-          "servedKg": 10.551680000000001,
-          "unservedKg": 0
-        }
-      ],
-      "components": {
-        "Příloha": 17.410272000000003,
-        "Maso": 7.913760000000001,
-        "Omáčka": 7.518072000000001,
-        "Polévka": 5.143944,
-        "Dezert / salát": 1.5827520000000002
-      }
-    },
-    {
-      "day": 20,
-      "lunches": 466,
-      "plateKg": 44.8656,
-      "unservedKg": 40.1921,
-      "prepKg": 8.4123,
-      "dishes": [
-        {
-          "id": "main-8",
-          "name": "Špagety s boloňskou omáčkou",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 233,
-          "servedPortionKg": 0.3329618025751073,
-          "plateKg": 12.412816000000001,
-          "servedKg": 77.5801,
-          "unservedKg": 20.97289
-        },
-        {
-          "id": "main-2",
-          "name": "Kuřecí rizoto se zeleninou",
-          "type": "main",
-          "portionKg": 0.4,
-          "servings": 233,
-          "servedPortionKg": 0.3329618025751073,
-          "plateKg": 24.825632,
-          "servedKg": 77.5801,
-          "unservedKg": 15.200000000000001
+          "servedPortionKg": 0.16504597294706572,
+          "plateKg": 16.25207695609756,
+          "servedKg": 37.79552780487805,
+          "unservedKg": 15.052752000000002
         },
         {
           "id": "soup-1",
           "name": "Čočková",
           "type": "soup",
           "portionKg": 0.2,
-          "plateKg": 5.832528,
-          "servedKg": 10.604596363636363,
-          "unservedKg": 4.01921
+          "plateKg": 4.8542208,
+          "servedKg": 8.825856,
+          "unservedKg": 3.3450560000000005
         },
         {
           "id": "side",
           "name": "Salát / dezert",
           "type": "side",
-          "plateKg": 1.794624,
-          "servedKg": 11.96416,
+          "plateKg": 1.4936064,
+          "servedKg": 9.957376,
           "unservedKg": 0
         }
       ],
       "components": {
-        "Příloha": 19.740864000000002,
-        "Maso": 8.97312,
-        "Omáčka": 8.524464,
-        "Polévka": 5.832528,
-        "Dezert / salát": 1.794624
+        "Příloha": 16.4296704,
+        "Maso": 7.468032,
+        "Omáčka": 7.0946304,
+        "Polévka": 4.8542208,
+        "Dezert / salát": 1.4936064
       }
     }
   ]

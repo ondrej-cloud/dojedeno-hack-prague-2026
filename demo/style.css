@@ -5,3 +5,7 @@ header{height:110px}main{height:886px;padding-top:24px}footer{height:84px}.eyebr
 #phone-help{position:absolute;inset:180px 300px;z-index:45;background:#18181ffa;border:1px solid #ffffff30;border-radius:24px;padding:40px;box-shadow:0 30px 150px #000}#phone-close{float:right}#phone-url{color:var(--green);font-size:28px;overflow-wrap:anywhere}#phone-help p{font-size:26px}#auto-button.active{color:var(--green);border-color:#30d15860}.camera-box .remote-live{z-index:1}.camera-box .snapshot{z-index:2}.camera-caption{max-width:calc(100% - 48px)}
 .plate-outline{position:absolute;z-index:4;border:2px solid #30d158bd;border-radius:50%;pointer-events:none;box-shadow:0 0 14px #30d15822}.plate-outline[hidden]{display:none}
 .analysis-metrics{display:flex;gap:45px;margin:25px 0}.analysis-metrics p{font-size:22px;color:var(--gray);margin:5px 0}.analysis-note{max-height:92px;overflow:auto}.results:has(.analysis-metrics) .food-row{padding:8px 0;font-size:23px;gap:15px}.results:has(.analysis-metrics) .food-row .muted{text-align:right;font-size:22px;max-width:55%}.results:has(.analysis-metrics){max-height:730px;overflow:auto}
+/* Daily value cards include price/portion details without pushing the total below the footer. */
+.stats .stat p{margin:0}
+.stats .stat{padding:20px 30px}.stats .stat .value{line-height:1.1;margin:8px 0}
+.day-bottom .panel{padding:24px 30px}.day-bottom .segmented{margin:20px 0 16px}

@@ -44,11 +44,12 @@ Do Netlify Drop přetáhněte celou složku `netlify-drop`; připravený je tak�
 
 První pilot plánujeme v naší škole v Hejčíně v Olomouci (Olomoucký kraj). Možnost využití podpory Hack Prague mimo Prahu zatím musí potvrdit organizátoři. Oslovení odborných organizací je záměr, nikoli domluvené partnerství.
 
-Deck má všech 12 očekávaných slajdů. Denní a měsíční přehledy dema jsou **ukázková data**. Předávka upozorňuje na nesjednocené starší hodnoty v demu, časování poznámek a rozdíl mezi demonstračním vážením talíře a navrženým vážením kbelíku. Závazný obsah je v [OBSAH.md](prezentace/OBSAH.md); otevřené opravy v [codex-oprava-dat.md](docs/codex-oprava-dat.md). Nejde o ověřenou produkční instalaci ani potvrzení úplnosti podle samostatné šablony organizátorů.
+Deck má všech 12 očekávaných slajdů. Denní a měsíční přehledy dema jsou **ukázková data**. Čísla dema byla sjednocena s předávkou: 92,5 Kč/kg, ukázkový den 70 kg, měsíční přehled bez emisních přepočtů a samostatný příklad 10 % = 60 000 Kč ročně pouze ze zbytků na talířích. Zbývá časování poznámek a vyjasnění rozdílu mezi demonstračním vážením talíře a navrženým vážením kbelíku. Závazný obsah je v [OBSAH.md](prezentace/OBSAH.md); zadání provedených oprav v [codex-oprava-dat.md](docs/codex-oprava-dat.md). Nejde o ověřenou produkční instalaci ani potvrzení úplnosti podle samostatné šablony organizátorů.
 
 ## Testy
 
 ```sh
+python3 demo/tools/test_demo_data.py
 python3 demo/tools/test_claude_client.py
 python3 demo/tools/test_claude_server.py
 node demo/tools/test_presence.cjs
