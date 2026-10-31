@@ -21,12 +21,6 @@
 /* talíř: zbylý knedlík a trocha omáčky */
 #s-insight .okraj { fill: #fff; stroke: var(--text); stroke-width: 3; }
 #s-insight .vnitr { fill: none; stroke: var(--linka); stroke-width: 2; }
-#s-insight .vysec { fill: none; stroke-width: 50; transform: rotate(-90deg); transform-origin: 110px 110px; }
-#s-insight .vysec.priloha { stroke: #efe2c4; stroke-dasharray: 55 100; }
-#s-insight .vysec.omacka { stroke: var(--oranz2); stroke-dasharray: 15 100; stroke-dashoffset: -55; }
-#s-insight.kresli .vysec { animation: s04c-vysec 900ms var(--ven) both; }
-#s-insight.kresli .vysec.omacka { animation-delay: 200ms; }
-@keyframes s04c-vysec { from { stroke-dasharray: 0 100; } }
 
 /* výsledek */
 #s-insight .vysledek { background: var(--zelena-svetla); box-shadow: none; gap: 16px; }
@@ -37,3 +31,4 @@
 #s-insight .paka b { color: var(--zelena); font-weight: 800; }
 
 #s-insight .odkud b { color: var(--text2); }
+#s-insight .knedliky ellipse { fill: #f3e7cc; stroke: #c9b088; stroke-width: 3; }
