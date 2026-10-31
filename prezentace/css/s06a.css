@@ -66,4 +66,70 @@
 #s-dva-talire .dt-bod.oranz { background: var(--oranz); }
 #s-dva-talire .dt-bod.zelena { background: var(--zelena-zivá); }
 #s-dva-talire .dt-dal { font-size: 26px; color: var(--text2); font-weight: 600; margin-left: 10px; }
-#s-dva-talire.hned * { transition: none !important; animation: none !important; }
+
+
+/* ---- data (dřív slajd 06c) ---- */
+/* 06c · data rostou: vlevo počítadlo, vpravo tečky (den) → sloupce (dny); stavy podle data-k z deck.js a tříd z js/s06c.js */
+#s-dva-talire .dr-stitek { position: absolute; right: 190px; top: 78px; margin: 0; padding: 6px 16px 8px; border-radius: 999px; box-shadow: inset 0 0 0 2px var(--oranz); color: var(--oranz); font-size: 22px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+#s-dva-talire .dr-pocitadlo { position: absolute; left: var(--okraj-x); top: 280px; width: 560px; }
+#s-dva-talire .dr-obdobi { position: relative; height: 40px; margin: 0; font-size: 30px; font-weight: 800; color: var(--zelena); text-transform: uppercase; letter-spacing: 0.06em; }
+#s-dva-talire .dr-obdobi span { position: absolute; left: 0; top: 0; }
+#s-dva-talire .dr-cislo { margin: 18px 0 0; font-weight: 800; font-size: 210px; line-height: 0.9; letter-spacing: -0.04em; color: var(--oranz); font-variant-numeric: tabular-nums; }
+#s-dva-talire .dr-cislo small { font-size: 0.36em; color: var(--text2); margin-left: 8px; letter-spacing: -0.01em; }
+#s-dva-talire .dr-pod { margin: 14px 0 0; font-size: 32px; font-weight: 600; color: var(--text2); }
+#s-dva-talire .dr-druhe { margin: 34px 0 0; font-size: 34px; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+#s-dva-talire .dr-plocha { position: absolute; left: 700px; right: var(--okraj-x); top: 252px; height: 700px; background: var(--karta); border-radius: var(--r); box-shadow: var(--stin); overflow: hidden; }
+#s-dva-talire .dr-tecky { position: absolute; left: 50px; right: 50px; top: 50px; height: 520px; display: grid; grid-template-columns: repeat(30, 1fr); gap: 10px; align-content: start; transition: opacity 600ms var(--ven), transform 700ms var(--ven); transform-origin: left bottom; }
+#s-dva-talire .dr-tecky i { aspect-ratio: 1; border-radius: 50%; background: var(--oranz2); opacity: 0; transform: scale(0.3); }
+#s-dva-talire .dr-tecky i.z { background: var(--zelena-zivá); }
+#s-dva-talire.den .dr-tecky i:not(.prvni), #s-dva-talire.tecky-hned .dr-tecky i { animation: s06c-tecka 500ms var(--ven) both; animation-delay: calc(500ms + var(--n) * 2ms); }
+#s-dva-talire.tecky-hned .dr-tecky i { animation-duration: 1ms; animation-delay: 0ms; }
+@keyframes s06c-tecka { to { opacity: 1; transform: none; } }
+#s-dva-talire .dr-tecky-pop { position: absolute; left: 50px; bottom: 36px; margin: 0; display: flex; align-items: center; gap: 12px; font-size: 24px; color: var(--text2); transition: opacity 400ms var(--ven); }
+#s-dva-talire .dr-tecky-pop span { width: 18px; height: 18px; border-radius: 50%; margin-left: 14px; }
+#s-dva-talire .dr-tecky-pop span:first-child { margin-left: 0; }
+#s-dva-talire .dr-tecky-pop .zel { background: var(--zelena-zivá); }
+#s-dva-talire .dr-tecky-pop .ora { background: var(--oranz2); }
+#s-dva-talire[data-k="5"] .dr-tecky, #s-dva-talire[data-k="6"] .dr-tecky { opacity: 0; transform: scale(0.06, 0.9); }
+#s-dva-talire[data-k="5"] .dr-tecky-pop, #s-dva-talire[data-k="6"] .dr-tecky-pop { opacity: 0; }
+
+#s-dva-talire .dr-graf { position: absolute; left: 40px; right: 40px; top: 70px; width: calc(100% - 80px); height: 560px; overflow: visible; }
+#s-dva-talire .dr-graf rect { fill: var(--oranz2); transform-box: fill-box; transform-origin: bottom; transform: scaleY(0); transition: transform 700ms var(--ven); }
+#s-dva-talire .dr-graf rect.je { transform: none; }
+#s-dva-talire .dr-graf text { font: 600 20px var(--pismo); fill: var(--text3); }
+
+#s-dva-talire .dr-nej { opacity: 0; transform: translateY(16px); transition: opacity 500ms var(--ven), transform 500ms var(--ven); position: absolute; right: 40px; top: 36px; width: 520px; padding: 24px 28px; border-radius: var(--r2); background: var(--oranz-svetla); }
+#s-dva-talire .dr-nej-nad { margin: 0; font-size: 22px; font-weight: 700; color: var(--oranz); text-transform: uppercase; letter-spacing: 0.06em; }
+#s-dva-talire .dr-nej-jidlo { margin: 6px 0 0; font-size: 34px; font-weight: 800; line-height: 1.15; }
+#s-dva-talire .dr-nej-cislo { margin: 6px 0 0; font-size: 72px; font-weight: 800; color: var(--oranz); line-height: 1; }
+#s-dva-talire .dr-nej-cislo small { font-size: 0.4em; color: var(--text2); }
+
+#s-dva-talire:not(.tydny) .dr-graf text { opacity: 0; }
+#s-dva-talire .dr-graf text { transition: opacity 400ms var(--ven); }
+
+/* kroky 4–6: data ve stejném slajdu; skrytá dokud k < 4 */
+#s-dva-talire .dt-nadpis { position: relative; }
+#s-dva-talire .dt-nadpis span { display: block; transition: opacity 500ms var(--ven), transform 500ms var(--ven); }
+#s-dva-talire .dt-nadpis .n2 { position: absolute; left: 0; top: 0; opacity: 0; transform: translateY(14px); }
+#s-dva-talire.den .dt-nadpis .n1 { opacity: 0; transform: translateY(-14px); }
+#s-dva-talire.den .dt-nadpis .n2 { opacity: 1; transform: none; }
+#s-dva-talire .dr-stitek, #s-dva-talire .dr-pocitadlo, #s-dva-talire .dr-plocha { opacity: 0; pointer-events: none; transition: opacity 600ms var(--ven); }
+#s-dva-talire.den .dr-stitek, #s-dva-talire.den .dr-pocitadlo, #s-dva-talire.den .dr-plocha { opacity: 1; }
+#s-dva-talire .dr-plocha { transition: opacity 500ms var(--ven) 150ms; }
+#s-dva-talire .dr-obdobi span { opacity: 0; transition: opacity 400ms var(--ven); }
+#s-dva-talire[data-k="4"] .o4, #s-dva-talire[data-k="5"] .o5, #s-dva-talire[data-k="6"] .o6 { opacity: 1; }
+#s-dva-talire[data-k="6"] .dr-nej { opacity: 1; transform: none; transition-delay: 900ms; }
+#s-dva-talire.den .dt-souhrn { opacity: 0; transform: translate(-50%, 0) scale(0.96); transition: opacity 400ms var(--ven), transform 400ms var(--ven); }
+#s-dva-talire .dr-tecky i.prvni { opacity: 1; transform: none; transition: transform 900ms var(--ven); }
+#s-dva-talire .dr-tecky i.prvni.p1 { background: var(--oranz); }
+#s-dva-talire .dr-tecky i.prvni.p2 { background: var(--zelena-zivá); }
+#s-dva-talire.hned * { transition: none !important; }
+#s-dva-talire.hned .dr-tecky i { animation-duration: 1ms !important; animation-delay: 0ms !important; }
+/* plocha s tečkami nesmí mizet celá (jinak by přelet prvních dvou teček nebyl vidět): skrytá jen přes visibility, karta se dobarví */
+#s-dva-talire .dr-plocha { opacity: 1 !important; visibility: hidden; background: transparent; box-shadow: none; transition: background-color 600ms var(--ven), box-shadow 600ms var(--ven); }
+#s-dva-talire.den .dr-plocha { visibility: visible; background: var(--karta); box-shadow: var(--stin); }
+#s-dva-talire.den .dr-tecky i.prvni { box-shadow: 0 0 0 0 transparent; }
+/* přelet dvou teček pomaleji a plynule; ostatní tečky dorůstají až po přistání */
+#s-dva-talire .dr-tecky i.prvni { transition: transform 1300ms var(--plynule); }
+#s-dva-talire.den .dr-tecky i:not(.prvni) { animation-delay: calc(1100ms + var(--n) * 2ms); }
