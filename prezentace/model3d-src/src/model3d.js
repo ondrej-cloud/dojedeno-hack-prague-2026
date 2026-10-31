@@ -376,19 +376,56 @@ function postav(kontejner) {
     const POCET = 8;
     for (let i = 0; i < POCET; i++) {
       const t = stin(new THREE.Mesh(new RoundedBoxGeometry(0.40, 0.022, 0.30, 4, 0.014), tacekMat)); scena.add(t);
-      const tal = i === 0 ? null : kulisa(); if (tal) { tal.scale.setScalar(1.05); scena.add(tal); }
-      tacky.push({ t, tal, rozestup: i * OBVOD / POCET });
+      const tal = i === 0 && !OTOCNY ? null : kulisa(); if (tal) { tal.scale.setScalar(1.05); scena.add(tal); }
+      const obedTal = tal && tal.children[tal.children.length - 1];
+      tacky.push({ t, tal, obedTal, obedZac: obedTal && obedTal.position.clone(), rozestup: i * OBVOD / POCET, predS: null, skok: null, naroste: null });
     }
   }
-  function polozTacky(b) {
+  /* titul (OTOCNY): talíře nemizí. U kbelíku (S_ODBER) jídlo skočí obloukem do kbelíku a talíř jede dál prázdný;
+     nové jídlo dostane daleko vlevo za zdí (S_NOVE), kde nenápadně naroste. */
+  const S_NOVE = 2 * KAR.L + 1.5 * Math.PI * KAR.R;
+  const SKOK_S = 0.85, NAROST_S = 0.5;
+  const pomV = new THREE.Vector3();
+  function polozTacky(b, cas = performance.now()) {
     if (TRI_PATRA) return;
     for (const tk of tacky) {
       const s = b + tk.rozestup, p = bodPasu(s), uhel = Math.atan2(-p.dz, p.dx);
       tk.t.position.set(p.x, KAR.Y + 0.012, p.z); tk.t.rotation.y = uhel;
       if (tk.tal) {
         const sm = ((s % OBVOD) + OBVOD) % OBVOD;
-        tk.tal.visible = !(sm > S_ODBER && sm < OBVOD - Math.PI * KAR.R * 0.55);
         tk.tal.position.set(p.x, KAR.Y + 0.034, p.z); tk.tal.rotation.y = uhel + 0.4;
+        if (!OTOCNY) {
+          tk.tal.visible = !(sm > S_ODBER && sm < OBVOD - Math.PI * KAR.R * 0.55);
+          continue;
+        }
+        tk.tal.visible = true;
+        /* úsek za kbelíkem až po místo plnění = talíř je prázdný; podle polohy, ne jen podle průjezdu (robustní i při trhaném snímkování) */
+        const zaKbelikem = sm >= S_ODBER && sm < S_NOVE;
+        if (tk.predS === null && zaKbelikem) tk.obedTal.visible = false;  /* první snímek: tyhle talíře už jsou vysypané */
+        tk.predS = sm;
+        if (zaKbelikem && tk.obedTal.visible && !tk.skok) {
+          const a = Math.random() * Math.PI * 2, d = Math.sqrt(Math.random()) * 0.16;
+          tk.skok = { start: cas, cil: new THREE.Vector3(Math.cos(a) * d, KBELIK_Y + 0.02 + NAPLN_ZAC + 0.03, Math.sin(a) * d) };
+        }
+        if (!zaKbelikem && !tk.obedTal.visible && !tk.skok) {
+          tk.obedTal.visible = true; tk.obedTal.position.copy(tk.obedZac); tk.obedTal.rotation.set(0, 0, 0); tk.naroste = cas;
+        }
+        tk.tal.updateMatrixWorld(true);
+        if (tk.skok) {
+          const u = clamp01((cas - tk.skok.start) / 1000 / SKOK_S);
+          const zac = tk.tal.localToWorld(tk.obedZac.clone());
+          pomV.lerpVectors(zac, tk.skok.cil, easeIO(u));
+          pomV.y = zac.y + (tk.skok.cil.y - zac.y) * u * u + Math.sin(Math.PI * u) * 0.32;
+          tk.tal.worldToLocal(pomV);
+          tk.obedTal.position.copy(pomV);
+          tk.obedTal.rotation.set(u * 2.2, u * 1.4, 0);
+          tk.obedTal.scale.setScalar(1.25 * (1 - 0.35 * u));
+          if (u >= 1) { tk.obedTal.visible = false; tk.obedTal.scale.setScalar(1.25); tk.skok = null; }
+        } else if (tk.naroste !== null) {
+          const u = clamp01((cas - tk.naroste) / 1000 / NAROST_S);
+          tk.obedTal.scale.setScalar(1.25 * Math.max(0.001, easeIO(u)));
+          if (u >= 1) tk.naroste = null;
+        }
       }
     }
     const p0 = bodPasu(b);
@@ -458,7 +495,7 @@ function postav(kontejner) {
 
   /* konečné stavy kroků (pro skok, zpět a tisk) */
   function stavPredVyklopenim() {
-    talir.visible = true;
+    talir.visible = !OTOCNY;  /* v titulu nese jídlo i tác 0 jako ostatní */
     zvyrazneni.visible = !OTOCNY && !TRI_PATRA;
     talir.scale.setScalar(1.2);
     talirPoloha(0);
@@ -530,7 +567,7 @@ function postav(kontejner) {
     kamera.lookAt(kamCil);
 
     if (!TRI_PATRA) {
-      if (OTOCNY && !REDUKCE) { pasB = S_ZAC + ((cas - t0) / 1000) * 0.10; }
+      if (OTOCNY && !REDUKCE) { pasB = S_ZAC + ((cas - t0) / 1000) * 0.15; }
       else if (pasAnim) {
         /* plynulá jízda: krátký rozjezd a dojezd, jinak stálá rychlost; fotka v okamžiku průjezdu pod kamerou */
         const u = clamp01((cas - pasAnim.start) / pasAnim.dur);
@@ -541,7 +578,7 @@ function postav(kontejner) {
         if (!vyfoceno && predtim < S_FOTO && pasB >= S_FOTO) { vyfoceno = true; fotoStart = cas; }
         if (u >= 1) pasAnim = null;
       }
-      polozTacky(pasB);
+      polozTacky(pasB, cas);
       if (vyklopeniStart === null && talir.visible) { talirPoloha(0); talir.rotation.y = 0.4; }
     }
     if (vyklopeniStart !== null) animujVyklopeni(cas);
