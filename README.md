@@ -31,6 +31,8 @@ python3 build.py
 
 ## Netlify Drop
 
+Pro automatické nasazování propojte Netlify projekt s GitHub repozitářem `ondrej-cloud/dojedeno-hack-prague-2026`, produkční větev `main`. Soubor `netlify.toml` nastavuje build příkaz a publikování pouze složky `netlify-drop`. Po pushi Netlify znovu sestaví prezentaci i statické demo. Ke statickému nasazení není potřeba API klíč ani proměnné prostředí.
+
 ```sh
 python3 prezentace/build.py
 python3 tools/export_netlify.py
