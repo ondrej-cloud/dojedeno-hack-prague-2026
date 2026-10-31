@@ -1,0 +1,42 @@
+<!-- 03 · dva zdroje odpadu: pruh 100 % (43 nevydané, 48 talíře, 9 příprava) se vykreslí při vstupu,
+     krok 1 zvýrazní 43 % a kartu „uvaří se víc“, krok 2 zvýrazní 48 % a talíř se špenátem (zbude 47 %) -->
+<section class="slajd" id="s-zdroje" data-nazev="Jídlo končí v koši ze dvou důvodů" data-kroky="2">
+  <h1>Jídlo končí v&nbsp;koši ze dvou důvodů</h1>
+
+  <div class="pruh-blok">
+    <div class="pruh" role="img" aria-label="Celý odpad: 43 % nevydané pokrmy, 48 % zbytky z talířů, 9 % příprava">
+      <div class="seg nevydane" style="flex: 43"><span>43&nbsp;%</span></div>
+      <div class="seg talire" style="flex: 48"><span>48&nbsp;%</span></div>
+      <div class="seg priprava" style="flex: 9"><span>9&nbsp;%</span></div>
+    </div>
+    <div class="legenda">
+      <p class="l-nevydane" style="flex: 43">nevydané pokrmy</p>
+      <p class="l-talire" style="flex: 48">zbytky z&nbsp;talířů</p>
+      <p class="l-priprava" style="flex: 9">příprava</p>
+    </div>
+  </div>
+
+  <div class="karty">
+    <div class="karta karta-1" data-krok="1">
+      <svg class="ilu ikona oranz" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-gastro"/></svg>
+      <h2>Uvaří se víc, než se vydá</h2>
+      <p class="pod"><b>5–9&nbsp;% žáků</b> si zaplacený oběd vůbec nevyzvedne.</p>
+    </div>
+    <div class="karta karta-2" data-krok="2">
+      <svg class="talir" viewBox="0 0 200 200" role="img" aria-label="Talíř se špenátem: zbude 47 % porce">
+        <circle cx="100" cy="100" r="92" fill="#fff" stroke="#1d1d1f" stroke-width="3"/>
+        <circle cx="100" cy="100" r="66" fill="none" stroke="#e5e5ea" stroke-width="2"/>
+        <circle class="kolac" cx="100" cy="100" r="30" fill="none" stroke-width="60" transform="rotate(-90 100 100)"/>
+      </svg>
+      <div class="text-2">
+        <h2>Děti nedojí</h2>
+        <p class="pod">Špenát s&nbsp;bramborem a&nbsp;vejcem: zbude <b class="oranz">skoro polovina porce</b>, 190&nbsp;g&nbsp;z&nbsp;~400&nbsp;g.</p>
+        <p class="pod mensi">Polévku jí jen <b>pětina žáků</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="zdroj">Zdroje: Prague Food Waste 2024 (Zachraň jídlo, Mendelova univerzita), výsledky studie (Echo24, Blesk). Podíl špenátu je náš výpočet: 190 g z porce kolem 400 g.</p>
+
+  <script type="application/json" class="poznamky-data">["0:55–1:25 · Spoluhráč", "Proč se to děje? Vezměte celý odpad jako sto procent. Čtyřicet tři procent je jídlo, které se vůbec nevydalo. Čtyřicet osm procent zbude na talířích. Zbytek je příprava.", "[mezerník] Zvýrazní se 43 % a karta vlevo.", "První důvod: uvaří se víc, než se vydá. Pět až devět procent žáků si zaplacený oběd ani nevyzvedne.", "[mezerník] Zvýrazní se 48 % a talíř se špenátem.", "Druhý důvod: děti nedojí. Ze špenátu s bramborem a vejcem zbude skoro polovina porce. A polévku jí jen pětina žáků.", "Asi 70 slov. „Skoro polovina“ je náš výpočet: 190 g zbytku z porce kolem 400 g, tedy asi 47 %.", "Zdroje: Prague Food Waste, tisková zpráva 25. 6. 2024 (rozdělení 48/43/9, 5–9 % nevyzvednutých obědů); Echo24 a Blesk (špenát 190 g, porce kolem 400 g, polévku jí zhruba pětina žáků)."]</script>
+</section>

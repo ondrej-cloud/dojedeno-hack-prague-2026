@@ -1,0 +1,44 @@
+# Dojedeno · Vážíme to vážně
+
+Prototyp pro Hack Prague 2026: měření zbytků jídla ve školních jídelnách pomocí kamery, váhy a AI. Repozitář obsahuje prezentační deck, demo a projektové podklady.
+
+## Spuštění dema
+
+Vyžaduje Python 3.9+, OpenSSL a moderní prohlížeč. Webové rozhraní nevyžaduje build ani instalaci JavaScriptových knihoven.
+
+```sh
+cd demo
+python3 tools/set_api_key.py
+python3 tools/serve.py
+```
+
+Na počítači otevřete http://localhost:8080. V prezentaci klikněte na **Mobil** a připojte telefon podle [návodu](demo/PHONE.md). Telefon a počítač musí být ve stejné místní síti; pro kameru telefonu je potřeba důvěryhodné HTTPS. Klíč Claude, certifikáty a párovací tokeny jsou pouze v ignorovaném `demo/.local/` a do repozitáře nepatří.
+
+Po vložení talíře aplikace odešle snímek do Claude API, rozpozná jídlo a přečte čitelný displej váhy. Váhu před každým měřením vytárujte s prázdným talířem. Druhý snímek porovná s referenční porcí. **Hmotnost se neodhaduje ze vzhledu jídla.** Živá analýza vyžaduje API kredit a internet; API chyby nenahrazuje připravenými výsledky.
+
+Podrobnosti: [ovládání a implementace](demo/README.md), [Claude API](demo/CLAUDE.md).
+
+## Prezentace
+
+Otevřete `prezentace/index.html` v Chromu. Mezerník/klikr posouvá, šipka vlevo vrací, F zapíná celou obrazovku, N poznámky a stopky. Vložené demo vyžaduje běžící server na localhost:8080. Samostatné slajdy běží i offline.
+
+```sh
+cd prezentace
+python3 build.py
+```
+
+`index.html` je sestavený soubor; upravujte `slajdy/`, `css/`, `js/` a `index.template.html`. Zdrojové 3D scény jsou v `model3d-src/src/`, sestavené bundly už jsou součástí repozitáře. K jejich změně je potřeba nainstalovat závislosti z `model3d-src/package-lock.json` a postupovat podle [předávky](docs/HANDOFF-codex.md).
+
+## Stav před pitchem
+
+Deck má všech 12 očekávaných slajdů. Denní a měsíční přehledy dema jsou **ukázková data**. Předávka upozorňuje na nesjednocené starší hodnoty v demu, časování poznámek a rozdíl mezi demonstračním vážením talíře a navrženým vážením kbelíku. Závazný obsah je v [OBSAH.md](prezentace/OBSAH.md); otevřené opravy v [codex-oprava-dat.md](docs/codex-oprava-dat.md). Nejde o ověřenou produkční instalaci ani potvrzení úplnosti podle samostatné šablony organizátorů.
+
+## Testy
+
+```sh
+python3 demo/tools/test_claude_client.py
+python3 demo/tools/test_claude_server.py
+node demo/tools/test_presence.cjs
+```
+
+Browser testy `demo/tools/verify_*.cjs` používají lokální Chrome na macOS a Playwright (balíček lze zadat proměnnou `PLAYWRIGHT_MODULE`). Testy Claude používají náhradní odpovědi, neúčtují API požadavky. **`benchmark_models.py` naopak výslovně volá placené API** nad dodanou fotografií.

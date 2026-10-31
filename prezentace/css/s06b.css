@@ -1,0 +1,12 @@
+/* 06b · živá ukázka: demo přes celou plochu 1920 × 1080; pod ním náhled (i pro tisk), při výpadku návod */
+#s-ukazka { padding: 0; background: #000; }
+#s-ukazka .nahled { position: absolute; inset: 0; width: 1920px; height: 1080px; object-fit: cover; }
+#s-ukazka .demo { position: absolute; inset: 0; width: 1920px; height: 1080px; border: 0; background: transparent; opacity: 0; transition: opacity 500ms var(--ven); }
+#s-ukazka.demo-bezi .demo { opacity: 1; }
+#s-ukazka .demo-chyba {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 1100px; padding: 48px 56px; border-radius: var(--r);
+  background: var(--sklo); -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%); box-shadow: var(--stin-velky); text-align: center;
+}
+#s-ukazka .demo-chyba .nadpis { font-size: 52px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 18px; }
+#s-ukazka .demo-chyba code { display: block; margin: 18px 0; padding: 18px 24px; border-radius: var(--r2); background: var(--text); color: #f5f5f7; font: 600 26px/1.4 ui-monospace, "SF Mono", Menlo, monospace; }
+@media print { #s-ukazka .demo, #s-ukazka .demo-chyba { display: none !important; } }

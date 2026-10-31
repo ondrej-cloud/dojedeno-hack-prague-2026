@@ -1,0 +1,98 @@
+{
+  "school": "Ukázková Praha",
+  "date": "31. 10. 2026",
+  "menu": [
+    "Segedínský guláš s knedlíkem",
+    "Kuřecí rizoto se zeleninou",
+    "Hovězí vývar s nudlemi"
+  ],
+  "pricePerKg": 37,
+  "co2Factor": 2.5,
+  "finishedThresholdGrams": 10,
+  "schoolDaysPerYear": 190,
+  "pilotReduction": 0.2,
+  "camera": {
+    "labelContains": "iPhone",
+    "source": "mobile"
+  },
+  "plate": {
+    "time": "12:14",
+    "full": [
+      {
+        "name": "Knedlík",
+        "pieces": 4,
+        "grams": 180
+      },
+      {
+        "name": "Guláš",
+        "grams": 220
+      }
+    ],
+    "leftover": [
+      {
+        "name": "Knedlík",
+        "pieces": 2,
+        "grams": 90
+      },
+      {
+        "name": "Guláš",
+        "grams": 60
+      }
+    ]
+  },
+  "day": {
+    "plates": 412,
+    "plateKg": 41,
+    "unservedKg": 37,
+    "prepKg": 7,
+    "finishedPercent": 38,
+    "dishes": [
+      {
+        "name": "Segedínský guláš s knedlíkem",
+        "kg": 46
+      },
+      {
+        "name": "Kuřecí rizoto se zeleninou",
+        "kg": 29
+      },
+      {
+        "name": "Hovězí vývar s nudlemi",
+        "kg": 10
+      }
+    ]
+  },
+  "students": {
+    "finishedPercent": 82,
+    "classes": [
+      {
+        "name": "7.B",
+        "percent": 91
+      },
+      {
+        "name": "6.A",
+        "percent": 84
+      },
+      {
+        "name": "8.C",
+        "percent": 79
+      },
+      {
+        "name": "9.A",
+        "percent": 71
+      }
+    ]
+  },
+  "detection": {
+    "enabled": true,
+    "calibrationMs": 2000,
+    "arrivalMs": 900,
+    "removalMs": 700,
+    "presenceCoverage": 0.16,
+    "removalCoverage": 0.08
+  },
+  "analysis": {
+    "mode": "claude",
+    "quantityMode": "relative",
+    "weightSource": "scale_display"
+  }
+}

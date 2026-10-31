@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dojedeno · Vážíme to vážně</title>
+<meta name="description" content="Dojedeno: automatické měření zbytků jídla ve školních jídelnách. Prezentace pro Hack Prague 2026.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23fff' stroke='%23d2d2d7' stroke-width='2'/%3E%3Ccircle cx='32' cy='32' r='20' fill='none' stroke='%23248a3d' stroke-width='7' stroke-dasharray='94 126' transform='rotate(-90 32 32)' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/s01.css">
+<link rel="stylesheet" href="css/s02.css">
+<link rel="stylesheet" href="css/s03.css">
+<link rel="stylesheet" href="css/s04.css">
+<link rel="stylesheet" href="css/s05.css">
+<link rel="stylesheet" href="css/s06.css">
+<link rel="stylesheet" href="css/s06b.css">
+<link rel="stylesheet" href="css/s07.css">
+<link rel="stylesheet" href="css/s08.css">
+<link rel="stylesheet" href="css/s09.css">
+<link rel="stylesheet" href="css/s10.css">
+<link rel="stylesheet" href="css/s11.css">
+</head>
+<body>
+<div class="jeviste">
+<div class="plocha">
+
+<svg class="prubeh" id="prubeh" viewBox="0 0 92 92" aria-hidden="true">
+  <circle class="okraj" cx="46" cy="46" r="44"/>
+  <circle class="vnitrek" cx="46" cy="46" r="26"/>
+  <circle class="jidlo" cx="46" cy="46" r="34" transform="rotate(-90 46 46)"/>
+</svg>
+
+<!-- 01 · otevření. Když běží WebGL (třída .kino z js/uvod3d.js): krok 0 je asi 13 s film ve 3D (tma, jeden oběd v reflektoru,
+     odjezd kamery na jídelnu, jídlo z třetiny talířů odletí do kbelíku, 0 → 31 %), krok 1 přechod do světla, vlevo titul,
+     vpravo 3D točna produktu. Bez WebGL zůstává 2D otevření: gastronádoba se přelije do kbelíku (js/s01.js). -->
+<section class="slajd" id="s-uvod" data-nazev="Dojedeno · otevření" data-kroky="1" data-bez-prubehu>
+  <div class="kino3d bez-vstupu" aria-hidden="true"></div>
+  <div class="kino-vineta bez-vstupu" aria-hidden="true"></div>
+  <p class="kino-pocitadlo bez-vstupu" aria-hidden="true"><span>0</span><small>%</small></p>
+  <p class="kino-titulek bez-vstupu" data-od="0.9" data-do="4.1">Tohle je jeden školní oběd.</p>
+  <p class="kino-titulek bez-vstupu" data-od="5.0" data-do="8.2">Jídelna jich denně vydá stovky.</p>
+  <p class="kino-titulek bez-vstupu" data-od="9.0">Téměř třetina uvařeného jídla skončí v&nbsp;koši.</p>
+
+  <div class="produkt3d bez-vstupu" data-krok="1" aria-label="3D model sestavy Dojedeno: kbelík na váze, nad ním na tyči telefon"></div>
+
+  <div class="karta-sceny bez-vstupu" data-krok="1" aria-hidden="true"></div>
+
+  <div class="scena bez-vstupu" role="img" aria-label="Gastronádoba s uvařeným obědem, 31 procent se přelije do kbelíku">
+    <svg viewBox="0 0 1400 760" aria-hidden="true">
+      <defs>
+        <clipPath id="u-nadoba-vnitrek"><path d="M146 256h548v222a36 36 0 0 1-36 36H182a36 36 0 0 1-36-36z"/></clipPath>
+        <clipPath id="u-kos-vnitrek"><path d="M906 336h288l-21 290a16 16 0 0 1-16 15H943a16 16 0 0 1-16-15z"/></clipPath>
+        <linearGradient id="u-jidlo" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#f1dfbd"/><stop offset="1" stop-color="#e2c493"/>
+        </linearGradient>
+        <linearGradient id="u-odpad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#e9935a"/><stop offset="1" stop-color="#c9601b"/>
+        </linearGradient>
+      </defs>
+
+      <ellipse class="stin" cx="420" cy="540" rx="300" ry="14"/>
+      <ellipse class="stin" cx="1050" cy="662" rx="170" ry="12"/>
+      <!-- gastronádoba: při přelévání se nakloní kolem pravého okraje -->
+      <g class="nadoba">
+        <g clip-path="url(#u-nadoba-vnitrek)">
+          <g class="jidlo-g">
+            <rect x="140" y="280" width="560" height="340" fill="url(#u-jidlo)"/>
+            <path d="M140 280h560" stroke="#fff" stroke-opacity=".5" stroke-width="4" fill="none"/>
+            <g class="knedliky">
+              <ellipse cx="214" cy="288" rx="46" ry="20"/><ellipse cx="318" cy="284" rx="50" ry="22"/><ellipse cx="428" cy="289" rx="46" ry="19"/>
+              <ellipse cx="534" cy="285" rx="50" ry="21"/><ellipse cx="636" cy="290" rx="44" ry="19"/>
+            </g>
+          </g>
+        </g>
+        <path class="obrys" d="M140 250h560v230a40 40 0 0 1-40 40H180a40 40 0 0 1-40-40z"/>
+        <path class="obrys" d="M108 250h624"/>
+      </g>
+
+      <!-- kousky jídla v letu (kreslí js/s01.js) -->
+      <g class="kousky"></g>
+
+      <!-- kbelík -->
+      <g class="kos">
+        <g clip-path="url(#u-kos-vnitrek)">
+          <rect class="odpad" x="900" y="320" width="300" height="330" fill="url(#u-odpad)"/>
+        </g>
+        <path class="obrys" d="M900 330h300l-22 300a20 20 0 0 1-20 18H942a20 20 0 0 1-20-18z"/>
+        <path class="obrys" d="M880 330h340"/>
+        <path class="obrys" d="M1018 330v-14a8 8 0 0 1 8-8h48a8 8 0 0 1 8 8v14"/>
+      </g>
+
+      <text class="pocitadlo" x="1050" y="240" text-anchor="middle"><tspan class="pocitadlo-cislo">0</tspan><tspan class="pocitadlo-jednotka" dx="10">%</tspan></text>
+      <text class="popisek" x="420" y="600" text-anchor="middle">uvařeno</text>
+      <text class="popisek" x="1050" y="712" text-anchor="middle">do koše</text>
+    </svg>
+  </div>
+
+  <p class="veta-sklo veta bez-vstupu" data-jen-krok="0">Tohle je <b>oběd ve školní jídelně.</b></p>
+
+  <div class="titul bez-vstupu" data-krok="1">
+    <div class="znacka">
+      <svg class="logo" viewBox="0 0 92 92" aria-hidden="true">
+        <circle cx="46" cy="46" r="44" fill="#fff" stroke="#d2d2d7" stroke-width="2"/>
+        <circle cx="46" cy="46" r="26" fill="none" stroke="#e5e5ea" stroke-width="2"/>
+        <circle cx="46" cy="46" r="34" fill="none" stroke="#248a3d" stroke-width="8" stroke-linecap="round" stroke-dasharray="160 214" transform="rotate(-90 46 46)"/>
+      </svg>
+      <h1>Dojedeno</h1>
+    </div>
+    <p class="podtitul">Vážíme to vážně.</p>
+    <p class="cislo oranz"><span data-pocitej="31" data-od="0">31</span><small>%</small></p>
+    <p class="pod-cislo">uvařeného jídla ve školních jídelnách skončí v&nbsp;koši</p>
+  </div>
+
+  <p class="akce mala bez-vstupu" data-krok="1">Hack Prague 2026</p>
+
+  <script type="application/json" class="poznamky-data">["0:00–0:25 · Ondra", "Na začátku nic nemačkat. Po vstupu běží asi 13 s film, mluví titulky: jeden oběd v reflektoru (0–4 s), kamera odjede na celou jídelnu (4–8 s), jídlo z každého třetího talíře odletí do kbelíku a počítadlo doběhne na 31 % (8–13 s). Poslední záběr drží.", "Přes film klidně a pomalu, s pauzami: Tohle je jeden školní oběd. (pauza) Jídelna jich denně vydá stovky. (pauza, jídlo letí) A téměř třetina z toho, co se uvaří, skončí v koši.", "[mezerník] Tma se prolne do světla: vlevo Dojedeno, Vážíme to vážně. a 31 %, vpravo se točí 3D model naší sestavy (myší jde natočit).", "Jednatřicet procent. Jsme Dojedeno a chceme, aby každá jídelna věděla, co a kolik vyhazuje. Každý den, automaticky.", "Asi 50 slov. Mezerník během filmu přeskočí rovnou na titul. Bez WebGL se místo filmu ukáže 2D gastronádoba, text je stejný.", "Zdroje: Prague Food Waste 2024 (Zachraň jídlo, Mendelova univerzita, INESAN, GREEN Solution): zbytky z talířů a nevydané pokrmy = 31 % hmotnosti uvařeného, bez odpadu z přípravy. Stovky obědů denně: jídelny ve výzkumu vařily pro 400–600 žáků."]</script>
+</section>
+
+<!-- 02 · problém: obří 600 000 Kč (jen zbytky z talířů), krok 1: 1 200 Kč na žáka, krok 2: 8 891 jídelen jako pole teček (js/s02.js) -->
+<section class="slajd" id="s-problem" data-nazev="Jen zbytky z talířů stojí školu 600 000 Kč ročně" data-kroky="2">
+  <h1>Jen zbytky z&nbsp;talířů stojí školu 600&nbsp;000&nbsp;Kč ročně</h1>
+
+  <div class="rada rozbal">
+    <div class="hlavni">
+      <p class="cislo obri oranz"><span data-pocitej="600000" data-od="0" data-trvani="1600">600&nbsp;000</span><small>Kč</small></p>
+      <p class="pod-cislo">ročně ve škole s&nbsp;500&nbsp;žáky · jen cena surovin</p>
+    </div>
+    <div class="karta na-zaka" data-krok="1">
+      <p class="stitek">na jednoho žáka</p>
+      <p class="cislo stredni"><span data-pocitej="1200" data-od="0">1&nbsp;200</span><small>Kč</small></p>
+      <p class="pod">za rok. Suroviny 36–38&nbsp;Kč za oběd, bez práce kuchařek a&nbsp;energie. <b>Skutečná ztráta je vyšší.</b></p>
+    </div>
+  </div>
+
+  <div class="karta pas" data-krok="2">
+    <div class="pas-text">
+      <p class="stitek">A&nbsp;takových jídelen je v&nbsp;Česku</p>
+      <p class="cislo male"><span data-pocitej="8891" data-od="0" data-trvani="1400">8&nbsp;891</span></p>
+      <p class="pod">denně vaří pro <b>1,6&nbsp;milionu dětí</b></p>
+    </div>
+    <canvas class="tecky" width="2040" height="460" role="img" aria-label="8 891 teček, jedna tečka je jedna školní jídelna"></canvas>
+    <p class="legenda-tecek mala">1&nbsp;tečka = 1&nbsp;školní jídelna, výdejna nebo vývařovna</p>
+  </div>
+
+  <p class="zdroj">Zdroje: Prague Food Waste 2024 (Zachraň jídlo, Mendelova univerzita), výsledky studie (Echo24, Blesk), sborník From Plate To Waste 2025 (Mendelova univerzita).</p>
+
+  <script type="application/json" class="poznamky-data">["0:25–0:55 · Ondra", "Kolik to stojí? Škola s pěti sty žáky vyhodí jen ze zbytků na talířích jídlo za šest set tisíc korun ročně. A to počítáme jen cenu surovin.", "[mezerník] Naskočí karta 1 200 Kč na žáka.", "To je tisíc dvě stě korun na každého žáka. Bez práce kuchařek a bez energie, takže skutečná ztráta je vyšší.", "[mezerník] Pás s 8 891 jídelnami, tečky se postupně vykreslí.", "A nejde o jednu školu. V Česku je 8 891 školních jídelen a každý den vaří pro 1,6 milionu dětí.", "Asi 70 slov. Pozor: 600 000 Kč je JEN za talíře, nevydané pokrmy v tom nejsou. Nikdy neříkat „škola vyhodí celkem za 600 tisíc“.", "Zdroje: Prague Food Waste, tisková zpráva 25. 6. 2024 (Zachraň jídlo, Mendelova univerzita, INESAN, GREEN Solution); Echo24 a Blesk (1 200 Kč na žáka, suroviny 36–38 Kč za oběd); sborník From Plate To Waste, 13. 5. 2025 (8 891 jídelen, výdejen a vývařoven, 1,6 milionu dětí denně)."]</script>
+</section>
+
+<!-- 03 · dva zdroje odpadu: pruh 100 % (43 nevydané, 48 talíře, 9 příprava) se vykreslí při vstupu,
+     krok 1 zvýrazní 43 % a kartu „uvaří se víc“, krok 2 zvýrazní 48 % a talíř se špenátem (zbude 47 %) -->
+<section class="slajd" id="s-zdroje" data-nazev="Jídlo končí v koši ze dvou důvodů" data-kroky="2">
+  <h1>Jídlo končí v&nbsp;koši ze dvou důvodů</h1>
+
+  <div class="pruh-blok">
+    <div class="pruh" role="img" aria-label="Celý odpad: 43 % nevydané pokrmy, 48 % zbytky z talířů, 9 % příprava">
+      <div class="seg nevydane" style="flex: 43"><span>43&nbsp;%</span></div>
+      <div class="seg talire" style="flex: 48"><span>48&nbsp;%</span></div>
+      <div class="seg priprava" style="flex: 9"><span>9&nbsp;%</span></div>
+    </div>
+    <div class="legenda">
+      <p class="l-nevydane" style="flex: 43">nevydané pokrmy</p>
+      <p class="l-talire" style="flex: 48">zbytky z&nbsp;talířů</p>
+      <p class="l-priprava" style="flex: 9">příprava</p>
+    </div>
+  </div>
+
+  <div class="karty">
+    <div class="karta karta-1" data-krok="1">
+      <svg class="ilu ikona oranz" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-gastro"/></svg>
+      <h2>Uvaří se víc, než se vydá</h2>
+      <p class="pod"><b>5–9&nbsp;% žáků</b> si zaplacený oběd vůbec nevyzvedne.</p>
+    </div>
+    <div class="karta karta-2" data-krok="2">
+      <svg class="talir" viewBox="0 0 200 200" role="img" aria-label="Talíř se špenátem: zbude 47 % porce">
+        <circle cx="100" cy="100" r="92" fill="#fff" stroke="#1d1d1f" stroke-width="3"/>
+        <circle cx="100" cy="100" r="66" fill="none" stroke="#e5e5ea" stroke-width="2"/>
+        <circle class="kolac" cx="100" cy="100" r="30" fill="none" stroke-width="60" transform="rotate(-90 100 100)"/>
+      </svg>
+      <div class="text-2">
+        <h2>Děti nedojí</h2>
+        <p class="pod">Špenát s&nbsp;bramborem a&nbsp;vejcem: zbude <b class="oranz">skoro polovina porce</b>, 190&nbsp;g&nbsp;z&nbsp;~400&nbsp;g.</p>
+        <p class="pod mensi">Polévku jí jen <b>pětina žáků</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="zdroj">Zdroje: Prague Food Waste 2024 (Zachraň jídlo, Mendelova univerzita), výsledky studie (Echo24, Blesk). Podíl špenátu je náš výpočet: 190 g z porce kolem 400 g.</p>
+
+  <script type="application/json" class="poznamky-data">["0:55–1:25 · Spoluhráč", "Proč se to děje? Vezměte celý odpad jako sto procent. Čtyřicet tři procent je jídlo, které se vůbec nevydalo. Čtyřicet osm procent zbude na talířích. Zbytek je příprava.", "[mezerník] Zvýrazní se 43 % a karta vlevo.", "První důvod: uvaří se víc, než se vydá. Pět až devět procent žáků si zaplacený oběd ani nevyzvedne.", "[mezerník] Zvýrazní se 48 % a talíř se špenátem.", "Druhý důvod: děti nedojí. Ze špenátu s bramborem a vejcem zbude skoro polovina porce. A polévku jí jen pětina žáků.", "Asi 70 slov. „Skoro polovina“ je náš výpočet: 190 g zbytku z porce kolem 400 g, tedy asi 47 %.", "Zdroje: Prague Food Waste, tisková zpráva 25. 6. 2024 (rozdělení 48/43/9, 5–9 % nevyzvednutých obědů); Echo24 a Blesk (špenát 190 g, porce kolem 400 g, polévku jí zhruba pětina žáků)."]</script>
+</section>
+
+<!-- 04 · ruční měření: školní rok jako 40 týdnů, data má jen jeden; krok 1: Brno 80 kg → 19 kg a pointa -->
+<section class="slajd" id="s-mereni" data-nazev="Kolik se čeho vyhodí, se dnes zjišťuje ručně" data-kroky="1">
+  <h1>Kolik se čeho vyhodí, se dnes zjišťuje ručně</h1>
+
+  <div class="rada rozbal">
+    <div class="karta kalendar-karta">
+      <p class="stitek">Výzkumníci vážili ručně, asi týden na každé škole</p>
+      <div class="kalendar" role="img" aria-label="Školní rok září až červen, 40 týdnů, data má jen jeden týden">
+        <!-- 10 měsíců × 4 týdny, týden s daty na přelomu roku (leden, 1. týden) -->
+        <div class="mesic"><span>zář</span><i></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>říj</span><i></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>lis</span><i></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>pro</span><i></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>led</span><i class="data"></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>úno</span><i></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>bře</span><i></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>dub</span><i></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>kvě</span><i></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>čer</span><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="vyklad">
+        <p><span class="vzorek data"></span><span><b>1&nbsp;týden</b> s&nbsp;daty</span></p>
+        <p><span class="vzorek"></span><span>zbytek školního roku bez dat</span></p>
+      </div>
+    </div>
+
+    <div class="karta brno" data-krok="1">
+      <p class="stitek">Brno · čočka nakyselo</p>
+      <div class="sloupce" role="img" aria-label="Běžný den 80 kg, den, kdy děti vážily, 19 kg">
+        <div class="s">
+          <p class="hodnota oranz"><span data-pocitej="80" data-od="0">80</span><small>kg</small></p>
+          <div class="tyc oranz-tyc" style="height: 240px"></div>
+          <p class="popis">běžný den</p>
+        </div>
+        <div class="s">
+          <p class="hodnota zelena"><span data-pocitej="19" data-od="80">19</span><small>kg</small></p>
+          <div class="tyc zelena-tyc" style="height: 57px"></div>
+          <p class="popis">den, kdy děti vážily</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="pointa" data-krok="1">Když se měří, <span class="zelena">vyhazuje se méně.</span></p>
+
+  <p class="zdroj">Zdroje: Prague Food Waste 2024 (Zachraň jídlo, Mendelova univerzita); Mendelova univerzita: Jak šetřit jídlem ve školních jídelnách (2025), s. 19.</p>
+
+  <script type="application/json" class="poznamky-data">["1:25–1:50 · Spoluhráč", "Kdo to dnes ví? I výzkumníci museli vážit ručně, asi týden na každé škole. Zbytek roku žádná data. Podle nás jídelny dnes nevědí, co přesně vyhazují.", "[mezerník] Karta Brno: sloupce 80 kg a 19 kg a věta dole.", "A přitom měření samo funguje. V jedné brněnské škole běžně zbude osmdesát kilo čočky. V den, kdy děti odpad samy vážily, zbylo devatenáct. Když se měří, vyhazuje se méně.", "Asi 60 slov. „Jídelny nevědí, co vyhazují“ je naše úvaha, ne fakt ze zdroje, proto „podle nás“. Kalendář je ilustrace: jeden týden měření na školu z 40 týdnů školního roku.", "Zdroje: Prague Food Waste, tisková zpráva 25. 6. 2024 (ruční vážení, 2 zkušební dny a týden měření na škole); Mendelova univerzita: Jak šetřit jídlem ve školních jídelnách (2025), s. 19 (Brno: čočka nakyselo 80 kg, v den vážení 19 kg)."]</script>
+</section>
+
+<!-- 05 · řešení: produktová ilustrace sestavy (kbelík na váze, telefon na tyči, karta přehledu), kroky 1–3 zvýrazní váhu, telefon a přehled -->
+<section class="slajd" id="s-reseni" data-nazev="Dojedeno: váha, telefon a AI" data-kroky="3">
+  <h1>Dojedeno: váha, telefon a&nbsp;AI.</h1>
+
+  <div class="model3d bez-vstupu" data-model3d role="img" aria-label="3D model: kbelík na váze, nad ním na tyči telefon, talíř se zbytkem se vyklopí do kbelíku"></div>
+
+  <div class="sestava" role="img" aria-label="Kbelík na zbytky stojí na váze, nad ním na tyči starý telefon, který se dívá do kbelíku a posílá záznamy do přehledu">
+    <svg class="kresba" viewBox="0 0 1000 720" width="1000" height="720" aria-hidden="true">
+      <ellipse class="stin-podlahy" cx="410" cy="676" rx="320" ry="16"/>
+
+      <!-- zorné pole kamery -->
+      <g class="zorne-pole">
+        <polygon class="kuzel" points="393,178 258,296 552,296"/>
+        <path class="paprsek" d="M393 178 L258 296 M393 178 L552 296"/>
+      </g>
+
+      <!-- tyč a rameno -->
+      <g class="cast-drzak">
+        <path class="obrys" pathLength="1" d="M608 594 V76 Q608 62 594 62 H446"/>
+        <rect class="obrys vypln" pathLength="1" x="430" y="52" width="18" height="22" rx="5"/>
+      </g>
+
+      <!-- telefon -->
+      <g class="cast-telefon">
+        <rect class="obrys vypln" pathLength="1" x="353" y="34" width="80" height="144" rx="16"/>
+        <rect class="displej" x="361" y="46" width="64" height="120" rx="9"/>
+        <circle class="tecka-mereni" cx="393" cy="100" r="9"/>
+        <path class="obrys" pathLength="1" d="M383 170 h20"/>
+      </g>
+
+      <!-- kbelík -->
+      <g class="cast-kbelik">
+        <path class="obrys vypln" pathLength="1" d="M262 304 H548 L528 580 Q527 594 513 594 H297 Q283 594 282 580 Z"/>
+        <rect class="obrys vypln" pathLength="1" x="244" y="290" width="322" height="20" rx="10"/>
+        <path class="zebro" d="M336 334 L343 562 M405 334 V562 M474 334 L467 562"/>
+      </g>
+
+      <!-- váha -->
+      <g class="cast-vaha">
+        <rect class="obrys vypln" pathLength="1" x="170" y="594" width="470" height="60" rx="18"/>
+        <rect class="displej-vahy" x="345" y="608" width="120" height="32" rx="8"/>
+        <text class="cislo-vahy" x="405" y="631" text-anchor="middle">150 g</text>
+        <path class="obrys" pathLength="1" d="M214 654 v12 M596 654 v12"/>
+      </g>
+
+      <!-- spojení telefon → přehled -->
+      <path class="cast-spojeni" d="M440 92 C 560 40, 640 120, 688 190"/>
+
+      <!-- karta přehledu -->
+      <g class="cast-prehled" transform="translate(690 168)">
+        <rect class="karta-svg" x="0" y="0" width="300" height="372" rx="24"/>
+        <circle class="logo-kruh" cx="36" cy="40" r="14"/>
+        <circle class="logo-oblouk" cx="36" cy="40" r="8" pathLength="100"/>
+        <text class="nadpis-karty" x="60" y="47">Dnes</text>
+        <line class="linka" x1="24" y1="76" x2="276" y2="76"/>
+        <text class="cas" x="24" y="110">12:41</text>
+        <text class="radek" x="24" y="140">Guláš – knedlík</text>
+        <text class="gramy" x="276" y="140" text-anchor="end">150 g</text>
+        <line class="linka" x1="24" y1="164" x2="276" y2="164"/>
+        <text class="cas" x="24" y="198">12:41</text>
+        <text class="radek dojedeno" x="24" y="228">✓ dojedeno</text>
+        <line class="linka" x1="24" y1="252" x2="276" y2="252"/>
+        <rect class="sloupek" x="34" y="314" width="28" height="30" rx="6"/>
+        <rect class="sloupek" x="86" y="290" width="28" height="54" rx="6"/>
+        <rect class="sloupek" x="138" y="300" width="28" height="44" rx="6"/>
+        <rect class="sloupek" x="190" y="278" width="28" height="66" rx="6"/>
+        <rect class="sloupek posledni" x="242" y="304" width="28" height="40" rx="6"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="popisky">
+    <div class="popisek p1" data-krok="1">
+      <div class="kruh"><svg class="ilu" viewBox="0 0 64 64"><path d="M14 28h36" vector-effect="non-scaling-stroke"/><path d="M32 28v6" vector-effect="non-scaling-stroke"/><path d="M12 52l4-18h32l4 18z" vector-effect="non-scaling-stroke"/><rect x="26" y="40" width="12" height="6" rx="1.5" vector-effect="non-scaling-stroke"/></svg></div>
+      <div><h2>Váha změří kolik.</h2><p class="stitek">gramy z&nbsp;každého talíře</p></div>
+    </div>
+    <div class="popisek p2" data-krok="2">
+      <div class="kruh"><svg class="ilu"><use href="#i-telefon"/></svg></div>
+      <div><h2>Telefon vyfotí co.</h2><p class="stitek">starý mobil nad kbelíkem</p></div>
+    </div>
+    <div class="popisek p3" data-krok="3">
+      <div class="kruh"><svg class="ilu"><use href="#i-ai"/></svg></div>
+      <div><h2>AI pozná jídlo z&nbsp;dnešního menu.</h2><p class="stitek">knedlík, omáčka, maso…</p></div>
+    </div>
+    <p class="pointa" data-krok="3"><svg class="ilu"><use href="#i-kuchar"/></svg>Kuchařky nedělají nic navíc.</p>
+  </div>
+
+  <script type="application/json" class="poznamky-data">["1:50–2:10 · Ondra", "Proto jsme udělali Dojedeno. Pod kbelík na zbytky dáme obyčejnou váhu a nad něj starý telefon.", "[mezerník] Zvýrazní se váha: Váha změří, kolik se vyhodilo.", "[mezerník] Zvýrazní se telefon: Telefon vyfotí, co to bylo.", "[mezerník] Zvýrazní se přehled, dole naskočí „Kuchařky nedělají nic navíc“: A umělá inteligence pozná jídlo z dnešního menu. Kuchařky přitom nedělají nic navíc, škrábou talíře jako vždycky.", "51 slov, asi 23 s.", "Zdroje: vlastní návrh. Princip kamera a váha u koše používají Winnow, Orbisk a Leanpath (Z8)."]</script>
+</section>
+
+<!-- 06 · jak to funguje: osa se 4 uzly, kroky 1–4 odkryjí karty a zelená čára dojede k uzlu; krok 5 gastronádoby a pilulka „Živá ukázka prototypu“ (další slajd = vložené demo) -->
+<section class="slajd" id="s-jak" data-nazev="Každý talíř se zapíše sám" data-kroky="5">
+  <h1>Každý talíř se zapíše sám.</h1>
+
+  <div class="osa bez-vstupu" aria-hidden="true">
+    <div class="kolej"><div class="postup"></div></div>
+    <div class="uzel u1">1</div>
+    <div class="uzel u2">2</div>
+    <div class="uzel u3">3</div>
+    <div class="uzel u4">4</div>
+  </div>
+
+  <div class="karty">
+    <div class="karta k1" data-krok="1">
+      <div class="obraz">
+        <div class="vaha-displej"><span class="plus">+</span><span data-pocitej="150" data-od="0" data-trvani="900">150</span><small>g</small></div>
+      </div>
+      <h2>Váha přičte gramy</h2>
+      <p class="stitek">Jídlo spadne do kbelíku.</p>
+    </div>
+
+    <div class="karta k2" data-krok="2">
+      <div class="obraz">
+        <div class="pred-po">
+          <figure>
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="okraj-kbeliku" cx="60" cy="60" r="54"/>
+              <path class="zbytek z-a" d="M34 66c4-10 18-12 24-6s2 18-10 18-18-4-14-12z"/>
+              <path class="zbytek z-b" d="M66 40c8-4 20 0 20 10s-12 12-18 8-10-14-2-18z"/>
+            </svg>
+            <figcaption>před</figcaption>
+          </figure>
+          <svg class="ilu sipka-mala" aria-hidden="true"><use href="#i-sipka"/></svg>
+          <figure>
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="okraj-kbeliku" cx="60" cy="60" r="54"/>
+              <path class="zbytek z-a" d="M34 66c4-10 18-12 24-6s2 18-10 18-18-4-14-12z"/>
+              <path class="zbytek z-b" d="M66 40c8-4 20 0 20 10s-12 12-18 8-10-14-2-18z"/>
+              <path class="zbytek novy" d="M60 74c6-6 22-6 26 2s-4 18-14 18-18-12-12-20z"/>
+              <circle class="detekce" cx="73" cy="83" r="20"/>
+            </svg>
+            <figcaption>po</figcaption>
+          </figure>
+        </div>
+      </div>
+      <h2>Telefon vyfotí kbelík</h2>
+      <p class="stitek">Před a&nbsp;po, takže vidí, co přibylo.</p>
+    </div>
+
+    <div class="karta k3" data-krok="3">
+      <div class="obraz">
+        <div class="menu">
+          <p class="menu-titul">Dnešní menu</p>
+          <span class="volba vybrana"><svg class="ilu" aria-hidden="true"><use href="#i-fajfka"/></svg>Segedínský guláš</span>
+          <span class="volba">Kuřecí rizoto</span>
+        </div>
+      </div>
+      <h2>AI pozná jídlo</h2>
+      <p class="stitek">Z&nbsp;dnešního menu, i&nbsp;jeho část: knedlík, omáčku, maso.</p>
+    </div>
+
+    <div class="karta k4" data-krok="4">
+      <div class="obraz">
+        <div class="oznameni">
+          <div class="appka" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="20"/><circle class="oblouk" cx="32" cy="32" r="20" pathLength="100"/></svg></div>
+          <div class="obsah-oznameni">
+            <p class="hlavicka"><span>Dojedeno</span><span>12:41</span></p>
+            <p class="co">Segedínský guláš – knedlík</p>
+            <p class="kolik">150&nbsp;g</p>
+          </div>
+        </div>
+      </div>
+      <h2>Zapíše se záznam</h2>
+      <p class="stitek">Pod 10&nbsp;g = <span class="zelena">dojedeno&nbsp;✓</span></p>
+    </div>
+  </div>
+
+  <div class="dole" data-krok="5">
+    <p class="gastro"><svg class="ilu" aria-hidden="true"><use href="#i-gastro"/></svg><span>Zbytky z&nbsp;gastronádob se vyklopí do stejného kbelíku a&nbsp;zapíšou se jako <b>nevydané</b>.</span></p>
+    <p class="pilulka zive"><span class="tecka"></span>Živá ukázka prototypu</p>
+  </div>
+
+  <script type="application/json" class="poznamky-data">["2:10–3:20 · Ondra (z toho asi 50–60 s živá ukázka prototypu)", "Jak to funguje u jednoho talíře?", "[mezerník] Uzel 1, váha naskočí na +150 g: Jídlo spadne do kbelíku a váha přičte gramy.", "[mezerník] Uzel 2, před a po: Telefon vyfotí kbelík před a po, takže vidí, co přibylo.", "[mezerník] Uzel 3, menu: Umělá inteligence pozná jídlo z dnešního menu.", "[mezerník] Uzel 4, záznam: A zapíše se: guláš, knedlík, 150 gramů. Pod deset gramů je talíř dojedený. O tom rozhoduje váha, ne AI.", "[mezerník] Gastronádoby a pilulka „● Živá ukázka prototypu“: Zbytky z gastronádob se zapíšou jako nevydané. Teď vám ukážu prototyp, jak to bude v jídelně vypadat.", "Asi 60 slov řeči na slajdu (27 s).", "[mezerník] Další stisk otevře živou ukázku přímo v prezentaci (další slajd), žádné Cmd+Tab. Vždy říkat „prototyp“ a u měsíce „ukázková data“.", "Zdroje: vlastní návrh; práh 10 g pro dojedený talíř je naše nastavení."]</script>
+</section>
+
+<!-- 06b · živá ukázka: demo z http://localhost:8080 (demo/, spouští python3 tools/serve.py) vložené přes celou plochu.
+     Klikr ovládá demo; demo po 8. kroku pošle zprávu {dojedeno:'konec'} a deck jde dál, na 1. kroku zpět {dojedeno:'zacatek'}. -->
+<section class="slajd" id="s-ukazka" data-nazev="Živá ukázka prototypu" data-kroky="0" data-demo data-bez-prubehu>
+  <img class="nahled bez-vstupu" src="../demo/screenshots/step-4.png" alt="Prototyp Dojedeno: výsledek talíře, zbylo 150 g, snědeno 63 %">
+  <iframe class="demo bez-vstupu" title="Prototyp Dojedeno" allow="camera; fullscreen; autoplay" tabindex="0"></iframe>
+  <div class="demo-chyba bez-vstupu" hidden>
+    <p class="nadpis">Demo zatím neběží</p>
+    <p>V Terminálu spusť:</p>
+    <code>cd ~/Documents/hack-prague-2026/demo &amp;&amp; python3 tools/serve.py</code>
+    <p class="mala">Slajd se sám připojí. Mezerníkem lze pokračovat dál.</p>
+  </div>
+  <script type="application/json" class="poznamky-data">["2:35–3:30 · Ondra · živá ukázka prototypu (demo z http://localhost:8080 vložené do prezentace)", "[PŘED PITCHEM] V Terminálu: cd ~/Documents/hack-prague-2026/demo && python3 tools/serve.py. Demo nastavit na krok 1 (R). Když server neběží, slajd ukáže návod a mezerník jde dál.", "Klikr teď ovládá demo (8 kroků, krok 3 má dvě fáze). S mobilem nad stanovištěm se talíře spouští samy.", "Demo 1–2 (talíř pod kamerou): Ráno kuchařka vyfotí plnou porci: segedínský guláš s knedlíkem, 400 gramů.", "Demo 3–4 (zbytek do kbelíku): Po obědě se zbytek vyškrábne do kbelíku. Váha přičte 150 gramů a systém ví, kolik dítě snědlo.", "Demo 5 (celý den): Takhle vypadá celý den v jedné jídelně.", "Demo 6 (měsíc): A tohle je měsíc. Jsou to ukázková data, skutečná dá až pilot. Hned je vidět, co se nejí.", "Demo 7 (řešení): Z toho systém navrhne opatření, třeba kolik čeho vařit.", "Demo 8 (obrazovka žáků): A tohle uvidí děti na obrazovce v jídelně.", "[mezerník po 8. kroku] Prezentace sama přejde na slajd „Z dat rovnou opatření“. Šipka zpět na 1. kroku dema vrátí prezentaci na předchozí slajd.", "Vždy říkat „prototyp“, u měsíce „ukázková data“, nikdy „tohle už funguje“.", "Zdroje: prototyp rozhraní, čísla ze scénáře dema (ukázková data)."]</script>
+</section>
+
+<!-- 07 · co jídelna dostane: měření → (krok 1) analýza → (krok 2) opatření; krok 3 příklad 10 % = 60 000 Kč (výslovně příklad) -->
+<section class="slajd" id="s-dostane" data-nazev="Z dat rovnou opatření" data-kroky="3">
+  <h1>Z dat rovnou opatření.</h1>
+
+  <div class="tok rozbal">
+    <div class="karta faze f1">
+      <p class="kdy">Každý den</p>
+      <div class="hlava"><span class="kruh"><svg class="ilu" viewBox="0 0 64 64" aria-hidden="true"><path d="M14 28h36" vector-effect="non-scaling-stroke"/><path d="M32 28v6" vector-effect="non-scaling-stroke"/><path d="M12 52l4-18h32l4 18z" vector-effect="non-scaling-stroke"/><rect x="26" y="40" width="12" height="6" rx="1.5" vector-effect="non-scaling-stroke"/></svg></span><h2>Měření</h2></div>
+      <ul class="cipy">
+        <li>kilogramy</li><li>jídla</li><li>části jídla</li><li>talíře</li>
+      </ul>
+      <div class="tyden" aria-hidden="true">
+        <div><i style="height:46%"></i><span>Po</span></div>
+        <div><i style="height:72%"></i><span>Út</span></div>
+        <div><i style="height:58%"></i><span>St</span></div>
+        <div><i style="height:90%"></i><span>Čt</span></div>
+        <div><i style="height:64%"></i><span>Pá</span></div>
+      </div>
+    </div>
+
+    <svg class="ilu sipka s1" data-krok="1" aria-hidden="true"><use href="#i-sipka"/></svg>
+
+    <div class="karta faze f2" data-krok="1">
+      <p class="kdy">Každý měsíc</p>
+      <div class="hlava"><span class="kruh"><svg class="ilu" aria-hidden="true"><use href="#i-graf"/></svg></span><h2>Analýza</h2></div>
+      <ul class="otazky">
+        <li>Co se nejí?</li>
+        <li>Kolik se uvaří navíc?</li>
+      </ul>
+      <div class="spenat">
+        <p class="spenat-titul"><b>Špenát</b><span>zbude 47&nbsp;% porce</span></p>
+        <div class="porce"><i></i></div>
+      </div>
+    </div>
+
+    <svg class="ilu sipka s2" data-krok="2" aria-hidden="true"><use href="#i-sipka"/></svg>
+
+    <div class="karta faze f3" data-krok="2">
+      <p class="kdy">Hned</p>
+      <div class="hlava"><span class="kruh"><svg class="ilu" aria-hidden="true"><use href="#i-fajfka"/></svg></span><h2>Opatření</h2></div>
+      <ul class="kroky-opatreni">
+        <li><b>Vařit podle vydaných obědů</b><span>5–9&nbsp;% žáků si zaplacený oběd nevyzvedne</span></li>
+        <li><b>Upravit špenát, recepty a&nbsp;porce</b><span>podle toho, co se nejí</span></li>
+        <li><b>Polévky</b><span>jí je jen pětina žáků</span></li>
+        <li><b>Nevydané porce darovat</b><span>přes aplikaci Zachraň oběd</span></li>
+        <li><b>Soutěž tříd</b><span>obrazovka v&nbsp;jídelně</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="priklad" data-krok="3">
+    <span class="znacka">Příklad</span>
+    <p class="cislo male"><span data-pocitej="60000" data-od="0">60&nbsp;000</span><small>Kč</small></p>
+    <p class="vysvetleni">ročně na školu, když ušetříme <b class="procento">10&nbsp;%</b> zbytků z&nbsp;talířů.<span class="mala">600&nbsp;000&nbsp;Kč × podíl · příklad, ne slib</span></p>
+    <label class="posuvnik" data-interaktivni>
+      <span class="popis">Kolik ušetříme?</span>
+      <input type="range" min="1" max="30" step="1" value="10" aria-label="Podíl ušetřených zbytků z talířů v procentech">
+      <span class="meze"><span>1&nbsp;%</span><span>30&nbsp;%</span></span>
+    </label>
+  </div>
+
+  <script type="application/json" class="poznamky-data">["3:20–3:45 · Spoluhráč", "Samotná data nic neušetří. Proto z nich rovnou děláme opatření. Každý den měříme kilogramy, jídla a talíře.", "[mezerník] Analýza: Jednou za měsíc jídelna uvidí, co se nejí a kolik se vaří navíc.", "[mezerník] Opatření: A dostane konkrétní kroky. Vařit podle vydaných obědů, protože pět až devět procent dětí si oběd nevyzvedne. Upravit špenát a porce. Nevydané porce darovat přes Zachraň oběd.", "[mezerník] Příklad 60 000 Kč: Pro představu: když ušetříme deset procent zbytků z talířů, škola ušetří šedesát tisíc korun ročně. Je to příklad, ne slib.", "Asi 70 slov, 30 s (slot 25 s: když se nestíhá, vynechat první větu).", "[interaktivně] V kroku 3 jde myší přetáhnout posuvník (1–30 %) a částka se přepočítá (600 000 Kč × podíl). Říkat „výpočet, příklad“, nikdy „ušetříme“. Po puštění posuvníku klikr zase ovládá prezentaci.", "Zdroje: 5–9 % nevyzvednutých obědů (Z1, tisková zpráva Prague Food Waste); špenát 190 z ~400 g a polévku jí pětina žáků (Z2 Echo24, Z3 Blesk); Zachraň oběd (Z5, Z6); příklad: 10 % z 600 000 Kč za zbytky z talířů u školy s 500 žáky (Z1–Z3), náš výpočet."]</script>
+</section>
+
+<!-- 08 · kdo z toho co má: nahoře tři hlavní (městská část jako budoucí plátce), krok 1 spodní řada tří vedlejších -->
+<section class="slajd" id="s-kdo" data-nazev="Kdo z toho co má" data-kroky="1">
+  <h1>Kdo z&nbsp;toho co má.</h1>
+
+  <div class="hlavni rozbal">
+    <div class="karta osoba">
+      <span class="kruh"><svg class="ilu" aria-hidden="true"><use href="#i-graf"/></svg></span>
+      <p class="role">Vedoucí jídelny</p>
+      <h2>Ví, kolik čeho vařit.</h2>
+      <p class="stitek">Data místo odhadu, každý den.</p>
+    </div>
+    <div class="karta osoba">
+      <span class="kruh"><svg class="ilu" aria-hidden="true"><use href="#i-skola"/></svg></span>
+      <p class="role">Ředitel</p>
+      <h2>Úspora a&nbsp;ekologická výchova.</h2>
+      <p class="stitek">Měřitelný výsledek pro školu i&nbsp;rodiče.</p>
+    </div>
+    <div class="karta osoba platce">
+      <span class="kruh"><svg class="ilu" aria-hidden="true"><use href="#i-mesto"/></svg></span>
+      <span class="odznak">budoucí plátce</span>
+      <p class="role">Městská část</p>
+      <h2>Srovná své školy.</h2>
+      <p class="stitek">Praha&nbsp;4 už jídelny zapojila do Zachraň oběd.</p>
+    </div>
+  </div>
+
+  <div class="vedlejsi" data-krok="1">
+    <div class="karta mala-osoba">
+      <svg class="ilu" aria-hidden="true"><use href="#i-kuchar"/></svg>
+      <p><b>Kuchařky</b><span>Nic navíc. Vidí, co děti nejí.</span></p>
+    </div>
+    <div class="karta mala-osoba">
+      <svg class="ilu" aria-hidden="true"><use href="#i-clovek"/></svg>
+      <p><b>Žáci</b><span>Obrazovka a&nbsp;soutěž tříd.</span></p>
+    </div>
+    <div class="karta mala-osoba">
+      <svg class="ilu" aria-hidden="true"><use href="#i-rodina"/></svg>
+      <p><b>Rodiče</b><span>Platí obědy.</span></p>
+    </div>
+  </div>
+
+  <script type="application/json" class="poznamky-data">["3:45–4:05 · Spoluhráč", "Kdo z toho co má? Vedoucí jídelny konečně ví, kolik čeho vařit. Ředitel ušetří a má ekologickou výchovu v praxi. A městská část jako zřizovatel může srovnat své školy, proto ji vidíme jako budoucího plátce. Praha 4 už své jídelny zapojila do Zachraň oběd.", "[mezerník] Spodní řada: Kuchařky přitom nedělají nic navíc, děti soutěží na obrazovce a rodiče, kteří obědy platí, mají přehled.", "Asi 60 slov, 27 s (slot 20 s: když se nestíhá, vynechat druhý odstavec a jen ukázat).", "Zdroje: Praha 4 a projekt Zachraň oběd (Z6). Plátce je náš předpoklad, ne dohoda."]</script>
+</section>
+
+<!-- 09 · konkurence: vlevo tabulka čtyř firem (řádky nastupují po 90 ms), vpravo důkaz −50 % (IKEA Zličín);
+     krok 1: pod tabulkou přijede zelený řádek Dojedeno a věta, že ve školních jídelnách jsme automatické měření nenašli -->
+<section class="slajd" id="s-konkurence" data-nazev="Konkurence" data-kroky="1">
+  <h1>Ve světě to funguje. Do&nbsp;školních jídelen u&nbsp;nás zatím ne.</h1>
+
+  <div class="k-radek rozbal">
+    <div class="k-levy">
+    <div class="karta k-tabulka" role="table" aria-label="Firmy, které měří odpad kamerou a váhou u koše">
+      <div class="k-hlava" role="row">
+        <span role="columnheader">Kdo</span><span role="columnheader">Kde</span><span role="columnheader">Jak měří</span>
+      </div>
+      <div class="k-firma" role="row" style="--n:0">
+        <span role="cell"><b>Winnow</b><small>Velká Británie</small></span>
+        <span role="cell">IKEA, i&nbsp;Zličín</span>
+        <span role="cell" class="tlumene">kamera nad košem, váha pod ním</span>
+      </div>
+      <div class="k-firma" role="row" style="--n:1">
+        <span role="cell"><b>Orbisk</b><small>Nizozemsko</small></span>
+        <span role="cell">restaurace a&nbsp;catering</span>
+        <span role="cell" class="tlumene">personál drží jídlo pod kamerou</span>
+      </div>
+      <div class="k-firma" role="row" style="--n:2">
+        <span role="cell"><b>Leanpath</b><small>USA</small></span>
+        <span role="cell">Sodexo</span>
+        <span role="cell" class="tlumene">váha a&nbsp;tablet</span>
+      </div>
+      <div class="k-firma" role="row" style="--n:3">
+        <span role="cell"><b>KITRO</b><small>Švýcarsko</small></span>
+        <span role="cell">hotely a&nbsp;hotelové školy</span>
+        <span role="cell" class="tlumene">váha pod kbelíkem, kamera shora</span>
+      </div>
+    </div>
+    <div class="k-my" data-krok="1">
+      <div class="k-my-bunka k-my-jmeno">
+        <span class="k-my-znak"><svg class="ilu" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-talir"/></svg></span>
+        <span><b>Dojedeno</b><small>Praha</small></span>
+      </div>
+      <div class="k-my-bunka">školní jídelny</div>
+      <div class="k-my-bunka k-my-jak">každý talíř zvlášť, za&nbsp;cenu mobilu a&nbsp;váhy</div>
+    </div>
+    <p class="k-veta" data-krok="1">V&nbsp;českých školních jídelnách jsme automatické měření nenašli.</p>
+    </div>
+
+    <div class="karta k-dukaz">
+      <svg class="ilu k-dukaz-ikona" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-kbelik"/></svg>
+      <p class="cislo stredni zelena"><span class="k-minus">−</span><span data-pocitej="50" data-od="0">50</span><small>%</small></p>
+      <p class="pod-cislo">kuchyňského odpadu v&nbsp;IKEA&nbsp;Česko, i&nbsp;na&nbsp;Zličíně</p>
+      <p class="mala k-dukaz-pata">kamera a váha u&nbsp;koše, Winnow</p>
+    </div>
+  </div>
+
+
+
+  <script type="application/json" class="poznamky-data">[
+    "4:05–4:25 · Spoluhráč",
+    "Kamera s váhou u koše ve světě funguje a firmy ji prodávají: Winnow, Orbisk, Leanpath nebo švýcarské KITRO, hlavně restauracím a cateringu. A není to jen ve světě: IKEA na Zličíně s ní snížila kuchyňský odpad o polovinu.",
+    "[mezerník] Pod tabulkou přijede zelený řádek Dojedeno a věta o školních jídelnách.",
+    "Ve školních jídelnách jsme automatické měření nenašli. My měříme každý talíř zvlášť, za cenu mobilu a váhy.",
+    "Asi 55 slov. Když se nestíhá, vynechat „hlavně restauracím a cateringu“.",
+    "Kdyby se porota ptala: Orbisk – personál drží jídlo pod kamerou. KITRO – váha pod kbelíkem, kamera shora, mezi zákazníky jsou hotelové školy (EHL Lausanne, SHL Luzern). Neříkat, že konkurence je jen pro hotely, nemáme na to zdroj. Neříkat „v Česku to nikdo nedělá“, IKEA to dělá.",
+    "Zdroje: Z7 Springwise o Orbisku; Z8 Bloomberg o AI koších, 1. 7. 2024; IKEA Česko newsroom a ekonews.cz (Zličín, −50 % kuchyňského odpadu); kitro.ch/industries/universities-schools."
+  ]</script>
+</section>
+
+<!-- 10 · pilot: nahoře časová osa (čára se při vstupu nakreslí zleva, body naskočí po sobě), pod ní rozpočet 50 000 Kč s počítadlem;
+     krok 1: karty rizika a partneři -->
+<section class="slajd" id="s-pilot" data-nazev="Pilot" data-kroky="1">
+  <h1>Pilot ve&nbsp;3&nbsp;jídelnách za&nbsp;50&nbsp;000&nbsp;Kč.</h1>
+
+  <ol class="p-osa" aria-label="Postup pilotu">
+    <li style="--n:0"><span class="p-bod">1</span><h3>Instalace a&nbsp;ověření</h3><p>vzorek talířů zvážíme i&nbsp;ručně</p></li>
+    <li style="--n:1"><span class="p-bod">2</span><h3>Měsíc měření</h3><p>bez zásahu, výchozí stav</p></li>
+    <li style="--n:2"><span class="p-bod">3</span><h3>Měsíc opatření</h3><p>porce, recepty, darování</p></li>
+    <li style="--n:3"><span class="p-bod p-cil"><svg class="ilu" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-fajfka"/></svg></span><h3>Vyhodnocení</h3><p>co se změnilo a&nbsp;o&nbsp;kolik</p></li>
+  </ol>
+
+  <div class="p-dole rozbal">
+    <div class="karta p-rozpocet">
+      <p class="stitek">Rozpočet pilotu</p>
+      <p class="cislo stredni"><span data-pocitej="50000" data-od="0">50&nbsp;000</span><small>Kč</small></p>
+      <p class="p-odhad"><span>odhad, ceny ověřujeme</span></p>
+      <ul class="p-polozky">
+        <li>mobily</li><li>držáky</li><li>váhy</li><li>provoz</li><li>validační dny</li><li>rezerva</li>
+      </ul>
+    </div>
+
+    <div class="karta p-rizika" data-krok="1">
+      <p class="stitek">Rizika a&nbsp;co s&nbsp;nimi</p>
+      <ul>
+        <li><b>Rychlý výdej</b><span>talíře se slijí do jednoho záznamu, kila sedí</span></li>
+        <li><b>Hygiena a&nbsp;soukromí</b><span>kamera míří jen do kbelíku</span></li>
+        <li><b>Polévka do výlevky</b><span>ověříme v&nbsp;každé jídelně</span></li>
+      </ul>
+    </div>
+
+    <div class="karta p-partneri" data-krok="1">
+      <p class="stitek">Koho zapojíme</p>
+      <ul>
+        <li><b>Zachraň jídlo</b><span>aplikace Zachraň oběd</span></li>
+        <li><b>Praha&nbsp;4</b><span>jídelny už v&nbsp;Zachraň oběd</span></li>
+        <li><b>Mendelova univerzita</b><span>metodika měření</span></li>
+      </ul>
+      <p class="p-prvni"><svg class="ilu" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-skola"/></svg>první pilot u&nbsp;nás ve&nbsp;škole</p>
+    </div>
+  </div>
+
+  <script type="application/json" class="poznamky-data">[
+    "4:25–4:45 · Ondra",
+    "Začneme pilotem ve třech jídelnách, první bude u nás ve škole. Nejdřív instalace a ověření: vzorek talířů zvážíme i ručně a porovnáme. Pak měsíc jen měříme, měsíc zavádíme opatření a vyhodnotíme rozdíl. Podle našeho odhadu to stojí kolem padesáti tisíc korun.",
+    "[mezerník] Karty rizika a koho zapojíme.",
+    "Rizika známe a chceme zapojit Zachraň jídlo, Prahu 4 a Mendelovu univerzitu.",
+    "Asi 60 slov. Když se nestíhá, krok s riziky jen ukázat a nekomentovat. Rozpočet je náš odhad, ceny jednotlivých položek ověřujeme, neříkat konkrétní částky za položky.",
+    "Kdyby se porota ptala na rizika: při rychlém výdeji se dva talíře slijí do jednoho záznamu, celková váha ale sedí; kamera míří jen do kbelíku, obličeje nezabírá; polévku vylitou do výlevky bychom nezměřili, proto to ověříme v každé jídelně a případně dáme kbelík i tam. Partneři zatím nejsou domluvení, proto „koho zapojíme“.",
+    "Zdroje: rozpočet je náš odhad (mobily, držáky, váhy, provoz, validační dny, rezerva). Zachraň oběd: Z5 Zachraň jídlo, Jak darovat hotové pokrmy, 2025. Praha 4: Z6 Praha 4 a projekt Zachraň oběd."
+  ]</script>
+</section>
+
+<!-- 11 · závěr: krok 0 obří čísla (8 891 jídelen, 1,6 milionu dětí denně, počítadla) a schody rozšíření, které rostou zleva;
+     krok 1 vyčistí plochu a na prázdné scéně se dokreslí dojedený talíř, závěrečná věta, Dojedeno · Vážíme to vážně, Děkujeme -->
+<section class="slajd" id="s-zaver" data-nazev="Rozšíření a závěr" data-kroky="1">
+  <div class="z-faze0 po-kroku rozbal">
+    <h1 class="z-cisla">
+      <span class="z-blok">
+        <span class="z-cislo"><span data-pocitej="8891" data-od="0" data-trvani="1600">8&nbsp;891</span></span>
+        <span class="z-popis">školních jídelen, výdejen a&nbsp;vývařoven v&nbsp;Česku</span>
+      </span>
+      <span class="z-blok">
+        <span class="z-cislo"><span data-pocitej="1.6" data-od="0" data-des="1" data-trvani="1600">1,6</span><small>mil.</small></span>
+        <span class="z-popis">dětí a&nbsp;žáků, pro které denně vaří</span>
+      </span>
+    </h1>
+
+    <ol class="z-schody bez-vstupu" aria-label="Postup rozšíření">
+      <li style="--n:0"><svg class="ilu z-ikona" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-skola"/></svg><p class="z-kde">teď</p><h3>Naše škola</h3></li>
+      <li style="--n:1"><svg class="ilu z-ikona" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-talir"/></svg><p class="z-kde">pilot</p><h3>3&nbsp;jídelny</h3></li>
+      <li style="--n:2"><svg class="ilu z-ikona" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-mesto"/></svg><p class="z-kde">všechny její školy</p><h3>Městská část</h3></li>
+      <li style="--n:3"><svg class="ilu z-ikona" viewBox="0 0 64 64" aria-hidden="true"><path d="M6 56h52M10 56V32h13v24M23 56V16h17v40M40 56V36h14v20M28 26h7M28 36h7M28 46h7" vector-effect="non-scaling-stroke"/></svg><p class="z-kde">hlavní město</p><h3>Praha</h3></li>
+      <li style="--n:4"><svg class="ilu z-ikona" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-svet"/></svg><p class="z-kde">8&nbsp;891 jídelen</p><h3>Celá ČR</h3></li>
+    </ol>
+  </div>
+
+  <div class="z-konec" data-krok="1">
+    <svg class="z-talir" viewBox="0 0 92 92" aria-hidden="true">
+      <circle class="z-okraj" cx="46" cy="46" r="44"/>
+      <circle class="z-vnitrek" cx="46" cy="46" r="26"/>
+      <circle class="z-jidlo" cx="46" cy="46" r="34" transform="rotate(-90 46 46)"/>
+    </svg>
+    <p class="z-ikea">IKEA na Zličíně snížila odpad o&nbsp;polovinu.</p>
+    <p class="z-veta">My to dáme každé školní jídelně, za&nbsp;cenu mobilu a&nbsp;váhy.</p>
+    <p class="z-znacka"><b>Dojedeno</b><span>Vážíme to vážně.</span></p>
+  </div>
+  <p class="z-dekujeme" data-krok="1">Děkujeme</p>
+
+  <script type="application/json" class="poznamky-data">[
+    "4:45–5:00 · Ondra",
+    "V Česku je osm tisíc osm set devadesát jedna školních jídelen, výdejen a vývařoven a každý den vaří pro 1,6 milionu dětí. Začínáme u nás ve škole, pak tři jídelny, městská část, Praha a celá republika.",
+    "[mezerník] Plocha se vyčistí, dokreslí se dojedený talíř a závěrečná věta.",
+    "IKEA na Zličíně snížila odpad o polovinu. My to dáme každé školní jídelně, za cenu mobilu a váhy. Jsme Dojedeno. Vážíme to vážně. Děkujeme.",
+    "Asi 60 slov, poslední větu říct pomalu a nechat dvě vteřiny ticho před „Děkujeme“. Když se nestíhá, schody nekomentovat.",
+    "Zdroje: Z4 sborník konference From Plate To Waste, 13. 5. 2025, Mendelova univerzita (8 891 školních jídelen, výdejen a vývařoven, 1,6 milionu dětí a žáků denně); IKEA Česko newsroom a ekonews.cz (Zličín, kuchyňský odpad o polovinu méně)."
+  ]</script>
+</section>
+
+</div>
+</div>
+
+<div class="poznamky" id="poznamky" hidden>
+  <div class="hlava"><span id="poznamky-hlava-text"></span><span id="hud-cas">0:00</span></div>
+  <div id="poznamky-text"></div>
+</div>
+<div class="cerna" id="cerna" hidden></div>
+
+<!-- jedna sada ilustrací: viewBox 64 × 64, čára 3 px (třída .ilu), barva přes currentColor; použití: <svg class="ilu ikona"><use href="#i-talir"/></svg> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-talir" viewBox="0 0 64 64"><circle cx="32" cy="32" r="26" vector-effect="non-scaling-stroke"/><circle cx="32" cy="32" r="17" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-kbelik" viewBox="0 0 64 64"><path d="M16 22h32l-3 32a4 4 0 0 1-4 4H23a4 4 0 0 1-4-4z" vector-effect="non-scaling-stroke"/><path d="M11 22h42" vector-effect="non-scaling-stroke"/><path d="M25 22v-5a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v5" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-vaha" viewBox="0 0 64 64"><rect x="6" y="36" width="52" height="16" rx="4" vector-effect="non-scaling-stroke"/><rect x="22" y="41" width="20" height="6" rx="1.5" vector-effect="non-scaling-stroke"/><path d="M12 56v2M52 56v2" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-telefon" viewBox="0 0 64 64"><rect x="20" y="6" width="24" height="52" rx="5" vector-effect="non-scaling-stroke"/><circle cx="32" cy="13" r="1.6" vector-effect="non-scaling-stroke"/><path d="M28 52h8" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-ai" viewBox="0 0 64 64"><path d="M30 8c2 12 6 16 18 18-12 2-16 6-18 18-2-12-6-16-18-18 12-2 16-6 18-18z" vector-effect="non-scaling-stroke"/><path d="M50 40c.8 4 2 5.2 6 6-4 .8-5.2 2-6 6-.8-4-2-5.2-6-6 4-.8 5.2-2 6-6z" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-graf" viewBox="0 0 64 64"><path d="M8 56h48" vector-effect="non-scaling-stroke"/><rect x="13" y="36" width="9" height="20" rx="2" vector-effect="non-scaling-stroke"/><rect x="28" y="24" width="9" height="32" rx="2" vector-effect="non-scaling-stroke"/><rect x="43" y="12" width="9" height="44" rx="2" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-skola" viewBox="0 0 64 64"><path d="M6 56h52" vector-effect="non-scaling-stroke"/><path d="M12 56V28l20-13 20 13v28" vector-effect="non-scaling-stroke"/><rect x="27" y="42" width="10" height="14" rx="1" vector-effect="non-scaling-stroke"/><circle cx="32" cy="30" r="4" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-mesto" viewBox="0 0 64 64"><path d="M6 56h52" vector-effect="non-scaling-stroke"/><path d="M8 28l24-15 24 15z" vector-effect="non-scaling-stroke"/><path d="M14 56V28M50 56V28" vector-effect="non-scaling-stroke"/><path d="M23 56V36M32 56V36M41 56V36" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-kuchar" viewBox="0 0 64 64"><path d="M20 38v16h24V38" vector-effect="non-scaling-stroke"/><path d="M20 38c-6 0-10-4-10-9s4-9 9-9c1-6 6-10 13-10s12 4 13 10c5 0 9 4 9 9s-4 9-10 9z" vector-effect="non-scaling-stroke"/><path d="M20 46h24" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-clovek" viewBox="0 0 64 64"><circle cx="32" cy="19" r="9" vector-effect="non-scaling-stroke"/><path d="M14 57c0-11 8-19 18-19s18 8 18 19" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-dite" viewBox="0 0 64 64"><circle cx="32" cy="22" r="8" vector-effect="non-scaling-stroke"/><path d="M19 57c0-9 6-16 13-16s13 7 13 16" vector-effect="non-scaling-stroke"/><path d="M24 12l-4-4M40 12l4-4" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-rodina" viewBox="0 0 64 64"><circle cx="23" cy="20" r="7" vector-effect="non-scaling-stroke"/><circle cx="44" cy="26" r="5.5" vector-effect="non-scaling-stroke"/><path d="M9 57c0-10 6-17 14-17s14 7 14 17" vector-effect="non-scaling-stroke"/><path d="M36 45c2-4 5-6 8-6 6 0 11 6 11 18" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-mince" viewBox="0 0 64 64"><circle cx="32" cy="32" r="24" vector-effect="non-scaling-stroke"/><circle cx="32" cy="32" r="17" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-list" viewBox="0 0 64 64"><path d="M12 52C12 27 29 12 54 12c0 25-16 40-42 40z" vector-effect="non-scaling-stroke"/><path d="M12 52l24-24" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-sipka" viewBox="0 0 64 64"><path d="M8 32h46M40 18l14 14-14 14" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-hodiny" viewBox="0 0 64 64"><circle cx="32" cy="32" r="24" vector-effect="non-scaling-stroke"/><path d="M32 18v14l9 6" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-gastro" viewBox="0 0 64 64"><path d="M6 24h52" vector-effect="non-scaling-stroke"/><path d="M11 24v20a7 7 0 0 0 7 7h28a7 7 0 0 0 7-7V24" vector-effect="non-scaling-stroke"/><path d="M2 29h4M58 29h4" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-obrazovka" viewBox="0 0 64 64"><rect x="6" y="10" width="52" height="34" rx="4" vector-effect="non-scaling-stroke"/><path d="M24 54h16M32 44v10" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-fajfka" viewBox="0 0 64 64"><path d="M14 33l12 12 24-26" vector-effect="non-scaling-stroke"/></symbol>
+    <symbol id="i-svet" viewBox="0 0 64 64"><circle cx="32" cy="32" r="24" vector-effect="non-scaling-stroke"/><path d="M8 32h48M32 8c-8 8-8 40 0 48M32 8c8 8 8 40 0 48" vector-effect="non-scaling-stroke"/></symbol>
+  </defs>
+</svg>
+
+<script src="js/model3d.js"></script>
+<script src="js/uvod3d.js"></script>
+<script src="js/s01.js"></script>
+<script src="js/s02.js"></script>
+<script src="js/s06b.js"></script>
+<script src="js/s07.js"></script>
+<script src="js/deck.js"></script>
+</body>
+</html>

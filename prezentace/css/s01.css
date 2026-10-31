@@ -1,0 +1,89 @@
+/* 01 · otevření. Krok 0: scéna 1400 × 760 uprostřed plochy (left 260, top 120), věta ve skleněné pilulce dole.
+   Krok 1: scéna se zmenší na 0,6 (840 × 456) do bílé karty vpravo (970–1850 × 300–820), vlevo značka a 31 %. */
+
+#s-uvod { padding: 0; }
+
+#s-uvod .scena {
+  position: absolute; left: 260px; top: 120px; width: 1400px; height: 760px; transform-origin: 0 0;
+  transition: transform 900ms var(--ven);
+}
+#s-uvod .scena svg { display: block; width: 100%; height: 100%; overflow: visible; }
+#s-uvod[data-k="1"] .scena { transform: translate(750px, 202px) scale(0.6); }
+#s-uvod.hned .scena { transition: none; }
+
+#s-uvod .obrys { fill: none; stroke: var(--text); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+#s-uvod .kousky circle { fill: #e2c493; }
+#s-uvod .knedliky ellipse { fill: #f6ead2; stroke: #d9bb88; stroke-width: 2; }
+#s-uvod .stin { fill: #e8e8ed; }
+#s-uvod .pocitadlo { font-family: var(--pismo); font-weight: 800; font-size: 150px; letter-spacing: -0.035em; fill: var(--oranz); font-variant-numeric: tabular-nums; transition: opacity 400ms var(--ven); }
+#s-uvod .pocitadlo-jednotka { font-size: 64px; font-weight: 700; fill: var(--oranz); }
+#s-uvod .popisek { font-family: var(--pismo); font-weight: 600; font-size: 34px; fill: var(--text2); transition: opacity 400ms var(--ven); }
+#s-uvod[data-k="1"] .pocitadlo { opacity: 0; }
+
+/* bílá karta, do které scéna „přistane“ */
+#s-uvod .karta-sceny {
+  position: absolute; left: 970px; top: 300px; width: 880px; height: 520px;
+  background: var(--karta); border-radius: 40px; box-shadow: var(--stin-velky);
+  transform: scale(0.96); transform-origin: center;
+  transition: opacity 700ms var(--ven) 250ms, transform 900ms var(--ven) 150ms;
+}
+#s-uvod .karta-sceny.je { transform: none; }
+
+/* věta ve skleněné pilulce dole uprostřed */
+#s-uvod .veta { position: absolute; left: 50%; bottom: 96px; transform: translate(-50%, 16px); }
+#s-uvod .veta.je { transform: translate(-50%, 0); transition-delay: 500ms; }
+
+/* titul vlevo */
+#s-uvod .titul { position: absolute; left: 140px; top: 236px; width: 780px; transition-delay: 300ms; }
+#s-uvod .znacka { display: flex; align-items: center; gap: 30px; }
+#s-uvod .logo { width: 112px; height: 112px; flex: none; }
+#s-uvod .titul h1 { font-size: 148px; line-height: 1; letter-spacing: -0.04em; min-height: 0; }
+#s-uvod .podtitul { margin-top: 22px; font-size: 54px; font-weight: 600; letter-spacing: -0.015em; color: var(--text2); }
+#s-uvod .titul .cislo { margin-top: 72px; font-size: 220px; }
+#s-uvod .titul .pod-cislo { max-width: 700px; }
+#s-uvod .akce { position: absolute; left: 140px; bottom: 56px; transition-delay: 500ms; }
+
+/* ---------- filmové otevření ve 3D (js/uvod3d.js přidá sekci třídu .kino, jen když WebGL běží) ---------- */
+#s-uvod .kino3d, #s-uvod .kino-vineta, #s-uvod .kino-titulek, #s-uvod .kino-pocitadlo { display: none; }
+#s-uvod.kino { background: #050506; transition: background-color 1100ms var(--plynule); }
+#s-uvod.kino[data-k="1"] { background: var(--stranka); }
+#s-uvod.kino .scena, #s-uvod.kino .veta, #s-uvod.kino .karta-sceny { display: none; }
+#s-uvod.kino .kino3d { display: block; position: absolute; inset: 0; transition: opacity 900ms var(--plynule), transform 1400ms var(--ven); }
+#s-uvod.kino .kino3d canvas { display: block; width: 1920px !important; height: 1080px !important; }
+#s-uvod.kino[data-k="1"] .kino3d { opacity: 0; transform: scale(1.04); }
+/* vinětace: okraje do tmy jako ve filmu */
+#s-uvod.kino .kino-vineta { display: block; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 75% 70% at 50% 48%, transparent 55%, rgba(0, 0, 0, 0.55) 100%); transition: opacity 900ms var(--plynule); }
+#s-uvod.kino[data-k="1"] .kino-vineta { opacity: 0; }
+/* titulky dole uprostřed */
+#s-uvod.kino .kino-titulek {
+  display: block; position: absolute; left: 50%; bottom: 104px; margin: 0; white-space: nowrap; pointer-events: none;
+  font-size: 56px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.2; color: #f5f5f7;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.75), 0 0 2px rgba(0, 0, 0, 0.4);
+  opacity: 0; transform: translate(-50%, 14px); transition: opacity 800ms var(--plynule), transform 1100ms var(--ven);
+}
+#s-uvod.kino .kino-titulek.je { opacity: 1; transform: translate(-50%, 0); }
+/* počítadlo nahoře uprostřed */
+#s-uvod.kino .kino-pocitadlo {
+  display: block; position: absolute; left: 50%; top: 70px; margin: 0; pointer-events: none;
+  font-weight: 800; font-size: 210px; line-height: 1; letter-spacing: -0.04em; color: #e38b4d; font-variant-numeric: tabular-nums;
+  text-shadow: 0 4px 40px rgba(0, 0, 0, 0.6);
+  opacity: 0; transform: translate(-50%, 18px) scale(0.96); transition: opacity 900ms var(--plynule), transform 1100ms var(--ven);
+}
+#s-uvod.kino .kino-pocitadlo small { font-size: 0.42em; font-weight: 700; margin-left: 0.06em; color: #e38b4d; }
+#s-uvod.kino .kino-pocitadlo.je { opacity: 1; transform: translate(-50%, 0) scale(1); }
+#s-uvod.kino[data-k="1"] .kino-titulek, #s-uvod.kino[data-k="1"] .kino-pocitadlo { opacity: 0; transition: opacity 400ms var(--plynule); }
+/* titul v kroku 1 nastupuje až po prolnutí ze tmy */
+#s-uvod.kino .titul.je { transition-delay: 650ms; }
+#s-uvod.kino .akce.je { transition-delay: 900ms; }
+/* 3D točna produktu vpravo (model3d.js, režim „otocny“); bez WebGL v kino režimu nikdy nenastane */
+#s-uvod .produkt3d { display: none; }
+#s-uvod.kino .produkt3d { display: block; position: absolute; left: 860px; top: 90px; width: 1000px; height: 920px; transition-delay: 500ms;
+  -webkit-mask-image: radial-gradient(ellipse 70% 74% at 50% 52%, #000 72%, transparent 100%); mask-image: radial-gradient(ellipse 70% 74% at 50% 52%, #000 72%, transparent 100%); }
+#s-uvod.kino .produkt3d.je { transition-delay: 500ms; }
+#s-uvod .produkt3d-platno { position: absolute; inset: 0; }
+
+@media print {
+  #s-uvod.kino { background: #fff !important; }
+  #s-uvod.kino .kino3d, #s-uvod.kino .kino-vineta, #s-uvod.kino .kino-titulek, #s-uvod.kino .kino-pocitadlo { display: none !important; }
+}
