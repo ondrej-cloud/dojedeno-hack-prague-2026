@@ -8,7 +8,7 @@
 
 /* telefon */
 #s-reseni .displej { fill: var(--stranka); }
-#s-reseni .tecka-mereni { fill: var(--zelena-zivá); animation: s05-pulz 1.6s ease-in-out infinite; transform-origin: 393px 100px; }
+#s-reseni .tecka-mereni { fill: var(--zelena-zivá); animation: s05-pulz 1.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
 @keyframes s05-pulz { 50% { opacity: 0.35; transform: scale(0.8); } }
 
 /* zorné pole */
@@ -37,13 +37,13 @@
 #s-reseni .sloupek { fill: var(--oranz-svetla); }
 #s-reseni .sloupek.posledni { fill: var(--oranz2); }
 
-/* zvýraznění podle kroku: 1 váha, 2 telefon + zorné pole, 3 přehled + spojení */
-#s-reseni[data-k="1"] .cast-vaha .obrys { stroke: var(--zelena); }
-#s-reseni[data-k="1"] .cast-vaha { filter: drop-shadow(0 0 22px rgba(48, 209, 88, 0.35)); }
-#s-reseni[data-k="2"] .cast-telefon .obrys, #s-reseni[data-k="2"] .cast-drzak .obrys { stroke: var(--zelena); }
-#s-reseni[data-k="2"] .cast-telefon { filter: drop-shadow(0 0 22px rgba(48, 209, 88, 0.35)); }
-#s-reseni[data-k="2"] .kuzel { opacity: 0.18; }
-#s-reseni[data-k="2"] .paprsek { opacity: 1; }
+/* Kroky: 1 snímání na pásech, 2 přírůstek váhy, 3 nejisté párování. */
+#s-reseni[data-k="1"] .cast-telefon .obrys { stroke: var(--zelena); }
+#s-reseni[data-k="1"] .cast-telefon { filter: drop-shadow(0 0 22px rgba(48, 209, 88, 0.35)); }
+#s-reseni[data-k="1"] .kuzel { opacity: 0.18; }
+#s-reseni[data-k="1"] .paprsek { opacity: 1; }
+#s-reseni[data-k="2"] .cast-vaha .obrys { stroke: var(--zelena); }
+#s-reseni[data-k="2"] .cast-vaha { filter: drop-shadow(0 0 22px rgba(48, 209, 88, 0.35)); }
 #s-reseni[data-k="3"] .karta-svg { stroke: var(--zelena); stroke-width: 3; }
 #s-reseni[data-k="3"] .cast-prehled { filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05)) drop-shadow(0 18px 40px rgba(36, 138, 61, 0.22)); }
 #s-reseni[data-k="3"] .cast-spojeni { opacity: 1; }
@@ -65,9 +65,9 @@
 #s-reseni.kresli .zorne-pole { animation-delay: 1000ms; }
 
 /* popisky vpravo */
-#s-reseni .popisky { position: absolute; left: 1150px; right: 80px; top: 300px; display: flex; flex-direction: column; gap: 40px; }
+#s-reseni .popisky { position: absolute; left: 1150px; right: 80px; top: 300px; display: flex; flex-direction: column; gap: 34px; }
 #s-reseni .popisek { display: grid; grid-template-columns: 96px 1fr; gap: 28px; align-items: center; }
-#s-reseni .popisek h2 { font-size: 44px; line-height: 1.1; letter-spacing: -0.015em; }
+#s-reseni .popisek h2 { font-size: 42px; line-height: 1.1; letter-spacing: -0.015em; }
 #s-reseni .popisek .stitek { margin-top: 8px; font-size: 26px; }
 #s-reseni .kruh { width: 96px; height: 96px; border-radius: 50%; background: var(--karta); box-shadow: var(--stin); display: grid; place-items: center; color: var(--text2); transition: background 500ms var(--ven), color 500ms var(--ven); }
 #s-reseni .kruh .ilu { width: 52px; height: 52px; }
@@ -80,3 +80,13 @@
 #s-reseni .model3d { position: absolute; left: 30px; top: 200px; width: 1180px; height: 860px;
   -webkit-mask-image: radial-gradient(ellipse 72% 78% at 45% 50%, #000 70%, transparent 100%); mask-image: radial-gradient(ellipse 72% 78% at 45% 50%, #000 70%, transparent 100%); }
 #s-reseni:has(.model3d.m3d) .sestava { display: none; }
+
+/* Fallback schéma pásů a viditelné označení návrhu. */
+#s-reseni .navrh-modelu { position: absolute; left: 80px; top: 208px; z-index: 3; padding: 8px 18px; border: 1px solid var(--linka2); border-radius: var(--pilulka); color: var(--text2); font-size: 22px; background: var(--stranka); }
+#s-reseni .tac { fill: #e5e5ea; stroke: #a1a1a6; stroke-width: 2; }
+#s-reseni .talir-vnitrek { fill: none; stroke: var(--linka2); stroke-width: 2; }
+#s-reseni .zbytek, #s-reseni .zbytky-kbelik { fill: #cf8c55; }
+#s-reseni .priloha { fill: #ead9b5; }
+#s-reseni .smer-pasu { fill: none; stroke: var(--text3); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+#s-reseni .presun-talire { fill: none; stroke: var(--oranz); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 4 9; }
+#s-reseni .popis-schematu { font: 500 22px var(--pismo); fill: var(--text2); }
