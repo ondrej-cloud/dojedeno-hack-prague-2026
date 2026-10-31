@@ -51,8 +51,8 @@
 ### 02 · `s-problem` · 0:25–0:55
 - **Nadpis:** „Jen zbytky z talířů stojí školu 600 000 Kč ročně.“
 - **Hlavní prvek:** obří číslo 600 000 Kč a pod ním „škola s 500 žáky, jen cena surovin“.
-- **Krok 1:** 1 200 Kč na žáka ročně. Poznámka: „bez práce kuchařek a energie, skutečná ztráta je vyšší“.
-- **Krok 2:** „A takových jídelen je v Česku 8 891, denně pro 1,6 milionu dětí.“
+- **Řečník:** „A to jsou jen suroviny, skutečná ztráta je vyšší.“ (1 200 Kč na žáka zůstává jen v poznámkách pro dotazy.)
+- **Krok 1:** „A takových jídelen je v Česku 8 891, denně pro 1,6 milionu dětí.“
 - **Řádek zdroje:** Prague Food Waste 2024 (Zachraň jídlo, Mendelova univerzita), sborník From Plate To Waste 2025.
 
 ### 03 · `s-zdroje` · 0:55–1:25

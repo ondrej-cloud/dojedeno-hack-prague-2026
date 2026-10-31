@@ -1,4 +1,4 @@
-/* 02 · pole 8 891 teček (1 tečka = 1 školní jídelna): v kroku 2 se vykreslí zleva doprava za 1,4 s, jinak hned nebo prázdné. */
+/* 02 · pole 8 891 teček (1 tečka = 1 školní jídelna): v kroku 1 se vykreslí zleva doprava za 1,4 s, jinak hned nebo prázdné. */
 (function () {
   'use strict';
   const s = document.getElementById('s-problem');
@@ -39,7 +39,7 @@
     raf = requestAnimationFrame(tik);
   }
   s.addEventListener('krok', e => {
-    if (e.detail.k >= 2) { if (e.detail.hned) { zastav(); kresli(1); } else animuj(); }
+    if (e.detail.k >= 1) { if (e.detail.hned) { zastav(); kresli(1); } else animuj(); }
     else { zastav(); kresli(0); }
   });
   s.addEventListener('odchod', zastav);
