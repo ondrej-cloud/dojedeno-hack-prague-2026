@@ -5,7 +5,7 @@ Run after `python3 prezentace/build.py`:
     python3 tools/export_netlify.py
 Upload the generated netlify-drop folder to Netlify Drop, or use netlify-drop.zip.
 The ZIP has index.html at its root. This command never publishes anything.
-Live mode uses an authenticated external gateway; public visitors see sample data.
+Live mode connects directly to the public demo gateway.
 """
 from pathlib import Path
 import json
@@ -73,7 +73,7 @@ def build():
         raise RuntimeError('Demo speaker notes not found')
     notes = json.loads(notes_match.group(1))
     notes += ['Webová verze · připojení',
-             'Bez připojení k živému serveru ukazuje demo připravené fotografie a data. Pro živé měření otevřete chráněný prezentační odkaz nebo zadejte přístupový kód přes tlačítko Živé demo.',
+             'Živé demo se připojí automaticky bez přístupového kódu. Na Macu musí běžet server a tunel.',
              'V živém režimu tlačítko Mobil zobrazí QR. Telefon otevře HTTPS stránku a povolí kameru. Mac se serverem a tunelem musí zůstat zapnutý a online.',
              'Claude čte displej váhy na snímku; denní a měsíční přehledy zůstávají ukázková data.']
     section = re.sub(r'(<script type="application/json" class="poznamky-data">)[\s\S]*?(</script>)',

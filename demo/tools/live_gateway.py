@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Bearer-authenticated loopback gateway for the live HTTPS tunnel.
+"""Loopback gateway for the live HTTPS tunnel (public demo or private mode).
 
 Run alongside serve.py: python3 tools/live_gateway.py
 Point an HTTPS tunnel at http://127.0.0.1:8081. This serves no static files.
-Two role tokens live in .local/live-desktop-token and .local/live-phone-token.
+Public demo access is configured in tools/live_backend.json. Private mode uses
+two role tokens in .local/live-desktop-token and .local/live-phone-token.
 Never publish these files or log request headers/URLs. No paid API retries.
 """
 import argparse
@@ -54,6 +55,7 @@ class Config:
     http_port: int = 8080
     https_port: int = 8443
     timeout: int = 80
+    public_access: bool = False
 
     @property
     def origins(self):
@@ -140,7 +142,12 @@ def make_handler(config):
             if not self.check_origin():
                 return None
             role = ROUTES.get((self.command, self.path))
-            # Check authentication even for unknown paths; no public status endpoint.
+            if config.public_access:
+                if role is None:
+                    self.error(404, 'Nepovolená cesta.')
+                    return None
+                return role
+            # Private mode remains available for other deployments.
             auth = self.headers.get('Authorization', '')
             if len(self.headers.get_all('Authorization', [])) != 1 or not auth.startswith('Bearer '):
                 self.error(401, 'Chybí platný přístupový token.')
@@ -219,7 +226,7 @@ def make_handler(config):
                     upstream = json.loads(content)
                     analysis = upstream.get('analysis', {})
                     safe_analysis = {key: analysis[key] for key in ['configured', 'model', 'effort', 'quantityMode'] if key in analysis}
-                    safe = {'phoneUrl': SITE + '/demo/phone.html#token=' + config.phone_token,
+                    safe = {'phoneUrl': SITE + '/demo/phone.html' + ('' if config.public_access else '#token=' + config.phone_token),
                             'connected': bool(upstream.get('connected')),
                             'lastFrameAgeMs': upstream.get('lastFrameAgeMs'), 'analysis': safe_analysis}
                     content = json.dumps(safe, ensure_ascii=False).encode()
@@ -258,9 +265,12 @@ def main():
     config = Config(private, token_file(private / 'live-desktop-token'), token_file(private / 'live-phone-token'))
     if hmac.compare_digest(config.desktop_token, config.phone_token):
         raise ValueError('Gateway role tokens must differ')
+    settings_path = ROOT.parent / 'tools/live_backend.json'
+    settings = json.loads(settings_path.read_text()) if settings_path.exists() else {}
+    config.public_access = settings.get('publicAccess') is True
     server = ThreadingHTTPServer(('127.0.0.1', args.port), make_handler(config))
     server.daemon_threads = True
-    print(f'Live gateway: http://127.0.0.1:{args.port} (bearer authentication required)', flush=True)
+    print(f'Live gateway: http://127.0.0.1:{args.port} (public access: {config.public_access})', flush=True)
     try:
         server.serve_forever()
     except KeyboardInterrupt:

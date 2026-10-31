@@ -1,29 +1,17 @@
-/* Browser connection for the Netlify demo. Credentials stay in this tab and request headers. */
+/* Public hackathon demo connection; no presenter code is required. */
 (function () {
   'use strict';
   const hosted = location.protocol === 'https:' && location.hostname.endsWith('.netlify.app');
-  const key = 'dojedeno-live-token';
   const scriptURL = document.currentScript?.src || new URL('connection.js', location.href).href;
   const configURL = new URL('live-server.json', scriptURL);
-  const hash = new URLSearchParams(location.hash.slice(1));
-  const phoneToken = hash.get('token') || '';
-  let memoryToken = '';
   let backendPromise = null;
   let qrValue = null;
 
-  function storedToken() {
-    try { return sessionStorage.getItem(key) || memoryToken; }
-    catch { return memoryToken; }
-  }
-  function saveToken(token) {
-    memoryToken = token;
-    try { if (token) sessionStorage.setItem(key, token); else sessionStorage.removeItem(key); }
-    catch { /* The current tab can still use its in-memory token. */ }
-  }
   function consumeLiveCode() {
     const incoming = new URLSearchParams(location.hash.slice(1)).get('live');
     if (!hosted || !incoming) return false;
-    saveToken(incoming.trim());
+    // Old personal links remain usable, but their code is no longer needed.
+    try { sessionStorage.removeItem("dojedeno-live-token"); } catch {}
     // Consume the access code before deck.js handles its slide hash.
     const slides = [...document.querySelectorAll('.slajd')];
     const demoIndex = slides.findIndex(slide => slide.hasAttribute('data-demo'));
@@ -52,49 +40,38 @@
     return backendPromise;
   }
 
-  async function remoteFetch(path, options, token, phone) {
-    if (!token) throw new Error(phone ? 'Chybí párovací kód. Otevřete nový QR kód z prezentace.' : 'Pro živé měření nejprve zapněte Živé demo a vložte přístupový kód.');
+  async function remoteFetch(path, options, phone) {
     const endpoint = new URL(path, location.origin);
     const allowed = phone ? ['/api/frame'] : ['/api/status', '/api/frame', '/api/analyze'];
     if (!allowed.includes(endpoint.pathname)) throw new Error('Neznámý požadavek živého dema.');
     endpoint.searchParams.delete('token');
     const target = await backendURL() + endpoint.pathname + endpoint.search;
     const headers = new Headers(options?.headers);
-    headers.set('Authorization', 'Bearer ' + token);
+    headers.delete('Authorization');
     return fetch(target, { ...options, headers, mode: 'cors', credentials: 'omit', redirect: 'error', cache: 'no-store' });
   }
 
   window.demoApiFetch = function (path, options) {
-    return hosted ? remoteFetch(path, options, storedToken(), false) : fetch(path, options);
+    return hosted ? remoteFetch(path, options, false) : fetch(path, options);
   };
   window.phoneApiFetch = function (path, options) {
-    return hosted ? remoteFetch(path, options, phoneToken, true) : fetch(path, options);
+    return hosted ? remoteFetch(path, options, true) : fetch(path, options);
   };
   window.prepareDemoConfig = async function (config) {
     if (!hosted) return config;
     const copy = JSON.parse(JSON.stringify(config));
-    if (!storedToken()) {
-      copy.analysis = { ...copy.analysis, mode: 'demo' };
-      copy.camera = { ...copy.camera, source: 'none' };
-      copy.detection = { ...copy.detection, enabled: false };
-      document.documentElement.classList.remove('live-connected');
-      const badge = document.querySelector('#stage > header > .badge');
-      if (badge) badge.textContent = 'Prototyp · ukázková data';
-      return copy;
-    }
     const abort = new AbortController();
     const timer = setTimeout(() => abort.abort(), 12000);
     try {
       const response = await window.demoApiFetch('/api/status', { signal: abort.signal });
-      if (response.status === 401 || response.status === 403) throw new Error('Přístupový kód není platný. Odpojte živé demo a vložte nový kód.');
       if (!response.ok) throw new Error('Živý server neodpovídá. Zkontrolujte připojení Macu.');
       const status = await response.json();
       if (!status.analysis?.configured) throw new Error('Na Macu není nastavený klíč Claude. Doplňte jej a obnovte stránku.');
-      copy.analysis = { ...copy.analysis, mode: 'claude', quantityMode: 'relative', weightSource: 'scale_display' };
+      copy.analysis = { ...copy.analysis, mode: 'claude', quantityMode: 'scale', weightSource: 'scale_display' };
       copy.camera = { ...copy.camera, source: 'mobile' };
       copy.detection = { ...copy.detection, enabled: true };
       document.documentElement.classList.add('live-connected');
-      const badge = document.querySelector('#stage > header > .badge');
+      const badge = document.querySelector('#stage header .badge');
       if (badge) badge.textContent = 'Prototyp · živé měření';
       return copy;
     } catch (error) {
@@ -114,7 +91,7 @@
       if (!['https:', 'http:'].includes(link.protocol)) return;
       if (typeof window.QRCode !== 'function') throw new Error();
       new window.QRCode(box, { text: url, width: 288, height: 288, colorDark: '#111111', colorLight: '#ffffff', correctLevel: window.QRCode.CorrectLevel.M });
-      // QRCode.js otherwise copies the secret URL into a hover tooltip.
+      // Avoid an unnecessary URL tooltip over the QR.
       box.removeAttribute('title');
       qrValue = url;
     } catch {
@@ -144,23 +121,9 @@
     if (!nav || document.getElementById('live-connect-button')) return;
     const button = document.createElement('button');
     button.id = 'live-connect-button';
-    button.textContent = storedToken() ? 'Odpojit živé demo' : 'Živé demo';
+    button.textContent = 'Obnovit připojení';
     button.type = 'button';
-    button.onclick = () => {
-      if (storedToken()) { saveToken(''); location.reload(); return; }
-      const value = window.prompt('Vložte přístupový kód živého dema z Macu. Není to API klíč Claude.');
-      if (value === null || !value.trim()) return;
-      saveToken(value.trim());
-      // In-memory token fallback works even when the browser blocks sessionStorage.
-      try {
-        if (sessionStorage.getItem(key)) { location.reload(); return; }
-      } catch { /* Apply without reload when sessionStorage is blocked. */ }
-      button.textContent = 'Obnovte stránku přes osobní odkaz';
-      const notice = document.createElement('p');
-      notice.className = 'live-connect-notice';
-      notice.textContent = 'Prohlížeč blokuje úložiště. Otevřete osobní odkaz z Macu, který obsahuje přístupový kód.';
-      document.getElementById('stage').append(notice);
-    };
+    button.onclick = () => location.reload();
     nav.append(button);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
