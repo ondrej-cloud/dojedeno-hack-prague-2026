@@ -1,0 +1,25 @@
+/* Scoped appendix styling; no shared presentation rules. */
+#s-budget-pilot-xlsx .budget-heading{position:absolute;left:80px;right:80px;top:48px;display:flex;align-items:center;justify-content:space-between;gap:30px}
+#s-budget-pilot-xlsx .budget-kicker{font-size:22px;line-height:1.2;color:var(--sekundarni,#6e6e73);margin:0 0 12px;letter-spacing:1px}
+#s-budget-pilot-xlsx h1{position:static;margin:0;font-size:64px;line-height:1.1;letter-spacing:-2px}
+#s-budget-pilot-xlsx .budget-location{font-size:28px;text-align:right;line-height:1.4;flex:none}
+#s-budget-pilot-xlsx .budget-location span{font-size:23px;color:#6e6e73}
+#s-budget-pilot-xlsx .budget-table{position:absolute;left:80px;top:190px;width:1760px;border-collapse:collapse;font-size:25px;line-height:1.2;background:#fff;border-radius:20px;overflow:hidden;table-layout:fixed}
+#s-budget-pilot-xlsx th,#s-budget-pilot-xlsx td{padding:9px 22px;border-bottom:1px solid #e8e8ed;text-align:right;font-variant-numeric:tabular-nums}
+#s-budget-pilot-xlsx thead th{background:#e8e8ed;font-size:23px;font-weight:650;padding-top:15px;padding-bottom:15px}
+#s-budget-pilot-xlsx th:first-child{text-align:left}
+#s-budget-pilot-xlsx tbody th{font-weight:500}
+#s-budget-pilot-xlsx td:last-child,#s-budget-pilot-xlsx th:last-child{text-align:left;font-size:22px}
+#s-budget-pilot-xlsx tbody tr:last-child th,#s-budget-pilot-xlsx tbody tr:last-child td{border-bottom:0}
+#s-budget-pilot-xlsx a{color:inherit;text-decoration:none}
+#s-budget-pilot-xlsx a span{font-size:20px;color:#6e6e73}
+#s-budget-pilot-xlsx a:hover,#s-budget-pilot-xlsx a:focus-visible{text-decoration:underline;color:#248a3d}
+#s-budget-pilot-xlsx .budget-verified{color:#248a3d}
+#s-budget-pilot-xlsx .budget-estimate{color:#b65b13}
+#s-budget-pilot-xlsx .budget-totals{position:absolute;left:80px;right:80px;top:864px;display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:20px}
+#s-budget-pilot-xlsx .budget-totals>div{border-radius:18px;background:#e8e8ed;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+#s-budget-pilot-xlsx .budget-totals span{font-size:22px;line-height:1.25;color:#6e6e73;max-width:180px}
+#s-budget-pilot-xlsx .budget-totals strong{font-size:38px;white-space:nowrap;letter-spacing:-1px}
+#s-budget-pilot-xlsx .budget-totals .budget-grand{background:#d4eedb;color:#248a3d}
+#s-budget-pilot-xlsx .budget-grand span{color:#248a3d}
+#s-budget-pilot-xlsx .budget-footnote{position:absolute;left:80px;right:80px;bottom:35px;margin:0;font-size:21px;line-height:1.35;color:#6e6e73}
