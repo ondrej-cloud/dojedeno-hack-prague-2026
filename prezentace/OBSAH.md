@@ -46,7 +46,7 @@
 ### 01 · `s-uvod` · 0:00–0:25 · otevření a titul (bez talíře vpravo nahoře: `data-bez-prubehu`)
 - **Krok 0:** uprostřed velká ilustrace gastronádoby (hrnce) plné uvařeného jídla a vedle kbelík. Pod ní skleněná věta: „Tohle je oběd ve školní jídelně.“
 - **Automaticky (asi 4 s, mezerník přeskočí):** 31 % obsahu se přelije do kbelíku (oranžově) a počítadlo běží 0 → 31 %.
-- **Krok 1:** scéna se zmenší doprava, vlevo nápis **Dojedeno**, podnadpis „Vážíme to vážně.“ a velké „31 %“ s textem „uvařeného jídla skončí v koši“.
+- **Krok 1:** scéna se zmenší doprava, vlevo nápis **Dojedeno** a velké „31 %“ s textem „uvařeného jídla skončí v koši“.
 
 ### 02 · `s-problem` · 0:25–0:55
 - **Nadpis:** „Škola s 500 žáky vyhodí jen z talířů suroviny za“, který plynule přechází do čísla.
@@ -134,7 +134,7 @@
 - **Nadpis:** „8 891 jídelen. 1,6 milionu dětí denně.“
 - **Schody rozšíření:** škola v Hejčíně, Olomouc → 3 jídelny (plán rozšíření) → městská část → Praha → celá ČR.
 - **Krok 1, závěrečná věta:** „IKEA na Zličíně snížila odpad o polovinu. My to dáme každé školní jídelně, za cenu mobilu a váhy.“
-- **Na konci:** „Dojedeno · Vážíme to vážně“ a „Děkujeme“.
+- **Na konci:** „Dojedeno“ a „Děkujeme“. Bez sloganu.
 
 ---
 

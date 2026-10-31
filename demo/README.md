@@ -1,4 +1,4 @@
-# Dojedeno · Vážíme to vážně
+# Dojedeno
 
 Offline scénář pro hackathonový pitch. Kamera skutečně detekuje stabilní objekt v obrazu. Výchozí živý režim posílá snímek do Claude API, které rozpozná jídlo a přečte displej váhy. Nastavení klíče a přesný postup: [CLAUDE.md](CLAUDE.md). Denní a měsíční souhrny zůstávají ukázková data. Živá analýza vyžaduje internet. Mobil posílá snímky přes místní Wi-Fi na Mac; poslední snímek je pouze v paměti serveru a prohlížeče.
 
