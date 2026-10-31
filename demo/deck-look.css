@@ -1,0 +1,113 @@
+/* Dojedeno · demo ve stylu prezentace (prezentace/css/base.css): světlé plátno #f5f5f7, bílé karty, jeden roh 22 px, jeden stín,
+   zelená = snědeno, oranžová = vyhozeno, velké písmo, minimum textu. Technické ovládání je schované, ukáže ho klávesa S. */
+:root{
+  --stranka:#f5f5f7;--karta:#fff;--text:#1d1d1f;--text2:#6e6e73;--text3:#86868b;--linka:#e5e5ea;--linka2:#d2d2d7;
+  --zelena:#248a3d;--zelena-svetla:#d3f0dc;--zelena-ziva:#30d158;--oranz:#c9601b;--oranz-svetla:#f8e0cf;--oranz2:#e38b4d;--seda:#aeaeb2;
+  --r:22px;--r2:14px;--stin:0 1px 2px rgba(0,0,0,.04),0 10px 30px rgba(0,0,0,.06);--ven:cubic-bezier(.16,1,.3,1);
+  --pismo:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter","Helvetica Neue",sans-serif;
+}
+html,body{background:var(--stranka)!important}
+body{font-family:var(--pismo)!important;color:var(--text)!important;-webkit-font-smoothing:antialiased}
+#stage{background:var(--stranka)!important;padding:0 80px!important;color:var(--text)}
+
+/* hlavička: jen značka a škola; nástroje až po S */
+header{height:96px!important;border-bottom:0!important;font-size:22px!important}
+.brand{font-size:34px!important;font-weight:800!important;letter-spacing:-.02em;color:var(--text)!important;gap:14px!important}
+.brand-icon{width:40px!important;height:40px!important;border-radius:50%!important;background:var(--karta)!important;color:transparent!important;
+  box-shadow:inset 0 0 0 3px var(--linka2);position:relative;overflow:hidden}
+.brand-icon::after{content:"";position:absolute;inset:7px;border-radius:50%;border:6px solid var(--zelena);border-left-color:transparent;transform:rotate(30deg)}
+.tagline{font-size:22px!important;color:var(--text3)!important;font-weight:600}
+#school{font-size:22px!important;color:var(--text2)!important}
+.header-tools{display:none!important}
+.badge{font-size:20px!important;font-weight:700!important;padding:6px 16px 8px!important;border-radius:999px!important;background:transparent!important;
+  border:0!important;box-shadow:inset 0 0 0 2px var(--zelena);color:var(--zelena)!important;text-transform:uppercase;letter-spacing:.06em}
+.badge.orange{box-shadow:inset 0 0 0 2px var(--oranz);color:var(--oranz)!important}
+
+/* patička: jen nenápadné „3 / 8“; tlačítka až po S */
+footer{height:72px!important;border-top:0!important;color:var(--text3)!important;font-size:20px!important}
+footer>span:first-child,footer>span:last-child{opacity:0}
+footer nav button{display:none!important}
+#progress{font-variant-numeric:tabular-nums;font-weight:700;color:var(--text3);padding:6px 16px;border-radius:999px;background:var(--karta);box-shadow:var(--stin)}
+body.nastaveni .header-tools{display:flex!important}
+body.nastaveni footer nav button{display:inline-flex!important}
+body.nastaveni footer>span{opacity:1}
+
+/* nadpisy jako v decku */
+main{padding-top:8px!important}
+.title-row{margin-bottom:34px!important;align-items:flex-start!important}
+.title-row .eyebrow,.eyebrow{font-size:22px!important;font-weight:700!important;color:var(--zelena)!important;text-transform:uppercase;letter-spacing:.06em;margin:0 0 8px!important}
+.title-row h1,#scene h1{font-size:72px!important;line-height:1.06!important;font-weight:800!important;letter-spacing:-.025em!important;color:var(--text)!important;margin:0!important}
+
+/* karty */
+.panel{background:var(--karta)!important;border:0!important;border-radius:var(--r)!important;box-shadow:var(--stin)!important;color:var(--text)!important}
+.panel h2{font-size:30px!important;font-weight:700!important;letter-spacing:-.01em;color:var(--text)!important}
+.note,.muted{color:var(--text3)!important;font-size:22px!important}
+.green{color:var(--zelena)!important}.orange-text{color:var(--oranz)!important}
+
+/* živá část: velká kamera, výsledky jako jedna velká věc */
+.camera-box{border-radius:var(--r)!important;overflow:hidden;box-shadow:var(--stin)!important;border:0!important}
+.waiting h2{font-size:52px!important;line-height:1.1!important;font-weight:800!important;letter-spacing:-.02em;color:var(--text)!important}
+.waiting p{font-size:28px!important;line-height:1.35!important;color:var(--text2)!important}
+.waiting-kicker{font-size:22px!important;font-weight:700!important;color:var(--zelena)!important;letter-spacing:.06em}
+.orb{color:var(--zelena)!important;background:var(--zelena-svetla)!important;border:0!important;box-shadow:none!important}
+.status-pill,.status{font-size:24px!important;font-weight:700!important;color:var(--zelena)!important}
+.status-pill i{background:var(--zelena-ziva)!important}
+.food-row{font-size:28px!important;border-color:var(--linka)!important}
+.under-camera{font-size:22px!important;color:var(--text2)!important}
+.weight{font-size:44px!important;font-weight:800!important;color:var(--text)!important}
+
+/* ---------- nové obrazovky (deck-views.js) ---------- */
+.dk-hero{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.dk-cislo{background:var(--karta);border-radius:var(--r);box-shadow:var(--stin);padding:34px 38px 30px;animation:dk-vstup .7s var(--ven) both}
+.dk-cislo b{display:block;font-size:150px;line-height:.9;font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.dk-cislo b small{font-size:.38em;font-weight:700;color:var(--text2);margin-left:.08em;letter-spacing:-.01em}
+.dk-cislo p{margin:18px 0 0;font-size:28px;font-weight:600;color:var(--text2);line-height:1.3}
+.dk-cislo.oranz b{color:var(--oranz)}.dk-cislo.zelena b{color:var(--zelena)}.dk-cislo.seda b{color:var(--text)}
+.dk-pruh{margin-top:40px;display:flex;height:72px;border-radius:var(--r2);overflow:hidden;box-shadow:var(--stin)}
+.dk-pruh div{display:flex;align-items:center;padding:0 22px;color:#fff;font-size:26px;font-weight:800;white-space:nowrap;transform-origin:left;animation:dk-roste .9s var(--ven) both}
+.dk-legenda{display:flex;gap:30px;margin-top:16px;font-size:24px;color:var(--text2)}
+.dk-legenda i{display:inline-block;width:16px;height:16px;border-radius:5px;margin-right:10px;vertical-align:-1px}
+.dk-veta{margin-top:30px;font-size:30px;color:var(--text2)}.dk-veta b{color:var(--text)}
+.dk-mesic{display:grid;grid-template-columns:1.25fr 1fr;gap:28px;align-items:stretch}
+.dk-graf{background:var(--karta);border-radius:var(--r);box-shadow:var(--stin);padding:30px 34px 22px}
+.dk-graf svg{display:block;width:100%;height:auto}
+.dk-graf .sloupec{transform-origin:bottom;transform-box:fill-box;animation:dk-roste-y .8s var(--ven) both}
+.dk-graf h2,.dk-nej h2{margin:0 0 14px;font-size:28px;font-weight:700}
+.dk-nej{background:var(--karta);border-radius:var(--r);box-shadow:var(--stin);padding:30px 34px;display:flex;flex-direction:column}
+.dk-nej .jidlo{font-size:40px;font-weight:800;letter-spacing:-.02em;line-height:1.1;margin:6px 0 10px}
+.dk-nej .vraci{font-size:120px;font-weight:800;color:var(--oranz);letter-spacing:-.04em;line-height:.95}
+.dk-nej .vraci small{font-size:.35em;color:var(--text2);font-weight:700;margin-left:10px}
+.dk-nej ol{margin:auto 0 0;padding:0;list-style:none;border-top:1px solid var(--linka)}
+.dk-nej li{display:flex;justify-content:space-between;font-size:24px;padding:10px 0;border-bottom:1px solid var(--linka);color:var(--text2)}
+.dk-nej li b{color:var(--oranz);font-variant-numeric:tabular-nums}
+.dk-souhrn{margin-top:28px;display:flex;align-items:baseline;justify-content:space-between;gap:30px;padding:24px 34px;border-radius:var(--r);background:var(--karta);box-shadow:var(--stin);font-size:30px;font-weight:600;color:var(--text2)}
+.dk-souhrn strong{font-size:56px;font-weight:800;letter-spacing:-.02em;color:var(--oranz)}
+.dk-souhrn.zeleny{background:var(--zelena-svetla);box-shadow:none;color:var(--zelena)}.dk-souhrn.zeleny strong{color:var(--zelena)}
+.dk-opatreni{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.dk-karta{background:var(--karta);border-radius:var(--r);box-shadow:var(--stin);padding:34px 36px;min-height:380px;display:flex;flex-direction:column;gap:16px;animation:dk-vstup .7s var(--ven) both}
+.dk-karta .ikona{width:72px;height:72px;border-radius:50%;background:var(--zelena-svetla);color:var(--zelena);display:grid;place-items:center;font-size:36px;font-weight:800}
+.dk-karta h2{margin:0;font-size:38px;font-weight:800;line-height:1.12;letter-spacing:-.015em}
+.dk-karta p{margin:0;font-size:26px;line-height:1.35;color:var(--text2)}
+.dk-karta .data{margin-top:auto;font-size:24px;font-weight:700;color:var(--zelena)}
+.dk-priklad{font-size:22px;font-weight:700;color:var(--oranz);text-transform:uppercase;letter-spacing:.06em;box-shadow:inset 0 0 0 2px var(--oranz);border-radius:999px;padding:6px 14px 8px;margin-right:18px}
+@keyframes dk-vstup{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes dk-roste{from{transform:scaleX(0)}to{transform:none}}
+@keyframes dk-roste-y{from{transform:scaleY(0)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.dk-cislo,.dk-karta,.dk-pruh div,.dk-graf .sloupec{animation:none!important}}
+
+/* žákovská obrazovka: hravá, ale ve stejných barvách */
+.students .hero-number{color:var(--zelena)!important;font-weight:800!important;letter-spacing:-.04em}
+.bar-track{background:var(--linka)!important;border-radius:999px!important}
+.bar-fill{border-radius:999px!important}
+.class-percent{color:var(--zelena)!important}
+/* větší rytmus, ať obrazovky dýchají na celou výšku */
+.dk-cislo{padding:46px 44px 40px;min-height:340px;display:flex;flex-direction:column;justify-content:flex-end}
+.dk-cislo b{font-size:200px}
+.dk-cislo p{font-size:30px}
+.dk-pruh{height:96px;margin-top:48px}.dk-pruh div{font-size:30px}
+.dk-legenda{font-size:26px;margin-top:20px}
+.dk-veta{font-size:34px;margin-top:40px}
+.dk-karta{min-height:500px;padding:40px 40px}
+.dk-karta h2{font-size:42px}.dk-karta p{font-size:28px}
+.dk-souhrn{margin-top:36px;padding:30px 40px}.dk-souhrn strong{font-size:68px}
+.dk-graf svg{max-height:520px}
