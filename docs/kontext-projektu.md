@@ -210,14 +210,15 @@ Pod kbelík na zbytky ve školní jídelně dáme váhu a nad něj telefon. U ka
 
 **Hlavní věta do pitche:** „IKEA na Zličíně snížila odpad o polovinu díky kameře nad košem. Školní jídelny, kde se vyhodí třetina jídla, si takový systém nemůžou dovolit. My ho dáme každé škole za cenu telefonu a váhy.“
 
-## 8. Realizace v Praze
-- **Pilot ve 3 jídelnách,** první u nás ve škole: pás se třemi patry je dobrý těžký případ.
+## 8. První pilot v Olomouci a plán rozšíření
+- **První pilot plánujeme u nás ve škole v Hejčíně, Olomouc, Olomoucký kraj.** Následně chceme rozšířit měření na tři jídelny. Pás se třemi patry je dobrý těžký případ.
+- **Financování:** možnost využití podpory Hack Prague mimo Prahu musí potvrdit organizátoři; zatím není ověřená.
   - **Nejdřív** instalace a ověření: vzorek talířů zvážíme ručně a porovnáme se systémem.
   - **První měsíc** jen měříme a zjistíme výchozí stav.
   - **Druhý měsíc** zavedeme doporučení a obrazovku pro žáky a změříme rozdíl.
   - **Nakonec** vyhodnocení.
 - **Rozpočet pilotu: asi 50 000 Kč** (náš odhad, ceny ověřujeme): mobily, držáky, váhy (nejlíp s výstupem dat), provoz včetně AI, validační dny a rezerva.
-- **Koho zapojit:** Zachraň jídlo (aplikace Zachraň oběd), Praha 4, která do ní už zapojila své jídelny, a Mendelova univerzita (metodika měření).
+- **Chceme oslovit (spolupráce není domluvená):** Zachraň jídlo (aplikace Zachraň oběd), Praha 4, která do ní už zapojila své jídelny, a Mendelova univerzita (metodika měření).
 - **Jak to rozšířit:** stačí telefon a váha, takže to jde do kterékoli jídelny.
   - Plátcem pro všechny své školy může být městská část.
   - Pak nemocnice a domovy seniorů. Ministerstvo životního prostředí pro ně v roce 2026 vydalo příručky proti plýtvání. [13]

@@ -19,3 +19,7 @@ __pycache__/
 # OS/editor artifacts
 .DS_Store
 *.log
+
+# Rebuildable upload artifacts
+/netlify-drop/
+/netlify-drop.zip
