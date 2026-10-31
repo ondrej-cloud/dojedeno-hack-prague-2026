@@ -20,7 +20,7 @@ class LivePlateAnalysis {
   const controller=new AbortController();this.pending=controller;
   const timeout=setTimeout(()=>controller.abort(),55000);this.refresh(phase);
   try{
-   const response=await fetch('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:controller.signal});
+   const response=await (window.demoApiFetch||fetch)('/api/analyze',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:controller.signal});
    const data=await response.json();
    if(epoch!==this.epoch)return;
    if(!response.ok)throw Error(typeof data.error==='string'?data.error:(data.error?.message||data.message||'Analýza není dostupná. Zkuste to znovu.'));
