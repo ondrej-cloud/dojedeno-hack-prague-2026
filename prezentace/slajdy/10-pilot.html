@@ -1,52 +1,33 @@
-<!-- 10 · pilot: nahoře časová osa (čára se při vstupu nakreslí zleva, body naskočí po sobě), pod ní rozpočet 50 000 Kč s počítadlem;
-     krok 1: karty rizika a partneři -->
-<section class="slajd" id="s-pilot" data-nazev="Pilot" data-kroky="1">
-  <h1>První pilot: naše škola v&nbsp;Hejčíně, Olomouc.</h1>
+<!-- 10 · timeline (šablona: Timeline): osa listopad 2026 → gala 30. 3. 2027 → evaluace 10. 5. 2027 (kreslí se při vstupu);
+     krok 1: přiblížení 6 týdnů pilotu (týdny 1–2 měření, 3 úpravy, 4–6 měření po úpravě); krok 2: iterace, dokud KPI klesá -->
+<section class="slajd" id="s-pilot" data-nazev="Timeline pilotu" data-kroky="2">
+  <h1>Pilot u&nbsp;nás v&nbsp;Hejčíně: leden 2027.</h1>
 
-  <ol class="p-osa" aria-label="Postup pilotu">
-    <li style="--n:0"><span class="p-bod">1</span><h3>Instalace a&nbsp;ověření</h3><p>vzorek talířů zvážíme i&nbsp;ručně</p></li>
-    <li style="--n:1"><span class="p-bod">2</span><h3>Měsíc měření</h3><p>bez zásahu, výchozí stav</p></li>
-    <li style="--n:2"><span class="p-bod">3</span><h3>Měsíc opatření</h3><p>porce, recepty, darování</p></li>
-    <li style="--n:3"><span class="p-bod p-cil"><svg class="ilu" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-fajfka"/></svg></span><h3>Vyhodnocení</h3><p>co se změnilo a&nbsp;o&nbsp;kolik</p></li>
+  <ol class="t-osa" aria-label="Časová osa pilotu">
+    <li style="--n:0"><span class="t-bod"></span><p class="t-kdy">listopad–prosinec 2026</p><h3>Příprava</h3><p>souhlasy, hygiena a&nbsp;GDPR, instalace, test na tácech</p></li>
+    <li class="t-hlavni" style="--n:1"><span class="t-bod"></span><p class="t-kdy">leden–únor 2027</p><h3>Pilot 6 týdnů</h3><p>měření → úpravy → měření</p></li>
+    <li style="--n:2"><span class="t-bod"></span><p class="t-kdy">únor–březen 2027</p><h3>Iterace</h3><p>další kola úprav, dokud odpad klesá</p></li>
+    <li style="--n:3"><span class="t-bod t-gala"></span><p class="t-kdy">30. 3. 2027</p><h3>Gala</h3><p>výsledky pilotu</p></li>
+    <li style="--n:4"><span class="t-bod"></span><p class="t-kdy">do 10. 5. 2027</p><h3>Evaluace</h3><p>zpráva, další jídelna v&nbsp;Olomouci, Praha</p></li>
   </ol>
 
-  <div class="p-dole rozbal">
-    <div class="karta p-rozpocet">
-      <p class="stitek">Plán rozšíření na 3&nbsp;jídelny</p>
-      <p class="cislo stredni"><span data-pocitej="50000" data-od="0">50&nbsp;000</span><small>Kč</small></p>
-      <p class="p-odhad"><span>odhad, ceny ověřujeme</span></p>
-      <ul class="p-polozky">
-        <li>mobily</li><li>držáky</li><li>váhy</li><li>provoz</li><li>validační dny</li><li>rezerva</li>
-      </ul>
+  <div class="t-tydny" data-krok="1" aria-label="Šest týdnů pilotu">
+    <p class="stitek">6 týdnů v&nbsp;jedné jídelně</p>
+    <div class="t-pas">
+      <div class="t-tyden t-mereni" style="--n:0"><b>1</b><span>měříme</span></div>
+      <div class="t-tyden t-mereni" style="--n:1"><b>2</b><span>měříme</span></div>
+      <div class="t-tyden t-uprava" style="--n:2"><b>3</b><span>data → úpravy</span></div>
+      <div class="t-tyden t-po" style="--n:3"><b>4</b><span>měříme znovu</span></div>
+      <div class="t-tyden t-po" style="--n:4"><b>5</b><span>měříme znovu</span></div>
+      <div class="t-tyden t-po" style="--n:5"><b>6</b><span>porovnání</span></div>
     </div>
-
-    <div class="karta p-rizika" data-krok="1">
-      <p class="stitek">Rizika a&nbsp;co s&nbsp;nimi</p>
-      <ul>
-        <li><b>Rychlý výdej</b><span>talíře se slijí do jednoho záznamu, kila sedí</span></li>
-        <li><b>Hygiena a&nbsp;soukromí</b><span>kamera míří jen do kbelíku</span></li>
-        <li><b>Polévka do výlevky</b><span>ověříme v&nbsp;každé jídelně</span></li>
-      </ul>
-    </div>
-
-    <div class="karta p-partneri" data-krok="1">
-      <p class="stitek">Chceme oslovit</p>
-      <ul>
-        <li><b>Zachraň jídlo</b><span>aplikace Zachraň oběd</span></li>
-        <li><b>Praha&nbsp;4</b><span>jídelny už v&nbsp;Zachraň oběd</span></li>
-        <li><b>Mendelova univerzita</b><span>metodika měření</span></li>
-      </ul>
-      <p class="p-prvni"><svg class="ilu" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-skola"/></svg>Hejčín · Olomoucký kraj</p>
-    </div>
+    <p class="t-legenda"><span class="l-mereni"></span>výchozí stav bez zásahu <span class="l-uprava"></span>s&nbsp;vedoucí jídelny upravíme porce složek, recepty, polévky <span class="l-po"></span>po úpravě</p>
   </div>
 
-  <script type="application/json" class="poznamky-data">[
-    "4:25–4:45 · Ondra",
-    "První pilot plánujeme u nás ve škole v Hejčíně v Olomouci, v Olomouckém kraji. Následně chceme rozšířit měření na tři jídelny. Nejdřív instalace a ověření: vzorek talířů zvážíme i ručně a porovnáme. Pak měsíc jen měříme, měsíc zavádíme opatření a vyhodnotíme rozdíl. Podle našeho odhadu to stojí kolem padesáti tisíc korun.",
-    "[mezerník] Karty rizika a koho chceme oslovit.",
-    "Rizika známe a chceme oslovit Zachraň jídlo, Prahu 4 a Mendelovu univerzitu.",
-    "Asi 60 slov. Když se nestíhá, krok s riziky jen ukázat a nekomentovat. Rozpočet je náš odhad, ceny jednotlivých položek ověřujeme, neříkat konkrétní částky za položky.",
-    "Kdyby se porota ptala na rizika: při rychlém výdeji se dva talíře slijí do jednoho záznamu, celková váha ale sedí; kamera míří jen do kbelíku, obličeje nezabírá; polévku vylitou do výlevky bychom nezměřili, proto to ověříme v každé jídelně a případně dáme kbelík i tam. Partneři zatím nejsou domluvení, proto „chceme oslovit“. U organizátorů musíme ověřit, zda lze podporu Hack Prague použít na pilot v Olomouci; financování mimo Prahu není potvrzené.",
-    "Zdroje: rozpočet je náš odhad (mobily, držáky, váhy, provoz, validační dny, rezerva). Zachraň oběd: Z5 Zachraň jídlo, Jak darovat hotové pokrmy, 2025. Praha 4: Z6 Praha 4 a projekt Zachraň oběd."
-  ]</script>
+  <div class="t-smycka" data-krok="2">
+    <svg class="ilu" viewBox="0 0 64 64" aria-hidden="true"><path d="M50 22a20 20 0 1 0 4 14" vector-effect="non-scaling-stroke"/><path d="M52 10v13H39" vector-effect="non-scaling-stroke"/></svg>
+    <p><b>Iterujeme:</b> úprava → 2&nbsp;týdny měření → znovu, dokud odpad z&nbsp;talířů klesá. Počítáme se 2&nbsp;koly do galavečera.</p>
+  </div>
+
+  <script type="application/json" class="poznamky-data">["~0:25 · Ondra", "Pilot spustíme v lednu 2027 u nás ve škole v Hejčíně. V listopadu a prosinci připravíme souhlasy, hygienu a instalaci a ověříme měření na ručně zvážených tácech.", "[mezerník] Samotný pilot má šest týdnů: dva týdny jen měříme výchozí stav, ve třetím s vedoucí jídelny navrhneme úpravy a další tři týdny měříme, co se změnilo.", "[mezerník] A pak iterujeme: úprava, dva týdny měření, dokud odpad z talířů klesá. Do galavečera 30. března počítáme se dvěma koly, evaluace do 10. května.", "Úpravy jen v rámci výživových norem; v přípravě zjistíme, co se dnes děje s nevydanými porcemi.", "Zdroje: termíny podle šablony Hack Prague (gala 30. 3. 2027, evaluace 10. 5. 2027); délka pilotu podle doporučení mentora."]</script>
 </section>

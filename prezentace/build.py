@@ -3,7 +3,7 @@ připojí css/sNN.css a js/sNN.js, pokud existují. Spuštění: python3 build.p
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-slajdy = sorted((ROOT / "slajdy").glob("[0-9][0-9]-*.html"))
+slajdy = sorted((ROOT / "slajdy").glob("[0-9][0-9]*-*.html"))
 tpl = (ROOT / "index.template.html").read_text(encoding="utf-8")
 html = "\n\n".join(p.read_text(encoding="utf-8").strip() for p in slajdy)
 css = "\n".join(f'<link rel="stylesheet" href="css/{p.name}">' for p in sorted((ROOT / "css").glob("s[0-9][0-9]*.css")))

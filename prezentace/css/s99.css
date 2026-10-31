@@ -4,9 +4,9 @@
 #s-budget-pilot-xlsx h1{position:static;margin:0;font-size:64px;line-height:1.1;letter-spacing:-2px}
 #s-budget-pilot-xlsx .budget-location{font-size:28px;text-align:right;line-height:1.4;flex:none}
 #s-budget-pilot-xlsx .budget-location span{font-size:23px;color:#6e6e73}
-#s-budget-pilot-xlsx .budget-table{position:absolute;left:80px;top:190px;width:1760px;border-collapse:collapse;font-size:25px;line-height:1.2;background:#fff;border-radius:20px;overflow:hidden;table-layout:fixed}
-#s-budget-pilot-xlsx th,#s-budget-pilot-xlsx td{padding:9px 22px;border-bottom:1px solid #e8e8ed;text-align:right;font-variant-numeric:tabular-nums}
-#s-budget-pilot-xlsx thead th{background:#e8e8ed;font-size:23px;font-weight:650;padding-top:15px;padding-bottom:15px}
+#s-budget-pilot-xlsx .budget-table{position:absolute;left:80px;top:178px;width:1760px;border-collapse:collapse;font-size:22px;line-height:1.15;background:#fff;border-radius:20px;overflow:hidden;table-layout:fixed}
+#s-budget-pilot-xlsx th,#s-budget-pilot-xlsx td{padding:5px 22px;border-bottom:1px solid #e8e8ed;text-align:right;font-variant-numeric:tabular-nums}
+#s-budget-pilot-xlsx thead th{background:#e8e8ed;font-size:22px;font-weight:650;padding-top:10px;padding-bottom:10px}
 #s-budget-pilot-xlsx th:first-child{text-align:left}
 #s-budget-pilot-xlsx tbody th{font-weight:500}
 #s-budget-pilot-xlsx td:last-child,#s-budget-pilot-xlsx th:last-child{text-align:left;font-size:22px}
@@ -23,3 +23,21 @@
 #s-budget-pilot-xlsx .budget-totals .budget-grand{background:#d4eedb;color:#248a3d}
 #s-budget-pilot-xlsx .budget-grand span{color:#248a3d}
 #s-budget-pilot-xlsx .budget-footnote{position:absolute;left:80px;right:80px;bottom:35px;margin:0;font-size:21px;line-height:1.35;color:#6e6e73}
+#s-budget-pilot-xlsx tr.budget-kat th,#s-budget-pilot-xlsx tr.budget-kat td{background:#f5f5f7;font-weight:750;font-size:22px;padding-top:7px;padding-bottom:7px;color:#1d1d1f}
+#s-budget-pilot-xlsx .budget-calc{color:#167c9c}
+#s-budget-pilot-xlsx td:last-child,#s-budget-pilot-xlsx th:last-child{font-size:22px}
+#s-budget-pilot-xlsx a span{font-size:18px}
+#s-budget-pilot-xlsx .budget-totals{top:900px}
+#s-budget-pilot-xlsx .budget-totals>div{padding:14px 28px}
+#s-budget-pilot-xlsx .budget-footnote{bottom:22px;font-size:22px}
+#s-budget-pilot-xlsx .budget-table.budget-vlevo{left:80px;top:212px;width:960px}
+#s-budget-pilot-xlsx .budget-table.budget-vpravo{left:auto;right:80px;top:212px;width:760px}
+#s-budget-pilot-xlsx .budget-table{font-size:22px}
+#s-budget-pilot-xlsx th,#s-budget-pilot-xlsx td{padding:7px 18px}
+#s-budget-pilot-xlsx .budget-heading{top:44px}
+#s-budget-pilot-xlsx .budget-totals{top:880px}
+#s-budget-pilot-xlsx .budget-totals span{max-width:240px}
+#s-budget-pilot-xlsx .budget-table.budget-vlevo{width:940px}
+#s-budget-pilot-xlsx .budget-table.budget-vpravo{width:800px}
+#s-budget-pilot-xlsx td,#s-budget-pilot-xlsx thead th{white-space:nowrap}
+#s-budget-pilot-xlsx tbody th{white-space:normal}

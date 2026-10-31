@@ -1,0 +1,90 @@
+/* 10b · rizika: vlevo karta s maticí 3 × 3 (buňky 184 px, mezera 12 px, barva podle P × D), body jsou tlačítka
+   (najetí / klepnutí ukáže bublinu s opatřením, js/s10b.js). Vpravo tři karty největších rizik (kroky 1–3) a řádky
+   tří menších (krok 4). Krok k zvýrazní bod k v matici a jeho kartu (data-k na sekci z deck.js). */
+
+#s-rizika { --bunka: 184px; --krok-m: 196px; }
+
+/* karta matice */
+#s-rizika .r-matice { position: absolute; left: var(--okraj-x); top: var(--obsah-y); width: 800px; height: 724px; padding: 0; }
+#s-rizika .r-plocha { position: absolute; left: 168px; top: 44px; width: 576px; height: 576px; }
+#s-rizika .r-mrizka { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3, var(--bunka)); grid-auto-rows: var(--bunka); gap: 12px; }
+#s-rizika .r-mrizka i { border-radius: var(--r2); background: #edf7ef; }
+#s-rizika .r-mrizka i.z3, #s-rizika .r-mrizka i.z4 { background: #fcf1dc; }
+#s-rizika .r-mrizka i.z6 { background: var(--oranz-svetla); }
+#s-rizika .r-mrizka i.z9 { background: #f4cdb0; }
+#s-rizika.kresli .r-mrizka i { animation: s10b-bunka 520ms var(--ven) both; }
+#s-rizika.kresli .r-mrizka i:nth-child(3n+2) { animation-delay: 60ms; }
+#s-rizika.kresli .r-mrizka i:nth-child(3n) { animation-delay: 120ms; }
+@keyframes s10b-bunka { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: none; } }
+
+/* osy */
+#s-rizika .r-osa-y { position: absolute; left: 34px; top: calc(44px + 288px); transform: translate(-50%, -50%) rotate(-90deg); transform-origin: center; color: var(--text3); }
+#s-rizika .r-hodnota-y { position: absolute; right: calc(100% + 18px); top: calc((3 - var(--d)) * var(--krok-m) + 92px); transform: translateY(-50%);
+  font-size: 22px; font-weight: 600; color: var(--text3); white-space: nowrap; }
+#s-rizika .r-osa-x { position: absolute; left: 168px; width: 576px; top: calc(44px + 576px + 22px); display: flex; justify-content: space-between; color: var(--text3); }
+#s-rizika .r-osa-x span:nth-child(2) { color: var(--text2); }
+#s-rizika .r-osa-x span:first-child, #s-rizika .r-osa-x span:last-child { text-transform: none; letter-spacing: 0; font-weight: 600; }
+
+/* body: kroužky s číslem, barva podle závažnosti */
+#s-rizika .r-bod {
+  position: absolute; z-index: 2; left: calc((var(--p) - 1) * var(--krok-m) + 92px + var(--dx, 0px)); top: calc((3 - var(--d)) * var(--krok-m) + 92px + var(--dy, 0px));
+  width: 72px; height: 72px; margin: -36px 0 0 -36px; padding: 0; border: 0; border-radius: 50%; cursor: pointer;
+  display: grid; place-items: center; color: #fff; font: 800 30px/1 var(--pismo); font-variant-numeric: tabular-nums;
+  background: var(--oranz); box-shadow: 0 0 0 4px var(--karta), 0 6px 18px rgba(0, 0, 0, 0.16);
+  transition: transform 420ms var(--ven), opacity 420ms var(--ven), box-shadow 420ms var(--ven);
+}
+#s-rizika .r-bod.stredni { background: #d4900f; }
+#s-rizika .r-bod.nizke { background: var(--zelena); }
+#s-rizika .r-bod.stredni, #s-rizika .r-bod.nizke { transform: scale(0.82); opacity: 0.55; }
+#s-rizika .r-bod:hover, #s-rizika .r-bod:focus-visible, #s-rizika .r-bod.vybrany { transform: scale(1.18); opacity: 1; outline: none; z-index: 3; }
+#s-rizika .r-bod::after {
+  content: ""; position: absolute; inset: -4px; border-radius: 50%; border: 3px solid currentColor; color: var(--oranz); opacity: 0; pointer-events: none;
+}
+#s-rizika.kresli .r-bod { animation: s10b-bod 560ms var(--ven) calc(280ms + var(--n, 0) * 90ms) both; }
+#s-rizika .r-bod[data-r="2"] { --n: 1; } #s-rizika .r-bod[data-r="3"] { --n: 2; } #s-rizika .r-bod[data-r="4"] { --n: 3; }
+#s-rizika .r-bod[data-r="5"] { --n: 4; } #s-rizika .r-bod[data-r="6"] { --n: 5; }
+@keyframes s10b-bod { from { opacity: 0; scale: 0.4; } to { scale: 1; } }
+
+/* aktivní riziko kroku 1–3: bod se zvětší a pulzuje */
+#s-rizika[data-k="1"] .r-bod[data-r="1"], #s-rizika[data-k="2"] .r-bod[data-r="2"], #s-rizika[data-k="3"] .r-bod[data-r="3"] { transform: scale(1.32); z-index: 3; }
+#s-rizika[data-k="1"] .r-bod[data-r="1"]::after, #s-rizika[data-k="2"] .r-bod[data-r="2"]::after, #s-rizika[data-k="3"] .r-bod[data-r="3"]::after { animation: s10b-pulz 1.8s ease-out infinite; }
+@keyframes s10b-pulz { 0% { opacity: 0.7; transform: scale(1); } 100% { opacity: 0; transform: scale(1.7); } }
+/* krok 4: menší rizika se rozsvítí */
+#s-rizika[data-k="4"] .r-bod.stredni, #s-rizika[data-k="4"] .r-bod.nizke { opacity: 1; transform: scale(0.92); }
+#s-rizika[data-k="4"] .r-bod.stredni:hover, #s-rizika[data-k="4"] .r-bod.nizke:hover, #s-rizika[data-k="4"] .r-bod.vybrany { transform: scale(1.18); }
+
+/* bublina s opatřením nad bodem (pozici nastaví js/s10b.js) */
+#s-rizika .r-bublina {
+  position: absolute; z-index: 5; left: 0; top: 0; width: 420px; padding: 18px 24px 20px; border-radius: 18px; pointer-events: none;
+  background: rgba(255, 255, 255, 0.86); -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 1px 2px rgba(0, 0, 0, 0.06), 0 16px 40px rgba(0, 0, 0, 0.16);
+  transform: translate(-50%, calc(-100% - 52px)); animation: s10b-bublina 260ms var(--ven) both;
+}
+#s-rizika .r-bublina.dole { transform: translate(-50%, 52px); }
+#s-rizika .r-bublina b { display: block; font-size: 26px; line-height: 1.2; margin-bottom: 6px; }
+#s-rizika .r-bublina span { display: block; font-size: 22px; line-height: 1.35; color: var(--text2); }
+#s-rizika .r-bublina span::before { content: "→ "; color: var(--zelena); font-weight: 700; }
+@keyframes s10b-bublina { from { opacity: 0; } to { opacity: 1; } }
+
+/* vpravo: karty největších rizik */
+#s-rizika .r-seznam { position: absolute; left: 920px; right: var(--okraj-x); top: var(--obsah-y); margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px; }
+#s-rizika .r-karta { display: grid; grid-template-columns: 56px 1fr; gap: 22px; align-items: start; padding: 18px 30px 20px; transition: box-shadow 420ms var(--ven), opacity 480ms var(--ven), transform 480ms var(--ven); }
+#s-rizika .r-cislo { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--oranz-svetla); color: var(--oranz); font-weight: 800; font-size: 28px; font-variant-numeric: tabular-nums; }
+#s-rizika .r-karta h2 { font-size: 32px; }
+#s-rizika .r-proc { margin-top: 4px; font-size: 23px; line-height: 1.3; color: var(--text2); }
+#s-rizika .r-opatreni { margin-top: 8px; font-size: 25px; line-height: 1.32; font-weight: 600; }
+#s-rizika .r-opatreni::before { content: "→ "; color: var(--zelena); font-weight: 800; }
+#s-rizika[data-k="1"] .r-karta[data-r="1"], #s-rizika[data-k="2"] .r-karta[data-r="2"], #s-rizika[data-k="3"] .r-karta[data-r="3"] { box-shadow: var(--stin), inset 0 0 0 3px var(--oranz); }
+
+/* krok 4: tři menší rizika jako řádky v jedné kartě */
+#s-rizika .r-mensi { padding: 4px 30px; border-radius: var(--r); background: var(--karta); box-shadow: var(--stin); }
+#s-rizika .r-mala { display: grid; grid-template-columns: 40px 1fr; gap: 18px; align-items: center; padding: 8px 0; }
+#s-rizika .r-mala + .r-mala { border-top: 1px solid var(--linka); }
+#s-rizika .r-mala .r-cislo { width: 40px; height: 40px; font-size: 22px; background: #edf7ef; color: var(--zelena); }
+#s-rizika .r-mala[data-r="5"] .r-cislo { background: #fcf1dc; color: #a86d06; }
+#s-rizika .r-mala div { font-size: 23px; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#s-rizika .r-mala b { font-weight: 700; }
+#s-rizika .r-mala .r-co { color: var(--text2); }
+#s-rizika .r-mala .r-co::before { content: " → "; color: var(--zelena); font-weight: 700; }
+
+@media print { #s-rizika .r-bublina { display: none !important; } #s-rizika .r-bod.stredni, #s-rizika .r-bod.nizke { opacity: 1; } }

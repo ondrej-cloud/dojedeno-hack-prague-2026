@@ -1,0 +1,60 @@
+/* 10c · KPI a dopad: nahoře tři karty (hlavní KPI širší a vidět od kroku 0, další dvě od kroku 1), pod nimi řádek
+   o kvalitě měření, dole karta impaktu ve třech sloupcích (krok 2). Zelená = cíl a úspora, šedé „? g“ = zatím nezměřeno. */
+
+#s-kpi .k-karty { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 28px; margin-top: var(--mezera); align-items: stretch; }
+#s-kpi .k-karty .karta { min-height: 432px; padding: 28px 32px 30px; display: flex; flex-direction: column; }
+#s-kpi .k-stitek { margin-bottom: 18px; color: var(--text3); }
+#s-kpi .k-pilulka { display: inline-block; padding: 6px 18px 8px; border-radius: var(--pilulka); background: var(--zelena); color: #fff; font-size: 22px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+#s-kpi .k-priklad { display: inline-block; padding: 4px 14px 6px; border-radius: var(--pilulka); background: var(--oranz-svetla); color: var(--oranz); font-size: 22px; font-weight: 700; }
+
+/* hlavní KPI */
+#s-kpi .k-hlavni { box-shadow: var(--stin), inset 0 0 0 3px var(--zelena); }
+#s-kpi .k-hlava { display: flex; align-items: center; gap: 22px; }
+#s-kpi .k-ikona { width: 76px; height: 76px; flex: none; color: var(--zelena); }
+#s-kpi .k-hlava h2 { font-size: 44px; }
+#s-kpi .k-jednotka { margin-top: 4px; font-size: 27px; color: var(--text2); font-weight: 600; }
+#s-kpi .k-dvojice { margin-top: auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 18px; padding-top: 22px; }
+#s-kpi .k-dvojice .velke-pismo { color: var(--text3); }
+#s-kpi .k-hodnota { margin-top: 6px; font-weight: 800; font-size: 96px; line-height: 0.95; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+#s-kpi .k-otaznik { color: var(--linka2); }
+#s-kpi .k-pod { margin-top: 10px; font-size: 24px; line-height: 1.3; color: var(--text2); }
+#s-kpi .k-sipka { width: 110px; height: 40px; fill: none; stroke: var(--text3); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+#s-kpi .k-sipka path { stroke-dasharray: 140; stroke-dashoffset: 140; }
+#s-kpi.kresli .k-sipka path { animation: s10c-sipka 900ms var(--kresli) 500ms forwards; }
+#s-kpi:not(.kresli) .k-sipka path { stroke-dashoffset: 0; }
+@keyframes s10c-sipka { to { stroke-dashoffset: 0; } }
+
+/* nevydané porce: dvě větve */
+#s-kpi .k-vetev { display: grid; grid-template-columns: 56px 1fr; gap: 18px; align-items: start; padding: 16px 0; }
+#s-kpi .k-vetev + .k-vetev { border-top: 1px solid var(--linka); }
+#s-kpi .k-ikona-m { width: 56px; height: 56px; color: var(--oranz); }
+#s-kpi .k-vetev b { display: block; font-size: 28px; line-height: 1.2; }
+#s-kpi .k-vetev span { display: block; margin-top: 4px; font-size: 22px; line-height: 1.3; color: var(--text2); }
+#s-kpi .k-vetev em { display: block; margin-top: 6px; font-style: normal; font-size: 24px; font-weight: 700; color: var(--zelena); }
+
+/* úspora */
+#s-kpi .k-penize .cislo { color: var(--zelena); margin-top: auto; }
+#s-kpi .k-penize .cislo small { color: var(--zelena); opacity: 0.75; }
+#s-kpi .k-pod-cislo { margin-top: 12px; font-size: 26px; font-weight: 600; color: var(--text); }
+#s-kpi .k-poznamka { margin-top: 14px; font-size: 22px; line-height: 1.35; color: var(--text2); }
+
+/* kvalita měření */
+#s-kpi .k-kvalita { display: flex; align-items: center; gap: 12px; margin-top: 22px; font-size: 24px; color: var(--text2); }
+#s-kpi .k-kvalita svg { width: 32px; height: 32px; flex: none; color: var(--zelena); }
+#s-kpi .k-kvalita b { color: var(--text); }
+
+/* impakt a udržitelnost */
+#s-kpi .k-impakt { margin-top: 24px; padding: 22px 34px 26px; border-radius: var(--r); background: var(--karta); box-shadow: var(--stin); }
+#s-kpi .k-impakt-stitek { color: var(--text3); margin-bottom: 14px; }
+#s-kpi .k-sloupce { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+#s-kpi .k-sloupec { display: grid; grid-template-columns: 56px 1fr; gap: 18px; align-items: start; }
+#s-kpi .k-ikona-s { width: 56px; height: 56px; color: var(--zelena); }
+#s-kpi .k-sloupec h3 { font-size: 30px; }
+#s-kpi .k-sloupec p { margin-top: 4px; font-size: 24px; line-height: 1.35; color: var(--text2); }
+#s-kpi .k-sloupec p b { color: var(--zelena); }
+#s-kpi .k-impakt.je .k-sloupec { animation: s10c-sloupec 600ms var(--ven) both; }
+#s-kpi .k-impakt.je .k-sloupec:nth-child(2) { animation-delay: 120ms; }
+#s-kpi .k-impakt.je .k-sloupec:nth-child(3) { animation-delay: 240ms; }
+#s-kpi.hned .k-impakt .k-sloupec { animation: none; }
+@keyframes s10c-sloupec { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+#s-kpi .k-mince { color: var(--zelena); width: 64px; height: 64px; }

@@ -1,0 +1,29 @@
+/* 04b · lidé a příroda. Dva stejně vysoké sloupce od pruhu nadpisu; hlavička sloupce je vidět hned,
+   body nastupují krokem (1 lidé, 2 příroda). Druhý krok ztlumí sloupec lidí, ať je jasné, o čem se mluví. */
+#s-lide-priroda .nadtitul { color: var(--zelena); margin: 0 0 14px; }
+#s-lide-priroda h1 { min-height: 0; }
+
+#s-lide-priroda .sloupce-lp { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 52px; }
+#s-lide-priroda .sloupec { display: flex; flex-direction: column; gap: 30px; min-height: 600px; padding: 40px 44px; transition: opacity 500ms var(--ven); }
+#s-lide-priroda .hlava-sl { display: flex; align-items: center; gap: 24px; }
+#s-lide-priroda .hlava-sl .velke-pismo { color: var(--text3); }
+#s-lide-priroda .hlava-sl h2 { font-size: 52px; letter-spacing: -0.02em; }
+#s-lide-priroda .kruh { flex: none; width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center; }
+#s-lide-priroda .kruh .ilu { width: 54px; height: 54px; }
+#s-lide-priroda .lide .kruh { background: var(--oranz-svetla); color: var(--oranz); }
+#s-lide-priroda .priroda .kruh { background: var(--zelena-svetla); color: var(--zelena); }
+
+#s-lide-priroda .body { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 32px; }
+#s-lide-priroda .body li { position: relative; padding-left: 40px; font-size: 33px; line-height: 1.38; color: var(--text2); text-wrap: pretty; }
+#s-lide-priroda .body li b { color: var(--text); }
+#s-lide-priroda .body li::before { content: ""; position: absolute; left: 0; top: 0.5em; width: 14px; height: 14px; border-radius: 50%; }
+#s-lide-priroda .lide .body li::before { background: var(--oranz2); }
+#s-lide-priroda .priroda .body li::before { background: var(--zelena); }
+#s-lide-priroda .oranz { color: var(--oranz); font-weight: 700; }
+/* body nastupují po jednom */
+#s-lide-priroda .body.je li { animation: s04b-bod 560ms var(--ven) both; }
+#s-lide-priroda .body.je li:nth-child(2) { animation-delay: 110ms; }
+#s-lide-priroda .body.je li:nth-child(3) { animation-delay: 220ms; }
+#s-lide-priroda.hned .body li { animation: none; }
+@keyframes s04b-bod { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+#s-lide-priroda[data-k="2"] .sloupec.lide { opacity: 0.45; }

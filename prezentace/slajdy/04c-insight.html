@@ -1,0 +1,60 @@
+<!-- 04c · insight (šablona organizátorů, 03 Řešení): krok 0 kbelík řekne KOLIK + talíř na pásu řekne CO → ubereme jen část porce;
+     krok 1 pruhy 43 % nevydané a 48 % talíře; krok 2 43 % ztlumené „musí uvařit“, 48 % zelené „můžeme ovlivnit“ + hlavní KPI -->
+<section class="slajd" id="s-insight" data-nazev="Insight: kbelík řekne kolik, talíř řekne co" data-kroky="2">
+  <p class="nadtitul velke-pismo">Insight · zjistili jsme, že…</p>
+  <h1>Kbelík řekne kolik. Talíř řekne co.</h1>
+
+  <div class="rovnice rozbal">
+    <div class="karta clen-r kbelik">
+      <svg class="obr" viewBox="0 0 220 220" aria-hidden="true">
+        <defs><clipPath id="s04c-kos"><path d="M58 52h104l-9 112a8 8 0 0 1-8 7H75a8 8 0 0 1-8-7z"/></clipPath></defs>
+        <rect class="napln" x="50" y="112" width="120" height="70" clip-path="url(#s04c-kos)"/>
+        <path class="obrys" d="M58 52h104l-9 112a8 8 0 0 1-8 7H75a8 8 0 0 1-8-7z"/>
+        <path class="obrys" d="M48 52h124"/>
+        <rect class="obrys" x="30" y="176" width="160" height="22" rx="6"/>
+        <rect class="displej" x="72" y="179" width="76" height="17" rx="3"/>
+        <text class="displej-t" x="110" y="192" text-anchor="middle">+150 g</text>
+      </svg>
+      <div class="popis-r"><p class="velke-pismo">Kbelík na váze</p><p class="slovo">Kolik</p><p class="pod">celková váha za oběd</p></div>
+    </div>
+
+    <span class="operator" aria-hidden="true">+</span>
+
+    <div class="karta clen-r talir">
+      <svg class="obr" viewBox="0 0 220 220" aria-hidden="true">
+        <circle class="okraj" cx="110" cy="110" r="96"/>
+        <circle class="vnitr" cx="110" cy="110" r="70"/>
+        <circle class="vysec priloha" cx="110" cy="110" r="25" pathLength="100"/>
+        <circle class="vysec omacka" cx="110" cy="110" r="25" pathLength="100"/>
+        <circle class="vysec maso" cx="110" cy="110" r="25" pathLength="100"/>
+      </svg>
+      <div class="popis-r"><p class="velke-pismo">Fotka talíře na pásu</p><p class="slovo">Co</p>
+        <p class="cipy"><span class="cip c-priloha">příloha</span><span class="cip c-omacka">omáčka</span><span class="cip c-maso">maso</span></p></div>
+    </div>
+
+    <span class="operator" aria-hidden="true">=</span>
+
+    <div class="karta clen-r vysledek">
+      <p class="velke-pismo">Víme, co ubrat</p>
+      <p class="hlavni">Jen přílohu, kterou děti nejedí. Ne celou porci.</p>
+      <p class="pod">Nikdo nebude mít hlad. Přídavek na požádání.</p>
+    </div>
+  </div>
+
+  <div class="paka" data-krok="1">
+    <p class="paka-titul">A&nbsp;ovlivnit umíme talíře.</p>
+    <div class="paka-pruh" role="img" aria-label="43 % odpadu tvoří nevydané porce, které jídelna musí uvařit podle objednávek; 48 % tvoří zbytky z talířů, které můžeme ovlivnit">
+      <div class="seg nevydane" style="flex: 43"><b>43&nbsp;%</b><span>nevydané porce</span></div>
+      <div class="seg talire" style="flex: 48"><b>48&nbsp;%</b><span>zbytky z&nbsp;talířů</span></div>
+    </div>
+    <div class="paka-popisky">
+      <p class="pp nevydane" style="flex: 43">Musí uvařit, obědy jsou objednané. 5–9&nbsp;% žáků si oběd nevyzvedne.</p>
+      <p class="pp talire" style="flex: 48">Můžeme ovlivnit: porce, složky, recepty.</p>
+    </div>
+    <p class="kpi"><span class="kpi-stitek">Hlavní KPI</span>gastroodpad z&nbsp;talířů na&nbsp;strávníka a&nbsp;den</p>
+  </div>
+
+  <p class="zdroj odkud"><b>Odkud to víme:</b> výzkum Prague Food Waste 2024 · pozorování v&nbsp;naší jídelně (pás) · rozhovor s&nbsp;mentorem</p>
+
+  <script type="application/json" class="poznamky-data">["~0:30 · Ondra", "Zjistili jsme jednu věc, kterou ostatní přehlížejí. Kbelík na váze řekne, kolik se vyhodilo. Ale neřekne co. To řekne až talíř. Proto fotíme talíř na pásu, ještě než ho kuchařka vysype. Pak víme, že děti nechávají třeba přílohu, a ubereme jen ji, ne celou porci. Nikdo nebude mít hlad a přídavek dostane, kdo si řekne.", "[mezerník] A druhá věc: čtyřicet tři procent odpadu tvoří nevydané porce a čtyřicet osm procent zbytky z talířů.", "[mezerník] Nevydané porce jídelna musí uvařit, protože jsou objednané, a pět až devět procent žáků si oběd nevyzvedne. To neovlivníme. Talíře ovlivnit umíme. Proto je naše hlavní KPI gastroodpad z talířů na strávníka a den.", "Zdroje: Prague Food Waste 2024 (Z1, Z2), 5–9 % nevyzvednutých obědů (Z1), pozorování v naší jídelně, mentoring 31. 10. Výchozí hodnotu KPI změříme v pilotu (týdny 1–2)."]</script>
+</section>
