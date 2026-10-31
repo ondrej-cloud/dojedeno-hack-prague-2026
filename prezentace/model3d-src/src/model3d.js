@@ -4,6 +4,7 @@
    Sestavuje se esbuildem do js/model3d.js (IIFE, funguje z file://). Bez sítě. */
 import * as THREE from 'three';
 import { screenBounds } from './projection.js';
+import { RECEPTY, materialyJidel, geometrieJidel, obed } from './jidla.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 
@@ -89,7 +90,6 @@ function postav(kontejner) {
   const grafit = new THREE.MeshPhysicalMaterial({ color: 0x2c2c2e, metalness: 0.6, roughness: 0.35, clearcoat: 0.6 });
   const sklo = new THREE.MeshPhysicalMaterial({ color: 0x111113, metalness: 0.2, roughness: 0.08, clearcoat: 1 });
   const porcelan = new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.18, clearcoat: 0.8, clearcoatRoughness: 0.1 });
-  const omacka = new THREE.MeshPhysicalMaterial({ color: 0xa4552a, roughness: 0.45, clearcoat: 0.5 });
   const knedlik = new THREE.MeshPhysicalMaterial({ color: 0xf1e7d0, roughness: 0.75 });
   const zbytky = new THREE.MeshPhysicalMaterial({ color: 0xb06a3c, roughness: 0.7 });
 
@@ -264,25 +264,28 @@ function postav(kontejner) {
   const talirMesh = stin(new THREE.Mesh(new THREE.LatheGeometry(talirProfil, 96), porcelan));
   talir.add(talirMesh);
   const jidlo = [];
-  const pridejJidlo = (geo, mat, x, z, sy, rot) => {
-    const m = stin(new THREE.Mesh(geo, mat));
-    m.position.set(x, 0.02, z);
-    m.scale.y = sy;
-    m.rotation.y = rot || 0;
+  /* jídla jako v úvodním filmu (jidla.js), talíř je tu 1,25× větší; sledovaný talíř nese guláš s knedlíkem */
+  const GEO_J = geometrieJidel(), MAT_J = materialyJidel();
+  for (const m of [...obed(0, GEO_J, MAT_J).children]) {
+    m.position.multiplyScalar(1.25); m.scale.multiplyScalar(1.25);
     talir.add(m);
     jidlo.push({ m, start: m.position.clone(), startRot: m.rotation.clone() });
+  }
+  /* kulisa: kopie talíře s dalším z obědů dokola */
+  let dalsiObed = 1;
+  const kulisa = () => {
+    const k = talir.clone(true);
+    k.children.slice(1).forEach(c => k.remove(c));
+    k.add(obed(dalsiObed++ % RECEPTY.length, GEO_J, MAT_J, 1.25));
+    return k;
   };
-  pridejJidlo(new THREE.SphereGeometry(0.065, 32, 20), omacka, -0.02, 0.02, 0.3);
-  pridejJidlo(new THREE.CylinderGeometry(0.04, 0.04, 0.022, 32), knedlik, 0.05, -0.03, 1, 0.3);
-  pridejJidlo(new THREE.CylinderGeometry(0.04, 0.04, 0.022, 32), knedlik, -0.06, -0.05, 1, 1.1);
-  pridejJidlo(new THREE.SphereGeometry(0.03, 24, 16), omacka, 0.06, 0.05, 0.4);
 
   // Každý pás nese jeden tác; pouze aktivní talíř ukazuje vysypání.
   if (TRI_PATRA) for (const [index,y] of PATRA.entries()) {
     const tray=stin(new THREE.Mesh(new RoundedBoxGeometry(0.49,0.024,0.40,4,0.015),tacekMat));
     tray.position.set(FOTO_X,y+0.023,PAS_Z);scena.add(tray);
     if (index!==HLAVNI_PATRO) {
-      const plate=talir.clone(true);plate.position.set(FOTO_X,y+0.045,PAS_Z);
+      const plate=kulisa();plate.position.set(FOTO_X,y+0.045,PAS_Z);
       plate.rotation.y=index===0?0.35:-0.35;scena.add(plate);
     }
   }
@@ -352,7 +355,7 @@ function postav(kontejner) {
     const POCET = 8;
     for (let i = 0; i < POCET; i++) {
       const t = stin(new THREE.Mesh(new RoundedBoxGeometry(0.40, 0.022, 0.30, 4, 0.014), tacekMat)); scena.add(t);
-      const tal = i === 0 ? null : talir.clone(true); if (tal) { tal.scale.setScalar(1.05); scena.add(tal); }
+      const tal = i === 0 ? null : kulisa(); if (tal) { tal.scale.setScalar(1.05); scena.add(tal); }
       tacky.push({ t, tal, rozestup: i * OBVOD / POCET });
     }
   }

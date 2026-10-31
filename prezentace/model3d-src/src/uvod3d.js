@@ -7,7 +7,8 @@
    Ladění: ?uvodcas=6.5 v adrese zmrazí krok 0 v daném čase. Sestavuje se esbuildem do js/uvod3d.js (IIFE). */
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
-import { mergeVertices, mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { RECEPTY, materialyJidel, geometrieJidel } from './jidla.js';
 import { screenBounds } from './projection.js';
 
 const REDUKCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -19,23 +20,6 @@ const u01 = (t, a, b) => omez((t - a) / (b - a), 0, 1);
 const hladke = u => u * u * (3 - 2 * u);
 const sinIO = u => 0.5 - 0.5 * Math.cos(Math.PI * u);
 const kubIO = u => (u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2);
-
-/* organický tvar: zvrásní povrch podle polohy (šev koule dostane stejný posun), pak protáhne do tvaru */
-function zvrasni(geo, amp, f, seed, sx = 1, sy = 1, sz = 1) {
-  geo.deleteAttribute('uv'); geo.deleteAttribute('normal');
-  const g = mergeVertices(geo);
-  const pos = g.attributes.position, v = new THREE.Vector3();
-  for (let i = 0; i < pos.count; i++) {
-    v.fromBufferAttribute(pos, i);
-    const n = Math.sin(v.x * f + seed) * Math.cos(v.y * f * 1.7 + seed * 1.3) * Math.sin(v.z * f * 1.3 + seed * 0.7)
-      + 0.5 * Math.sin((v.x + v.z) * f * 2.3 + seed * 2.1) * Math.cos((v.y - v.x) * f * 1.9 + seed);
-    const d = v.length() || 1;
-    v.multiplyScalar(1 + amp * n / d);
-    pos.setXYZ(i, v.x * sx, v.y * sy, v.z * sz);
-  }
-  g.computeVertexNormals();
-  return g;
-}
 
 function postav(s, kontejner) {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
@@ -58,9 +42,8 @@ function postav(s, kontejner) {
 
   /* ---------- materiály (jako model3d.js) ---------- */
   const porcelan = new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.16, clearcoat: 0.9, clearcoatRoughness: 0.08 });
-  const gulas = new THREE.MeshPhysicalMaterial({ color: 0x9c4418, roughness: 0.22, clearcoat: 0.95, clearcoatRoughness: 0.08 });
-  const maso = new THREE.MeshPhysicalMaterial({ color: 0x6a2c12, roughness: 0.42, clearcoat: 0.6 });
-  const knedlik = new THREE.MeshPhysicalMaterial({ color: 0xf1e4c8, roughness: 0.84, sheen: 0.5, sheenColor: new THREE.Color(0xfff3dc) });
+  const MAT = materialyJidel();
+  const { gulas, maso, kned: knedlik, zeli } = MAT;
   const deska = new THREE.MeshPhysicalMaterial({ color: 0xe9e5dd, roughness: 0.42, clearcoat: 0.25 });
   const nohyMat = new THREE.MeshStandardMaterial({ color: 0x3a3a3e, metalness: 0.6, roughness: 0.4 });
   const lavice = new THREE.MeshStandardMaterial({ color: 0x55555b, roughness: 0.6 });
@@ -68,19 +51,6 @@ function postav(s, kontejner) {
   const plast = new THREE.MeshPhysicalMaterial({ color: 0xfbfbfc, roughness: 0.42, clearcoat: 0.35, clearcoatRoughness: 0.4, side: THREE.DoubleSide });
   const plastVnitrek = new THREE.MeshPhysicalMaterial({ color: 0xeeeef0, roughness: 0.55, side: THREE.BackSide });
   const zbytky = new THREE.MeshPhysicalMaterial({ color: 0xa65a2c, roughness: 0.55, clearcoat: 0.35 });
-  const zeli = new THREE.MeshPhysicalMaterial({ color: 0xe0cb86, roughness: 0.5, clearcoat: 0.4 });
-  const rizekMat = new THREE.MeshPhysicalMaterial({ color: 0xc47d34, roughness: 0.86, sheen: 0.3, sheenColor: new THREE.Color(0xffd29a) });
-  const kaseMat = new THREE.MeshPhysicalMaterial({ color: 0xf2e3b8, roughness: 0.72, sheen: 0.4, sheenColor: new THREE.Color(0xfff6e0) });
-  const citronMat = new THREE.MeshPhysicalMaterial({ color: 0xf3d64a, roughness: 0.35, clearcoat: 0.6 });
-  const okurkaMat = new THREE.MeshPhysicalMaterial({ color: 0x8fbd5a, roughness: 0.3, clearcoat: 0.7 });
-  const spagetyMat = new THREE.MeshPhysicalMaterial({ color: 0xebc87a, roughness: 0.38, clearcoat: 0.55 });
-  const omackaMat = new THREE.MeshPhysicalMaterial({ color: 0xb3301a, roughness: 0.22, clearcoat: 0.9, clearcoatRoughness: 0.1 });
-  const bylinkaMat = new THREE.MeshPhysicalMaterial({ color: 0x3f7f2e, roughness: 0.5, clearcoat: 0.3, side: THREE.DoubleSide });
-  const ryzeMat = new THREE.MeshPhysicalMaterial({ color: 0xf6f3ea, roughness: 0.88, sheen: 0.3, sheenColor: new THREE.Color(0xffffff) });
-  const kariMat = new THREE.MeshPhysicalMaterial({ color: 0xd6902a, roughness: 0.24, clearcoat: 0.85, clearcoatRoughness: 0.12 });
-  const kureMat = new THREE.MeshPhysicalMaterial({ color: 0xe3b67f, roughness: 0.6, clearcoat: 0.3 });
-  const hrasekMat = new THREE.MeshPhysicalMaterial({ color: 0x6cb23b, roughness: 0.3, clearcoat: 0.6 });
-  const mrkevMat = new THREE.MeshPhysicalMaterial({ color: 0xe9792a, roughness: 0.4, clearcoat: 0.4 });
   const tacMat = new THREE.MeshPhysicalMaterial({ color: 0x8c877f, roughness: 0.5, clearcoat: 0.3 });
   const sklo = new THREE.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.04, clearcoat: 1, transparent: true, opacity: 0.22, depthWrite: false });
   const caj = new THREE.MeshPhysicalMaterial({ color: 0x9c5218, roughness: 0.08, clearcoat: 1, transparent: true, opacity: 0.82 });
@@ -121,40 +91,7 @@ function postav(s, kontejner) {
     new THREE.Vector2(0.172, 0.034), new THREE.Vector2(0.165, 0.034), new THREE.Vector2(0.122, 0.018), new THREE.Vector2(0, 0.012),
   ].map(v => v.multiplyScalar(0.8));
   const talirGeo = new THREE.LatheGeometry(talirProfil, 64);
-  /* plátek knedlíku: mírně vypouklý válec se zaobleným okrajem */
-  const knedGeo = zvrasni(new THREE.LatheGeometry([
-    new THREE.Vector2(0, 0), new THREE.Vector2(0.03, 0), new THREE.Vector2(0.0335, 0.003), new THREE.Vector2(0.034, 0.01),
-    new THREE.Vector2(0.031, 0.0138), new THREE.Vector2(0.024, 0.0148), new THREE.Vector2(0.016, 0.0152), new THREE.Vector2(0.008, 0.0154), new THREE.Vector2(0, 0.0155),
-  ], 64), 0.0007, 520, 12);
-  const spagety = (p, q, r) => {
-    const g = new THREE.TorusKnotGeometry(r, 0.0032, 420, 6, p, q);
-    g.rotateX(-Math.PI / 2); g.scale(1, 0.32, 1);
-    return g;
-  };
-  const GEO = {
-    gulas: zvrasni(new THREE.SphereGeometry(0.066, 48, 24), 0.003, 70, 1, 1, 1, 1),
-    maso: zvrasni(new THREE.IcosahedronGeometry(0.016, 3), 0.0025, 260, 2),
-    kned: knedGeo,
-    zeli: new THREE.CapsuleGeometry(0.0022, 0.03, 4, 8),
-    rizek: zvrasni(new THREE.SphereGeometry(0.05, 48, 24), 0.0045, 120, 3, 1.3, 0.17, 0.88),
-    kase: zvrasni(new THREE.SphereGeometry(0.04, 48, 24), 0.006, 95, 4, 1.1, 0.55, 1),
-    citron: new THREE.CylinderGeometry(0.016, 0.016, 0.004, 28),
-    okurka: new THREE.CylinderGeometry(0.014, 0.014, 0.003, 24),
-    spagety: spagety(9, 13, 0.042),
-    spagety2: spagety(11, 7, 0.036),
-    omacka: zvrasni(new THREE.SphereGeometry(0.03, 40, 20), 0.004, 110, 5, 1, 0.36, 1),
-    bylinka: zvrasni(new THREE.SphereGeometry(0.009, 16, 8), 0.0006, 400, 6, 1.6, 0.14, 0.75),
-    ryze: zvrasni(new THREE.SphereGeometry(0.05, 64, 32), 0.0024, 310, 7, 1, 0.48, 0.86),
-    kari: zvrasni(new THREE.SphereGeometry(0.05, 40, 20), 0.002, 60, 8, 0.9, 0.14, 1.05),
-    kure: zvrasni(new THREE.IcosahedronGeometry(0.016, 3), 0.003, 190, 9, 1.25, 0.72, 1),
-    hrasek: new THREE.SphereGeometry(0.0058, 12, 8),
-    mrkev: new THREE.BoxGeometry(0.009, 0.009, 0.009),
-  };
-  const MAT = {
-    gulas, maso, kned: knedlik, zeli, rizek: rizekMat, kase: kaseMat, citron: citronMat, okurka: okurkaMat,
-    spagety: spagetyMat, spagety2: spagetyMat, omacka: omackaMat, bylinka: bylinkaMat, ryze: ryzeMat, kari: kariMat,
-    kure: kureMat, hrasek: hrasekMat, mrkev: mrkevMat,
-  };
+  const GEO = geometrieJidel();
 
   /* tác: zaoblený obdélník; talíř leží vlevo, vpravo sklenice čaje a příbor */
   const TAC_W = 0.46, TAC_D = 0.34, TAC_R = 0.03, TAC_H = 0.014;
@@ -213,55 +150,6 @@ function postav(s, kontejner) {
   staticke(cajGeo, caj, i => ({ p: naTac(i, NA_TACU.sklo[0], 0.006 + 0.032, NA_TACU.sklo[1]), rot: 0 }), false);
   staticke(skloGeo, sklo, i => ({ p: naTac(i, NA_TACU.sklo[0], 0, NA_TACU.sklo[1]), rot: 0 }), false);
 
-  /* čtyři obědy v místních souřadnicích talíře; první (guláš s knedlíkem) je i v úvodním záběru */
-  const RECEPTY = [
-    [ /* guláš, 3 kousky masa, cibulka, 4 plátky knedlíku */
-      { geo: 'gulas', p: [-0.036, 0.012, 0.004], s: [1.08, 0.16, 1] },
-      { geo: 'zeli', p: [-0.06, 0.024, 0.02], naklon: 1.45, rot: 0.3 },
-      { geo: 'zeli', p: [-0.03, 0.024, -0.03], naklon: 1.5, rot: 1.4 },
-      { geo: 'zeli', p: [-0.07, 0.023, -0.02], naklon: 1.4, rot: 2.3 },
-      { geo: 'zeli', p: [-0.015, 0.023, 0.035], naklon: 1.5, rot: 0.9 },
-      { geo: 'maso', p: [-0.05, 0.02, -0.005], s: [1.25, 0.62, 1] },
-      { geo: 'maso', p: [-0.022, 0.021, 0.022], s: [1, 0.6, 1.2] },
-      { geo: 'maso', p: [-0.045, 0.02, 0.04], s: [1.1, 0.6, 0.9] },
-      { geo: 'kned', p: [0.058, 0.012, -0.05], naklon: 0.32 },
-      { geo: 'kned', p: [0.074, 0.013, -0.004], naklon: 0.3 },
-      { geo: 'kned', p: [0.062, 0.013, 0.043], naklon: 0.28 },
-      { geo: 'kned', p: [0.03, 0.012, 0.074], naklon: 0.26 },
-      { geo: 'bylinka', p: [-0.04, 0.025, 0.012], rot: 0.7 },
-    ],
-    [ /* řízek s citronem, bramborová kaše s petrželkou, okurkový salát */
-      { geo: 'rizek', p: [-0.032, 0.019, -0.004], rot: 0.35 },
-      { geo: 'citron', p: [-0.04, 0.0295, 0.004], naklon: 0.12 },
-      { geo: 'kase', p: [0.048, 0.016, 0.03] },
-      { geo: 'bylinka', p: [0.046, 0.039, 0.028], rot: 1.1 },
-      { geo: 'bylinka', p: [0.054, 0.037, 0.038], rot: 2.4 },
-      { geo: 'okurka', p: [0.05, 0.0135, -0.056] },
-      { geo: 'okurka', p: [0.071, 0.0145, -0.038], naklon: 0.18 },
-      { geo: 'okurka', p: [0.034, 0.0135, -0.07], naklon: -0.1 },
-    ],
-    [ /* špagety s rajčatovou omáčkou a bazalkou */
-      { geo: 'spagety', p: [0, 0.019, 0] },
-      { geo: 'spagety2', p: [0.004, 0.026, 0.003], rot: 1 },
-      { geo: 'omacka', p: [0.002, 0.034, -0.002] },
-      { geo: 'bylinka', p: [0.012, 0.045, -0.008], rot: 0.5 },
-      { geo: 'bylinka', p: [-0.008, 0.045, 0.008], rot: 2.2 },
-    ],
-    [ /* rýže, kuřecí kari s hráškem a mrkví */
-      { geo: 'ryze', p: [0.038, 0.016, 0.002] },
-      { geo: 'kari', p: [-0.042, 0.013, 0] },
-      { geo: 'kure', p: [-0.05, 0.021, -0.022] },
-      { geo: 'kure', p: [-0.03, 0.021, 0.026], rot: 1 },
-      { geo: 'kure', p: [-0.064, 0.02, 0.02], rot: 2 },
-      { geo: 'hrasek', p: [-0.025, 0.02, -0.012] },
-      { geo: 'hrasek', p: [-0.07, 0.019, -0.008] },
-      { geo: 'hrasek', p: [-0.044, 0.02, 0.046] },
-      { geo: 'hrasek', p: [-0.016, 0.019, 0.008] },
-      { geo: 'mrkev', p: [-0.06, 0.02, -0.04], rot: 0.4 },
-      { geo: 'mrkev', p: [-0.036, 0.02, 0.006], rot: 1.1 },
-      { geo: 'mrkev', p: [-0.02, 0.02, -0.03], rot: 0.8 },
-    ],
-  ];
   const recept = talire.map((_, i) => (i === HRDINA ? 0 : Math.floor(nahoda() * RECEPTY.length)));
   const pocty = {};
   recept.forEach(r => RECEPTY[r].forEach(o => { pocty[o.geo] = (pocty[o.geo] || 0) + 1; }));
@@ -299,7 +187,7 @@ function postav(s, kontejner) {
   kbelik.add(hrbolky);
   for (let n = 0; n < 22; n++) {
     const a = nahoda() * Math.PI * 2, d = Math.sqrt(nahoda()) * 0.24;
-    const h = new THREE.Mesh(new THREE.SphereGeometry(0.028 + nahoda() * 0.03, 16, 12), [knedlik, zbytky, zbytky, kaseMat, ryzeMat, spagetyMat][n % 6]);
+    const h = new THREE.Mesh(new THREE.SphereGeometry(0.028 + nahoda() * 0.03, 16, 12), [knedlik, zbytky, zbytky, MAT.kase, MAT.ryze, MAT.spagety][n % 6]);
     h.scale.y = 0.45;
     h.position.set(Math.cos(a) * d, 0, Math.sin(a) * d);
     h.castShadow = true;
