@@ -1,30 +1,27 @@
-<!-- 02 · problém: obří 600 000 Kč (jen zbytky z talířů), krok 1: 1 200 Kč na žáka, krok 2: 8 891 jídelen jako pole teček (js/s02.js) -->
-<section class="slajd" id="s-problem" data-nazev="Jen zbytky z talířů stojí školu 600 000 Kč ročně" data-kroky="2">
-  <h1>Jen zbytky z&nbsp;talířů stojí školu 600&nbsp;000&nbsp;Kč ročně</h1>
-
+<!-- 02 · modelový odhad hodnoty surovin, nikoli dosažená úspora. -->
+<section class="slajd" id="s-problem" data-nazev="Kolik stojí zbytky z talířů" data-kroky="2">
+  <h1>Kolik stojí zbytky z&nbsp;talířů?</h1>
   <div class="rada rozbal">
     <div class="hlavni">
-      <p class="cislo obri oranz"><span data-pocitej="600000" data-od="0" data-trvani="1600">600&nbsp;000</span><small>Kč</small></p>
-      <p class="pod-cislo">ročně ve škole s&nbsp;500&nbsp;žáky · jen cena surovin</p>
+      <p class="stitek">Modelová škola · 500 žáků</p>
+      <p class="cislo obri oranz"><span data-pocitej="600000" data-od="0" data-trvani="1200">600&nbsp;000</span><small>Kč</small></p>
+      <p class="pod-cislo">odhad roční hodnoty surovin v&nbsp;odpadu z&nbsp;talířů</p>
     </div>
     <div class="karta na-zaka" data-krok="1">
-      <p class="stitek">na jednoho žáka</p>
+      <p class="stitek">Přibližně na žáka</p>
       <p class="cislo stredni"><span data-pocitej="1200" data-od="0">1&nbsp;200</span><small>Kč</small></p>
-      <p class="pod">za rok. Suroviny 36–38&nbsp;Kč za oběd, bez práce kuchařek a&nbsp;energie. <b>Skutečná ztráta je vyšší.</b></p>
+      <p class="pod">za školní rok. <b>Jen suroviny ze zbytků z&nbsp;talířů.</b> Není to celková ztráta ani příslib úspory.</p>
     </div>
   </div>
-
   <div class="karta pas" data-krok="2">
     <div class="pas-text">
-      <p class="stitek">A&nbsp;takových jídelen je v&nbsp;Česku</p>
-      <p class="cislo male"><span data-pocitej="8891" data-od="0" data-trvani="1400">8&nbsp;891</span></p>
-      <p class="pod">denně vaří pro <b>1,6&nbsp;milionu dětí</b></p>
+      <p class="stitek">Školní stravování v&nbsp;ČR · zdroj 2025</p>
+      <p class="cislo male"><span data-pocitej="8891" data-od="0" data-trvani="1000">8&nbsp;891</span></p>
+      <p class="pod">jídelen, výdejen a&nbsp;vývařoven</p>
     </div>
-    <canvas class="tecky" width="2040" height="460" role="img" aria-label="8 891 teček, jedna tečka je jedna školní jídelna"></canvas>
-    <p class="legenda-tecek mala">1&nbsp;tečka = 1&nbsp;školní jídelna, výdejna nebo vývařovna</p>
+    <canvas class="tecky" width="2040" height="460" role="img" aria-label="8 891 zařízení školního stravování včetně výdejen a vývařoven, nejde o počet cílových zákazníků"></canvas>
+    <p class="legenda-tecek mala">Širší systém stravování, nikoli počet našich cílových provozů.</p>
   </div>
-
-  <p class="zdroj">Zdroje: Prague Food Waste 2024 (Zachraň jídlo, Mendelova univerzita), výsledky studie (Echo24, Blesk), sborník From Plate To Waste 2025 (Mendelova univerzita).</p>
-
-  <script type="application/json" class="poznamky-data">["0:25–0:55 · Ondra", "Kolik to stojí? Škola s pěti sty žáky vyhodí jen ze zbytků na talířích jídlo za šest set tisíc korun ročně. A to počítáme jen cenu surovin.", "[mezerník] Naskočí karta 1 200 Kč na žáka.", "To je tisíc dvě stě korun na každého žáka. Bez práce kuchařek a bez energie, takže skutečná ztráta je vyšší.", "[mezerník] Pás s 8 891 jídelnami, tečky se postupně vykreslí.", "A nejde o jednu školu. V Česku je 8 891 školních jídelen a každý den vaří pro 1,6 milionu dětí.", "Asi 70 slov. Pozor: 600 000 Kč je JEN za talíře, nevydané pokrmy v tom nejsou. Nikdy neříkat „škola vyhodí celkem za 600 tisíc“.", "Zdroje: Prague Food Waste, tisková zpráva 25. 6. 2024 (Zachraň jídlo, Mendelova univerzita, INESAN, GREEN Solution); Echo24 a Blesk (1 200 Kč na žáka, suroviny 36–38 Kč za oběd); sborník From Plate To Waste, 13. 5. 2025 (8 891 jídelen, výdejen a vývařoven, 1,6 milionu dětí denně)."]</script>
+  <p class="zdroj">Zdroj: <a href="https://mzp.gov.cz/cz/system/files?file=2026-06/OCEO-Jak_setrit_jidlem_ve_skolnich_jidelnach-20260608.pdf" target="_blank" rel="noopener">Jak šetřit jídlem ve školních jídelnách, MENDELU 2025, s. 5, 9, 12</a>. Finanční odhad: Prague Food Waste, čtyři pražské ŠJ.</p>
+<script type="application/json" class="poznamky-data">["0:25–0:45 · Ondra", "Ve studii čtyř pražských školních jídelen vychází pro modelovou školu s pěti sty žáky asi šest set tisíc korun ročně v surovinách, které zůstaly na talířích. To je dvanáct set korun na žáka. Je to odhad hodnoty odpadu, nikoli čistá úspora, kterou slibujeme.", "[mezerník] Přepočet na žáka. [mezerník] Kontext českého školního stravování: 8 891 zařízení podle publikace z roku 2025, včetně výdejen a vývařoven. Nejsou to všechno vhodné provozy ani potvrzení zákazníci.", "600 000 Kč se vztahuje pouze na suroviny v odpadu z talířů za školní rok. Nevztahovat tuto částku k veškerému odpadu nebo k podílu 31 %. Bez nákladů na zaměstnance, energie a zavedení opatření.", "Zdroj: https://mzp.gov.cz/cz/system/files?file=2026-06/OCEO-Jak_setrit_jidlem_ve_skolnich_jidelnach-20260608.pdf · s. 5, 9 a 12. Výzkum čtyř pražských ŠJ není reprezentativní měření všech škol v ČR."]</script>
 </section>

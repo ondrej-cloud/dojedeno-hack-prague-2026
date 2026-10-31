@@ -1,4 +1,4 @@
-/* Dojedeno · návrh pilotní sestavy (tři patra pásu, snímání talířů a samostatně vážený kbelík) jako produktová fotka v prohlížeči.
+/* Dojedeno · návrh pilotní sestavy (jeden pás, snímání talířů a samostatně vážený kbelík; volitelně tři patra) jako produktová fotka v prohlížeči.
    Kroky slajdu: 0 celek, 1 fotka na pásu, 2 přírůstek váhy při vysypání, 3 návrh přiřazení. Animace je ilustrativní.
    Připojení: prvek s atributem data-model3d uvnitř .slajd; poslouchá události slajdu 'vstup', 'krok', 'odchod', 'tisk'.
    Sestavuje se esbuildem do js/model3d.js (IIFE, funguje z file://). Bez sítě. */
@@ -41,6 +41,7 @@ const clamp01 = t => Math.max(0, Math.min(1, t));
 
 function postav(kontejner) {
   vlozStyl();
+  const TRI_PATRA = kontejner.dataset.modelVariant === 'three';
   const OTOCNY = kontejner.dataset.model3d === 'otocny';  /* titul: stejná sestava v pomalém náhledu, bez kroků a štítků */
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
@@ -188,9 +189,11 @@ function postav(kontejner) {
   const hrbolkyNa = h => { hrbolky.position.y = KBELIK_Y + 0.02 + h; };
   hrbolkyNa(NAPLN_ZAC);
 
-  /* Tři patra návratového pásu. Kamery ilustrují pokrytí každého patra;
-     přesný počet a umístění určí až ověření výhledu v jídelně. */
-  const PATRA = [0.52, 1.06, 1.60];
+  /* Základní sestava má jeden pás a telefon. Tři patra patří do varianty pro Q&A;
+     přesný počet a umístění snímačů určí až ověření výhledu v jídelně. */
+  const PATRA = TRI_PATRA ? [0.52, 1.06, 1.60] : [0.98];
+  const HLAVNI_PATRO = TRI_PATRA ? 1 : 0;
+  const VYSKA_RAMU = PATRA[PATRA.length - 1] + 0.04;
   const PAS_X = -1.55, PAS_Z = -0.12, PAS_DELKA = 1.95, PAS_SIRKA = 0.70;
   const FOTO_X = -1.03;
   const pasMat = new THREE.MeshStandardMaterial({ color: 0x29453e, roughness: 0.88 });
@@ -206,7 +209,7 @@ function postav(kontejner) {
   }
   for (const x of [PAS_X-PAS_DELKA/2+0.07,PAS_X+PAS_DELKA/2-0.07]) {
     for (const z of [PAS_Z-PAS_SIRKA/2,PAS_Z+PAS_SIRKA/2]) {
-      kvadr(0.045,1.64,0.045,x,0.84,z);
+      kvadr(0.045,VYSKA_RAMU,0.045,x,VYSKA_RAMU/2+0.02,z);
       kvadr(0.12,0.035,0.12,x,0.02,z,grafit);
     }
   }
@@ -244,9 +247,9 @@ function postav(kontejner) {
   ]),24,0.006,8,false),new THREE.MeshStandardMaterial({color:0x248a3d,roughness:0.7}));
   sestava.add(spojeni);
 
-  /* Talíř na prostředním pásu; jeho přesun a vysypání jsou jen schématická animace. */
+  /* Aktivní talíř je na jediném pásu, nebo prostředním patře záložního modelu. Přesun je ilustrativní. */
   const talir = new THREE.Group();
-  const TALIR_ZAC = new THREE.Vector3(FOTO_X, PATRA[1] + 0.045, PAS_Z);
+  const TALIR_ZAC = new THREE.Vector3(FOTO_X, PATRA[HLAVNI_PATRO] + 0.045, PAS_Z);
   talir.scale.setScalar(1.2);
   scena.add(talir);
   const talirProfil = [
@@ -269,11 +272,11 @@ function postav(kontejner) {
   pridejJidlo(new THREE.CylinderGeometry(0.04, 0.04, 0.022, 32), knedlik, -0.06, -0.05, 1, 1.1);
   pridejJidlo(new THREE.SphereGeometry(0.03, 24, 16), omacka, 0.06, 0.05, 0.4);
 
-  // Three trays remain in the rack; the middle plate illustrates a single disposal.
+  // Každý pás nese jeden tác; pouze aktivní talíř ukazuje vysypání.
   for (const [index,y] of PATRA.entries()) {
     const tray=stin(new THREE.Mesh(new RoundedBoxGeometry(0.49,0.024,0.40,4,0.015),tacekMat));
     tray.position.set(FOTO_X,y+0.023,PAS_Z);scena.add(tray);
-    if (index!==1) {
+    if (index!==HLAVNI_PATRO) {
       const plate=talir.clone(true);plate.position.set(FOTO_X,y+0.045,PAS_Z);
       plate.rotation.y=index===0?0.35:-0.35;scena.add(plate);
     }
@@ -286,12 +289,17 @@ function postav(kontejner) {
     talir.rotation.set(-0.08*tip,0,1.20*tip);
   }
 
-  /* Wider view keeps all levels and the independently weighed bin visible. */
-  const POHLEDY = [
+  /* Kompaktnější pohled zvětší jednoduchou sestavu; Q&A zachová celé tři úrovně. */
+  const POHLEDY = TRI_PATRA ? [
     { poz: new THREE.Vector3(3.35,2.65,4.65), cil: new THREE.Vector3(-1.0,0.97,-0.05) },
     { poz: new THREE.Vector3(3.55,2.80,4.80), cil: new THREE.Vector3(-1.05,0.90,-0.05) },
     { poz: new THREE.Vector3(3.10,2.20,4.20), cil: new THREE.Vector3(-0.74,0.82,0.04) },
     { poz: new THREE.Vector3(3.35,2.65,4.65), cil: new THREE.Vector3(-1.0,0.97,-0.05) },
+  ] : [
+    { poz: new THREE.Vector3(2.95,2.50,4.15), cil: new THREE.Vector3(-1.0,0.70,-0.05) },
+    { poz: new THREE.Vector3(3.05,2.65,4.25), cil: new THREE.Vector3(-1.03,0.78,-0.05) },
+    { poz: new THREE.Vector3(2.80,2.25,3.95), cil: new THREE.Vector3(-0.84,0.70,0.04) },
+    { poz: new THREE.Vector3(2.95,2.50,4.15), cil: new THREE.Vector3(-1.0,0.70,-0.05) },
   ];
   const kamPoz=POHLEDY[0].poz.clone(),kamCil=POHLEDY[0].cil.clone();
 
@@ -305,8 +313,8 @@ function postav(kontejner) {
     stitky[id] = { e, bod };
   }
   stitek('vaha', '<span class="tecka"></span>Přírůstek: <b class="o" data-g>+0 g</b>', new THREE.Vector3(0.15, 0.38, 0.62));
-  stitek('foto', '<span class="tecka"></span>Talíř A · fotka + čas', new THREE.Vector3(FOTO_X, 1.97, PAS_Z));
-  stitek('ai', 'Nejisté přiřazení → společná dávka', new THREE.Vector3(-1.10, 0.12, 0.62));
+  stitek('foto', '<span class="tecka"></span>Talíř A · fotka + čas', new THREE.Vector3(FOTO_X, PATRA[PATRA.length - 1] + 0.37, PAS_Z));
+  stitek('ai', TRI_PATRA ? 'Nejisté přiřazení → společná dávka' : 'Nejisté pořadí → společná dávka', new THREE.Vector3(-1.10, 0.12, 0.62));
   const vahaText = stitky.vaha.e.querySelector('[data-g]');
 
   /* stav */
@@ -397,7 +405,7 @@ function postav(kontejner) {
 
     if (vyklopeniStart !== null) animujVyklopeni(cas);
 
-    /* záběr kamery (krok 2): kužel a kroužek, záblesk objektivu */
+    /* záběr kamery (krok 1): kužel a kroužek, záblesk objektivu */
     const zaberCil = OTOCNY ? 0.45 : krok === 1 ? 1 : 0;
     zaber.material.opacity += (zaberCil * 0.14 - zaber.material.opacity) * 0.1;
     zaberKruh.material.opacity += (zaberCil * 0.9 - zaberKruh.material.opacity) * 0.1;
@@ -453,7 +461,7 @@ function postav(kontejner) {
     },
   };
   stavPredVyklopenim();
-  // The title shows the same three loaded trays, without simulating a measured result.
+  // Titul ukazuje stejnou sestavu a talíř před vysypáním, bez simulace naměřeného výsledku.
 
   /* tažením myší se sestava otáčí (prezentující ji může před porotou natočit) */
   let tah = 0, tahZac = 0, x0 = 0, tahnu = false;

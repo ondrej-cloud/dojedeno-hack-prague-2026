@@ -1,0 +1,43 @@
+/* Q&A za závěrem · společný styl záložních slajdů 91–94. */
+.slajd.zaloha .qa-stitek { position: absolute; right: 80px; top: 26px; color: var(--text2); font-size: 30px; line-height: 1; }
+.slajd.zaloha .qa-body { position: absolute; top: 272px; left: 80px; right: 80px; bottom: 80px; }
+.slajd.zaloha .qa-lead { font-size: 32px; line-height: 1.25; color: var(--text2); margin-bottom: 18px; }
+.slajd.zaloha .qa-note { margin-top: 22px; font-size: 30px; line-height: 1.3; color: var(--text2); }
+.slajd.zaloha .qa-number { margin-bottom: 14px; color: var(--zelena); font-size: 30px; line-height: 1.15; font-weight: 700; }
+.slajd.zaloha .karta p { font-size: 30px; line-height: 1.35; }
+.slajd.zaloha .karta h2 { font-size: 34px; line-height: 1.18; margin-bottom: 16px; }
+
+#qa-budget .qa-budget-table { width: 100%; border-collapse: collapse; table-layout: fixed; background: var(--karta); font-size: 30px; line-height: 1.2; font-variant-numeric: tabular-nums; border-radius: var(--r); overflow: hidden; }
+#qa-budget .qa-col-item { width: 34%; }
+#qa-budget .qa-col-qty { width: 14%; }
+#qa-budget .qa-col-unit { width: 21%; }
+#qa-budget .qa-col-total { width: 18%; }
+#qa-budget .qa-col-status { width: 13%; }
+#qa-budget th, #qa-budget td { padding: 12px 22px; border-bottom: 1px solid var(--linka); text-align: left; vertical-align: middle; }
+#qa-budget thead { background: #e9e9ed; }
+#qa-budget thead th { font-size: 30px; font-weight: 600; }
+#qa-budget tbody th { font-weight: 500; }
+#qa-budget td:nth-child(3), #qa-budget td:nth-child(4), #qa-budget thead th:nth-child(3), #qa-budget thead th:nth-child(4) { text-align: right; white-space: nowrap; }
+#qa-budget .qa-odhad { color: var(--oranz); }
+#qa-budget tfoot { background: var(--zelena-svetla); color: var(--zelena); font-weight: 700; }
+#qa-budget tfoot th, #qa-budget tfoot td { padding-top: 16px; padding-bottom: 16px; border-bottom: 0; }
+#qa-budget tfoot td:first-of-type { text-align: right; white-space: nowrap; }
+
+#qa-risks .qa-risk-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 294px); gap: 24px; }
+#qa-risks .karta { padding: 26px 30px; }
+#qa-risks .karta h2 { margin-bottom: 14px; }
+#qa-risks .qa-note { padding-left: 4px; }
+
+#qa-sources .qa-source-grid { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(3, 190px); gap: 22px; }
+#qa-sources a.karta { display: block; padding: 25px 30px; text-decoration: none; color: var(--text); transition: box-shadow 150ms ease; }
+#qa-sources a.karta:hover, #qa-sources a.karta:focus-visible { box-shadow: 0 0 0 3px var(--zelena); outline: none; }
+#qa-sources .karta h2 { color: var(--zelena); margin-bottom: 12px; }
+#qa-sources .karta p { color: var(--text2); }
+#qa-sources .qa-denominators { margin-top: 22px; line-height: 1.3; }
+
+#qa-next .qa-next-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+#qa-next .qa-next-grid .karta { min-height: 352px; padding: 30px; }
+#qa-next .qa-emphasis { margin-top: 20px; color: var(--zelena); font-weight: 600; }
+#qa-next .qa-next-bottom { display: grid; grid-template-columns: 1.3fr 1fr; gap: 64px; margin-top: 26px; padding: 30px; min-height: 208px; }
+#qa-next .qa-next-bottom h2 { margin-bottom: 12px; }
+#qa-next .qa-note { margin-top: 24px; }

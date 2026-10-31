@@ -20,7 +20,7 @@ Podrobnosti: [ovládání a implementace](demo/README.md), [Claude API](demo/CLA
 
 ## Prezentace
 
-Otevřete `prezentace/index.html` v Chromu. První šipka doprava nebo mezerník spustí úvodní film; po dohrání sám přejde na titul s 3D modelem. Návrat šipkami úplně na začátek film zastaví a přetočí. Další šipka doprava ho znovu spustí; během přehrávání jej další stisk přeskočí. Mezerník/klikr posouvá, šipka vlevo vrací, F zapíná celou obrazovku, N poznámky a stopky. Vložené demo vyžaduje běžící server na localhost:8080. Samostatné slajdy běží i offline.
+Otevřete `prezentace/index.html` v Chromu. První šipka doprava nebo mezerník spustí úvodní film; po dohrání sám přejde na titul s 3D modelem. Návrat šipkami úplně na začátek film zastaví a přetočí. Další šipka doprava ho znovu spustí; během přehrávání jej další stisk přeskočí. Mezerník/klikr posouvá, šipka vlevo vrací, F zapíná celou obrazovku, N poznámky a stopky. Lokální vložené demo vyžaduje server na localhost:8080. Samostatné slajdy běží i offline. Hlavní pitch má 12 slajdů, za závěrem je 7 záložních slajdů pro otázky. Klávesa Q otevře zálohu, End vrátí hlavní závěr; běžná šipka ze závěru do zálohy nepokračuje.
 
 ```sh
 cd prezentace
@@ -31,20 +31,38 @@ python3 build.py
 
 ## Netlify Drop
 
-Projekt [dojezeno.netlify.app](https://dojezeno.netlify.app) je propojený s GitHub repozitářem `ondrej-cloud/dojedeno-hack-prague-2026`, produkční větev `main`. Soubor `netlify.toml` nastavuje build příkaz a publikování pouze složky `netlify-drop`. Po pushi Netlify znovu sestaví prezentaci i statické demo. Ke statickému nasazení není potřeba API klíč ani proměnné prostředí.
+Projekt [dojezeno.netlify.app](https://dojezeno.netlify.app) je propojený s GitHub repozitářem `ondrej-cloud/dojedeno-hack-prague-2026`, produkční větev `main`. Soubor `netlify.toml` nastavuje build příkaz a publikování pouze složky `netlify-drop`. Po pushi Netlify sestaví prezentaci, frontend dema a one-pager. K samotnému sestavení není potřeba API klíč ani proměnné prostředí.
 
 ```sh
 python3 prezentace/build.py
 python3 tools/export_netlify.py
 ```
 
-Do Netlify Drop přetáhněte celou složku `netlify-drop`; připravený je také `netlify-drop.zip` se souborem `index.html` přímo v kořeni. Balíček obsahuje prezentaci a vložené demo s viditelně označenými ukázkovými daty. Nevyžaduje build na Netlify. V této statické verzi kamera a Claude neběží; živá analýza zůstává v lokální verzi s Python serverem. API klíče, certifikáty a serverové soubory se neexportují. Export samotný nic nepublikuje.
+Do Netlify Drop přetáhněte celou složku `netlify-drop`; připravený je také `netlify-drop.zip` se souborem `index.html` přímo v kořeni. Balíček obsahuje prezentaci, demo a one-pager; ruční Drop nevyžaduje další build. Veřejný návštěvník uvidí ukázkový režim. Chráněný živý režim propojí mobilní kameru s backendem na Macu přes HTTPS tunel. API klíče, certifikáty a serverové soubory se neexportují. Export samotný nic nepublikuje.
 
-## Stav před pitchem
+Pro otevření připojené prezentace použijte z kořene projektu:
 
-První pilot plánujeme v naší škole v Hejčíně v Olomouci (Olomoucký kraj). Možnost využití podpory Hack Prague mimo Prahu zatím musí potvrdit organizátoři. Oslovení odborných organizací je záměr, nikoli domluvené partnerství.
+```sh
+python3 tools/open_live_demo.py
+```
 
-Deck má všech 12 očekávaných slajdů. Denní a měsíční přehledy dema jsou **ukázková data**. Čísla dema byla sjednocena s předávkou: 92,5 Kč/kg, ukázkový den 70 kg, měsíční přehled bez emisních přepočtů a samostatný příklad 10 % = 60 000 Kč ročně pouze ze zbytků na talířích. Zbývá časování poznámek a vyjasnění rozdílu mezi demonstračním vážením talíře a navrženým vážením kbelíku. Závazný obsah je v [OBSAH.md](prezentace/OBSAH.md); zadání provedených oprav v [codex-oprava-dat.md](docs/codex-oprava-dat.md). Nejde o ověřenou produkční instalaci ani potvrzení úplnosti podle samostatné šablony organizátorů.
+V demu klikněte **Mobil** a naskenujte QR telefonem. Telefon a počítač mohou být na různých sítích. **Mac se serverem, bránou a tunelem musí zůstat zapnutý a online.** Skript otevře přístupový odkaz; sám služby nespouští. Postup včetně restartu je v [LIVE-NETLIFY.md](demo/LIVE-NETLIFY.md). Denní a měsíční data zůstávají ukázková i při živé analýze talíře.
+
+## Pilot a podklady
+
+První pilot navrhujeme v naší škole v Hejčíně v Olomouci (Olomoucký kraj): šest týdnů po souhlasu školy, instalaci a ověření měření. Dva týdny měření výchozího stavu, dva týdny první změna a dva týdny ověření nebo druhá varianta; nejvýše dvě iterace opatření. Rozpočet **16 000 Kč** je pracovní odhad pro jednu jídelnu, včetně vybavení, vymezené práce týmu a rezervy. Není to cenová nabídka ani schválené financování.
+
+Hlavní návrh používá **jeden pás, fotografii talíře před vysypáním a jeden vážený kbelík**. Pořadí lze použít jen při zachování pořadí vysypávání. Souběhy a nejistoty zůstávají společnou dávkou. Hejčín má podle zadání tři patra pásu; možnost vymezit jeden sledovaný tok ještě potřebuje ověření. Třípásová varianta je v záloze. Živé demo rozpoznává talíř a čte displej váhy; produkční párování s kbelíkem zatím nepředvádí.
+
+Hlavní KPI jsou gramy vráceného potravinového gastroodpadu na skutečně vydaný oběd ve stejné sledované části provozu. Návrhový cíl −10 % není dosažený výsledek. Nevydané pokrmy sledujeme odděleně včetně dalšího využití; nemusí všechny skončit jako odpad. Finanční přínos je vedlejší a musí se prokázat zvlášť: 60 000 Kč je modelová hodnota 10 % z odhadovaných surovin ve zbytcích, nikoli automatická úspora nákupů.
+
+- [Obsah, časování, metodika a zdroje](prezentace/OBSAH.md)
+- [One-pager v PDF](materialy/onepager/dojedeno-onepager.pdf), [HTML pro tisk](materialy/onepager/index.html)
+- [Prezentace online](https://dojezeno.netlify.app), [one-pager online](https://dojezeno.netlify.app/onepager/dojedeno-onepager.pdf)
+
+Dosud není potvrzen souhlas školy, přesný termín, jednopásové místo ani dodavatelské ceny. Podporu Hack Prague mimo Prahu musí potvrdit organizátoři. Kokoza a Zachraň jídlo jsou organizace, které chceme oslovit. Chybí skutečná citace člověka z jídelny a úplná obsahová šablona organizátorů; netvrdíme úplnou shodu se šablonou ani hotovou produkční instalaci.
+
+Denní a měsíční přehledy dema jsou **ukázková data**: 92,5 Kč/kg, ukázkový den 70 kg, bez emisních přepočtů. Zadání těchto oprav je v [codex-oprava-dat.md](docs/codex-oprava-dat.md).
 
 ## Testy
 
@@ -52,6 +70,7 @@ Deck má všech 12 očekávaných slajdů. Denní a měsíční přehledy dema j
 python3 demo/tools/test_demo_data.py
 python3 demo/tools/test_claude_client.py
 python3 demo/tools/test_claude_server.py
+python3 demo/tools/test_live_gateway.py
 node demo/tools/test_presence.cjs
 ```
 
