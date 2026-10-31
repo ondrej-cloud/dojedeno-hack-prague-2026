@@ -1,0 +1,13 @@
+/* QR is generated locally. Its white quiet zone remains visible on the dark overlay. */
+#phone-help { inset: 100px 250px; overflow: auto; }
+#phone-qr { float: left; width: 320px; min-height: 320px; margin: 16px 34px 24px 0; padding: 16px; background: #fff; color: #111; border-radius: 16px; }
+#phone-qr:empty { display: none; }
+#phone-qr canvas, #phone-qr img { display: block; width: 288px !important; height: 288px !important; }
+#phone-help #phone-url { font-size: 24px; }
+#phone-local-note { clear: both; }
+#live-connect-button { font-size: 21px; white-space: nowrap; }
+.live-connected #live-connect-button { border-color: #30d15880; color: #30d158; }
+.live-hosted:not(.live-connected) #phone-button,
+.live-hosted:not(.live-connected) #auto-button,
+.live-hosted:not(.live-connected) #camera-button { display: none; }
+.live-connect-notice { position: absolute; z-index: 60; left: 380px; right: 380px; top: 400px; padding: 32px; color: #fff; background: #25252c; border: 1px solid #ffffff40; border-radius: 20px; font-size: 28px; }

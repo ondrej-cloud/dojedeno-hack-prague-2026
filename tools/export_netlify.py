@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Build an upload-ready static presentation and sample demo, without credentials.
+"""Build the presentation and demo frontend, without credentials.
 
 Run after `python3 prezentace/build.py`:
     python3 tools/export_netlify.py
 Upload the generated netlify-drop folder to Netlify Drop, or use netlify-drop.zip.
 The ZIP has index.html at its root. This command never publishes anything.
-The live phone/Python/Claude workflow remains in the local project only.
+Live mode uses an authenticated external gateway; public visitors see sample data.
 """
 from pathlib import Path
 import json
@@ -49,7 +49,7 @@ def build():
     for folder, extension in [('css', '*.css'), ('js', '*.js')]:
         for src in sorted((ROOT / 'prezentace' / folder).glob(extension)):
             copy(src.relative_to(ROOT), Path(folder) / src.name)
-    for name in ['index.html', 'app.js', 'style.css', 'outline.js', 'presence.js', 'live-analysis.js']:
+    for name in ['index.html', 'app.js', 'style.css', 'outline.js', 'presence.js', 'live-analysis.js', 'connection.js', 'connection.css', 'phone.html', 'phone.js', 'phone.css', 'vendor/qrcode.js', 'vendor/qrcode.LICENSE']:
         copy('demo/' + name, 'demo/' + name)
     for name in ['plate-full.jpg', 'plate-leftover.jpg']:
         copy('demo/assets/' + name, 'demo/assets/' + name)
@@ -58,18 +58,18 @@ def build():
 
     html = (ROOT / 'prezentace/index.html').read_text()
     html = html.replace('../demo/screenshots/', 'demo/screenshots/')
-    html = replace_once(html, 'allow="camera; fullscreen; autoplay"', 'allow="fullscreen; autoplay"')
+    html = replace_once(html, '<script src="js/model3d.js">', '<script src="demo/connection.js"></script>\n<script src="js/model3d.js">')
     section_pattern = r'(<section[^>]+id="s-ukazka"[\s\S]*?)(</section>)'
     match = re.search(section_pattern, html)
     if not match:
         raise RuntimeError('Demo slide not found')
     section = match.group(1)
-    section = section.replace('data-nazev="Živá ukázka prototypu"', 'data-nazev="Ukázkové demo prototypu"')
     section = re.sub(r'<div class="demo-chyba bez-vstupu" hidden>[\s\S]*?</div>',
         '<div class="demo-chyba bez-vstupu" hidden><p class="nadpis">Ukázku se nepodařilo načíst</p><p>Obnovte stránku. Šipkou doprava lze pokračovat dál.</p></div>', section, count=1)
-    notes = ['Ukázkové demo · webová verze', 'Všechna čísla a výsledky v této webové ukázce jsou připravená data, nikoli měření z pilotu.',
-             'Šipky nebo mezerník procházejí 8 kroků. Krok 3 má dvě fáze. Po posledním kroku pokračuje prezentace.',
-             'Živá kamera, skutečná váha a Claude API jsou dostupné v lokální verzi projektu se serverem na Macu.']
+    notes = ['Demo prototypu · webová verze',
+             'Bez připojení k živému serveru ukazuje demo připravené fotografie a data. Pro živé měření otevřete chráněný prezentační odkaz nebo zadejte přístupový kód přes tlačítko Živé demo.',
+             'V živém režimu tlačítko Mobil zobrazí QR. Telefon otevře HTTPS stránku a povolí kameru. Mac se serverem a tunelem musí zůstat zapnutý a online.',
+             'Claude čte displej váhy na snímku; denní a měsíční přehledy zůstávají ukázková data.']
     section = re.sub(r'(<script type="application/json" class="poznamky-data">)[\s\S]*?(</script>)',
         lambda m: m.group(1) + json.dumps(notes, ensure_ascii=False) + m.group(2), section, count=1)
     html = html[:match.start()] + section + match.group(2) + html[match.end():]
@@ -80,50 +80,19 @@ def build():
     write('js/s06b.js', bridge)
 
     config = json.loads((ROOT / 'demo/config.json').read_text())
-    config['analysis'] = {'mode': 'demo'}
-    config['camera'] = {'source': 'none', 'labelContains': ''}
-    config['detection']['enabled'] = False
     config['school'] = 'Ukázková škola'
     write('demo/config.json', json.dumps(config, ensure_ascii=False, indent=2) + '\n')
-
-    app = (DEST / 'demo/app.js').read_text()
-    app = replace_once(app, 'useCamera=true', 'useCamera=false')
-    for old, new in [
-        ('async function requestCamera(){', 'async function requestCamera(){return; // Static export: no camera access.\n'),
-        ('function toggleCamera(){', 'function toggleCamera(){return; // Static export.\n'),
-        ('function toggleAuto(){', 'function toggleAuto(){return; // Static export.\n'),
-        ('function startRemote(){', 'function startRemote(){return; // Static export: no local receiver.\n'),
-        ('async function refreshPhoneStatus(){', 'async function refreshPhoneStatus(){return; // Static export: no API.\n'),
-        ("function isLiveAnalysis(){return config?.analysis?.mode==='claude';}", 'function isLiveAnalysis(){return false;}'),
-        ('Statická fotografie · C zapne kameru', 'Ukázková fotografie · připravená data'),
-        ("'01 / Živě z jídelny'", "'01 / Ukázkové demo'"),
-        ('Čekám na talíř…', 'Ukázka měření talíře'),
-        ('● měřím', '● ukázková data'),
-        ('Vyměňte talíř pod kamerou.', 'Šipkou pokračujte k ukázce zbytků.'),
-    ]:
-        # Some status labels intentionally occur more than once in the original UI.
-        if old == '● měřím':
-            if old not in app: raise RuntimeError('Status label changed')
-            app = app.replace(old, new)
-        else:
-            app = replace_once(app, old, new)
-    app = replace_once(app,
-        'Data se nepodařilo načíst. Spusťte demo přes <code>python3 -m http.server 8080</code> ve složce demo a otevřete localhost:8080.',
-        'Ukázková data se nepodařilo načíst. Obnovte stránku.')
-    write('demo/app.js', app)
-
-    demo_html = (DEST / 'demo/index.html').read_text()
-    demo_html = replace_once(demo_html, '<span class="badge">Prototyp</span>', '<span class="badge orange">Prototyp · ukázková data</span>')
-    demo_html = replace_once(demo_html, 'R · začátek &nbsp; C · kamera / fotografie &nbsp; H · nápověda<br>A · automatika &nbsp; B · kalibrace prázdného místa', 'R · začátek &nbsp; H · nápověda')
-    demo_html = replace_once(demo_html, 'Kamera detekuje přítomnost objektu. Claude rozpozná jídlo a přečte displej váhy. Denní a měsíční přehledy jsou ukázková data.', 'Tato webová ukázka používá připravené fotografie a výsledky. Kamera ani AI analýza zde neběží.')
-    write('demo/index.html', demo_html)
-    with (DEST / 'demo/style.css').open('a') as f:
-        f.write('\n/* Static export controls: all results are sample data. */\n#phone-button,#auto-button,#camera-button,#phone-help{display:none!important}\n')
+    backend_path = ROOT / 'tools/live_backend.json'
+    backend = json.loads(backend_path.read_text()) if backend_path.exists() else {'backendUrl': ''}
+    url = backend.get('backendUrl', '')
+    if url and not re.fullmatch(r'https://[a-z0-9-]+\.trycloudflare\.com', url):
+        raise RuntimeError('Unexpected live backend URL')
+    write('demo/live-server.json', json.dumps({'backendUrl': url}) + '\n')
 
     write('_headers', '''/*
   X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
-  Permissions-Policy: camera=(), microphone=()
+  Referrer-Policy: no-referrer
+  Permissions-Policy: camera=(self), microphone=()
 /
   Cache-Control: no-cache, no-store, must-revalidate
 /*.html
@@ -133,6 +102,10 @@ def build():
 /demo/*.html
   Cache-Control: no-cache, no-store, must-revalidate
 /demo/config.json
+  Cache-Control: no-cache, no-store, must-revalidate
+/demo/live-server.json
+  Cache-Control: no-cache, no-store, must-revalidate
+/demo/connection.js
   Cache-Control: no-cache, no-store, must-revalidate
 ''')
     files = sorted(p for p in DEST.rglob('*') if p.is_file())
