@@ -21,7 +21,7 @@ function foodCost(grams){return Math.round(grams / 1000 * config.pricePerKg * 10
 function isLiveAnalysis(){return config?.analysis?.mode==='claude';}
 function fullResult(){if(isLiveAnalysis())return liveAnalysis.panel('reference');return `<p class="eyebrow">Ranní vzor · plná porce</p><h2 class="dish-title">${esc(config.menu[0])}</h2>${plateRows('full')}<div class="ring-row">${componentRing()}<div class="big">${fmt(sum(config.plate.full,'grams'))} g<p>Plná porce · 100 %</p></div></div><p class="note">Vzor pro dnešní měření.<br>Celková hmotnost pochází z váhy.</p>`;}
 function leftoverResult(){if(isLiveAnalysis())return liveAnalysis.panel('leftover');const grams=sum(config.plate.leftover,'grams'),pct=Math.round((1-grams/sum(config.plate.full,'grams'))*100);return `<p class="eyebrow">Talíř č. 041 · hotovo</p><h2 class="dish-title">${esc(config.menu[0])}</h2>${plateRows('leftover')}<div class="ring-row">${ring(pct)}<div class="big green">${pct} %<p>Snědeno · zbylo ${fmt(grams)} g</p></div></div><div class="total-line">Vyhozeno <strong class="orange-text">${fmt(grams)} g · ${fmt(foodCost(grams),2)} Kč</strong></div><div class="records"><h2>Dnešní záznamy</h2><div class="record"><span>${esc(config.plate.time)} · ${esc(config.menu[0])}</span><span>${fmt(grams)} g</span></div></div><p class="note">O dojedení rozhoduje váha, ne AI: přírůstek pod ${config.finishedThresholdGrams} g = dojedeno.</p>`;}
-function live(){let result;if(step===1)result='<div class="waiting"><div class="orb">◎</div><h2>Čekám na talíř…</h2><p class="status pulse">● měřím</p></div>';else if(step===2)result='<div class="waiting"><div class="orb pulse">◎</div><h2>Rozpoznávám…</h2><p class="muted">Porovnávám s dnešním menu</p></div>';else if(step===3)result=`<div class="waiting"><div class="orb">↻</div><h2>${captured?'Vážím zbytek…':'Talíř se vrací z výdeje…'}</h2><p class="muted">${captured?'Čekám na ustálení váhy':'Vyměňte talíř pod kamerou.'}</p><p class="status">${captured?'● měřím':'Další stisk → pořídit snímek'}</p></div>`;else result=leftoverResult();if(isLiveAnalysis()&&(step===2||(step===3&&captured)))result=liveAnalysis.panel(step===2?'reference':'leftover');const scan=step===2||(step===3&&captured);return title('01 / Živě z jídelny','Každý talíř má svůj příběh.')+`<div class="live-layout"><div><div class="camera-box"><img src="assets/plate-${step>=3?'leftover':'full'}.jpg" alt="Zástupný obrázek ${step>=3?'zbytků':'plné porce'} na talíři"><video autoplay muted playsinline hidden></video><canvas class="remote-live" hidden></canvas><canvas class="snapshot" hidden></canvas><div class="plate-outline" hidden aria-label="Zachycený obrys objektu"></div><span class="camera-label">● <span id="source-label">Ukázková fotografie</span></span><span class="camera-caption" id="auto-status">${step===2?'Ranní referenční porce':step>=3?'Talíř po obědě':'Stanoviště 01 · pohled nad kbelík'}</span>${scan?'<div class="flash"></div><div class="scan"></div>':''}</div><div class="under-camera"><div class="menu"><strong>Dnešní menu</strong>${config.menu.map(esc).join(' · ')}</div><div class="weight">Váha: <span id="weight">${isLiveAnalysis()?'—':step===4?'+'+sum(config.plate.leftover,'grams'):0}</span> g<small id="weight-status">${isLiveAnalysis()?'čekám na displej':step===4?'ustáleno ✓':'připraveno'}</small></div></div></div><div class="panel results" id="results">${result}</div></div>`;}
+function live(){let result;if(step===1)result='<div class="waiting"><div class="orb">◎</div><h2>Čekám na talíř…</h2><p class="status pulse">● měřím</p></div>';else if(step===2)result='<div class="waiting"><div class="orb pulse">◎</div><h2>Rozpoznávám…</h2><p class="muted">Porovnávám s dnešním menu</p></div>';else if(step===3)result=`<div class="waiting"><div class="orb">↻</div><h2>${captured?'Vážím zbytek…':'Talíř se vrací z výdeje…'}</h2><p class="muted">${captured?'Čekám na ustálení váhy':'Vyměňte talíř pod kamerou.'}</p><p class="status">${captured?'● měřím':'Další stisk → pořídit snímek'}</p></div>`;else result=leftoverResult();if(isLiveAnalysis()&&(step===2||(step===3&&captured)))result=liveAnalysis.panel(step===2?'reference':'leftover');const scan=step===2||(step===3&&captured);return title('01 / Živě z jídelny','Každý talíř má svůj příběh.')+`<div class="live-layout"><div><div class="camera-box"><img src="assets/plate-${step>=3?'leftover':'full'}.jpg" alt="Zástupný obrázek ${step>=3?'zbytků':'plné porce'} na talíři"><video autoplay muted playsinline hidden></video><canvas class="remote-live" hidden></canvas><canvas class="snapshot" hidden></canvas><div class="plate-outline" hidden aria-label="Zachycený obrys objektu"></div>${useCamera&&(step===1||(step===3&&!captured))?'<button class="capture-now" data-capture-now>Vyfotit teď</button>':''}<span class="camera-label">● <span id="source-label">Ukázková fotografie</span></span><span class="camera-caption" id="auto-status">${step===2?'Ranní referenční porce':step>=3?'Talíř po obědě':'Stanoviště 01 · pohled nad kbelík'}</span>${scan?'<div class="flash"></div><div class="scan"></div>':''}</div><div class="under-camera"><div class="menu"><strong>${isLiveAnalysis()?'Menu pro nápovědu (ukázka)':'Dnešní menu'}</strong>${config.menu.map(esc).join(' · ')}</div><div class="weight">Váha: <span id="weight">${isLiveAnalysis()?'—':step===4?'+'+sum(config.plate.leftover,'grams'):0}</span> g<small id="weight-status">${isLiveAnalysis()?'čekám na displej':step===4?'ustáleno ✓':'připraveno'}</small></div></div></div><div class="panel results" id="results">${result}</div></div>`;}
 function dayView(){
  const d=config.day,total=d.plateKg+d.unservedKg+d.prepKg;
  const stats=[['Talířů',d.plates,'',''],['Z talířů',d.plateKg,' kg',`${fmt(d.plateKg*config.pricePerKg)} Kč za suroviny`],['Nevydané z gastronádob',d.unservedKg,' kg',`≈ ${fmt(d.unservedKg/config.referencePortionKg)} porcí`],['Příprava',d.prepKg,' kg','']];
@@ -65,6 +65,7 @@ function attachCamera(){
  $('#source-label').textContent=live?'Živá kamera':'Ukázková fotografie';
  if(!live)return;
  const g=generation,freeze=step===2||(step===3&&captured)||step===4;
+ $('.camera-box')?.classList.toggle('has-snapshot',!!freeze);
  const showSnapshot=()=>{if(g!==generation||!useCamera||!video.isConnected)return;
   if(!frozen&&video.readyState>=2){const c=document.createElement('canvas');c.width=video.videoWidth;c.height=video.videoHeight;c.getContext('2d').drawImage(video,0,0);frozen=c;frozenBounds=measureOutline(c);}
   if(frozen){canvas.width=frozen.width;canvas.height=frozen.height;canvas.getContext('2d').drawImage(frozen,0,0);canvas.hidden=false;$('#source-label').textContent='Zachycený snímek';paintOutline();}
@@ -75,24 +76,50 @@ function attachCamera(){
 }
 function snapshot(){frozenBounds=null;if(config.camera.source==='mobile'){frozen=null;if(useCamera&&remoteFresh()){frozen=document.createElement('canvas');frozen.width=remoteFrame.width;frozen.height=remoteFrame.height;frozen.getContext('2d').drawImage(remoteFrame,0,0);frozenBounds=measureOutline(frozen);}return;}const video=$('video');if(useCamera&&video&&!video.hidden&&video.readyState>=2){const c=document.createElement('canvas');c.width=video.videoWidth;c.height=video.videoHeight;c.getContext('2d').drawImage(video,0,0);frozen=c;frozenBounds=measureOutline(c);}else frozen=null;}
 function render(){generation++;document.querySelectorAll(".camera-exit").forEach(n=>n.remove());$('#scene').innerHTML=`<div class="enter">${step<=4?live():step===5?dayView():step===6?monthView():step===7?solutionView():studentView()}</div>`;$('#progress').textContent=`${step} / 8`;$('#back').disabled=step===1;$('#next').disabled=step===8;$('#chapter').textContent=['','Živě z jídelny','Ranní referenční porce','Návrat talíře','Výsledek měření','Celý den','Měsíc ve škole','Doporučení','Liga prázdných talířů'][step];attachCamera();paintOutline();animateCounts();if(isLiveAnalysis()){liveAnalysis.paintWeight();if(step===2)liveAnalysis.capture('reference',frozen);else if(step===3&&captured)liveAnalysis.capture('leftover',frozen);return;}if(step===2)later(()=>{$('#results').innerHTML=fullResult();},1500);if(step===3&&captured){$('#weight-status').textContent='ustaluji…';later(()=>{$('#weight').dataset.prefix='+';$('#weight').dataset.count=sum(config.plate.leftover,'grams');animateCounts();later(()=>{$('#weight-status').textContent='ustáleno ✓';$('#results').innerHTML='<div class="waiting"><div class="orb">✓</div><h2>Hmotnost zaznamenána</h2><p class="status">Další stisk → výsledek talíře</p></div>';},800);},1200);}}
-function go(n,automatic=false){if(!config)return;if(isLiveAnalysis())liveAnalysis.navigate(n);if(!automatic){if(n===1)resetAuto();else pauseAuto();}const target=Math.max(1,Math.min(8,n));const outgoing=step<=4&&target===5?$(".camera-box")?.cloneNode(true):null;if(target===2||(target===4&&!(step===3&&captured&&frozen)))snapshot();else if(target!==4)frozen=null;step=target;captured=false;render();if(outgoing){outgoing.classList.add("camera-exit");$("#stage").append(outgoing);setTimeout(()=>outgoing.remove(),550);}}
-function next(automatic=false){if(!automatic&&step===8&&window.parent!==window){window.parent.postMessage({dojedeno:'konec'},'*');return;}if(!automatic)pauseAuto();if(step===3&&!captured){snapshot();captured=true;render();}else go(step+1,automatic);}
+function go(n,automatic=false){
+ if(!config)return;
+ const target=Math.max(1,Math.min(8,n));
+ if(isLiveAnalysis()&&target>=3&&target<=4&&!liveAnalysis.ready('reference')){autoStatus('Nejdřív vyfoťte plnou porci s čitelnou váhou.');return;}
+ if(isLiveAnalysis()&&target===4&&!liveAnalysis.ready('leftover')){autoStatus('Počkejte na výsledek nebo pořiďte nový snímek zbytků.');return;}
+ if(isLiveAnalysis())liveAnalysis.navigate(target);
+ if(!automatic){if(target===1)resetAuto();else pauseAuto();}
+ const outgoing=step<=4&&target===5?$(".camera-box")?.cloneNode(true):null;
+ if(target===2){
+  const existing=isLiveAnalysis()&&step>2&&liveAnalysis.states.reference;
+  if(existing?.canvas){frozen=existing.canvas;frozenBounds=measureOutline(frozen);}
+  else{snapshot();referenceRemoved=false;firstCapturedAt=performance.now();}
+ }else if(target===4){const existing=isLiveAnalysis()&&liveAnalysis.states.leftover;if(existing?.canvas)frozen=existing.canvas;else if(!(step===3&&captured&&frozen))snapshot();}
+ else frozen=null;
+ step=target;captured=false;render();
+ if(outgoing){outgoing.classList.add("camera-exit");$("#stage").append(outgoing);setTimeout(()=>outgoing.remove(),550);}
+}
+function next(automatic=false){
+ if(!automatic&&step===8&&window.parent!==window){window.parent.postMessage({dojedeno:'konec'},'*');return;}
+ if(isLiveAnalysis()&&step===2&&!liveAnalysis.ready('reference')){autoStatus('Počkejte na analýzu. Nečitelnou váhu vyfoťte znovu.');return;}
+ if(isLiveAnalysis()&&step===3&&captured&&!liveAnalysis.ready('leftover')){autoStatus('Počkejte na analýzu nebo pořiďte nový snímek.');return;}
+ if(!automatic)pauseAuto();
+ if(step===3&&!captured){snapshot();captured=true;render();}else go(step+1,automatic);
+}
 function toggleCamera(){if(config?.camera?.source==='none')return;useCamera=!useCamera;cameraRequest++;if(!useCamera){stream?.getTracks().forEach(t=>t.stop());stream=null;frozen=null;render();}else if(stream)attachCamera();else requestCamera();}
 $('#next').onclick=()=>next();$('#back').onclick=()=>go(step-1);$('#help-button').onclick=()=>{$('#help').hidden=!$('#help').hidden;};$('#camera-button').onclick=toggleCamera;
-addEventListener('keydown',e=>{if(!config||e.altKey||e.ctrlKey||e.metaKey||e.repeat)return;const key=e.key.toLowerCase();if(['arrowright',' ','pagedown','arrowleft','pageup','r','c','h','a','b','1','2','3','4','5','6','7','8'].includes(key))e.preventDefault();if(['arrowright',' ','pagedown'].includes(key))next();else if(['arrowleft','pageup'].includes(key))(step===1&&window.parent!==window?window.parent.postMessage({dojedeno:'zacatek'},'*'):go(step-1));else if(key==='a')toggleAuto();else if(key==='b'){resetAuto();go(1,true);}else if(key==='r')go(1);else if(key==='c')toggleCamera();else if(key==='h')$('#help').hidden=!$('#help').hidden;else if(/^[1-8]$/.test(key))go(Number(key));});
+addEventListener('keydown',e=>{if(!config||e.altKey||e.ctrlKey||e.metaKey||e.repeat)return;const key=e.key.toLowerCase();if(['arrowright',' ','pagedown','arrowleft','pageup','r','c','h','a','b','1','2','3','4','5','6','7','8'].includes(key))e.preventDefault();if(['arrowright',' ','pagedown'].includes(key))next();else if(['arrowleft','pageup'].includes(key))(step===1&&window.parent!==window?window.parent.postMessage({dojedeno:'zacatek'},'*'):go(step-1));else if(key==='a')toggleAuto();else if(key==='b'){resetAuto(true);go(1,true);}else if(key==='r')go(1);else if(key==='c')toggleCamera();else if(key==='h')$('#help').hidden=!$('#help').hidden;else if(/^[1-8]$/.test(key))go(Number(key));});
 addEventListener('pagehide',()=>stream?.getTracks().forEach(t=>t.stop()));
 Promise.all(['config.json','data/month.json'].map(async path=>{const r=await fetch(path);if(!r.ok)throw Error(path);return r.json();})).then(async ([c,m])=>{config=window.prepareDemoConfig?await prepareDemoConfig(c):c;useCamera=config.camera?.source!=='none';month=m;derive();initAuto();$('#school').textContent=`ZŠ ${config.school} · Oběd ${config.date}`;render();requestCamera();startRemote();window.demo={go,next,getState:()=>({step,captured,autoEnabled,detectorState:detector?.state}),getData:()=>({totals,recommendations:recommendations()})};}).catch(error=>{$('#scene').innerHTML=`<div class="error"><h2>Demo se nepodařilo připojit</h2><p>${esc(error.message||'Obnovte stránku a zkontrolujte připojení.')}</p><p>Pro změnu přístupového kódu použijte tlačítko Živé demo dole.</p></div>`;});
 
-// Only foreground presence is measured. Food identity and weights remain scripted.
+// Presence uses local image changes. Live food analysis and scale OCR run only on capture.
 let outlineDetector=null,liveBounds=null,frozenBounds=null;
-let detector=null,autoEnabled=false,firstCapturedAt=0,lastSampleAt=0,lastFrameKey=null;
+let detector=null,autoEnabled=false,firstCapturedAt=0,lastSampleAt=0,lastFrameKey=null,referenceRemoved=false;
 const detectorCanvas=document.createElement('canvas');detectorCanvas.width=64;detectorCanvas.height=48;
 const detectorContext=detectorCanvas.getContext('2d',{willReadFrequently:true});
 const remoteFrame=document.createElement('canvas');let remoteAt=0,remoteSerial=0,remoteWasFresh=false,remoteServerId=null;
-const remoteFresh=()=>remoteAt>0&&performance.now()-remoteAt<1600;
+const remoteFresh=()=>remoteAt>0&&performance.now()-remoteAt<5000;
 function initAuto(){detector=new PlatePresence(config.detection||{});outlineDetector=new PlatePresence(config.detection||{});autoEnabled=config.detection?.enabled!==false;setInterval(samplePresence,100);updateAutoButton();}
 function updateAutoButton(){$('#auto-button').textContent=autoEnabled?'Auto ●':'Ručně';$('#auto-button').classList.toggle('active',autoEnabled);}
-function resetAuto(){if(isLiveAnalysis())liveAnalysis.reset();detector?.reset();outlineDetector?.reset();liveBounds=null;frozenBounds=null;autoEnabled=config.detection?.enabled!==false;lastSampleAt=0;lastFrameKey=null;firstCapturedAt=0;updateAutoButton();}
+function resetAuto(calibrate=false){
+ if(isLiveAnalysis())liveAnalysis.reset();
+ if(calibrate){detector?.reset();outlineDetector?.reset();}else{detector?.pause();outlineDetector?.pause();}
+ liveBounds=null;frozenBounds=null;autoEnabled=config.detection?.enabled!==false;lastSampleAt=0;lastFrameKey=null;firstCapturedAt=0;referenceRemoved=false;updateAutoButton();
+}
 function pauseAuto(){autoEnabled=false;updateAutoButton();}
 function toggleAuto(){if(config?.camera?.source==='none')return;if(autoEnabled)pauseAuto();else{resetAuto();autoEnabled=true;updateAutoButton();go(1,true);}}
 function autoStatus(text){const el=$('#auto-status');if(el)el.textContent=text;}
@@ -101,20 +128,25 @@ function samplePresence(){
  if(!useCamera){autoStatus('Statická fotografie · C zapne kameru');return;}
  let source,key,width,height;
  if(config.camera.source==='mobile'){
-  if(!remoteFresh()){autoStatus('Připojte mobil · tlačítko Mobil dole');liveBounds=null;paintOutline();if(remoteWasFresh){detector.reset();outlineDetector.reset();remoteWasFresh=false;}return;}
+  if(!remoteFresh()){autoStatus('Připojte mobil · tlačítko Mobil dole');liveBounds=null;paintOutline();if(remoteWasFresh){detector.pause();outlineDetector.pause();remoteWasFresh=false;}return;}
   source=remoteFrame;key=remoteSerial;width=source.width;height=source.height;remoteWasFresh=true;
  }else{source=$('video');if(!source||source.readyState<2||!stream?.getVideoTracks().some(t=>t.readyState==='live')){autoStatus('Čekám na kameru · povolte přístup nebo použijte šipky');return;}key=source.currentTime;width=source.videoWidth;height=source.videoHeight;}
  if(key===lastFrameKey)return;
- const now=performance.now();if(lastSampleAt&&now-lastSampleAt>1600){detector.reset();outlineDetector.reset();}lastSampleAt=now;lastFrameKey=key;
+ const now=performance.now();if(lastSampleAt&&now-lastSampleAt>1600){detector.pause();outlineDetector.pause();}lastSampleAt=now;lastFrameKey=key;
  liveBounds=measureOutline(source);paintOutline();
  if(!autoEnabled){autoStatus('Ruční režim · A zapne automatické snímání');return;}
- detectorContext.drawImage(source,width*.15,height*.15,width*.7,height*.7,0,0,64,48);
+ detectorContext.drawImage(source,0,0,width,height,0,0,64,48);
  const result=detector.sample(detectorContext.getImageData(0,0,64,48).data,64,48,now);
  if(result.state==='calibrating'){autoStatus(`Nechte místo prázdné · kalibrace ${Math.round(result.calibrationProgress*100)} %`);return;}
- if(step===1){autoStatus('Připraveno · vložte první talíř doprostřed obrazu');if(result.event==='arrived'){firstCapturedAt=now;go(2,true);}}
- else if(step===2){const ready=!isLiveAnalysis()||liveAnalysis.ready('reference');autoStatus(!ready?'Čekám na čitelnou analýzu jídla a váhy…':now-firstCapturedAt<4000?'Zpracovávám první talíř…':'Vzor uložen · odeberte talíř z obrazu');if(ready&&now-firstCapturedAt>=4000&&result.state==='empty')go(3,true);}
- else if(step===3&&!captured){autoStatus('Připraveno · vložte druhý talíř se zbytky');if(result.event==='arrived'){next(true);if(!isLiveAnalysis())later(()=>{if(autoEnabled)go(4,true);},2600);}}
- else if(step===3)autoStatus('Zpracovávám druhý talíř…');
+ if(step===1){autoStatus(result.state==='present'?'Odeberte a vraťte talíř · nebo zvolte Vyfotit teď':detector.arrivalSince!==null?'Talíř v záběru · čekám na ustálení…':'Připraveno · vložte talíř, nebo zvolte Vyfotit teď');if(result.event==='arrived'){firstCapturedAt=now;go(2,true);}}
+ else if(step===2){
+  if(result.state==='empty')referenceRemoved=true;
+  const state=isLiveAnalysis()?liveAnalysis.states.reference:null,ready=!isLiveAnalysis()||liveAnalysis.ready('reference');
+  autoStatus(!ready?(state?.status==='pending'?'Analyzuji zachycený talíř…':state?.status==='done'?'Váhu se nepodařilo přečíst · upravte záběr a zvolte Nový snímek':'Analýzu zopakujte tlačítkem Nový snímek'):referenceRemoved?'Reference uložená · připravuji další talíř':'Vzor uložen · odeberte talíř z obrazu');
+  if(ready&&now-firstCapturedAt>=1500&&referenceRemoved){go(3,true);}
+ }
+ else if(step===3&&!captured){autoStatus('Připraveno · vložte druhý talíř se zbytky');if(result.event==='arrived'||(referenceRemoved&&result.state==='present'&&result.coverage>=detector.options.presenceCoverage&&result.motion<=detector.options.maxMotion)){next(true);if(!isLiveAnalysis())later(()=>{if(autoEnabled)go(4,true);},2600);}}
+ else if(step===3){const state=isLiveAnalysis()?liveAnalysis.states.leftover:null;autoStatus(state?.status==='done'||state?.status==='error'?'Upravte záběr váhy a zvolte Nový snímek':'Zpracovávám druhý talíř…');}
  else if(step===4)autoStatus('Hotovo · → denní přehled · R nové měření');
 }
 function attachRemote(){
@@ -123,16 +155,53 @@ function attachRemote(){
  $('#source-label').textContent=available?'Živě z mobilu':'Ukázková fotografie';
  if(!available)return;
  const freeze=step===2||(step===3&&captured)||step===4;
- if(freeze){if(!frozen)snapshot();if(frozen){snap.width=frozen.width;snap.height=frozen.height;snap.getContext('2d').drawImage(frozen,0,0);snap.hidden=false;$('#source-label').textContent='Zachycený snímek';paintOutline();}}
- live.width=remoteFrame.width;live.height=remoteFrame.height;live.getContext('2d').drawImage(remoteFrame,0,0);paintOutline();
+ $('.camera-box')?.classList.toggle('has-snapshot',!!freeze);
+ if(freeze){
+  if(!frozen)snapshot();
+  if(frozen){
+   // The captured photo is immutable. Do not allocate/copy it for every live frame.
+   if(snap.sourceFrame!==frozen){snap.width=frozen.width;snap.height=frozen.height;snap.getContext('2d').drawImage(frozen,0,0);snap.sourceFrame=frozen;}
+   snap.hidden=false;$('#source-label').textContent='Zachycený snímek';
+  }
+ }
+ const previewScale=freeze?Math.min(1,320/remoteFrame.width):1;
+ const previewWidth=Math.round(remoteFrame.width*previewScale),previewHeight=Math.round(remoteFrame.height*previewScale);
+ if(live.width!==previewWidth||live.height!==previewHeight){live.width=previewWidth;live.height=previewHeight;}
+ live.getContext('2d').drawImage(remoteFrame,0,0,previewWidth,previewHeight);
+ paintOutline();
 }
 function startRemote(){
  if(config.camera.source!=='mobile')return;
+ let failures=0;
  async function poll(){
-  try{const response=await (window.demoApiFetch||fetch)('/api/frame',{cache:'no-store'});if(response.ok&&response.status!==204&&response.headers.get('content-type')?.includes('image/')){
-   const id=response.headers.get('X-Frame-Id');if(id&&id===remoteServerId){await response.body?.cancel();return;}remoteServerId=id;const blob=await response.blob(),url=URL.createObjectURL(blob);try{const img=new Image();img.src=url;await img.decode();remoteFrame.width=img.naturalWidth;remoteFrame.height=img.naturalHeight;remoteFrame.getContext('2d').drawImage(img,0,0);remoteAt=performance.now();remoteSerial++;attachRemote();}finally{URL.revokeObjectURL(url);}
-  }}catch{/* Keep the presentation usable when the phone disconnects. */}finally{setTimeout(poll,180);}
-  if(!remoteFresh())attachRemote();
+  const began=performance.now(),controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),4000);
+  try{
+   const response=await (window.demoApiFetch||fetch)('/api/frame',{cache:'no-store',signal:controller.signal});
+   if(!response.ok)throw Error('Frame unavailable');
+   failures=0;
+   if(response.status!==204&&response.headers.get('content-type')?.includes('image/')){
+    const id=response.headers.get('X-Frame-Id');
+    if(id&&id===remoteServerId){await response.body?.cancel();return;}
+    const blob=await response.blob();
+    // Decode off the main thread where available. Keep one frame, with no backlog.
+    let img,url;
+    try{
+     if(typeof createImageBitmap==='function')img=await createImageBitmap(blob);
+     else{url=URL.createObjectURL(blob);img=new Image();img.src=url;await img.decode();}
+     const width=img.naturalWidth||img.width,height=img.naturalHeight||img.height;
+     if(remoteFrame.width!==width||remoteFrame.height!==height){remoteFrame.width=width;remoteFrame.height=height;}
+     remoteFrame.getContext('2d').drawImage(img,0,0);
+     remoteServerId=id;remoteAt=performance.now();remoteSerial++;attachRemote();
+    }finally{img?.close?.();if(url)URL.revokeObjectURL(url);}
+   }
+  }catch{failures++;}
+  finally{
+   clearTimeout(timer);
+   if(!remoteFresh())attachRemote();
+   const interval=failures?Math.min(2000,250*failures):step<=4?80:500;
+   setTimeout(poll,Math.max(0,interval-(performance.now()-began)));
+  }
  }
  poll();refreshPhoneStatus();
 }
@@ -164,3 +233,5 @@ function paintOutline(){
  if(!rect){el.hidden=true;return;}
  Object.assign(el.style,{left:rect.left+'px',top:rect.top+'px',width:rect.width+'px',height:rect.height+'px'});
 }
+
+document.addEventListener('click',event=>{if(!event.target.closest('[data-capture-now]'))return;if(step===1)go(2);else if(step===3&&!captured)next();});

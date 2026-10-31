@@ -14,8 +14,9 @@ import claude_client as client
 
 IMAGE = base64.b64encode((Path(__file__).resolve().parents[1] / 'assets/plate-full.jpg').read_bytes()).decode()
 RESULT = {'plateDetected': True, 'dishName': 'Knedlíky',
-          'components': [{'name': 'Knedlík', 'estimatedGrams': 180, 'amountDescription': '4 kusy'},
-                         {'name': 'Omáčka', 'estimatedGrams': 220, 'amountDescription': 'porce'}],
+          'components': [{'name': 'Knedlík', 'estimatedGrams': 180, 'estimatedMassShare': 0.45, 'amountDescription': '4 kusy'},
+                         {'name': 'Omáčka', 'estimatedGrams': 220, 'estimatedMassShare': 0.55, 'amountDescription': 'porce'}],
+          'massEstimateConfidence': 'high',
           'estimatedTotalGrams': 999, 'remainingPercent': 60, 'comparableToReference': True,
           'confidence': 'high', 'notes': 'Odhad, nikoli měření.',
           'scaleReading': {'visible': True, 'grams': 400, 'confidence': 'high'}}
@@ -78,6 +79,76 @@ class ClaudeClientTests(unittest.TestCase):
             with patch.object(client.request, 'urlopen', return_value=response(result)):
                 self.assertIsNone(client.analyze(payload(), [])['result']['scaleReading']['grams'])
 
+    def test_unknown_food_does_not_discard_readable_scale(self):
+        result = copy.deepcopy(RESULT)
+        result.update(dishName='Neurčené jídlo', confidence='low')
+        result['scaleReading'].update(grams=267, confidence='high')
+        with patch.object(client.request, 'urlopen', return_value=response(result)):
+            actual = client.analyze(payload(), ['Úplně jiný pokrm'])['result']
+        self.assertEqual(actual['scaleReading']['grams'], 267)
+        self.assertEqual(actual['confidence'], 'low')
+
+    def test_scale_detail_is_labelled_in_same_single_request(self):
+        data = {**payload(), 'scaleImage': IMAGE}
+        with patch.object(client.request, 'urlopen', return_value=response()) as call:
+            client.analyze(data, [])
+        self.assertEqual(call.call_count, 1)
+        blocks = json.loads(call.call_args.args[0].data)['messages'][0]['content']
+        images = [i for i, block in enumerate(blocks) if block['type'] == 'image']
+        self.assertEqual(len(images), 2)
+        self.assertIn('TÉHOŽ AKTUÁLNÍHO SNÍMKU', blocks[images[1] - 1]['text'])
+        self.assertEqual(blocks[images[1]]['source']['data'], IMAGE)
+
+    def test_scale_mass_estimates_sum_to_reading_and_round_consistently(self):
+        for total, shares, expected in [(267, [0.45, 0.55], [120, 147]),
+                                         (1, [0.5, 0.5], [1, 0]),
+                                         (0, [0.5, 0.5], [0, 0]),
+                                         (100, [0, 1], [0, 100]),
+                                         (267.4, [0.45, 0.55], [120, 147]),
+                                         (267, [0.5, 0.49], [135, 132])]:
+            with self.subTest(total=total, shares=shares):
+                result = copy.deepcopy(RESULT)
+                result.update(confidence='low', massEstimateConfidence='medium', dishName='Neurčené jídlo')
+                result['scaleReading']['grams'] = total
+                for component, share in zip(result['components'], shares):
+                    component['estimatedMassShare'] = share
+                with patch.object(client.request, 'urlopen', return_value=response(result)):
+                    actual = client.analyze(payload(), [], 'scale')['result']
+                self.assertEqual([c['estimatedGrams'] for c in actual['components']], expected)
+                self.assertEqual(sum(expected), int(total + 0.5))
+                self.assertIsNone(actual['estimatedTotalGrams'])
+                self.assertEqual(actual['scaleReading']['grams'], total)
+
+    def test_uncertain_incomplete_or_incoherent_mass_split_is_not_allocated(self):
+        for shares, confidence, readable in [([None, None], 'low', True),
+                                             ([None, 0.55], 'high', True),
+                                             ([0.2, 0.2], 'high', True),
+                                             ([0.8, 0.8], 'high', True),
+                                             ([0, 0], 'high', True),
+                                             ([0.45, 0.55], 'high', False)]:
+            with self.subTest(shares=shares, confidence=confidence, readable=readable):
+                result = copy.deepcopy(RESULT)
+                result['massEstimateConfidence'] = confidence
+                for component, share in zip(result['components'], shares):
+                    component['estimatedMassShare'] = share
+                if not readable:
+                    result['scaleReading']['confidence'] = 'low'
+                with patch.object(client.request, 'urlopen', return_value=response(result)):
+                    actual = client.analyze(payload(), [], 'scale')['result']
+                self.assertTrue(all(c['estimatedGrams'] is None for c in actual['components']))
+
+    def test_complete_low_confidence_split_remains_explicitly_low_confidence(self):
+        result = copy.deepcopy(RESULT)
+        result.update(confidence='low', massEstimateConfidence='low', dishName='Neurčené jídlo')
+        result['scaleReading']['grams'] = 267
+        result['components'][0]['name'] = 'Světlá neurčená složka'
+        with patch.object(client.request, 'urlopen', return_value=response(result)):
+            actual = client.analyze(payload(), [], 'scale')['result']
+        self.assertEqual([c['estimatedGrams'] for c in actual['components']], [120, 147])
+        self.assertEqual(actual['massEstimateConfidence'], 'low')
+        self.assertEqual(actual['confidence'], 'low')
+        self.assertEqual(actual['scaleReading']['confidence'], 'high')
+
     def test_noncomparable_and_no_plate(self):
         for change in [{'plateDetected': False}, {'comparableToReference': False}]:
             result = copy.deepcopy(RESULT); result.update(change)
@@ -88,7 +159,9 @@ class ClaudeClientTests(unittest.TestCase):
     def test_bad_input_never_calls_api(self):
         bad = [None, [], {}, {**payload(), 'requestId': 5}, {**payload(), 'phase': 'unknown'},
                {**payload(), 'image': 'bad!'}, {**payload(), 'image': base64.b64encode(b'\xff\xd8fake-jpeg\xff\xd9').decode()}, {**payload(), 'image': base64.b64encode(b'not jpeg').decode()},
-               {**payload(), 'image': 'A' * (2 * 1024 * 1024)}, {**payload(), 'measuredGrams': True},
+               {**payload(), 'image': 'A' * (2 * 1024 * 1024)},
+               {**payload(), 'scaleImage': None}, {**payload(), 'scaleImage': 'not-jpeg'},
+               {**payload(), 'scaleImage': 'A' * (2 * 1024 * 1024)}, {**payload(), 'measuredGrams': True},
                {**payload(), 'measuredGrams': -1}, {**payload(), 'reference': {'image': IMAGE, 'result': {}}}]
         with patch.object(client.request, 'urlopen') as call:
             for data in bad:
@@ -100,6 +173,9 @@ class ClaudeClientTests(unittest.TestCase):
     def test_invalid_results(self):
         invalid = [None, [], {**RESULT, 'remainingPercent': 101}, {**RESULT, 'estimatedTotalGrams': True},
                    {**RESULT, 'components': RESULT['components'] * 4}, {**RESULT, 'confidence': 'certain'},
+                   {**RESULT, 'massEstimateConfidence': 'certain'},
+                   {**RESULT, 'components': [{**RESULT['components'][0], 'estimatedMassShare': 1.1}]},
+                   {**RESULT, 'components': [{**RESULT['components'][0], 'estimatedMassShare': True}]},
                    {**RESULT, 'plateDetected': 'yes'}, {**RESULT, 'scaleReading': {'visible': True, 'grams': -1, 'confidence': 'high'}}]
         for value in invalid:
             body = {'stop_reason': 'end_turn', 'content': [{'type': 'text', 'text': json.dumps(value)}]}

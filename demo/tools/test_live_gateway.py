@@ -84,6 +84,16 @@ with tempfile.TemporaryDirectory(prefix='dojedeno-gateway-test-') as folder:
         code, headers, raw = request('GET', '/api/frame', desktop)
         assert code == 200 and raw == b'\xff\xd8MOCK\xff\xd9' and headers['X-Frame-Id'] == '42'
         assert headers['Access-Control-Expose-Headers'] == 'X-Frame-Id'
+        # The tunnel's HTTP connection can serve successive preview polls.
+        persistent = http.client.HTTPConnection('127.0.0.1', gateway.server_port, timeout=5)
+        persistent.request('GET', '/api/frame', headers={'Authorization': 'Bearer ' + desktop})
+        first = persistent.getresponse(); assert first.status == 200; first.read()
+        socket = persistent.sock
+        assert socket is not None
+        persistent.request('GET', '/api/frame', headers={'Authorization': 'Bearer ' + desktop})
+        second = persistent.getresponse(); assert second.status == 200; second.read()
+        assert persistent.sock is socket
+        persistent.close()
         frame = b'\xff\xd8PHONE\xff\xd9'
         assert request('POST', '/api/frame', desktop, frame, {'Content-Type': 'image/jpeg'})[0] == 403
         assert request('POST', '/api/frame', phone, frame, {'Content-Type': 'image/jpeg'})[0] == 204

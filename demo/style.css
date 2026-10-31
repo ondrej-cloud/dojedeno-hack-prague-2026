@@ -9,3 +9,7 @@ header{height:110px}main{height:886px;padding-top:24px}footer{height:84px}.eyebr
 .stats .stat p{margin:0}
 .stats .stat{padding:20px 30px}.stats .stat .value{line-height:1.1;margin:8px 0}
 .day-bottom .panel{padding:24px 30px}.day-bottom .segmented{margin:20px 0 16px}
+
+.capture-now{position:absolute;right:20px;top:20px;z-index:7;background:#103b20e8;color:#fff;font-size:21px;border-color:#30d15880}.food-grams{color:var(--green);white-space:nowrap;font-variant-numeric:tabular-nums}.component-share{height:4px;background:#ffffff12;border-radius:4px;margin-top:4px}.component-share i{display:block;height:100%;background:var(--green);border-radius:4px;animation:grow .6s var(--ease) both}.component-label{flex:1;min-width:0}.component-estimate-note{font-size:19px;color:var(--gray)}
+
+.camera-box.has-snapshot .remote-live,.camera-box.has-snapshot video{inset:16px 16px auto auto;width:220px;height:140px;border:2px solid #30d15888;border-radius:14px;z-index:4;object-fit:contain;background:#111}.camera-box.has-snapshot::after{content:"Živý náhled";position:absolute;right:26px;top:126px;z-index:5;background:#0b0b0fbb;border-radius:6px;padding:3px 8px;font-size:15px;pointer-events:none}.analysis-actions{display:flex;gap:10px;flex-wrap:wrap}
