@@ -20,7 +20,7 @@ Podrobnosti: [ovládání a implementace](demo/README.md), [Claude API](demo/CLA
 
 ## Prezentace
 
-Otevřete `prezentace/index.html` v Chromu. První šipka doprava nebo mezerník spustí úvodní film; po dohrání sám přejde na titul s 3D modelem. Návrat šipkami úplně na začátek film zastaví a přetočí. Další šipka doprava ho znovu spustí; během přehrávání jej další stisk přeskočí. Mezerník/klikr posouvá, šipka vlevo vrací, F zapíná celou obrazovku, N poznámky a stopky. Lokální vložené demo vyžaduje server na localhost:8080. Samostatné slajdy běží i offline. Prezentace byla na přání vrácena do předchozí podoby; úvod 1.1 a původní pátý slajd ukazují jeden pás a jeden vážený kbelík. Za závěrem (#13) je rozšířená třípásová sestava pro dotazy. Hlavní část má 12 slajdů, živé demo je na #7. Samostatný one-pager a návrh šestitýdenního pilotu zůstávají uložené zvlášť.
+Otevřete `prezentace/index.html` v Chromu. První šipka doprava nebo mezerník spustí úvodní film; po dohrání sám přejde na titul s 3D modelem. Návrat šipkami úplně na začátek film zastaví a přetočí. Další šipka doprava ho znovu spustí; během přehrávání jej další stisk přeskočí. Mezerník/klikr posouvá, šipka vlevo vrací, F zapíná celou obrazovku, N poznámky a stopky. Lokální vložené demo vyžaduje server na localhost:8080. Samostatné slajdy běží i offline. Prezentace byla na přání vrácena do předchozí podoby; úvod 1.1 a původní pátý slajd ukazují jeden pás a jeden vážený kbelík. Za závěrem (#13) je rozšířená třípásová sestava pro dotazy. Hlavní část má 13 slajdů podle hodnoticích kritérií Hack Prague (včetně zapojení lidí, realizace a toho, jak jsme pracovali), živé demo je na #5. Samostatný one-pager a návrh šestitýdenního pilotu zůstávají uložené zvlášť.
 
 ```sh
 cd prezentace

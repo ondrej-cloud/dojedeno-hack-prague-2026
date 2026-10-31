@@ -239,3 +239,23 @@ Zkratky: **P** = pravděpodobnost, **D** = dopad (1 = nízká/nízký, 3 = vysok
 - Zapojení žáků a učitelů: soutěž tříd, výuka v biologii a ekologii, žákovský tým dat.
 - Rozbor podle dnů v týdnu (návštěvnost).
 - Rozšíření: další jídelna v Olomouci, Praha (Praha 4 už jídelny zapojila do Zachraň oběd), celkem 8 891 jídelen v ČR.
+
+## Doplněk 31. 10.: hlavní linka podle hodnoticích kritérií
+
+Pořadí: úvod, problém, insight, pás, demo, z dat rovnou opatření, kdo z toho co má, zapojení, konkurence (jeden krok), rozpočet, realizace, jak jsme pracovali, závěr.
+
+### 07 · `s-kdo` · Kdo z toho co má
+- Tři hlavní karty (vedoucí jídelny, ředitel, městská část jako budoucí plátce), krok 1: „Proč do toho jídelna půjde“. Kuchařky, žáci a rodiče jsou na slajdu 08.
+
+### 08 · `s-zapojeni` · Zapojíme celou školu (kritérium Zapojení komunity)
+- Čtyři skupiny: kuchařky a vedoucí navrhují úpravy s námi, žáci soutěž tříd, učitelé data do výuky, rodiče přehled.
+- **Krok 1:** Brno 80 kg → 19 kg v den, kdy děti vážily samy (Mendelova univerzita 2025, s. 19); telefonát se správkyní jídelny v Hejčíně: zní to dobře, kuchařkám to práci nepřidá, chybí souhlas ředitele. Správkyni necitovat doslova.
+
+### 11 · `s-realizace` · Pilot u nás v Hejčíně: leden 2027 (kritérium Realizovatelnost)
+- Časová osa: příprava listopad–prosinec, pilot 6 týdnů leden–únor, iterace únor–březen, gala 30. 3. 2027, evaluace do 10. 5. 2027.
+- **Krok 1:** tři největší rizika s opatřením (škola odmítne, hygiena a GDPR, rychlý výdej). Matice rizik, KPI a položkový rozpočet zůstávají v záloze.
+
+### 12 · `s-jak-jsme` · Jak jsme pracovali (kritérium Provázanost s dovednostmi)
+- Tým: Tobias (research a data, mentoři, technika), Ondřej (prototyp, demo a prezentace). Nástroje: mapa aktérů, harmonogram, matice rizik, rozpočet, KPI.
+- **Krok 1:** co jsme po mentoringu změnili: fotka talíře místo jen kbelíku, jeden pás místo tří, gastroodpad místo bioodpadu, pilot 6 týdnů.
+

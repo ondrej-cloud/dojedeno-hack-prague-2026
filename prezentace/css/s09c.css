@@ -1,0 +1,21 @@
+/* 09c · realizace: časová osa od y 272 (pět bodů, čára se nakreslí při vstupu), krok 1 tři rizika od y 640 */
+#s-realizace .r-osa { position: absolute; left: var(--okraj-x); right: var(--okraj-x); top: var(--obsah-y); margin: 0; padding: 50px 0 0; list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 28px; }
+#s-realizace .r-osa::before { content: ""; position: absolute; left: 14px; right: 14px; top: 14px; height: 4px; border-radius: 999px; background: var(--linka2); transform-origin: left center; }
+#s-realizace.kresli .r-osa::before { animation: s09c-cara 1100ms var(--ven) both; }
+@keyframes s09c-cara { from { transform: scaleX(0); } to { transform: none; } }
+#s-realizace .r-osa li { position: relative; }
+#s-realizace .r-bod { position: absolute; left: 0; top: -50px; width: 32px; height: 32px; border-radius: 50%; background: var(--karta); box-shadow: inset 0 0 0 4px var(--linka2); }
+#s-realizace .r-hlavni .r-bod { background: var(--zelena-svetla); box-shadow: inset 0 0 0 4px var(--zelena); }
+#s-realizace.kresli .r-bod { animation: s09c-bod 500ms var(--ven) calc(300ms + var(--n) * 140ms) both; }
+@keyframes s09c-bod { from { transform: scale(0); } to { transform: none; } }
+#s-realizace .r-kdy { font-size: 22px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.04em; }
+#s-realizace .r-hlavni .r-kdy { color: var(--zelena); }
+#s-realizace .r-osa h3 { margin: 8px 0; font-size: 36px; letter-spacing: -0.01em; }
+#s-realizace .r-osa p:not(.r-kdy) { font-size: 25px; line-height: 1.35; }
+
+#s-realizace .r-rizika { position: absolute; left: var(--okraj-x); right: var(--okraj-x); top: 632px; }
+#s-realizace .r-titul { font-size: 22px; font-weight: 700; color: var(--oranz); text-transform: uppercase; letter-spacing: 0.06em; }
+#s-realizace .r-trojice { margin-top: 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+#s-realizace .r-riziko { height: 236px; padding: 32px 36px; box-shadow: var(--stin), inset 4px 0 0 var(--oranz); }
+#s-realizace .r-riziko h3 { font-size: 36px; letter-spacing: -0.01em; }
+#s-realizace .r-riziko p { margin-top: 14px; font-size: 26px; line-height: 1.35; }
