@@ -90,10 +90,10 @@
   - **Měření** (každý den): kg, jídla, části jídla, talíře.
   - **Analýza** (měsíčně): co se nejí, kolik se uvaří navíc.
   - **Opatření:**
-    - vařit podle vydaných obědů (5–9 % se nevyzvedne),
+    - nevařit navíc nad objednávky (podle zbytků v nádobách z výdeje),
     - upravit špenát a další recepty a porce,
     - polévky (jí je pětina žáků),
-    - nevydané porce darovat přes Zachraň oběd,
+    - nevyzvednuté porce darovat přes Zachraň oběd (5–9 % se nevyzvedne),
     - soutěž tříd.
 - **Poslední krok:** „Příklad: ušetříme-li 10 %, je to 60 000 Kč ročně na školu“. Viditelně jako příklad, ne slib.
 
