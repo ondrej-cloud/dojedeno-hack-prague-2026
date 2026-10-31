@@ -20,7 +20,7 @@ Podrobnosti: [ovládání a implementace](demo/README.md), [Claude API](demo/CLA
 
 ## Prezentace
 
-Otevřete `prezentace/index.html` v Chromu. První šipka doprava nebo mezerník spustí úvodní film; po dohrání sám přejde na titul s 3D modelem. Návrat šipkami úplně na začátek film zastaví a přetočí. Další šipka doprava ho znovu spustí; během přehrávání jej další stisk přeskočí. Mezerník/klikr posouvá, šipka vlevo vrací, F zapíná celou obrazovku, N poznámky a stopky. Lokální vložené demo vyžaduje server na localhost:8080. Samostatné slajdy běží i offline. Prezentace byla na přání vrácena do předchozí podoby; slajd s třípásovým modelem je nyní až za závěrem (#12) jako podklad pro dotazy. Hlavní část má 11 slajdů, živé demo je na #6. Samostatný one-pager a návrh šestitýdenního pilotu zůstávají uložené zvlášť.
+Otevřete `prezentace/index.html` v Chromu. První šipka doprava nebo mezerník spustí úvodní film; po dohrání sám přejde na titul s 3D modelem. Návrat šipkami úplně na začátek film zastaví a přetočí. Další šipka doprava ho znovu spustí; během přehrávání jej další stisk přeskočí. Mezerník/klikr posouvá, šipka vlevo vrací, F zapíná celou obrazovku, N poznámky a stopky. Lokální vložené demo vyžaduje server na localhost:8080. Samostatné slajdy běží i offline. Prezentace byla na přání vrácena do předchozí podoby; úvod 1.1 a původní pátý slajd ukazují jeden pás a jeden vážený kbelík. Za závěrem (#13) je rozšířená třípásová sestava pro dotazy. Hlavní část má 12 slajdů, živé demo je na #7. Samostatný one-pager a návrh šestitýdenního pilotu zůstávají uložené zvlášť.
 
 ```sh
 cd prezentace
@@ -52,7 +52,7 @@ V demu klikněte **Mobil** a naskenujte QR telefonem. Telefon a počítač mohou
 
 První pilot navrhujeme v naší škole v Hejčíně v Olomouci (Olomoucký kraj): šest týdnů po souhlasu školy, instalaci a ověření měření. Dva týdny měření výchozího stavu, dva týdny první změna a dva týdny ověření nebo druhá varianta; nejvýše dvě iterace opatření. Rozpočet **16 000 Kč** je pracovní odhad pro jednu jídelnu, včetně vybavení, vymezené práce týmu a rezervy. Není to cenová nabídka ani schválené financování.
 
-Hlavní návrh používá **jeden pás, fotografii talíře před vysypáním a jeden vážený kbelík**. Pořadí lze použít jen při zachování pořadí vysypávání. Souběhy a nejistoty zůstávají společnou dávkou. Hejčín má podle zadání tři patra pásu; možnost vymezit jeden sledovaný tok ještě potřebuje ověření. Tento návrh je podkladem pro one-pager; obnovená prezentace používá předchozí třípásovou variantu. Živé demo rozpoznává talíř a čte displej váhy; produkční párování s kbelíkem zatím nepředvádí.
+Hlavní návrh používá **jeden pás, fotografii talíře před vysypáním a jeden vážený kbelík**. Pořadí lze použít jen při zachování pořadí vysypávání. Souběhy a nejistoty zůstávají společnou dávkou. Hejčín má podle zadání tři patra pásu; možnost vymezit jeden sledovaný tok ještě potřebuje ověření. Tento návrh je podkladem pro one-pager; hlavní prezentace používá jeden pás, třípásové rozšíření je v záloze. Živé demo rozpoznává talíř a čte displej váhy; produkční párování s kbelíkem zatím nepředvádí.
 
 Hlavní KPI jsou gramy vráceného potravinového gastroodpadu na skutečně vydaný oběd ve stejné sledované části provozu. Návrhový cíl −10 % není dosažený výsledek. Nevydané pokrmy sledujeme odděleně včetně dalšího využití; nemusí všechny skončit jako odpad. Finanční přínos je vedlejší a musí se prokázat zvlášť: 60 000 Kč je modelová hodnota 10 % z odhadovaných surovin ve zbytcích, nikoli automatická úspora nákupů.
 

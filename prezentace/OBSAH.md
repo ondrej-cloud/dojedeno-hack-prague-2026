@@ -1,4 +1,4 @@
-> Pořadí aktualizováno: slajd s třípásovým modelem (`90-tri-pasy.html`) je za závěrem jako záloha pro oponenturu (#12). Hlavní část má 11 slajdů, demo je #6. Níže uvedené označení 05 popisuje původní obsah tohoto přesunutého slajdu.
+> Modely: úvod #1.1 i pátý slajd #5 používají jeden pás a jeden vážený kbelík. Třípásová varianta je až za závěrem (#13) pro oponenturu. Hlavní část má 12 slajdů, demo je #7.
 
 # Obsah prezentace Dojedeno: závazná čísla a obsah slajdů
 
@@ -69,7 +69,7 @@
 
 ### 05 · `s-reseni` · 1:50–2:10
 - **Nadpis:** „Dojedeno: kamery, váha a AI.“
-- **Hlavní prvek:** návrh pilotní sestavy: tři pásy nad sebou, snímání talířů před vysypáním a samostatný kbelík na váze. Stejný model je v titulním kroku 1.1. Počet a umístění kamer ověříme v provozu.
+- **Hlavní prvek:** základní sestava: jeden pás, snímání talířů před vysypáním a jeden samostatný kbelík na váze. Stejný model je v titulním kroku 1.1. Počet a umístění kamer ověříme v provozu.
 - **Kroky 1–3, popisky:** „Fotíme talíře na pásu.“ / „Vážíme, co přibylo.“ / „AI navrhne přiřazení.“
 - **Přiřazení:** čas, pořadí a odhad z fotky jsou vodítka; přesné gramy na talíř nejsou zaručené. Při nejistotě zůstává společná dávka, bez vymyšleného rozdělení hmotnosti. Ukázkových +150 g v animaci není výsledek pilotu.
 - **Dole:** „Bez zastavování talířů“. Jde o návrh k ověření. Současné živé demo dál rozpoznává talíř a čte displej váhy na jeho fotce.
