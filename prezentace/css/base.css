@@ -3,7 +3,7 @@
    Zelená = snědeno a úspora, oranžová = vyhozeno. Jeden roh (22 px), jeden stín, čára ilustrací 3 px. Slajdové styly: css/sNN.css. */
 
 :root {
-  --stranka: #f5f5f7; --karta: #ffffff; --text: #1d1d1f; --text2: #6e6e73; --text3: #86868b;
+  --stranka: #f5f5f7; --karta: #ffffff; --text: #1d1d1f; --text2: #1d1d1f; --text3: #6e6e73;   /* obsah černě, šedá jen drobný text (zdroje, legendy, štítky) */
   --linka: #e5e5ea; --linka2: #d2d2d7;
   --zelena: #248a3d; --zelena-svetla: #d3f0dc; --zelena-zivá: #30d158;
   --oranz: #c9601b; --oranz-svetla: #f8e0cf; --oranz2: #e38b4d;
