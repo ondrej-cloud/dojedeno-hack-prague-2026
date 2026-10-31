@@ -1,6 +1,6 @@
 # Živé demo z Netlify
 
-Web `https://dojezeno.netlify.app` otevírá živé demo bez přístupového kódu. Denní a měsíční přehledy jsou vždy ukázková data. Živá analýza prvních kroků rozpoznává talíř, čte displej váhy a odhaduje rozdělení celkové hmotnosti mezi složky; nesimuluje produkční párování pásu s kbelíkem.
+Demo vložené v prezentaci začíná v režimu **Ukázková data**, který lze celý proklikat bez mobilu a bez API. Samostatné demo bez připojeného mobilu také zobrazí ukázku. Tlačítko **Živé měření** přepne na kameru bez přístupového kódu, **Ukázková data** přepne zpět. Tlačítko **Mobil** otevře živý režim rovnou s QR. Denní a měsíční přehledy jsou vždy ukázková data. Živá analýza prvních kroků rozpoznává talíř, čte displej váhy a odhaduje rozdělení celkové hmotnosti mezi složky; nesimuluje produkční párování pásu s kbelíkem.
 
 ## Použití
 

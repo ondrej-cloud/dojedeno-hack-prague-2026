@@ -15,7 +15,11 @@
       if (p !== pokus) return bezi;
       bezi = true;
       chyba.hidden = true;
-      if (!ifr.getAttribute('src')) ifr.setAttribute('src', DEMO);
+      if (!ifr.getAttribute('src')) {
+        const embedded = new URL(DEMO, document.baseURI);
+        embedded.searchParams.set('mode', 'sample');
+        ifr.setAttribute('src', embedded.href);
+      }
       s.classList.add('demo-bezi');
       return true;
     }).catch(() => {
