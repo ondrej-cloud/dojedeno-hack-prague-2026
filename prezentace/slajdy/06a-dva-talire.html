@@ -1,0 +1,54 @@
+<!-- 06a · ukázka: dva talíře z jídelny (místo 8krokového dema). Krok 1: kamera vyfotí talíř 1, sken, analýza (složky, gramy, snědeno);
+     krok 2: talíř 2 je prázdný → dojedeno; krok 3: oba výsledky se filmově spojí do prvních dvou bodů dat.
+     Fotky: assets/talir1.jpg a assets/talir2.jpg (když chybí, kreslí se talíř v SVG). Čísla: JSON .dt-data níž (dosaďte ze svého natočeného běhu). -->
+<section class="slajd" id="s-dva-talire" data-nazev="Ukázka: dva talíře" data-kroky="3">
+  <h1>Ukázka: dva talíře z&nbsp;naší jídelny.</h1>
+
+  <div class="dt-kamera bez-vstupu" aria-label="Pohled kamery nad pásem">
+    <div class="dt-snimek dt-s1">
+      <svg class="dt-svg" viewBox="0 0 400 400" aria-hidden="true">
+        <circle cx="200" cy="200" r="168" class="talir-okraj"/><circle cx="200" cy="200" r="118" class="talir-vnitrek"/>
+        <path class="omacka" d="M190 150c40-22 92-6 98 34s-30 70-76 66-70-30-66-58 14-32 44-42z"/>
+        <ellipse class="knedlik" cx="150" cy="232" rx="42" ry="30" transform="rotate(-18 150 232)"/>
+        <ellipse class="knedlik" cx="196" cy="262" rx="40" ry="28" transform="rotate(12 196 262)"/>
+      </svg>
+      <img class="dt-foto" src="assets/talir1.jpg" alt="" onerror="this.remove()">
+    </div>
+    <div class="dt-snimek dt-s2">
+      <svg class="dt-svg" viewBox="0 0 400 400" aria-hidden="true">
+        <circle cx="200" cy="200" r="168" class="talir-okraj"/><circle cx="200" cy="200" r="118" class="talir-vnitrek"/>
+        <circle class="drobek" cx="232" cy="176" r="5"/><circle class="drobek" cx="176" cy="238" r="4"/><circle class="drobek" cx="246" cy="232" r="3"/>
+      </svg>
+      <img class="dt-foto" src="assets/talir2.jpg" alt="" onerror="this.remove()">
+    </div>
+    <div class="dt-sken" aria-hidden="true"></div>
+    <div class="dt-detekce" aria-hidden="true"></div>
+    <p class="dt-stav"><span class="tecka"></span><span class="dt-stav-text">Kamera nad pásem</span></p>
+  </div>
+
+  <div class="dt-vysledky">
+    <p class="dt-ceka"><span class="tecka"></span>Čekám na talíř…</p>
+    <article class="dt-karta dt-k1">
+      <p class="dt-nad">Talíř 1 · rozpoznáno</p>
+      <h2 class="dt-jidlo">Segedínský guláš s&nbsp;knedlíkem</h2>
+      <div class="dt-slozky"></div>
+      <div class="dt-spodek">
+        <p class="dt-zbylo"><b><span class="dt-g1">0</span><small>g</small></b><span>zbylo na talíři</span></p>
+        <div class="dt-kruh"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="kruh-pozadi"/><circle cx="60" cy="60" r="50" class="kruh-hodnota" pathLength="100"/></svg><p><b><span class="dt-snedeno">0</span>&nbsp;%</b><span>snědeno</span></p></div>
+      </div>
+    </article>
+    <article class="dt-karta dt-k2">
+      <span class="dt-fajfka" aria-hidden="true"><svg class="ilu" viewBox="0 0 64 64"><use href="#i-fajfka"/></svg></span>
+      <div><p class="dt-nad">Talíř 2 · rozpoznáno</p><h2>Prázdný talíř</h2><p class="dt-pod"><b><span class="dt-g2">0</span>&nbsp;g</b> · pod 10&nbsp;g = <span class="zelena">dojedeno</span></p></div>
+    </article>
+  </div>
+
+  <div class="dt-souhrn bez-vstupu">
+    <span class="dt-bod oranz"></span><span class="dt-bod zelena"></span>
+    <p><b>2&nbsp;talíře</b> · <b class="oranz"><span class="dt-gs">0</span>&nbsp;g</b> zbytků · <b class="zelena">1&nbsp;dojedený</b></p>
+    <span class="dt-dal">Tak začínají data.</span>
+  </div>
+
+  <script type="application/json" class="dt-data">{"talir1":{"slozky":[{"nazev":"Knedlík","g":90},{"nazev":"Guláš","g":60}],"porce_g":400},"talir2":{"g":4}}</script>
+  <script type="application/json" class="poznamky-data">["1:55–2:30 · Ondra · ukázka (natočené dva talíře z naší jídelny)", "Takhle to vypadá v jídelně. Kamera nad pásem vidí talíř.", "[mezerník] Talíř 1: AI pozná guláš s knedlíkem, váha řekne sto padesát gramů. Zbyl hlavně knedlík, dítě snědlo asi dvě třetiny.", "[mezerník] Talíř 2 je prázdný: čtyři gramy, pod deset gramů je dojedeno.", "[mezerník] A z těchhle dvou talířů začínají data.", "Fotky z natočeného běhu: prezentace/assets/talir1.jpg a talir2.jpg, čísla v JSON .dt-data na slajdu. Živé demo je v příloze.", "Zdroje: prototyp; hodnoty z natočené ukázky (doplnit skutečné)."]</script>
+</section>

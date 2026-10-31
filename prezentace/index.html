@@ -16,7 +16,9 @@
 <link rel="stylesheet" href="css/s04c.css">
 <link rel="stylesheet" href="css/s05.css">
 <link rel="stylesheet" href="css/s06.css">
+<link rel="stylesheet" href="css/s06a.css">
 <link rel="stylesheet" href="css/s06b.css">
+<link rel="stylesheet" href="css/s06c.css">
 <link rel="stylesheet" href="css/s07.css">
 <link rel="stylesheet" href="css/s08.css">
 <link rel="stylesheet" href="css/s08b.css">
@@ -245,24 +247,86 @@
   <script type="application/json" class="poznamky-data">["1:25–1:55 · Ondra", "Tohle je naše stanice v jídelně: otočný pás, nad ním kamera a vedle kbelík na váze. Žáci odkládají tácy zvenku, kuchařka je bere uvnitř.", "[mezerník] Tác jede, kamera ho za jízdy vyfotí a pás ho doveze ke kbelíku.", "[mezerník] Kuchařka talíř vysype jako vždycky a váha přičte gramy.", "[mezerník] Fotku a gramy spojíme podle pořadí. Když si pořadím nejsme jistí, uložíme to jako společnou dávku. Kuchařky nedělají nic navíc.", "V pilotu kamera Raspberry Pi, v demu mobil. Varianta se třemi pásy je v záloze.", "Zdroje: vlastní návrh; přesnost přiřazení ověří pilot na ručně zvážených tácech."]</script>
 </section>
 
-<!-- 06b · živá ukázka: zavřená je to obyčejný slajd s náhledem, mezerník ho přeskočí. Klepnutí na náhled otevře demo
-     z http://localhost:8080 (demo/, spouští python3 tools/serve.py) přes celou plochu a předá mu klávesnici (klikr);
-     demo po 8. kroku pošle {dojedeno:'konec'} a deck jde dál, na 1. kroku zpět {dojedeno:'zacatek'}. Křížek demo zavře. -->
-<section class="slajd" id="s-ukazka" data-nazev="Živá ukázka prototypu" data-kroky="0" data-demo>
-  <h1>Živá ukázka prototypu.</h1>
-  <button class="otevrit" type="button" aria-label="Spustit živé demo">
-    <img class="nahled" src="../demo/screenshots/step-4.png" alt="Prototyp Dojedeno: výsledek talíře, zbylo 150 g, snědeno 63 %">
-    <span class="pilulka svetla"><span class="hraj" aria-hidden="true"></span>Spustit demo</span>
-  </button>
-  <iframe class="demo bez-vstupu" title="Prototyp Dojedeno" allow="camera; fullscreen; autoplay" tabindex="0"></iframe>
-  <button class="zavrit bez-vstupu" type="button" aria-label="Zavřít demo">×</button>
-  <div class="demo-chyba bez-vstupu" hidden>
-    <p class="nadpis">Demo zatím neběží</p>
-    <p>V Terminálu spusť:</p>
-    <code>cd ~/Documents/hack-prague-2026/demo &amp;&amp; python3 tools/serve.py</code>
-    <p class="mala">Slajd se sám připojí. Mezerníkem lze pokračovat dál.</p>
+<!-- 06a · ukázka: dva talíře z jídelny (místo 8krokového dema). Krok 1: kamera vyfotí talíř 1, sken, analýza (složky, gramy, snědeno);
+     krok 2: talíř 2 je prázdný → dojedeno; krok 3: oba výsledky se filmově spojí do prvních dvou bodů dat.
+     Fotky: assets/talir1.jpg a assets/talir2.jpg (když chybí, kreslí se talíř v SVG). Čísla: JSON .dt-data níž (dosaďte ze svého natočeného běhu). -->
+<section class="slajd" id="s-dva-talire" data-nazev="Ukázka: dva talíře" data-kroky="3">
+  <h1>Ukázka: dva talíře z&nbsp;naší jídelny.</h1>
+
+  <div class="dt-kamera bez-vstupu" aria-label="Pohled kamery nad pásem">
+    <div class="dt-snimek dt-s1">
+      <svg class="dt-svg" viewBox="0 0 400 400" aria-hidden="true">
+        <circle cx="200" cy="200" r="168" class="talir-okraj"/><circle cx="200" cy="200" r="118" class="talir-vnitrek"/>
+        <path class="omacka" d="M190 150c40-22 92-6 98 34s-30 70-76 66-70-30-66-58 14-32 44-42z"/>
+        <ellipse class="knedlik" cx="150" cy="232" rx="42" ry="30" transform="rotate(-18 150 232)"/>
+        <ellipse class="knedlik" cx="196" cy="262" rx="40" ry="28" transform="rotate(12 196 262)"/>
+      </svg>
+      <img class="dt-foto" src="assets/talir1.jpg" alt="" onerror="this.remove()">
+    </div>
+    <div class="dt-snimek dt-s2">
+      <svg class="dt-svg" viewBox="0 0 400 400" aria-hidden="true">
+        <circle cx="200" cy="200" r="168" class="talir-okraj"/><circle cx="200" cy="200" r="118" class="talir-vnitrek"/>
+        <circle class="drobek" cx="232" cy="176" r="5"/><circle class="drobek" cx="176" cy="238" r="4"/><circle class="drobek" cx="246" cy="232" r="3"/>
+      </svg>
+      <img class="dt-foto" src="assets/talir2.jpg" alt="" onerror="this.remove()">
+    </div>
+    <div class="dt-sken" aria-hidden="true"></div>
+    <div class="dt-detekce" aria-hidden="true"></div>
+    <p class="dt-stav"><span class="tecka"></span><span class="dt-stav-text">Kamera nad pásem</span></p>
   </div>
-  <script type="application/json" class="poznamky-data">["1:55–2:55 · Ondra · živá ukázka prototypu (demo z http://localhost:8080)", "[PŘED PITCHEM] cd ~/Documents/hack-prague-2026/demo && python3 tools/serve.py, demo na krok 1 (R). Technické ovládání dema je pod klávesou S.", "Demo je zavřené: mezerník ho přeskočí. [klik na náhled] otevře demo přes celou obrazovku, klikr pak ovládá demo. Křížek vpravo nahoře ho zavře.", "Teď prototyp. Ráno kuchařka vyfotí plnou porci: guláš s knedlíkem.", "Po obědě přijde talíř se zbytkem: váha přičte gramy a vidíme, kolik dítě snědlo.", "Z talířů je celý den. Za měsíc je jasné, co se nejí, tady špenát. Jsou to ukázková data. A z toho opatření a obrazovka pro děti.", "[mezerník po posledním kroku dema] Prezentace jde sama dál.", "Vždy říkat „prototyp“ a „ukázková data“.", "Zdroje: prototyp rozhraní; den a měsíc jsou ukázková data."]</script>
+
+  <div class="dt-vysledky">
+    <p class="dt-ceka"><span class="tecka"></span>Čekám na talíř…</p>
+    <article class="dt-karta dt-k1">
+      <p class="dt-nad">Talíř 1 · rozpoznáno</p>
+      <h2 class="dt-jidlo">Segedínský guláš s&nbsp;knedlíkem</h2>
+      <div class="dt-slozky"></div>
+      <div class="dt-spodek">
+        <p class="dt-zbylo"><b><span class="dt-g1">0</span><small>g</small></b><span>zbylo na talíři</span></p>
+        <div class="dt-kruh"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="kruh-pozadi"/><circle cx="60" cy="60" r="50" class="kruh-hodnota" pathLength="100"/></svg><p><b><span class="dt-snedeno">0</span>&nbsp;%</b><span>snědeno</span></p></div>
+      </div>
+    </article>
+    <article class="dt-karta dt-k2">
+      <span class="dt-fajfka" aria-hidden="true"><svg class="ilu" viewBox="0 0 64 64"><use href="#i-fajfka"/></svg></span>
+      <div><p class="dt-nad">Talíř 2 · rozpoznáno</p><h2>Prázdný talíř</h2><p class="dt-pod"><b><span class="dt-g2">0</span>&nbsp;g</b> · pod 10&nbsp;g = <span class="zelena">dojedeno</span></p></div>
+    </article>
+  </div>
+
+  <div class="dt-souhrn bez-vstupu">
+    <span class="dt-bod oranz"></span><span class="dt-bod zelena"></span>
+    <p><b>2&nbsp;talíře</b> · <b class="oranz"><span class="dt-gs">0</span>&nbsp;g</b> zbytků · <b class="zelena">1&nbsp;dojedený</b></p>
+    <span class="dt-dal">Tak začínají data.</span>
+  </div>
+
+  <script type="application/json" class="dt-data">{"talir1":{"slozky":[{"nazev":"Knedlík","g":90},{"nazev":"Guláš","g":60}],"porce_g":400},"talir2":{"g":4}}</script>
+  <script type="application/json" class="poznamky-data">["1:55–2:30 · Ondra · ukázka (natočené dva talíře z naší jídelny)", "Takhle to vypadá v jídelně. Kamera nad pásem vidí talíř.", "[mezerník] Talíř 1: AI pozná guláš s knedlíkem, váha řekne sto padesát gramů. Zbyl hlavně knedlík, dítě snědlo asi dvě třetiny.", "[mezerník] Talíř 2 je prázdný: čtyři gramy, pod deset gramů je dojedeno.", "[mezerník] A z těchhle dvou talířů začínají data.", "Fotky z natočeného běhu: prezentace/assets/talir1.jpg a talir2.jpg, čísla v JSON .dt-data na slajdu. Živé demo je v příloze.", "Zdroje: prototyp; hodnoty z natočené ukázky (doplnit skutečné)."]</script>
+</section>
+
+<!-- 06c · data rostou: krok 0 jeden den (412 teček = talíře, zelené dojedené), krok 1 dva týdny (sloupce dnů 1–10),
+     krok 2 měsíc (dny 11–20 + co se vrací nejvíc). Ukázková data z demo/data/month.json (talíře, kg za den). -->
+<section class="slajd" id="s-data-rostou" data-nazev="Z talířů je den, z dnů měsíc" data-kroky="2">
+  <h1>Z&nbsp;talířů je den. Z&nbsp;dnů měsíc.</h1>
+  <p class="dr-stitek">Ukázková data</p>
+
+  <div class="dr-pocitadlo">
+    <p class="dr-obdobi"><span data-jen-krok="0" class="bez-posunu">1 den</span><span data-jen-krok="1" class="bez-posunu">2 týdny</span><span data-jen-krok="2" class="bez-posunu">1 měsíc</span></p>
+    <p class="dr-cislo"><b class="dr-kg">34</b><small>kg</small></p>
+    <p class="dr-pod">zbytků z&nbsp;talířů</p>
+    <p class="dr-druhe"><span class="dr-kc">3&nbsp;145</span>&nbsp;Kč za suroviny</p>
+  </div>
+
+  <div class="dr-plocha">
+    <div class="dr-tecky" aria-label="412 talířů za den, zelené dojedené"></div>
+    <p class="dr-tecky-pop"><span class="zel"></span>dojedeno 38&nbsp;% <span class="ora"></span>se zbytkem</p>
+    <svg class="dr-graf" viewBox="0 0 1120 560" role="img" aria-label="Zbytky z talířů za 20 školních dní"></svg>
+    <div class="dr-nej" data-krok="2">
+      <p class="dr-nej-nad">Nejčastěji se vrací</p>
+      <p class="dr-nej-jidlo">Špenát s&nbsp;bramborem a&nbsp;vejcem</p>
+      <p class="dr-nej-cislo">47&nbsp;<small>% porce</small></p>
+    </div>
+  </div>
+
+  <script type="application/json" class="poznamky-data">["2:30–2:55 · Ondra", "Z talířů je den: čtyři sta dvanáct talířů, třicet čtyři kila zbytků.", "[mezerník] Za dva týdny už vidíme vzorce.", "[mezerník] A za měsíc je jasné, co se nejí: špenát se vrací ze čtyřiceti sedmi procent. Z toho rovnou navrhneme opatření.", "Ukázková data, skutečná dá až pilot.", "Zdroje: ukázková data dema (demo/data/month.json); špenát ~47 % (Z2, Z3: 190 g z ~400 g)."]</script>
 </section>
 
 <!-- 07 · co jídelna dostane: měření → (krok 1) analýza → (krok 2) opatření; krok 3 jeden řádek: příklad −30 % = 180 000 Kč ročně (výslovně příklad) -->
@@ -536,6 +600,26 @@
   <p class="z-dekujeme" data-krok="1">Děkujeme</p>
 
   <script type="application/json" class="poznamky-data">["4:30–4:55 · Ondra", "V Česku je 8 891 školních jídelen a každý den vaří pro 1,6 milionu dětí. Začneme v lednu u nás v Hejčíně, šest týdnů, pak další jídelny.", "[mezerník] Každý talíř, který se dojí, je jídlo, které se nevypěstovalo, nedovezlo a neuvařilo nadarmo, a gastroodpad, který nemusí odvážet specializovaná firma. IKEA na Zličíně snížila odpad o polovinu. My to dáme každé školní jídelně, za cenu levné kamery a váhy. Jsme Dojedeno. (dvě vteřiny ticho) Děkujeme.", "Zdroje: Z4 sborník From Plate To Waste 2025; IKEA Česko newsroom, ekonews.cz."]</script>
+</section>
+
+<!-- 06b · živá ukázka: zavřená je to obyčejný slajd s náhledem, mezerník ho přeskočí. Klepnutí na náhled otevře demo
+     z http://localhost:8080 (demo/, spouští python3 tools/serve.py) přes celou plochu a předá mu klávesnici (klikr);
+     demo po 8. kroku pošle {dojedeno:'konec'} a deck jde dál, na 1. kroku zpět {dojedeno:'zacatek'}. Křížek demo zavře. -->
+<section class="slajd" id="s-ukazka" data-nazev="Oponentura · živé demo" data-kroky="0" data-demo data-zaloha>
+  <h1>Živá ukázka prototypu.</h1>
+  <button class="otevrit" type="button" aria-label="Spustit živé demo">
+    <img class="nahled" src="../demo/screenshots/step-4.png" alt="Prototyp Dojedeno: výsledek talíře, zbylo 150 g, snědeno 63 %">
+    <span class="pilulka svetla"><span class="hraj" aria-hidden="true"></span>Spustit demo</span>
+  </button>
+  <iframe class="demo bez-vstupu" title="Prototyp Dojedeno" allow="camera; fullscreen; autoplay" tabindex="0"></iframe>
+  <button class="zavrit bez-vstupu" type="button" aria-label="Zavřít demo">×</button>
+  <div class="demo-chyba bez-vstupu" hidden>
+    <p class="nadpis">Demo zatím neběží</p>
+    <p>V Terminálu spusť:</p>
+    <code>cd ~/Documents/hack-prague-2026/demo &amp;&amp; python3 tools/serve.py</code>
+    <p class="mala">Slajd se sám připojí. Mezerníkem lze pokračovat dál.</p>
+  </div>
+  <script type="application/json" class="poznamky-data">["1:55–2:55 · Ondra · živá ukázka prototypu (demo z http://localhost:8080)", "[PŘED PITCHEM] cd ~/Documents/hack-prague-2026/demo && python3 tools/serve.py, demo na krok 1 (R). Technické ovládání dema je pod klávesou S.", "Demo je zavřené: mezerník ho přeskočí. [klik na náhled] otevře demo přes celou obrazovku, klikr pak ovládá demo. Křížek vpravo nahoře ho zavře.", "Teď prototyp. Ráno kuchařka vyfotí plnou porci: guláš s knedlíkem.", "Po obědě přijde talíř se zbytkem: váha přičte gramy a vidíme, kolik dítě snědlo.", "Z talířů je celý den. Za měsíc je jasné, co se nejí, tady špenát. Jsou to ukázková data. A z toho opatření a obrazovka pro děti.", "[mezerník po posledním kroku dema] Prezentace jde sama dál.", "Vždy říkat „prototyp“ a „ukázková data“.", "Zdroje: prototyp rozhraní; den a měsíc jsou ukázková data."]</script>
 </section>
 
 <!-- 08 · kdo z toho co má: tři hlavní (městská část jako budoucí plátce), krok 1 proč do toho jídelna půjde; kuchařky, žáci a rodiče jsou na 08b -->
@@ -1180,7 +1264,9 @@
 <script src="js/uvod3d.js"></script>
 <script src="js/s01.js"></script>
 <script src="js/s02.js"></script>
+<script src="js/s06a.js"></script>
 <script src="js/s06b.js"></script>
+<script src="js/s06c.js"></script>
 <script src="js/s10b.js"></script>
 <script src="js/deck.js"></script>
 </body>

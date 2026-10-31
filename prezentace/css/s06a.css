@@ -1,0 +1,69 @@
+/* 06a · dva talíře: vlevo kamera (zaoblená, tmavá jako obraz z kamery), vpravo výsledky; stavy podle tříd z js/s06a.js */
+#s-dva-talire .dt-kamera { position: absolute; left: var(--okraj-x); top: 252px; width: 880px; height: 700px; border-radius: var(--r); overflow: hidden;
+  background: radial-gradient(ellipse at 50% 45%, #3a3a3d 0%, #232325 70%); box-shadow: var(--stin-velky); }
+#s-dva-talire .dt-snimek { position: absolute; inset: 0; display: grid; place-items: center; transition: opacity 600ms var(--ven), transform 700ms var(--ven); }
+#s-dva-talire .dt-svg { width: 560px; height: 560px; }
+#s-dva-talire .dt-foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+#s-dva-talire .talir-okraj { fill: #f7f7f5; }
+#s-dva-talire .talir-vnitrek { fill: #ececea; }
+#s-dva-talire .omacka { fill: #a4552a; }
+#s-dva-talire .knedlik { fill: #f1e4c4; stroke: #e2cfa4; stroke-width: 3; }
+#s-dva-talire .drobek { fill: #c9a77a; }
+#s-dva-talire .dt-s2 { opacity: 0; transform: translateX(60px); }
+#s-dva-talire.t2 .dt-s1 { opacity: 0; transform: translateX(-60px); }
+#s-dva-talire.t2 .dt-s2 { opacity: 1; transform: none; }
+#s-dva-talire .dt-sken { position: absolute; left: 0; right: 0; top: -20%; height: 18%; background: linear-gradient(to bottom, transparent, rgba(48, 209, 88, 0.35), transparent); opacity: 0; }
+#s-dva-talire.skenuje .dt-sken { animation: s06a-sken 1.2s var(--plynule) both; }
+@keyframes s06a-sken { 0% { top: -20%; opacity: 1; } 100% { top: 100%; opacity: 1; } }
+#s-dva-talire .dt-detekce { position: absolute; left: 50%; top: 50%; width: 600px; height: 600px; margin: -300px 0 0 -300px; border-radius: 50%; box-shadow: inset 0 0 0 4px var(--zelena-zivá); opacity: 0; transform: scale(1.12); transition: opacity 400ms var(--ven), transform 600ms var(--ven); }
+#s-dva-talire.detekce .dt-detekce { opacity: 0.9; transform: none; }
+#s-dva-talire .dt-stav { position: absolute; left: 24px; top: 22px; margin: 0; display: inline-flex; align-items: center; gap: 12px; padding: 10px 20px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.9); font-size: 24px; font-weight: 700; }
+#s-dva-talire .tecka { width: 14px; height: 14px; border-radius: 50%; background: var(--zelena-zivá); animation: pulz 1.6s ease-in-out infinite; }
+
+#s-dva-talire .dt-vysledky { position: absolute; left: 1010px; right: var(--okraj-x); top: 252px; height: 700px; }
+#s-dva-talire .dt-ceka { position: absolute; left: 0; top: 0; display: flex; align-items: center; gap: 14px; margin: 0; font-size: 30px; font-weight: 600; color: var(--text2); transition: opacity 400ms var(--ven); }
+#s-dva-talire.v1 .dt-ceka { opacity: 0; }
+#s-dva-talire .dt-karta { position: absolute; left: 0; right: 0; background: var(--karta); border-radius: var(--r); box-shadow: var(--stin); padding: 30px 34px; opacity: 0; transform: translateY(24px); transition: opacity 600ms var(--ven), transform 700ms var(--ven); }
+#s-dva-talire .dt-k1 { top: 0; }
+#s-dva-talire .dt-k2 { top: 486px; display: flex; align-items: center; gap: 26px; }
+#s-dva-talire.v1 .dt-k1, #s-dva-talire.v2 .dt-k2 { opacity: 1; transform: none; }
+#s-dva-talire .dt-nad { margin: 0; font-size: 22px; font-weight: 700; color: var(--zelena); text-transform: uppercase; letter-spacing: 0.06em; }
+#s-dva-talire .dt-jidlo { margin: 8px 0 18px; font-size: 40px; }
+#s-dva-talire .dt-slozky { display: grid; gap: 12px; }
+#s-dva-talire .dt-slozka { display: grid; grid-template-columns: 150px 1fr 90px; align-items: center; gap: 16px; font-size: 26px; }
+#s-dva-talire .dt-slozka i { display: block; height: 14px; border-radius: 999px; background: var(--oranz2); transform-origin: left; transform: scaleX(0); transition: transform 900ms var(--ven); }
+#s-dva-talire.v1 .dt-slozka i { transform: scaleX(var(--podil)); }
+#s-dva-talire .dt-slozka b { text-align: right; font-variant-numeric: tabular-nums; }
+#s-dva-talire .dt-spodek { display: flex; align-items: center; justify-content: space-between; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--linka); }
+#s-dva-talire .dt-zbylo { margin: 0; display: flex; flex-direction: column; }
+#s-dva-talire .dt-zbylo b { font-size: 96px; line-height: 0.95; font-weight: 800; color: var(--oranz); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+#s-dva-talire .dt-zbylo small { font-size: 0.4em; color: var(--text2); margin-left: 6px; }
+#s-dva-talire .dt-zbylo > span { font-size: 24px; color: var(--text2); font-weight: 600; }
+#s-dva-talire .dt-kruh { display: flex; align-items: center; gap: 18px; }
+#s-dva-talire .dt-kruh svg { width: 120px; height: 120px; transform: rotate(-90deg); }
+#s-dva-talire .kruh-pozadi { fill: none; stroke: var(--linka); stroke-width: 12; }
+#s-dva-talire .kruh-hodnota { fill: none; stroke: var(--zelena); stroke-width: 12; stroke-linecap: round; stroke-dasharray: 0 100; transition: stroke-dasharray 1100ms var(--ven) 200ms; }
+#s-dva-talire .dt-kruh p { margin: 0; display: flex; flex-direction: column; }
+#s-dva-talire .dt-kruh b { font-size: 48px; font-weight: 800; color: var(--zelena); font-variant-numeric: tabular-nums; }
+#s-dva-talire .dt-kruh p > span { font-size: 24px; color: var(--text2); font-weight: 600; }
+#s-dva-talire .dt-fajfka { flex: none; width: 110px; height: 110px; border-radius: 50%; background: var(--zelena-svetla); color: var(--zelena); display: grid; place-items: center; }
+#s-dva-talire .dt-fajfka svg { width: 64px; height: 64px; stroke-width: 5px; }
+#s-dva-talire .dt-k2 h2 { margin: 6px 0 4px; font-size: 44px; }
+#s-dva-talire .dt-pod { margin: 0; font-size: 28px; color: var(--text2); }
+
+/* krok 3: karty se zmenší a slétnou do souhrnu dole, objeví se první dva body dat */
+#s-dva-talire.spoj .dt-k1, #s-dva-talire.spoj .dt-k2 { opacity: 0; transform: translateY(160px) scale(0.6); transition: opacity 600ms var(--ven) 100ms, transform 800ms var(--ven); }
+#s-dva-talire.spoj .dt-kamera { transform: scale(0.9); opacity: 0; transition: transform 800ms var(--ven), opacity 800ms var(--ven); }
+#s-dva-talire .dt-kamera { transition: transform 800ms var(--ven), opacity 800ms var(--ven); }
+#s-dva-talire .dt-souhrn { position: absolute; left: 50%; top: 540px; transform: translate(-50%, 30px) scale(0.9); opacity: 0; display: flex; align-items: center; gap: 22px; padding: 30px 46px; border-radius: 999px; background: var(--karta); box-shadow: var(--stin-velky); transition: opacity 600ms var(--ven) 350ms, transform 800ms var(--ven) 350ms; white-space: nowrap; }
+#s-dva-talire.spoj .dt-souhrn { opacity: 1; transform: translate(-50%, 0) scale(1); }
+#s-dva-talire .dt-souhrn p { margin: 0; font-size: 44px; font-weight: 600; white-space: nowrap; }
+#s-dva-talire .dt-souhrn { padding: 36px 54px; }
+#s-dva-talire .dt-bod { width: 44px; height: 44px; }
+#s-dva-talire .dt-souhrn b.oranz { color: var(--oranz); }
+#s-dva-talire .dt-souhrn b.zelena { color: var(--zelena); }
+#s-dva-talire .dt-bod { width: 34px; height: 34px; border-radius: 50%; }
+#s-dva-talire .dt-bod.oranz { background: var(--oranz); }
+#s-dva-talire .dt-bod.zelena { background: var(--zelena-zivá); }
+#s-dva-talire .dt-dal { font-size: 26px; color: var(--text2); font-weight: 600; margin-left: 10px; }
+#s-dva-talire.hned * { transition: none !important; animation: none !important; }
