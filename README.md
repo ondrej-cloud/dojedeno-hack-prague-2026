@@ -14,13 +14,13 @@ python3 tools/serve.py
 
 Na počítači otevřete http://localhost:8080. V prezentaci klikněte na **Mobil** a připojte telefon podle [návodu](demo/PHONE.md). Telefon a počítač musí být ve stejné místní síti; pro kameru telefonu je potřeba důvěryhodné HTTPS. Klíč Claude, certifikáty a párovací tokeny jsou pouze v ignorovaném `demo/.local/` a do repozitáře nepatří.
 
-Po vložení talíře aplikace odešle snímek do Claude API, rozpozná jídlo a přečte čitelný displej váhy. Váhu před každým měřením vytárujte s prázdným talířem. Druhý snímek porovná s referenční porcí. **Hmotnost se neodhaduje ze vzhledu jídla.** Živá analýza vyžaduje API kredit a internet; API chyby nenahrazuje připravenými výsledky.
+Po vložení talíře aplikace odešle snímek do Claude API, rozpozná jídlo a přečte čitelný displej váhy. Váhu před každým měřením vytárujte s prázdným talířem. Druhý snímek porovná s referenční porcí. **Celková hmotnost pochází z váhy; gramy jednotlivých složek jsou označené odhady AI z fotky, nikoli samostatná měření.** Živá analýza vyžaduje API kredit a internet; API chyby nenahrazuje připravenými výsledky.
 
 Podrobnosti: [ovládání a implementace](demo/README.md), [Claude API](demo/CLAUDE.md).
 
 ## Prezentace
 
-Otevřete `prezentace/index.html` v Chromu. První šipka doprava nebo mezerník spustí úvodní film; po dohrání sám přejde na titul s 3D modelem. Návrat šipkami úplně na začátek film zastaví a přetočí. Další šipka doprava ho znovu spustí; během přehrávání jej další stisk přeskočí. Mezerník/klikr posouvá, šipka vlevo vrací, F zapíná celou obrazovku, N poznámky a stopky. Lokální vložené demo vyžaduje server na localhost:8080. Samostatné slajdy běží i offline. Hlavní pitch má 12 slajdů, za závěrem je 7 záložních slajdů pro otázky. Klávesa Q otevře zálohu, End vrátí hlavní závěr; běžná šipka ze závěru do zálohy nepokračuje.
+Otevřete `prezentace/index.html` v Chromu. První šipka doprava nebo mezerník spustí úvodní film; po dohrání sám přejde na titul s 3D modelem. Návrat šipkami úplně na začátek film zastaví a přetočí. Další šipka doprava ho znovu spustí; během přehrávání jej další stisk přeskočí. Mezerník/klikr posouvá, šipka vlevo vrací, F zapíná celou obrazovku, N poznámky a stopky. Lokální vložené demo vyžaduje server na localhost:8080. Samostatné slajdy běží i offline. Prezentace byla na přání vrácena do předchozí podoby s 12 slajdy a třípásovým modelem. Samostatný one-pager a návrh šestitýdenního pilotu zůstávají uložené zvlášť.
 
 ```sh
 cd prezentace
@@ -52,11 +52,11 @@ V demu klikněte **Mobil** a naskenujte QR telefonem. Telefon a počítač mohou
 
 První pilot navrhujeme v naší škole v Hejčíně v Olomouci (Olomoucký kraj): šest týdnů po souhlasu školy, instalaci a ověření měření. Dva týdny měření výchozího stavu, dva týdny první změna a dva týdny ověření nebo druhá varianta; nejvýše dvě iterace opatření. Rozpočet **16 000 Kč** je pracovní odhad pro jednu jídelnu, včetně vybavení, vymezené práce týmu a rezervy. Není to cenová nabídka ani schválené financování.
 
-Hlavní návrh používá **jeden pás, fotografii talíře před vysypáním a jeden vážený kbelík**. Pořadí lze použít jen při zachování pořadí vysypávání. Souběhy a nejistoty zůstávají společnou dávkou. Hejčín má podle zadání tři patra pásu; možnost vymezit jeden sledovaný tok ještě potřebuje ověření. Třípásová varianta je v záloze. Živé demo rozpoznává talíř a čte displej váhy; produkční párování s kbelíkem zatím nepředvádí.
+Hlavní návrh používá **jeden pás, fotografii talíře před vysypáním a jeden vážený kbelík**. Pořadí lze použít jen při zachování pořadí vysypávání. Souběhy a nejistoty zůstávají společnou dávkou. Hejčín má podle zadání tři patra pásu; možnost vymezit jeden sledovaný tok ještě potřebuje ověření. Tento návrh je podkladem pro one-pager; obnovená prezentace používá předchozí třípásovou variantu. Živé demo rozpoznává talíř a čte displej váhy; produkční párování s kbelíkem zatím nepředvádí.
 
 Hlavní KPI jsou gramy vráceného potravinového gastroodpadu na skutečně vydaný oběd ve stejné sledované části provozu. Návrhový cíl −10 % není dosažený výsledek. Nevydané pokrmy sledujeme odděleně včetně dalšího využití; nemusí všechny skončit jako odpad. Finanční přínos je vedlejší a musí se prokázat zvlášť: 60 000 Kč je modelová hodnota 10 % z odhadovaných surovin ve zbytcích, nikoli automatická úspora nákupů.
 
-- [Obsah, časování, metodika a zdroje](prezentace/OBSAH.md)
+- [Obsah obnovené prezentace](prezentace/OBSAH.md)
 - [One-pager v PDF](materialy/onepager/dojedeno-onepager.pdf), [HTML pro tisk](materialy/onepager/index.html)
 - [Prezentace online](https://dojezeno.netlify.app), [one-pager online](https://dojezeno.netlify.app/onepager/dojedeno-onepager.pdf)
 

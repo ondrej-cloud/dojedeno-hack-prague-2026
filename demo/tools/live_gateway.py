@@ -15,6 +15,7 @@ import os
 from pathlib import Path
 import secrets
 import ssl
+import threading
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -65,8 +66,24 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 
 
 def make_handler(config):
+    # Reuse the verified SSL context across frames, but reload it after a local
+    # certificate rotation (for example when the Mac changes Wi-Fi).
+    tls_lock = threading.Lock()
+    tls_cache = {'stamp': None, 'context': None}
+
+    def phone_context():
+        cert = config.private / 'cert.pem'
+        stat = cert.stat()
+        stamp = (stat.st_mtime_ns, stat.st_size, stat.st_ino)
+        with tls_lock:
+            if tls_cache['stamp'] != stamp:
+                tls_cache['context'] = ssl.create_default_context(cafile=str(cert))
+                tls_cache['stamp'] = stamp
+            return tls_cache['context']
+
     class Handler(BaseHTTPRequestHandler):
-        # HTTP/1.0 closes requests after handling (including invalid body lengths).
+        # The tunnel can reuse its connection for successive frames.
+        protocol_version = 'HTTP/1.1'
         server_version = 'DojedenoGateway'
 
         def log_message(self, *args):
@@ -76,6 +93,8 @@ def make_handler(config):
             self.send_response(status)
             self.send_header('Content-Type', content_type)
             self.send_header('Content-Length', str(len(body)))
+            if self.close_connection:
+                self.send_header('Connection', 'close')
             self.send_header('Cache-Control', 'no-store')
             self.send_header('X-Content-Type-Options', 'nosniff')
             self.send_header('Referrer-Policy', 'no-referrer')
@@ -97,6 +116,9 @@ def make_handler(config):
                 pass
 
         def error(self, code, message):
+            # A rejected POST may leave unread bytes. Close rather than treating
+            # those bytes as the next request on this persistent connection.
+            self.close_connection = True
             self.send(code, json.dumps({'error': message}, ensure_ascii=False).encode())
 
         def check_origin(self):
@@ -170,7 +192,7 @@ def make_handler(config):
                     if len(local_token) < 32:
                         raise ValueError('Local receiver is not initialized')
                     url = f'https://localhost:{config.https_port}/api/frame?' + urllib.parse.urlencode({'token': local_token})
-                    context = ssl.create_default_context(cafile=str(config.private / 'cert.pem'))
+                    context = phone_context()
                     opener = urllib.request.build_opener(NoRedirect(), urllib.request.HTTPSHandler(context=context), urllib.request.ProxyHandler({}))
                     headers = {'Content-Type': 'image/jpeg'}
                 else:

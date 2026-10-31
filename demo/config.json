@@ -84,12 +84,12 @@
     "calibrationMs": 2000,
     "arrivalMs": 900,
     "removalMs": 700,
-    "presenceCoverage": 0.16,
-    "removalCoverage": 0.08
+    "presenceCoverage": 0.08,
+    "removalCoverage": 0.04
   },
   "analysis": {
     "mode": "claude",
-    "quantityMode": "relative",
+    "quantityMode": "scale",
     "weightSource": "scale_display"
   },
   "annualPlateCost": 600000,

@@ -1,6 +1,6 @@
 # Skutečné rozpoznání talíře přes Claude
 
-Živá analýza posílá zachycené fotografie talířů a dnešní menu do **Anthropic přes internet**. Není offline. Den, měsíc a doporučení zůstávají ukázkovým datasetem. Režim `relative` rozpoznává jídlo a relativní podíly; hmotnost jídla z fotografie neodhaduje. Skutečná hmotnost musí pocházet z váhy. Volitelný režim `estimate` znamená pouze odhad gramů z fotografie, nikoli měření.
+Živá analýza posílá zachycené fotografie talířů a dnešní menu do **Anthropic přes internet**. Není offline. Den, měsíc a doporučení zůstávají ukázkovým datasetem. Výchozí režim `scale` čte celkovou hmotnost z displeje váhy a odhaduje hmotnostní podíly viditelných složek. Backend je přepočítá na označené odhady gramů se součtem odpovídajícím váze. Gramy složek nejsou samostatná měření; nízká jistota je označená jako velmi hrubý odhad. Režim `relative` nechává gramáž složek prázdnou. Volitelný režim `estimate` znamená pouze odhad gramů z fotografie, nikoli měření.
 
 ## Zapnutí
 
@@ -15,7 +15,7 @@
    Klíč vložte do skrytého vstupu v terminálu. **Nevkládejte ho do chatu ani do config.json.** Uloží se do ignorované `.local/anthropic-api-key` s právy 600. Alternativně může být dostupný v prostředí serveru jako `ANTHROPIC_API_KEY`.
 3. Spusťte `python3 tools/serve.py` a otevřete http://127.0.0.1:8080. Pro telefon použijte párovací odkaz a postup v [PHONE.md](PHONE.md). Již běžící server načítá klíč při každém požadavku, takže po jeho uložení není nutný restart.
 
-Nastavení analýzy je v `config.json` pod `analysis`; `quantityMode` nastavte na `relative`, pokud používáte skutečnou váhu. Výchozí režim aplikace je `relative`. Název používaného modelu a stav dostupnosti klíče ukazuje lokální `/api/status`. Samotný stav „nastaveno“ ještě nepotvrzuje platnost klíče ani dostupný kredit; to ověří až první analýza.
+Nastavení analýzy je v `config.json` pod `analysis`; `quantityMode` je nastavený na `scale`. Režim `relative` lze použít, pokud nechcete zobrazovat odhad rozdělení gramů. Název používaného modelu a stav dostupnosti klíče ukazuje lokální `/api/status`. Samotný stav „nastaveno“ ještě nepotvrzuje platnost klíče ani dostupný kredit; to ověří až první analýza.
 
 ## Přenos a opakování
 
@@ -34,3 +34,5 @@ Připravená jídla a 400/150 g se v živém režimu nepoužívají. Při selhá
 Implementace používá [Vision](https://platform.claude.com/docs/en/build-with-claude/vision) a [strukturované JSON odpovědi](https://platform.claude.com/docs/en/build-with-claude/structured-outputs). Výchozí model pro demo je `claude-haiku-5-5` s `medium` effort; lze jej změnit proměnnou prostředí `ANTHROPIC_MODEL` při spuštění serveru podle [dostupných modelů](https://platform.claude.com/docs/en/models/overview). Volba vychází z [omezeného testu jedné fotografie](../docs/model-test.md), nikoli z ověření přesnosti na různých jídlech nebo displejích vah.
 
 Úroveň effort lze změnit pomocí `ANTHROPIC_EFFORT`. Strop jedné odpovědi je 4 096 tokenů; skutečná spotřeba závisí na snímku a odpovědi.
+
+Při nečitelném displeji se hodnoty nevymýšlejí. Tlačítko Nový snímek pořídí další fotografii; samovolné smyčky placených analýz neběží. Návrat na referenci používá uložený výsledek. Stejný požadavek obsahuje detail displeje ze zachyceného snímku pro lepší OCR. Jedna úspěšně přečtená fotografie neprokazuje spolehlivost OCR ve všech podmínkách.

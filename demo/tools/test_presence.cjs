@@ -131,3 +131,13 @@ function rectangle(data,x,y,width,height,value=205) {
   assert.deepEqual(samples.at(-1).bounds,{x:20/W,y:10/H,width:4/W,height:4/H},'small tracked object must not be absorbed into the background');
 }
 console.log('PASS: calibration, stationary arrivals, repeat prevention, removal/rearming, hand/motion rejection, exposure tolerance, hysteresis, reset, deterministic output and exposure-compensated connected-component bounds');
+
+{
+ const d=ready(),baseline=d.baseline;
+ run(d,plate,2100,4000);d.pause();
+ assert.equal(d.baseline,baseline,'transport pause must preserve the empty-station baseline');
+ assert.equal(d.sample(plate,W,H,10000).state,'present','held plate must not become the new empty background');
+ const gone=run(d,empty,10100,12000);assert(gone.some(r=>r.event==='removed'));
+ assert(run(d,plate,12100,14000).some(r=>r.event==='arrived'));
+}
+console.log('PASS transport gap preserves baseline and rearms after removal.');

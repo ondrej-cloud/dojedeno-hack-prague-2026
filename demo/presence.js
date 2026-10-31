@@ -42,6 +42,15 @@
       this.removalSince = null;
     }
 
+    // A transport gap invalidates continuity timers, never the empty-station baseline.
+    pause() {
+      this.previous = null;
+      this.arrivalSince = null;
+      this.arrivalAnchor = null;
+      this.removalSince = null;
+      if (this.state === 'calibrating') this.reset();
+    }
+
     // Median channel shifts reject mild whole-frame exposure/white-balance
     // changes. Clamp compensation so a large lighting change cannot hide itself.
     difference(frame, reference, mask = null) {
