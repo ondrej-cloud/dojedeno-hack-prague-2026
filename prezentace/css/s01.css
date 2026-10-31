@@ -48,6 +48,9 @@
 #s-uvod.kino { background: #050506; transition: background-color 1100ms var(--plynule); }
 #s-uvod.kino[data-k="1"] { background: var(--stranka); }
 #s-uvod.kino .scena, #s-uvod.kino .veta, #s-uvod.kino .karta-sceny { display: none; }
+#s-uvod.kino { overflow: visible; }
+/* film a vinětace pokryjí celé okno (deck.js nastaví --kryti), na 16:10 tak nezůstanou světlé pruhy */
+#s-uvod.kino .kino3d, #s-uvod.kino .kino-vineta { transform: scale(var(--kryti, 1)); transform-origin: 960px 540px; }
 #s-uvod.kino .kino3d { display: block; position: absolute; inset: 0; transition: opacity 1100ms var(--plynule); }
 #s-uvod.kino .kino3d canvas { display: block; width: 1920px !important; height: 1080px !important; }
 #s-uvod.kino[data-k="1"] .kino3d { opacity: 0; }

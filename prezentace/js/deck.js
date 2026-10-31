@@ -22,6 +22,8 @@
   function meritko() {
     const s = Math.min(innerWidth / 1920, innerHeight / 1080);
     plocha.style.transform = `translate(${(innerWidth - 1920 * s) / 2}px, ${(innerHeight - 1080 * s) / 2}px) scale(${s})`;
+    /* kolikrát zvětšit vrstvu, aby pokryla celé okno i mimo 16:9 (úvodní film bez pruhů na 16:10) */
+    plocha.style.setProperty('--kryti', Math.max(innerWidth / 1920, innerHeight / 1080) / s);
   }
   addEventListener('resize', meritko);
   meritko();

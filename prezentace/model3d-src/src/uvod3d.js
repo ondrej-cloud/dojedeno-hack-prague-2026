@@ -317,7 +317,8 @@ function postav(s, kontejner) {
   const plocha = document.querySelector('.plocha');
   let posledniPR = 0;
   function velikost() {
-    const meritko = plocha ? plocha.getBoundingClientRect().width / 1920 : 1;
+    const kryti = plocha ? parseFloat(plocha.style.getPropertyValue('--kryti')) || 1 : 1;
+    const meritko = plocha ? plocha.getBoundingClientRect().width / 1920 * kryti : 1;
     const pr = Math.min(2, Math.max(0.5, (window.devicePixelRatio || 1) * meritko));
     if (Math.abs(pr - posledniPR) < 0.01) return;
     posledniPR = pr;
@@ -386,7 +387,11 @@ function spust() {
     const target = model.__m3d.transitionAnchor(true);
     presunModel = model.__m3d;
     try {
-      const { image, bounds } = api.snimekKbeliku();
+      const { image, bounds: b } = api.snimekKbeliku();
+      // The film layer is scaled from the stage centre to cover the window (--kryti), so start where the bucket is seen.
+      const plocha = document.querySelector('.plocha');
+      const c = plocha ? parseFloat(plocha.style.getPropertyValue('--kryti')) || 1 : 1;
+      const bounds = { left: 960 + (b.left - 960) * c, top: 540 + (b.top - 540) * c, width: b.width * c, height: b.height * c };
       const slot = s.querySelector('.produkt3d');
       // Offsets use the unscaled 1920×1080 stage, so this also works in fullscreen.
       const x = slot.offsetLeft + target.left, y = slot.offsetTop + target.top;
