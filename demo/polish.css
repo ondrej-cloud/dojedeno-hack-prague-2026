@@ -14,3 +14,5 @@ main{height:892px;padding-top:30px}footer{height:84px;font-size:19px;color:#7480
 .weight-confirm{display:block}.weight-confirm>label{margin-bottom:7px}.weight-confirm-row{display:flex;gap:9px;align-items:center}.weight-confirm .note{font-size:13px;margin:8px 0}.analysis-stages .active{color:#416e38;background:#e4efd9}.analysis-stages .done{color:#6c875e}.analysis-actions .primary-action{background:#244c32!important;color:#fff!important;border-color:#244c32!important}.weight-correction[open]{width:100%;padding-top:6px}.waiting>button{margin-top:24px}.weight-settings-close{float:right;font-size:17px;padding:5px 9px}.measurement-source{white-space:normal;text-align:right}.camera-box [hidden],.measurement-alert[hidden]{display:none!important}
 
 .analysis-actions:has(.weight-correction[open]){flex-wrap:wrap}.weight-correction[open]{flex-basis:100%}
+
+.camera-box:has(.remote-live:not([hidden]))>img,.camera-box:has(video:not([hidden]))>img{visibility:hidden}

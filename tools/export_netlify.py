@@ -49,7 +49,7 @@ def build():
     for folder, extension in [('css', '*.css'), ('js', '*.js')]:
         for src in sorted((ROOT / 'prezentace' / folder).glob(extension)):
             copy(src.relative_to(ROOT), Path(folder) / src.name)
-    for name in ['index.html', 'app.js', 'style.css', 'polish.css', 'measurement.js', 'outline.js', 'presence.js', 'live-analysis.js', 'scale-detail.js', 'connection.js', 'connection.css', 'phone.html', 'phone.js', 'phone.css', 'vendor/qrcode.js', 'vendor/qrcode.LICENSE']:
+    for name in ['index.html', 'app.js', 'style.css', 'polish.css', 'measurement.js', 'outline.js', 'presence.js', 'capture-settle.js', 'live-analysis.js', 'scale-detail.js', 'connection.js', 'connection.css', 'phone.html', 'phone.js', 'phone.css', 'vendor/qrcode.js', 'vendor/qrcode.LICENSE']:
         copy('demo/' + name, 'demo/' + name)
     for name in ['plate-full.jpg', 'plate-leftover.jpg']:
         copy('demo/assets/' + name, 'demo/assets/' + name)
