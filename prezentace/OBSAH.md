@@ -49,8 +49,8 @@
 - **Krok 1:** scéna se zmenší doprava, vlevo nápis **Dojedeno**, podnadpis „Vážíme to vážně.“ a velké „31 %“ s textem „uvařeného jídla skončí v koši“.
 
 ### 02 · `s-problem` · 0:25–0:55
-- **Nadpis:** „Jen zbytky z talířů stojí školu 600 000 Kč ročně.“
-- **Hlavní prvek:** obří číslo 600 000 Kč a pod ním „škola s 500 žáky, jen cena surovin“.
+- **Nadpis:** „Škola s 500 žáky vyhodí jen z talířů suroviny za“, který plynule přechází do čísla.
+- **Hlavní prvek:** obří číslo „600 000 Kč ročně“. Bez dalšího řádku pod číslem.
 - **Řečník:** „A to jsou jen suroviny, skutečná ztráta je vyšší.“ (1 200 Kč na žáka zůstává jen v poznámkách pro dotazy.)
 - **Krok 1:** „A takových jídelen je v Česku 8 891, denně pro 1,6 milionu dětí.“
 - **Řádek zdroje:** Prague Food Waste 2024 (Zachraň jídlo, Mendelova univerzita), sborník From Plate To Waste 2025.
