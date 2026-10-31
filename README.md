@@ -20,7 +20,7 @@ Podrobnosti: [ovládání a implementace](demo/README.md), [Claude API](demo/CLA
 
 ## Prezentace
 
-Otevřete `prezentace/index.html` v Chromu. Mezerník/klikr posouvá, šipka vlevo vrací, F zapíná celou obrazovku, N poznámky a stopky. Vložené demo vyžaduje běžící server na localhost:8080. Samostatné slajdy běží i offline.
+Otevřete `prezentace/index.html` v Chromu. První šipka doprava nebo mezerník spustí úvodní film; po dohrání sám přejde na titul s 3D modelem. Návrat šipkami úplně na začátek film zastaví a přetočí. Další šipka doprava ho znovu spustí; během přehrávání jej další stisk přeskočí. Mezerník/klikr posouvá, šipka vlevo vrací, F zapíná celou obrazovku, N poznámky a stopky. Vložené demo vyžaduje běžící server na localhost:8080. Samostatné slajdy běží i offline.
 
 ```sh
 cd prezentace

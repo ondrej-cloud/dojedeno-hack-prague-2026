@@ -137,11 +137,13 @@
   }
   function dalsi() {
     spustHodiny();
+    if (!slajdy[i].dispatchEvent(new CustomEvent('pred-dalsi', { cancelable: true }))) return;
     if (krok < kroku(slajdy[i])) { nastavKrok(krok + 1); history.replaceState(null, '', '#' + (i + 1) + '.' + krok); }
     else prejdi(i + 1);
   }
   function predchozi() {
     spustHodiny();
+    if (!slajdy[i].dispatchEvent(new CustomEvent('pred-predchozi', { cancelable: true }))) return;
     if (krok > 0) { nastavKrok(krok - 1); history.replaceState(null, '', '#' + (i + 1) + (krok ? '.' + krok : '')); }
     else prejdi(i - 1, true);
   }

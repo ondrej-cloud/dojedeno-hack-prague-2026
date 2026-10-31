@@ -3,6 +3,7 @@
    Připojení: prvek s atributem data-model3d uvnitř .slajd; poslouchá události slajdu 'vstup', 'krok', 'odchod', 'tisk'.
    Sestavuje se esbuildem do js/model3d.js (IIFE, funguje z file://). Bez sítě. */
 import * as THREE from 'three';
+import { screenBounds } from './projection.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 
@@ -303,7 +304,7 @@ function postav(kontejner) {
   let krok = 0, bezi = false, raf = 0, sirka = 0, vyska = 0;
   let vyklopeniStart = null;  /* čas začátku vyklopení (krok 1), null = klid */
   let fotoStart = null;
-  const t0 = performance.now();
+  let t0 = performance.now(), holdTime = null;
 
   function velikost() {
     const w = kontejner.clientWidth, h = kontejner.clientHeight;
@@ -368,6 +369,7 @@ function postav(kontejner) {
   }
 
   function snimek(cas) {
+    if (holdTime !== null) cas = holdTime;
     velikost();
     /* kamera plynule doplouvá k cíli kroku, k tomu jemné dýchání (bez omezení pohybu) */
     const cil = POHLEDY[Math.min(krok, POHLEDY.length - 1)];
@@ -427,6 +429,17 @@ function postav(kontejner) {
       if (!bezi) snimek(performance.now());
     },
     vykresli() { snimek(performance.now()); },
+    transitionAnchor(hold) {
+      if (hold && holdTime === null) holdTime = performance.now();
+      if (!hold && holdTime !== null) { t0 += performance.now() - holdTime; holdTime = null; }
+      [kbelik, vnitrek, napln, hrbolky].forEach(object => { object.visible = !hold; });
+      snimek(performance.now());
+      return screenBounds(kbelik, kamera, sirka, vyska);
+    },
+    transitionReveal() {
+      [kbelik, vnitrek, napln, hrbolky].forEach(object => { object.visible = true; });
+      snimek(performance.now());
+    },
   };
   stavPredVyklopenim();
   if (OTOCNY) { talir.visible = false; jidlo.forEach(j => { j.m.visible = false; }); }

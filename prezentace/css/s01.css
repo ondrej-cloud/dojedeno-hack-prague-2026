@@ -48,9 +48,9 @@
 #s-uvod.kino { background: #050506; transition: background-color 1100ms var(--plynule); }
 #s-uvod.kino[data-k="1"] { background: var(--stranka); }
 #s-uvod.kino .scena, #s-uvod.kino .veta, #s-uvod.kino .karta-sceny { display: none; }
-#s-uvod.kino .kino3d { display: block; position: absolute; inset: 0; transition: opacity 900ms var(--plynule), transform 1400ms var(--ven); }
+#s-uvod.kino .kino3d { display: block; position: absolute; inset: 0; transition: opacity 1100ms var(--plynule); }
 #s-uvod.kino .kino3d canvas { display: block; width: 1920px !important; height: 1080px !important; }
-#s-uvod.kino[data-k="1"] .kino3d { opacity: 0; transform: scale(1.04); }
+#s-uvod.kino[data-k="1"] .kino3d { opacity: 0; }
 /* vinětace: okraje do tmy jako ve filmu */
 #s-uvod.kino .kino-vineta { display: block; position: absolute; inset: 0; pointer-events: none;
   background: radial-gradient(ellipse 75% 70% at 50% 48%, transparent 55%, rgba(0, 0, 0, 0.55) 100%); transition: opacity 900ms var(--plynule); }
@@ -82,8 +82,23 @@
   -webkit-mask-image: radial-gradient(ellipse 70% 74% at 50% 52%, #000 72%, transparent 100%); mask-image: radial-gradient(ellipse 70% 74% at 50% 52%, #000 72%, transparent 100%); }
 #s-uvod.kino .produkt3d.je { transition-delay: 500ms; }
 #s-uvod .produkt3d-platno { position: absolute; inset: 0; }
+#s-uvod .kino-spust { display: none; }
+#s-uvod.uvod-pripraven .kino-spust { display: block; position: absolute; z-index: 5; left: 50%; bottom: 42px; transform: translateX(-50%); padding: 12px 24px; border-radius: 40px; border: 1px solid var(--linka); background: var(--karta); color: var(--text); font: 500 24px var(--pismo); cursor: pointer; }
+#s-uvod.kino.uvod-pripraven .kino-spust { background: #ffffff12; border-color: #ffffff40; color: white; }
+#s-uvod.kino.uvod-pripraven .kino-titulek[data-od="0.9"] { opacity: 1; transform: translate(-50%, 0); }
+
+/* The last film bucket travels to its projected position in the product model. */
+#s-uvod .kino-kos-presun { position: absolute; z-index: 4; pointer-events: none; transform-origin: 0 0; will-change: transform, opacity; }
+#s-uvod.kino.presun-kose .produkt3d.je { transform: none; transition: opacity 600ms var(--plynule) 1050ms; }
+#s-uvod.kino.presun-kose .titul.je { transition-delay: 450ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  #s-uvod.kino, #s-uvod.kino * { transition: none !important; }
+  #s-uvod .kino-kos-presun { display: none; }
+}
 
 @media print {
+  #s-uvod .kino-spust { display: none !important; }
   #s-uvod.kino { background: #fff !important; }
-  #s-uvod.kino .kino3d, #s-uvod.kino .kino-vineta, #s-uvod.kino .kino-titulek, #s-uvod.kino .kino-pocitadlo { display: none !important; }
+  #s-uvod.kino .kino3d, #s-uvod.kino .kino-vineta, #s-uvod.kino .kino-titulek, #s-uvod.kino .kino-pocitadlo, #s-uvod .kino-kos-presun { display: none !important; }
 }
