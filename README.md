@@ -29,7 +29,18 @@ python3 build.py
 
 `index.html` je sestavený soubor; upravujte `slajdy/`, `css/`, `js/` a `index.template.html`. Zdrojové 3D scény jsou v `model3d-src/src/`, sestavené bundly už jsou součástí repozitáře. K jejich změně je potřeba nainstalovat závislosti z `model3d-src/package-lock.json` a postupovat podle [předávky](docs/HANDOFF-codex.md).
 
+## Netlify Drop
+
+```sh
+python3 prezentace/build.py
+python3 tools/export_netlify.py
+```
+
+Do Netlify Drop přetáhněte celou složku `netlify-drop`; připravený je také `netlify-drop.zip` se souborem `index.html` přímo v kořeni. Balíček obsahuje prezentaci a vložené demo s viditelně označenými ukázkovými daty. Nevyžaduje build na Netlify. V této statické verzi kamera a Claude neběží; živá analýza zůstává v lokální verzi s Python serverem. API klíče, certifikáty a serverové soubory se neexportují. Export samotný nic nepublikuje.
+
 ## Stav před pitchem
+
+První pilot plánujeme v naší škole v Hejčíně v Olomouci (Olomoucký kraj). Možnost využití podpory Hack Prague mimo Prahu zatím musí potvrdit organizátoři. Oslovení odborných organizací je záměr, nikoli domluvené partnerství.
 
 Deck má všech 12 očekávaných slajdů. Denní a měsíční přehledy dema jsou **ukázková data**. Předávka upozorňuje na nesjednocené starší hodnoty v demu, časování poznámek a rozdíl mezi demonstračním vážením talíře a navrženým vážením kbelíku. Závazný obsah je v [OBSAH.md](prezentace/OBSAH.md); otevřené opravy v [codex-oprava-dat.md](docs/codex-oprava-dat.md). Nejde o ověřenou produkční instalaci ani potvrzení úplnosti podle samostatné šablony organizátorů.
 

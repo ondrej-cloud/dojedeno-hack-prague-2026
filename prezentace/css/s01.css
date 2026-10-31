@@ -82,6 +82,10 @@
   -webkit-mask-image: radial-gradient(ellipse 70% 74% at 50% 52%, #000 72%, transparent 100%); mask-image: radial-gradient(ellipse 70% 74% at 50% 52%, #000 72%, transparent 100%); }
 #s-uvod.kino .produkt3d.je { transition-delay: 500ms; }
 #s-uvod .produkt3d-platno { position: absolute; inset: 0; }
+#s-uvod .pilot-lokalita { position: absolute; z-index: 3; left: 140px; top: 52px; font-size: 26px; line-height: 1.4; font-weight: 600; color: var(--text); transition: opacity 450ms var(--ven), color 900ms var(--plynule); }
+#s-uvod .pilot-lokalita span { font-size: 23px; font-weight: 400; }
+#s-uvod.kino[data-k="0"] .pilot-lokalita { color: #f5f5f7; }
+#s-uvod.kino[data-k="0"]:not(.uvod-pripraven) .pilot-lokalita { opacity: 0; }
 #s-uvod .kino-spust { display: none; }
 #s-uvod.uvod-pripraven .kino-spust { display: block; position: absolute; z-index: 5; left: 50%; bottom: 42px; transform: translateX(-50%); padding: 12px 24px; border-radius: 40px; border: 1px solid var(--linka); background: var(--karta); color: var(--text); font: 500 24px var(--pismo); cursor: pointer; }
 #s-uvod.kino.uvod-pripraven .kino-spust { background: #ffffff12; border-color: #ffffff40; color: white; }

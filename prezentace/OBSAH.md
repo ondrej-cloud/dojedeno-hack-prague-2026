@@ -116,21 +116,21 @@
 - **Krok 1:** zvýrazní se náš řádek.
 
 ### 10 · `s-pilot` · 4:25–4:45
-- **Nadpis:** „Pilot ve 3 jídelnách za 50 000 Kč.“
+- **Nadpis:** „První pilot: naše škola v Hejčíně, Olomouc.“
 - **Časová osa:**
   1. Instalace a ověření (ruční vážení vzorku talířů).
   2. Měsíc měření bez zásahu.
   3. Měsíc s opatřeními.
   4. Vyhodnocení.
-- **Rozpočet podle položek:** mobily, držáky, váhy, provoz, validační dny, rezerva. Celkem asi 50 000 Kč, „odhad, ceny ověřujeme“.
+- **Rozpočet podle položek:** mobily, držáky, váhy, provoz, validační dny, rezerva. Odhad rozšíření na tři jídelny: asi 50 000 Kč, „odhad, ceny ověřujeme“. Počty a kusové ceny zatím chybí.
 - **Rizika (3 krátké řádky):**
   - rychlý výdej, kdy se talíře slijí do jednoho záznamu,
   - hygiena a soukromí: kamera míří jen do kbelíku,
   - polévka vylitá do výlevky.
-- **Partneři:** Zachraň jídlo, Praha 4, Mendelova univerzita, první pilot u nás ve škole.
+- **Chceme oslovit (spolupráce není domluvená):** Zachraň jídlo, Praha 4, Mendelova univerzita. První pilot: naše škola v Hejčíně, Olomouc, Olomoucký kraj. Použití podpory Hack Prague mimo Prahu musí potvrdit organizátoři.
 
 ### 11 · `s-zaver` · 4:45–5:00
 - **Nadpis:** „8 891 jídelen. 1,6 milionu dětí denně.“
-- **Schody rozšíření:** naše škola → 3 jídelny (pilot) → městská část → Praha → celá ČR.
+- **Schody rozšíření:** škola v Hejčíně, Olomouc → 3 jídelny (plán rozšíření) → městská část → Praha → celá ČR.
 - **Krok 1, závěrečná věta:** „IKEA na Zličíně snížila odpad o polovinu. My to dáme každé školní jídelně, za cenu mobilu a váhy.“
 - **Na konci:** „Dojedeno · Vážíme to vážně“ a „Děkujeme“.
