@@ -1,16 +1,12 @@
-/* 04c · insight. Řádek „rovnice“ (kbelík + talíř = víme, co ubrat) od 290, pod ním krok 1–2 „páka“:
-   pruh 43 / 48 (poměr šířek jako podíly), v kroku 2 se 43 ztlumí a 48 zezelená, pod ním hlavní KPI. */
-#s-insight .nadtitul { color: var(--zelena); margin: 0 0 14px; }
+/* 04c · insight: tři velké karty (kbelík + talíř = co ubrat) uprostřed, pod nimi v kroku 1 jedna věta o 48 %. */
 #s-insight h1 { min-height: 0; }
 
-#s-insight .rovnice { display: grid; grid-template-columns: 1fr 56px 1fr 56px 1.05fr; align-items: stretch; margin-top: 36px; }
-#s-insight .operator { align-self: center; justify-self: center; font-size: 64px; font-weight: 300; color: var(--text3); }
-#s-insight .clen-r { display: flex; align-items: center; gap: 22px; min-height: 270px; padding: 26px 30px; }
-#s-insight .obr { flex: none; width: 200px; height: 200px; overflow: visible; }
-#s-insight .popis-r { min-width: 0; }
-#s-insight .velke-pismo { color: var(--text3); }
-#s-insight .slovo { font-size: 72px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; margin: 6px 0 8px; }
-#s-insight .pod { font-size: 24px; line-height: 1.35; color: var(--text2); }
+#s-insight .rovnice { position: absolute; left: 80px; right: 80px; top: 290px; display: grid; grid-template-columns: 1fr 80px 1fr 80px 1.15fr; align-items: stretch; }
+#s-insight .operator { align-self: center; justify-self: center; font-size: 80px; font-weight: 300; color: var(--text3); }
+#s-insight .clen-r { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; height: 440px; padding: 30px; }
+#s-insight .obr { flex: none; width: 190px; height: 190px; overflow: visible; }
+#s-insight .slovo { font-size: 88px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; margin: 18px 0 10px; }
+#s-insight .pod { font-size: 30px; line-height: 1.3; color: var(--text2); }
 #s-insight .kbelik .slovo { color: var(--oranz); }
 #s-insight .talir .slovo { color: var(--zelena); }
 
@@ -22,57 +18,22 @@
 #s-insight.kresli .napln { animation: s04c-napln 1000ms var(--ven) 300ms both; }
 @keyframes s04c-napln { from { transform: scaleY(0); } to { transform: none; } }
 
-/* talíř: tři výseče (ilustrace, ne data) se dokreslí po sobě */
+/* talíř: zbylý knedlík a trocha omáčky */
 #s-insight .okraj { fill: #fff; stroke: var(--text); stroke-width: 3; }
 #s-insight .vnitr { fill: none; stroke: var(--linka); stroke-width: 2; }
 #s-insight .vysec { fill: none; stroke-width: 50; transform: rotate(-90deg); transform-origin: 110px 110px; }
 #s-insight .vysec.priloha { stroke: #efe2c4; stroke-dasharray: 55 100; }
-#s-insight .vysec.omacka { stroke: var(--oranz2); stroke-dasharray: 30 100; stroke-dashoffset: -55; }
-#s-insight .vysec.maso { stroke: #8a4a2a; stroke-dasharray: 15 100; stroke-dashoffset: -85; }
+#s-insight .vysec.omacka { stroke: var(--oranz2); stroke-dasharray: 15 100; stroke-dashoffset: -55; }
 #s-insight.kresli .vysec { animation: s04c-vysec 900ms var(--ven) both; }
 #s-insight.kresli .vysec.omacka { animation-delay: 200ms; }
-#s-insight.kresli .vysec.maso { animation-delay: 400ms; }
 @keyframes s04c-vysec { from { stroke-dasharray: 0 100; } }
-#s-insight .cipy { display: flex; flex-wrap: wrap; gap: 8px; }
-#s-insight .cip { padding: 4px 14px 6px; border-radius: var(--pilulka); font-size: 22px; font-weight: 600; background: var(--stranka); color: var(--text2); }
-#s-insight .cip::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; vertical-align: 0; }
-#s-insight .c-priloha::before { background: #e3cf9f; }
-#s-insight .c-omacka::before { background: var(--oranz2); }
-#s-insight .c-maso::before { background: #8a4a2a; }
 
 /* výsledek */
-#s-insight .vysledek { flex-direction: column; align-items: flex-start; justify-content: center; gap: 10px; background: var(--zelena-svetla); box-shadow: none; }
-#s-insight .vysledek .velke-pismo { color: var(--zelena); }
-#s-insight .vysledek .hlavni { font-size: 38px; font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
+#s-insight .vysledek { background: var(--zelena-svetla); box-shadow: none; gap: 16px; }
+#s-insight .vysledek .hlavni { font-size: 56px; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; color: var(--zelena); }
 
-/* páka: 43 / 48 */
-#s-insight .paka { margin-top: 40px; }
-#s-insight .paka-titul { font-size: 40px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 18px; }
-#s-insight .paka-pruh { display: flex; gap: 8px; height: 118px; }
-#s-insight .paka-pruh .seg { display: flex; align-items: center; gap: 22px; padding: 0 30px; border-radius: 18px; color: #fff; transform-origin: left center;
-  transition: background 600ms var(--ven), opacity 600ms var(--ven), filter 600ms var(--ven); }
-#s-insight .paka-pruh .seg b { font-size: 64px; font-weight: 800; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
-#s-insight .paka-pruh .seg span { font-size: 28px; font-weight: 600; opacity: 0.92; }
-#s-insight .seg.nevydane { background: var(--oranz); }
-#s-insight .seg.talire { background: var(--oranz2); }
-#s-insight .paka.je .seg { animation: s04c-roste 800ms var(--ven) both; }
-#s-insight .paka.je .seg.talire { animation-delay: 140ms; }
-#s-insight.hned .paka .seg { animation: none; }
-@keyframes s04c-roste { from { transform: scaleX(0); } to { transform: none; } }
-#s-insight .paka-popisky { display: flex; gap: 8px; margin-top: 14px; }
-#s-insight .pp { padding: 0 6px; font-size: 25px; line-height: 1.3; font-weight: 600; color: var(--text2); opacity: 0; transition: opacity 500ms var(--ven); }
-#s-insight .kpi { display: inline-flex; align-items: center; gap: 18px; margin-top: 22px; padding: 14px 28px 16px 16px; border-radius: var(--pilulka);
-  background: var(--text); color: #fff; font-size: 30px; font-weight: 700; opacity: 0; transform: translateY(12px); transition: opacity 500ms var(--ven) 200ms, transform 500ms var(--ven) 200ms; }
-#s-insight .kpi-stitek { padding: 6px 16px 8px; border-radius: var(--pilulka); background: var(--zelena-zivá); color: #0b2a14; font-size: 22px; text-transform: uppercase; letter-spacing: 0.06em; }
-
-/* krok 2: 43 % ztlumit („musí uvařit“), 48 % zezelenat („můžeme ovlivnit“), ukázat KPI */
-#s-insight[data-k="2"] .seg.nevydane { background: var(--seda); opacity: 0.55; }
-#s-insight[data-k="2"] .seg.talire { background: var(--zelena); }
-#s-insight[data-k="2"] .pp { opacity: 1; }
-#s-insight[data-k="2"] .pp.talire { color: var(--zelena); }
-#s-insight[data-k="2"] .kpi { opacity: 1; transform: none; }
-#s-insight[data-k="2"] .rovnice { opacity: 0.55; transition: opacity 500ms var(--ven); }
-#s-insight.hned .pp, #s-insight.hned .kpi { transition: none; }
+/* krok 1: jedna věta */
+#s-insight .paka { position: absolute; left: 80px; right: 80px; top: 790px; text-align: center; font-size: 44px; font-weight: 700; letter-spacing: -0.01em; }
+#s-insight .paka b { color: var(--zelena); font-weight: 800; }
 
 #s-insight .odkud b { color: var(--text2); }
-@media print { #s-insight .pp, #s-insight .kpi { opacity: 1; transform: none; } }

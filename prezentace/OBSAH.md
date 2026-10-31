@@ -242,6 +242,10 @@ Zkratky: **P** = pravděpodobnost, **D** = dopad (1 = nízká/nízký, 3 = vysok
 
 Pořadí: úvod, problém, insight, pás, demo, z dat rovnou opatření, kdo z toho co má, zapojení, konkurence (jeden krok), rozpočet, realizace, jak jsme pracovali, závěr.
 
+### 03 · `s-insight` · Kbelík řekne kolik. Talíř řekne co.
+- Bez nadtitulku „Insight“. Tři velké karty: **Kolik** (+150 g v kbelíku) + **Co** (na talíři zbyl knedlík) = **Ubereme jen knedlík.** Ne celou porci, přídavek na požádání.
+- **Krok 1:** jedna věta „48 % odpadu jsou zbytky z talířů. A ty ovlivnit umíme.“ Pruh 43/48 a hlavní KPI jsou jen v poznámkách a v záloze.
+
 ### 07 · `s-kdo` · Kdo z toho co má
 - Tři hlavní karty (vedoucí jídelny, ředitel, městská část jako budoucí plátce), krok 1: „Proč do toho jídelna půjde“. Kuchařky, žáci a rodiče jsou na slajdu 08.
 
