@@ -114,11 +114,21 @@ with tempfile.TemporaryDirectory(prefix='dojedeno-gateway-test-') as folder:
         assert request('OPTIONS', '/api/analyze', headers={'Access-Control-Request-Method':'POST','Access-Control-Request-Headers':'authorization,content-type'})[0] == 204
         assert request('OPTIONS', '/api/analyze', headers={'Access-Control-Request-Method':'POST','Access-Control-Request-Headers':'x-evil'})[0] == 403
         assert request('OPTIONS', '/api/status', headers={'Access-Control-Request-Method':'GET','Origin':'https://evil.test'})[0] == 403
+        # Public demo requires no code for desktop or QR-connected phone.
+        config.public_access = True
+        code, _, raw = request('GET', '/api/status')
+        assert code == 200 and json.loads(raw)['phoneUrl'] == SITE + '/demo/phone.html'
+        assert request('GET', '/api/frame')[0] == 200
+        assert request('POST', '/api/frame', body=frame, headers={'Content-Type': 'image/jpeg'})[0] == 204
+        assert request('POST', '/api/analyze', body=payload, headers={'Content-Type': 'application/json'})[0] == 200
+        assert request('GET', '/api/status', headers={'Origin': 'https://evil.test'})[0] == 403
+        assert request('GET', '/.local/live-desktop-token')[0] == 404
+        config.public_access = False
         # Missing local receiver/certificate must fail without leaking local paths or tokens.
         cert.unlink()
         code, _, raw = request('POST', '/api/frame', phone, frame, {'Content-Type': 'image/jpeg'})
         assert code == 502 and str(private).encode() not in raw and phone.encode() not in raw
-        print('PASS: role auth, CORS/preflight, status sanitization, HTTP+verified HTTPS proxy, no auth/Origin forwarding, 1/3 MiB limits, token persistence600, no static files, safe failures; no paid API.')
+        print('PASS: public no-code desktop/phone flow, private role auth, CORS/preflight, status sanitization, HTTP+verified HTTPS proxy, no auth/Origin forwarding, 1/3 MiB limits, token persistence600, no static files, safe failures; no paid API.')
     finally:
         for server in servers:
             server.shutdown();server.server_close()

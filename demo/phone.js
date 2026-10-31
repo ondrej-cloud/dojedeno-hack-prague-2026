@@ -2,6 +2,7 @@
 const video=document.querySelector('video'), canvas=document.querySelector('canvas');
 const start=document.querySelector('#start'), stop=document.querySelector('#stop'), status=document.querySelector('#status');
 const token=new URLSearchParams(location.hash.slice(1)).get('token');
+const hostedDemo=location.protocol==='https:'&&location.hostname.endsWith('.netlify.app');
 let stream=null, running=false, generation=0, wakeLock=null, controller=null;
 function message(text,error=false){status.textContent=text;status.classList.toggle('error',error);}
 function shutdown(){running=false;generation++;controller?.abort();stream?.getTracks().forEach(t=>t.stop());stream=null;video.srcObject=null;wakeLock?.release().catch(()=>{});wakeLock=null;start.disabled=false;start.hidden=false;stop.hidden=true;}
@@ -41,8 +42,8 @@ async function transmit(g){
   }
  }
 }
-start.onclick=async()=>{if(!token){message('Chybí párovací kód. Otevřete celý odkaz z Macu včetně #token=…',true);return;}if(!isSecureContext||!navigator.mediaDevices?.getUserMedia){message('Kamera vyžaduje důvěryhodné HTTPS. Viz návod PHONE.md na Macu.',true);return;}start.disabled=true;message('Povolte přístup ke kameře…');const g=++generation;try{const media=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:960}}});if(g!==generation){media.getTracks().forEach(t=>t.stop());return;}stream=media;video.srcObject=stream;await video.play();if(g!==generation)return;running=true;start.hidden=true;stop.hidden=false;try{wakeLock=await navigator.wakeLock?.request('screen');}catch{}if(g!==generation){wakeLock?.release().catch(()=>{});return;}transmit(g);}catch(error){if(g!==generation)return;shutdown();message(error.name==='NotAllowedError'?'Přístup ke kameře byl odmítnut. Povolte kameru pro tuto stránku; ověřte důvěru certifikátu.':'Kameru se nepodařilo spustit. Zavřete jiné aplikace s kamerou a zkuste to znovu.',true);}};
+start.onclick=async()=>{if(!token&&!hostedDemo){message('Chybí párovací kód. Otevřete celý odkaz z Macu včetně #token=…',true);return;}if(!isSecureContext||!navigator.mediaDevices?.getUserMedia){message('Kamera vyžaduje důvěryhodné HTTPS. Viz návod PHONE.md na Macu.',true);return;}start.disabled=true;message('Povolte přístup ke kameře…');const g=++generation;try{const media=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:960}}});if(g!==generation){media.getTracks().forEach(t=>t.stop());return;}stream=media;video.srcObject=stream;await video.play();if(g!==generation)return;running=true;start.hidden=true;stop.hidden=false;try{wakeLock=await navigator.wakeLock?.request('screen');}catch{}if(g!==generation){wakeLock?.release().catch(()=>{});return;}transmit(g);}catch(error){if(g!==generation)return;shutdown();message(error.name==='NotAllowedError'?'Přístup ke kameře byl odmítnut. Povolte kameru pro tuto stránku; ověřte důvěru certifikátu.':'Kameru se nepodařilo spustit. Zavřete jiné aplikace s kamerou a zkuste to znovu.',true);}};
 stop.onclick=()=>{shutdown();message('Přenos zastaven.');};
 addEventListener('pagehide',shutdown);
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&running){shutdown();message('Přenos pozastaven po opuštění stránky. Zapněte kameru znovu.');}});
-if(!token)message('Otevřete párovací odkaz z Macu včetně #token=…',true);
+if(!token&&!hostedDemo)message('Otevřete párovací odkaz z Macu včetně #token=…',true);
