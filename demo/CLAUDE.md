@@ -1,6 +1,6 @@
 # Skutečné rozpoznání talíře přes Claude
 
-Živá analýza posílá zachycené fotografie talířů a dnešní menu do **Anthropic přes internet**. Není offline. Den, měsíc a doporučení zůstávají ukázkovým datasetem. Výchozí režim `scale` čte celkovou hmotnost z displeje váhy a odhaduje hmotnostní podíly viditelných složek. Backend je přepočítá na označené odhady gramů se součtem odpovídajícím váze. Gramy složek nejsou samostatná měření; nízká jistota je označená jako velmi hrubý odhad. Režim `relative` nechává gramáž složek prázdnou. Volitelný režim `estimate` znamená pouze odhad gramů z fotografie, nikoli měření.
+Živá analýza posílá zachycené fotografie talířů a dnešní menu do **Anthropic přes internet**. Není offline. Den, měsíc a doporučení zůstávají ukázkovým datasetem. Výchozí režim `scale` čte celkovou hmotnost z displeje váhy a odhaduje hmotnostní podíly viditelných složek. Rozhraní odečte nastavenou hmotnost talíře (výchozí 216 g) a podíly přepočítá na označené odhady gramů samotného jídla. Gramy složek nejsou samostatná měření; nízká jistota je označená jako velmi hrubý odhad. Režim `relative` nechává gramáž složek prázdnou. Volitelný režim `estimate` znamená pouze odhad gramů z fotografie, nikoli měření.
 
 ## Zapnutí
 
@@ -19,7 +19,7 @@ Nastavení analýzy je v `config.json` pod `analysis`; `quantityMode` je nastave
 
 ## Přenos a opakování
 
-Server dovolí vždy jedinou analýzu. Každý snímek má `requestId`; opakovaný požadavek se stejným ID i obsahem dostane uloženou odpověď bez nového volání API. Jiný obsah pod stejným ID se odmítne. Probíhající snímek vrací 409, jiný souběžný požadavek 429. Automatické opakování placených požadavků není zapnuté. Posledních 128 odpovědí se drží v paměti procesu; po restartu tato ochrana zanikne.
+Server dovolí vždy jedinou analýzu. Každý snímek má `requestId`; opakovaný požadavek se stejným ID i obsahem dostane uloženou odpověď bez nového volání API. Jiný obsah pod stejným ID se odmítne. Probíhající snímek vrací 409, jiný souběžný požadavek 429. Pokud první analýza nevrátí údaj váhy, server může provést jeden doplňující placený OCR pokus nad výřezem displeje; další smyčka neběží. Posledních 128 odpovědí se drží v paměti procesu; po restartu tato ochrana zanikne.
 
 Po chybě zkontrolujte zprávu, připojení, klíč a kredit. Nové zachycení může vytvořit nový placený požadavek. Přesná cena závisí na modelu a počtu tokenů; žádný pevný odhad zde nepředpokládáme. Snímky pro přenos a odpovědi jsou v paměti, nikoli v souborech aplikace. Nakládání se zaslanými snímky na straně Anthropic se řídí podmínkami vašeho API účtu.
 
@@ -27,9 +27,11 @@ HTTP endpoint analýzy je dostupný pouze z lokálního dema na Macu. Telefon p�
 
 ## Váha v obrazu
 
-Váhu před každým zachycením vytárujte s prázdným talířem. V obrazu musí být talíř i čitelný displej s jednotkou g nebo kg. Claude přečte údaj, server převede kg na gramy a nejasné čtení nahradí neznámou hodnotou. Rozhraní nikdy nezamění odhad gramů podle vzhledu za údaj váhy. Procento snědeného se počítá z první a druhé hmotnosti pouze pro srovnatelný pokrm, pokud zbytek nepřevyšuje první porci. To stále závisí na správném přečtení a tárování váhy.
+Váha má ukazovat **talíř společně s jídlem**. Demo automaticky odečítá **216 g**: například 263 g na displeji znamená 47 g jídla. Pokud jste váhu již vynulovali s talířem, nahoře otevřete **Talíř −216 g** a odečítání vypněte. Hmotnost talíře lze změnit; nastavení platí pro obě fotografie a ukládá se pro aktuální relaci prohlížeče.
 
-Připravená jídla a 400/150 g se v živém režimu nepoužívají. Při selhání analýzy nebo nečitelném displeji pořiďte tlačítkem nový snímek. Automatické opakované placené volání není zapnuté. Režim `analysis.mode: "demo"` v config.json lze výslovně použít pro původní offline scénář.
+Nejistý číselný odečet se zobrazí s ≈ a označením „Nejistý odečet · odhad“. Pokud první průchod číslo nepřečte, server provede nejvýše jeden doplňující OCR pokus nad výřezem stejného snímku. Bez čísla se objeví pole **Co ukazuje displej váhy?**; ruční potvrzení nevolá API a okamžitě přepočítá složky. I přečtený údaj lze upravit přes **Opravit odečet**. Hmotnost pod nastavenou váhou talíře se nepromění na falešnou nulu: vyžaduje kontrolu odečtu nebo tárování.
+
+Složky jsou odhady AI a jejich součet odpovídá hmotnosti jídla bez talíře. Procento snědeného se počítá z čistých hmotností dvou srovnatelných porcí; referenční porce musí být větší než nula. Připravených 400/150 g se v živé analýze nepoužívá. **Nový snímek** vymaže případnou ruční opravu a vytvoří nové měření. `analysis.mode: "demo"` ponechává původní ukázkový scénář.
 
 Implementace používá [Vision](https://platform.claude.com/docs/en/build-with-claude/vision) a [strukturované JSON odpovědi](https://platform.claude.com/docs/en/build-with-claude/structured-outputs). Výchozí model pro demo je `claude-haiku-5-5` s `medium` effort; lze jej změnit proměnnou prostředí `ANTHROPIC_MODEL` při spuštění serveru podle [dostupných modelů](https://platform.claude.com/docs/en/models/overview). Volba vychází z [omezeného testu jedné fotografie](../docs/model-test.md), nikoli z ověření přesnosti na různých jídlech nebo displejích vah.
 

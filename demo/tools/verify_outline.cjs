@@ -45,7 +45,8 @@ const base=process.env.DEMO_URL||'http://127.0.0.1:8080';
   const box=await page.locator('.camera-box').boundingBox();
   const ring=await page.locator('.plate-outline').boundingBox();
   assert(ring,'outline visible');assert(Math.abs(ring.width-ring.height)<.01,'outline must be circular even for unequal detected dimensions');
-  for(const [key,expected] of Object.entries({x:box.x+144,y:box.y+63,width:324,height:324}))assert(Math.abs(ring[key]-expected)<9,`${key}: ${ring[key]} vs ${expected}`);
+  const scale=Math.min(box.width/480,box.height/360),diameter=180*scale;
+  for(const [key,expected] of Object.entries({x:box.x+(box.width-480*scale)/2+170*scale-diameter/2,y:box.y+(box.height-360*scale)/2+155*scale-diameter/2,width:diameter,height:diameter}))assert(Math.abs(ring[key]-expected)<9,`${key}: ${ring[key]} vs ${expected}`);
   await page.screenshot({path:path.join(root,'screenshots/outline-offcenter.png')});
   assert.deepEqual(errors,[]);console.log('PASS off-center outline stays circular and centered on the detected object');
  } finally {if(browser)await browser.close();}

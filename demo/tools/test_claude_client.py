@@ -73,11 +73,54 @@ class ClaudeClientTests(unittest.TestCase):
         with patch.object(client.request, 'urlopen', return_value=response(result)):
             self.assertIsNone(client.analyze(payload(), [], 'estimate')['result']['estimatedTotalGrams'])
 
-    def test_weak_ocr_cannot_be_measurement(self):
-        for visible, confidence in [(True, 'low'), (False, 'high')]:
-            result = copy.deepcopy(RESULT); result['scaleReading'].update(visible=visible, confidence=confidence)
-            with patch.object(client.request, 'urlopen', return_value=response(result)):
-                self.assertIsNone(client.analyze(payload(), [])['result']['scaleReading']['grams'])
+    def test_uncertain_digit_candidate_keeps_confidence_and_gross_weight(self):
+        result = copy.deepcopy(RESULT)
+        result['scaleReading'].update(grams=263, confidence='low')
+        with patch.object(client.request, 'urlopen', return_value=response(result)) as call:
+            actual = client.analyze({**payload(), 'scaleImage': IMAGE}, [], 'scale')
+        self.assertEqual(call.call_count, 1)
+        self.assertEqual(actual['result']['scaleReading'], {'visible': True, 'grams': 263, 'confidence': 'low'})
+        self.assertEqual(sum(c['estimatedGrams'] for c in actual['result']['components']), 263)
+        self.assertFalse(actual['ocrRescue']['attempted'])
+
+    def test_absent_display_never_provides_grams(self):
+        result = copy.deepcopy(RESULT)
+        result['scaleReading'].update(visible=False, grams=263)
+        with patch.object(client.request, 'urlopen', return_value=response(result)):
+            actual = client.analyze(payload(), [], 'scale')['result']
+        self.assertIsNone(actual['scaleReading']['grams'])
+        self.assertTrue(all(c['estimatedGrams'] is None for c in actual['components']))
+
+    def test_focused_rescue_preserves_food_and_aggregates_usage(self):
+        result = copy.deepcopy(RESULT)
+        result['scaleReading'].update(grams=None, confidence='low')
+        reading = {'visible': True, 'grams': 263, 'confidence': 'medium'}
+        with patch.object(client.request, 'urlopen', side_effect=[response(result), response(reading)]) as call:
+            actual = client.analyze({**payload(), 'scaleImage': IMAGE}, [], 'scale')
+        self.assertEqual(call.call_count, 2)
+        self.assertEqual(call.call_args.kwargs['timeout'], 15)
+        ocr_body = json.loads(call.call_args.args[0].data)
+        self.assertEqual(len(ocr_body['messages'][0]['content']), 1)
+        self.assertEqual(ocr_body['output_config']['format']['schema'], client.SCHEMA['properties']['scaleReading'])
+        self.assertEqual(actual['result']['dishName'], RESULT['dishName'])
+        self.assertEqual(actual['result']['scaleReading'], reading)
+        self.assertEqual(sum(c['estimatedGrams'] for c in actual['result']['components']), 263)
+        self.assertEqual(actual['usage'], {'input_tokens': 240, 'output_tokens': 160})
+        self.assertEqual(actual['ocrRescue'], {'attempted': True, 'used': True})
+
+    def test_rescue_null_or_failure_preserves_analysis_without_further_retry(self):
+        result = copy.deepcopy(RESULT)
+        result['scaleReading'].update(grams=None, confidence='low')
+        for rescue_reply in [response({'visible': False, 'grams': None, 'confidence': 'low'}),
+                             response({'visible': True, 'grams': 264, 'confidence': 'invalid'}),
+                             socket.timeout()]:
+            with self.subTest(reply=type(rescue_reply).__name__):
+                with patch.object(client.request, 'urlopen', side_effect=[response(result), rescue_reply]) as call:
+                    actual = client.analyze({**payload(), 'scaleImage': IMAGE}, [], 'scale')
+                self.assertEqual(call.call_count, 2)
+                self.assertEqual(actual['result']['dishName'], RESULT['dishName'])
+                self.assertIsNone(actual['result']['scaleReading']['grams'])
+                self.assertFalse(actual['ocrRescue']['used'])
 
     def test_unknown_food_does_not_discard_readable_scale(self):
         result = copy.deepcopy(RESULT)
@@ -132,7 +175,7 @@ class ClaudeClientTests(unittest.TestCase):
                 for component, share in zip(result['components'], shares):
                     component['estimatedMassShare'] = share
                 if not readable:
-                    result['scaleReading']['confidence'] = 'low'
+                    result['scaleReading']['grams'] = None
                 with patch.object(client.request, 'urlopen', return_value=response(result)):
                     actual = client.analyze(payload(), [], 'scale')['result']
                 self.assertTrue(all(c['estimatedGrams'] is None for c in actual['components']))
