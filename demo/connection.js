@@ -25,7 +25,9 @@
     if (!hosted || !incoming) return false;
     saveToken(incoming.trim());
     // Consume the access code before deck.js handles its slide hash.
-    history.replaceState(null, '', location.pathname + location.search + (document.getElementById('stage') ? '' : '#7'));
+    const slides = [...document.querySelectorAll('.slajd')];
+    const demoIndex = slides.findIndex(slide => slide.hasAttribute('data-demo'));
+    history.replaceState(null, '', location.pathname + location.search + (demoIndex >= 0 ? '#' + (demoIndex + 1) : ''));
     return true;
   }
   consumeLiveCode();

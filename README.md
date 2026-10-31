@@ -20,7 +20,7 @@ Podrobnosti: [ovládání a implementace](demo/README.md), [Claude API](demo/CLA
 
 ## Prezentace
 
-Otevřete `prezentace/index.html` v Chromu. První šipka doprava nebo mezerník spustí úvodní film; po dohrání sám přejde na titul s 3D modelem. Návrat šipkami úplně na začátek film zastaví a přetočí. Další šipka doprava ho znovu spustí; během přehrávání jej další stisk přeskočí. Mezerník/klikr posouvá, šipka vlevo vrací, F zapíná celou obrazovku, N poznámky a stopky. Lokální vložené demo vyžaduje server na localhost:8080. Samostatné slajdy běží i offline. Prezentace byla na přání vrácena do předchozí podoby s 12 slajdy a třípásovým modelem. Samostatný one-pager a návrh šestitýdenního pilotu zůstávají uložené zvlášť.
+Otevřete `prezentace/index.html` v Chromu. První šipka doprava nebo mezerník spustí úvodní film; po dohrání sám přejde na titul s 3D modelem. Návrat šipkami úplně na začátek film zastaví a přetočí. Další šipka doprava ho znovu spustí; během přehrávání jej další stisk přeskočí. Mezerník/klikr posouvá, šipka vlevo vrací, F zapíná celou obrazovku, N poznámky a stopky. Lokální vložené demo vyžaduje server na localhost:8080. Samostatné slajdy běží i offline. Prezentace byla na přání vrácena do předchozí podoby; slajd s třípásovým modelem je nyní až za závěrem (#12) jako podklad pro dotazy. Hlavní část má 11 slajdů, živé demo je na #6. Samostatný one-pager a návrh šestitýdenního pilotu zůstávají uložené zvlášť.
 
 ```sh
 cd prezentace

@@ -8,6 +8,7 @@
   const plocha = document.querySelector('.plocha');
   const slajdy = Array.from(document.querySelectorAll('.slajd'));
   const N = slajdy.length;
+  const hlavniN = slajdy.filter(s => !s.hasAttribute('data-zaloha')).length;
   const hudCas = document.getElementById('hud-cas');
   const poznamky = document.getElementById('poznamky');
   const cerna = document.getElementById('cerna');
@@ -107,7 +108,7 @@
     if (!prubeh) return;
     const oblouk = prubeh.querySelector('.jidlo');
     const delka = 2 * Math.PI * 34;
-    const podil = N > 1 ? i / (N - 1) : 1;
+    const podil = hlavniN > 1 ? Math.min(1, i / (hlavniN - 1)) : 1;
     oblouk.style.strokeDasharray = delka;
     oblouk.style.strokeDashoffset = delka * (1 - podil);
     prubeh.classList.toggle('skryty', slajdy[i].hasAttribute('data-bez-prubehu'));
