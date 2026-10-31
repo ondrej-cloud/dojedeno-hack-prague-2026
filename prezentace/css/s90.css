@@ -1,0 +1,92 @@
+/* 05 · řešení: ilustrace vlevo (1000 × 720 od y 272), popisky vpravo; krok k zvýrazní k-tou část sestavy (data-k z deck.js) */
+#s-qa-three .sestava { position: absolute; left: 80px; top: 250px; width: 1000px; height: 720px; }
+#s-qa-three .kresba { display: block; width: 1000px; height: 720px; overflow: visible; color: var(--text); }
+#s-qa-three .kresba .obrys { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; transition: stroke 500ms var(--ven); }
+#s-qa-three .kresba .vypln { fill: var(--karta); }
+#s-qa-three .stin-podlahy { fill: rgba(0, 0, 0, 0.06); }
+#s-qa-three .zebro { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; opacity: 0.18; }
+
+/* telefon */
+#s-qa-three .displej { fill: var(--stranka); }
+#s-qa-three .tecka-mereni { fill: var(--zelena-zivá); animation: s05-pulz 1.6s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes s05-pulz { 50% { opacity: 0.35; transform: scale(0.8); } }
+
+/* zorné pole */
+#s-qa-three .kuzel { fill: var(--zelena-zivá); opacity: 0.07; transition: opacity 500ms var(--ven); }
+#s-qa-three .paprsek { fill: none; stroke: var(--zelena); stroke-width: 2; stroke-dasharray: 2 10; stroke-linecap: round; opacity: 0.5; transition: opacity 500ms var(--ven); }
+
+/* váha */
+#s-qa-three .displej-vahy { fill: var(--text); }
+#s-qa-three .cislo-vahy { fill: var(--zelena-zivá); font: 700 22px var(--pismo); font-variant-numeric: tabular-nums; }
+
+/* spojení: pochodující čárky */
+#s-qa-three .cast-spojeni { fill: none; stroke: var(--zelena); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 2 14; opacity: 0.45; animation: s05-pochod 1.2s linear infinite; transition: opacity 500ms var(--ven); }
+@keyframes s05-pochod { to { stroke-dashoffset: -32; } }
+
+/* karta přehledu */
+#s-qa-three .cast-prehled { filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05)) drop-shadow(0 14px 30px rgba(0, 0, 0, 0.09)); transition: filter 500ms var(--ven); }
+#s-qa-three .karta-svg { fill: var(--karta); stroke: var(--linka); stroke-width: 1; transition: stroke 500ms var(--ven), stroke-width 500ms var(--ven); }
+#s-qa-three .logo-kruh { fill: var(--karta); stroke: var(--linka2); stroke-width: 2; }
+#s-qa-three .logo-oblouk { fill: none; stroke: var(--zelena); stroke-width: 4; stroke-dasharray: 70 100; stroke-linecap: round; transform: rotate(-90deg); transform-origin: 36px 40px; }
+#s-qa-three .nadpis-karty { font: 700 24px var(--pismo); fill: var(--text); }
+#s-qa-three .linka { stroke: var(--linka); stroke-width: 1.5; }
+#s-qa-three .cas { font: 600 18px var(--pismo); fill: var(--text3); font-variant-numeric: tabular-nums; }
+#s-qa-three .radek { font: 700 22px var(--pismo); fill: var(--text); }
+#s-qa-three .radek.dojedeno { fill: var(--zelena); }
+#s-qa-three .gramy { font: 800 22px var(--pismo); fill: var(--oranz); font-variant-numeric: tabular-nums; }
+#s-qa-three .sloupek { fill: var(--oranz-svetla); }
+#s-qa-three .sloupek.posledni { fill: var(--oranz2); }
+
+/* Kroky: 1 snímání na pásech, 2 přírůstek váhy, 3 nejisté párování. */
+#s-qa-three[data-k="1"] .cast-telefon .obrys { stroke: var(--zelena); }
+#s-qa-three[data-k="1"] .cast-telefon { filter: drop-shadow(0 0 22px rgba(48, 209, 88, 0.35)); }
+#s-qa-three[data-k="1"] .kuzel { opacity: 0.18; }
+#s-qa-three[data-k="1"] .paprsek { opacity: 1; }
+#s-qa-three[data-k="2"] .cast-vaha .obrys { stroke: var(--zelena); }
+#s-qa-three[data-k="2"] .cast-vaha { filter: drop-shadow(0 0 22px rgba(48, 209, 88, 0.35)); }
+#s-qa-three[data-k="3"] .karta-svg { stroke: var(--zelena); stroke-width: 3; }
+#s-qa-three[data-k="3"] .cast-prehled { filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05)) drop-shadow(0 18px 40px rgba(36, 138, 61, 0.22)); }
+#s-qa-three[data-k="3"] .cast-spojeni { opacity: 1; }
+#s-qa-three .cast-vaha, #s-qa-three .cast-telefon { transition: filter 500ms var(--ven); }
+
+/* vstup: obrysy se nakreslí, výplně a karta se prolnou */
+#s-qa-three.kresli .kresba .obrys { stroke-dasharray: 1; animation: s05-kresli 1100ms var(--kresli) both; }
+#s-qa-three.kresli .cast-vaha .obrys { animation-delay: 80ms; }
+#s-qa-three.kresli .cast-kbelik .obrys { animation-delay: 220ms; }
+#s-qa-three.kresli .cast-drzak .obrys { animation-delay: 380ms; }
+#s-qa-three.kresli .cast-telefon .obrys { animation-delay: 500ms; }
+@keyframes s05-kresli { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+#s-qa-three.kresli .kresba .vypln { animation: s05-vypln 700ms var(--ven) 500ms both; }
+@keyframes s05-vypln { from { fill-opacity: 0; } to { fill-opacity: 1; } }
+#s-qa-three.kresli .cast-prehled, #s-qa-three.kresli .zorne-pole, #s-qa-three.kresli .cast-spojeni, #s-qa-three.kresli .displej-vahy, #s-qa-three.kresli .cislo-vahy, #s-qa-three.kresli .displej, #s-qa-three.kresli .tecka-mereni { animation-name: s05-prolni; animation-duration: 700ms; animation-timing-function: var(--ven); animation-delay: 900ms; animation-fill-mode: both; }
+#s-qa-three.kresli .cast-spojeni { animation: s05-prolni 700ms var(--ven) 1100ms both, s05-pochod 1.2s linear infinite; }
+#s-qa-three.kresli .tecka-mereni { animation: s05-prolni 700ms var(--ven) 900ms both, s05-pulz 1.6s ease-in-out 1.6s infinite; }
+@keyframes s05-prolni { from { opacity: 0; } to { opacity: 1; } }
+#s-qa-three.kresli .zorne-pole { animation-delay: 1000ms; }
+
+/* popisky vpravo */
+#s-qa-three .popisky { position: absolute; left: 1150px; right: 80px; top: 300px; display: flex; flex-direction: column; gap: 34px; }
+#s-qa-three .popisek { display: grid; grid-template-columns: 96px 1fr; gap: 28px; align-items: center; }
+#s-qa-three .popisek h2 { font-size: 42px; line-height: 1.1; letter-spacing: -0.015em; }
+#s-qa-three .popisek .stitek { margin-top: 8px; font-size: 26px; }
+#s-qa-three .kruh { width: 96px; height: 96px; border-radius: 50%; background: var(--karta); box-shadow: var(--stin); display: grid; place-items: center; color: var(--text2); transition: background 500ms var(--ven), color 500ms var(--ven); }
+#s-qa-three .kruh .ilu { width: 52px; height: 52px; }
+#s-qa-three[data-k="1"] .p1 .kruh, #s-qa-three[data-k="2"] .p2 .kruh, #s-qa-three[data-k="3"] .p3 .kruh { background: var(--zelena-svetla); color: var(--zelena); box-shadow: none; }
+#s-qa-three .pointa { margin-top: 24px; display: inline-flex; align-self: flex-start; align-items: center; gap: 18px; padding: 18px 32px 20px 24px; border-radius: var(--pilulka); background: var(--text); color: #fff; font-weight: 700; font-size: 34px; line-height: 1.2; transition-delay: 700ms; }
+#s-qa-three .pointa .ilu { width: 44px; height: 44px; color: #fff; }
+#s-qa-three.hned .pointa { transition-delay: 0ms; }
+
+/* 3D model sestavy (js/model3d.js) místo SVG ilustrace; když WebGL nejde, zůstane SVG */
+#s-qa-three .model3d { position: absolute; left: 30px; top: 200px; width: 1180px; height: 860px;
+  -webkit-mask-image: radial-gradient(ellipse 72% 78% at 45% 50%, #000 70%, transparent 100%); mask-image: radial-gradient(ellipse 72% 78% at 45% 50%, #000 70%, transparent 100%); }
+#s-qa-three:has(.model3d.m3d) .sestava { display: none; }
+
+/* Fallback schéma pásů a viditelné označení návrhu. */
+#s-qa-three .navrh-modelu { position: absolute; left: 80px; top: 208px; z-index: 3; padding: 8px 18px; border: 1px solid var(--linka2); border-radius: var(--pilulka); color: var(--text2); font-size: 22px; background: var(--stranka); }
+#s-qa-three .tac { fill: #e5e5ea; stroke: #a1a1a6; stroke-width: 2; }
+#s-qa-three .talir-vnitrek { fill: none; stroke: var(--linka2); stroke-width: 2; }
+#s-qa-three .zbytek, #s-qa-three .zbytky-kbelik { fill: #cf8c55; }
+#s-qa-three .priloha { fill: #ead9b5; }
+#s-qa-three .smer-pasu { fill: none; stroke: var(--text3); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+#s-qa-three .presun-talire { fill: none; stroke: var(--oranz); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 4 9; }
+#s-qa-three .popis-schematu { font: 500 22px var(--pismo); fill: var(--text2); }

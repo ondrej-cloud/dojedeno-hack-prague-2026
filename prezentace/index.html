@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="css/s09.css">
 <link rel="stylesheet" href="css/s10.css">
 <link rel="stylesheet" href="css/s11.css">
+<link rel="stylesheet" href="css/s90.css">
 </head>
 <body>
 <div class="jeviste">
@@ -242,6 +243,51 @@
   <p class="zdroj">Zdroje: Prague Food Waste 2024 (Zachraň jídlo, Mendelova univerzita); Mendelova univerzita: Jak šetřit jídlem ve školních jídelnách (2025), s. 19.</p>
 
   <script type="application/json" class="poznamky-data">["1:25–1:50 · Spoluhráč", "Kdo to dnes ví? I výzkumníci museli vážit ručně, asi týden na každé škole. Zbytek roku žádná data. Podle nás jídelny dnes nevědí, co přesně vyhazují.", "[mezerník] Karta Brno: sloupce 80 kg a 19 kg a věta dole.", "A přitom měření samo funguje. V jedné brněnské škole běžně zbude osmdesát kilo čočky. V den, kdy děti odpad samy vážily, zbylo devatenáct. Když se měří, vyhazuje se méně.", "Asi 60 slov. „Jídelny nevědí, co vyhazují“ je naše úvaha, ne fakt ze zdroje, proto „podle nás“. Kalendář je ilustrace: jeden týden měření na školu z 40 týdnů školního roku.", "Zdroje: Prague Food Waste, tisková zpráva 25. 6. 2024 (ruční vážení, 2 zkušební dny a týden měření na škole); Mendelova univerzita: Jak šetřit jídlem ve školních jídelnách (2025), s. 19 (Brno: čočka nakyselo 80 kg, v den vážení 19 kg)."]</script>
+</section>
+
+<!-- 05 · základní sestava: jeden pás, kamera před vysypáním a jeden vážený kbelík. -->
+<section class="slajd" id="s-reseni" data-nazev="Návrh pilotní sestavy: kamery, váha a AI" data-kroky="3">
+  <h1>Jeden pás. Jeden vážený kbelík.</h1>
+  <p class="navrh-modelu bez-vstupu">Návrh pilotní sestavy</p>
+
+  <div class="model3d bez-vstupu" data-model3d data-model-variant="single" role="img" aria-label="Návrh sestavy: kamera snímá talíře na jednom pásu před vysypáním, samostatný kbelík stojí na váze"></div>
+
+  <div class="sestava" role="img" aria-label="Schéma jednoho pásu se snímáním talířů, samostatného váženého kbelíku a přiřazení fotky k přírůstku váhy; nejisté případy zůstávají společnou dávkou">
+    <svg class="kresba" viewBox="0 0 1000 720" role="img" aria-label="Jeden pás, kamera nad talířem a oddělený kbelík na váze">
+      <rect x="35" y="300" width="575" height="65" rx="28" fill="#497a67"/>
+      <path d="M70 365v230m500-230v230M72 343h495" fill="none" stroke="#a0a4a0" stroke-width="16"/>
+      <path d="M120 330h100m-20-15 20 15-20 15" fill="none" stroke="#cfe6d7" stroke-width="5"/>
+      <ellipse cx="427" cy="312" rx="85" ry="27" fill="white" stroke="#d2d2d7" stroke-width="3"/>
+      <ellipse cx="414" cy="310" rx="28" ry="13" fill="#ead9b5"/><ellipse cx="461" cy="312" rx="17" ry="11" fill="#cf8c55"/>
+      <path d="M545 300V145H420" fill="none" stroke="#989f99" stroke-width="9"/>
+      <rect x="381" y="139" width="82" height="17" rx="6" fill="#333"/>
+      <path d="m422 159-73 143h146z" fill="#30d158" opacity=".13"/>
+      <path d="M660 342h235l-23 220q-94 38-188 0z" fill="white" stroke="#c5cbc6" stroke-width="4"/>
+      <ellipse cx="777" cy="342" rx="119" ry="29" fill="#f5f5f7" stroke="#c5cbc6" stroke-width="4"/>
+      <rect x="640" y="590" width="280" height="30" rx="10" fill="#c6cbc6"/>
+      <rect x="722" y="601" width="110" height="40" rx="8" fill="#1d1d1f"/><text x="777" y="629" text-anchor="middle" fill="#30d158" font-size="26">váha</text>
+      <path d="M560 270q100-70 160 30" stroke="#c9601b" fill="none" stroke-width="4" stroke-dasharray="8 9"/>
+      <text x="190" y="670" fill="#6e6e73" font-size="27">fotka + pořadí</text><text x="680" y="690" fill="#6e6e73" font-size="27">přírůstek váhy</text>
+    </svg>
+  </div>
+
+  <div class="popisky">
+    <div class="popisek p1" data-krok="1">
+      <div class="kruh"><svg class="ilu"><use href="#i-telefon"/></svg></div>
+      <div><h2>Fotíme talíře na pásu.</h2><p class="stitek">ještě před vysypáním</p></div>
+    </div>
+    <div class="popisek p2" data-krok="2">
+      <div class="kruh"><svg class="ilu"><use href="#i-vaha"/></svg></div>
+      <div><h2>Vážíme, co přibylo.</h2><p class="stitek">skutečný přírůstek v&nbsp;kbelíku</p></div>
+    </div>
+    <div class="popisek p3" data-krok="3">
+      <div class="kruh"><svg class="ilu"><use href="#i-ai"/></svg></div>
+      <div><h2>Spojíme podle pořadí.</h2><p class="stitek">pokud se pořadí při vysypání nezmění</p></div>
+    </div>
+    <p class="pointa" data-krok="3"><svg class="ilu"><use href="#i-kuchar"/></svg>Cíl: bez zastavování talířů</p>
+  </div>
+
+  <script type="application/json" class="poznamky-data">["1:30–1:55 · Ondra", "Navrhujeme jednoduchou stanici: jeden pás, telefon nad talířem a kbelík na váze. Fotíme ještě před smícháním zbytků. Přírůstek váhy přiřadíme podle pořadí, pouze pokud se pořadí při vysypávání zachová.", "[kroky 1–3] Fotka, váha, přiřazení. Při souběhu nebo porušení pořadí zůstává společná dávka. Cílem je běžný provoz bez zastavování; zatím to není ověřená instalace.", "Hejčín má podle zadání tři patra pásu. Možnost vymezit jeden sledovaný tok a samostatný kbelík musí potvrdit jídelna. Není-li to možné, tento jednoduchý pilot tam nelze slibovat; složitější varianta je v záloze.", "Zdroje: vlastní návrh, přesnost a potřebné vybavení ověří pilot."]</script>
 </section>
 
 <!-- 06 · jak to funguje: osa se 4 uzly, kroky 1–4 odkryjí karty a zelená čára dojede k uzlu; krok 5 gastronádoby a pilulka „Živá ukázka prototypu“ (další slajd = vložené demo) -->
@@ -615,11 +661,11 @@
 </section>
 
 <!-- 05 · návrh pilotní sestavy: tři patra pásu a snímání talířů před vysypáním; váha pod samostatným kbelíkem. -->
-<section class="slajd" id="s-reseni" data-nazev="Dotazy · model se třemi pásy" data-zaloha data-bez-prubehu data-kroky="3">
-  <h1>Tři pásy · podklad pro dotazy.</h1>
-  <p class="navrh-modelu bez-vstupu">Záložní slajd · návrh sestavy</p>
+<section class="slajd" id="s-qa-three" data-nazev="Dotazy · model se třemi pásy" data-zaloha data-bez-prubehu data-kroky="3">
+  <h1>Rozšíření: tři pásy a souběhy.</h1>
+  <p class="navrh-modelu bez-vstupu">Oponentura · návrh pro složitější provoz</p>
 
-  <div class="model3d bez-vstupu" data-model3d role="img" aria-label="Návrh sestavy: kamery snímají talíře na třech patrech pásu před vysypáním, samostatný kbelík stojí na váze"></div>
+  <div class="model3d bez-vstupu" data-model3d data-model-variant="three" role="img" aria-label="Návrh sestavy: kamery snímají talíře na třech patrech pásu před vysypáním, samostatný kbelík stojí na váze"></div>
 
   <div class="sestava" role="img" aria-label="Schéma tří pásů se snímáním talířů, samostatného váženého kbelíku a přiřazení fotky k přírůstku váhy; nejisté případy zůstávají společnou dávkou">
     <svg class="kresba" viewBox="0 0 1000 720" width="1000" height="720" aria-hidden="true">
@@ -723,7 +769,7 @@
   <div class="popisky">
     <div class="popisek p1" data-krok="1">
       <div class="kruh"><svg class="ilu"><use href="#i-telefon"/></svg></div>
-      <div><h2>Fotíme talíře na pásu.</h2><p class="stitek">ještě před vysypáním</p></div>
+      <div><h2>Snímáme každé patro.</h2><p class="stitek">fotka talíře ještě před vysypáním</p></div>
     </div>
     <div class="popisek p2" data-krok="2">
       <div class="kruh"><svg class="ilu"><use href="#i-vaha"/></svg></div>
@@ -731,12 +777,12 @@
     </div>
     <div class="popisek p3" data-krok="3">
       <div class="kruh"><svg class="ilu"><use href="#i-ai"/></svg></div>
-      <div><h2>AI navrhne přiřazení.</h2><p class="stitek">čas + pořadí + odhad z&nbsp;fotky<br>při nejistotě společná dávka</p></div>
+      <div><h2>AI navrhne přiřazení.</h2><p class="stitek">sledujeme cestu talíře a čas vysypání<br>při souběhu společná dávka</p></div>
     </div>
-    <p class="pointa" data-krok="3"><svg class="ilu"><use href="#i-kuchar"/></svg>Bez zastavování talířů</p>
+    <p class="pointa" data-krok="3"><svg class="ilu"><use href="#i-kuchar"/></svg>Cíl: bez zastavování talířů</p>
   </div>
 
-  <script type="application/json" class="poznamky-data">["Oponentura · záložní slajd po závěru", "Tohle je návrh pilotní sestavy pro naše tři pásy. Talíře se vyfotí cestou, ještě před vysypáním. Kbelík stojí zvlášť na váze.", "[mezerník] Kamery: chceme zachytit talíře automaticky bez zastavování. Záběr pro každé patro, umístění a potřebný počet kamer musíme ověřit v jídelně; model je schéma, nikoli hotová instalace.", "[mezerník] Váha: skutečná hmotnost pochází z přírůstku váhy kbelíku. Jeden talíř může být vyškrábnutý vícekrát a více talířů může skončit v jedné dávce.", "[mezerník] AI rozpozná zbytky a navrhne přiřazení fotek k přírůstkům podle času, pořadí a odhadu z fotografie. Nejde o jisté pořadí napříč třemi pásy. Při souběhu nebo nejistotě necháme společnou dávku, případně hmotnost bez přiřazení k talíři.", "Bez zastavování talířů je cíl návrhu. Průchodnost, zakrývání talířů a správnost přiřazení ověříme v pilotu. Odhad z fotky nesmí nahradit naměřenou hmotnost. Současné živé demo váží talíř přímo; párování pásů s váhou kbelíku ještě není implementované.", "Zdroje: vlastní návrh pilotní sestavy a párování událostí. Model nepředstavuje ověřenou přesnost ani potvrzené finální vybavení."]</script>
+  <script type="application/json" class="poznamky-data">["Oponentura · záložní slajd po závěru", "Tohle je možné rozšíření základní jednopásové sestavy pro složitější provoz se třemi pásy. Talíře se vyfotí cestou, ještě před vysypáním. Kbelík stojí zvlášť na váze.", "[mezerník] Kamery: chceme zachytit talíře automaticky bez zastavování. Záběr pro každé patro, umístění a potřebný počet kamer musíme ověřit v jídelně; model je schéma, nikoli hotová instalace.", "[mezerník] Váha: skutečná hmotnost pochází z přírůstku váhy kbelíku. Jeden talíř může být vyškrábnutý vícekrát a více talířů může skončit v jedné dávce.", "[mezerník] AI rozpozná zbytky a navrhne přiřazení fotek k přírůstkům podle sledované cesty talíře a času vysypání. Samotné pořadí příjezdu ani vizuální odhad hmotnosti nestačí. Nejde o jisté pořadí napříč třemi pásy. Při souběhu nebo nejistotě necháme společnou dávku, případně hmotnost bez přiřazení k talíři.", "Bez zastavování talířů je cíl návrhu. Průchodnost, zakrývání talířů a správnost přiřazení ověříme v pilotu. Odhad z fotky nesmí nahradit naměřenou hmotnost. Současné živé demo váží talíř přímo; párování pásů s váhou kbelíku ještě není implementované.", "Zdroje: vlastní návrh pilotní sestavy a párování událostí. Model nepředstavuje ověřenou přesnost ani potvrzené finální vybavení."]</script>
 </section>
 
 </div>
