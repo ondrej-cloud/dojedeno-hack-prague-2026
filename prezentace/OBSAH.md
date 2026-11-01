@@ -263,3 +263,11 @@ Pořadí: úvod, problém, insight, pás, demo, z dat rovnou opatření, kdo z t
 - Tým: Tobias (research a data, mentoři, technika), Ondřej (prototyp, demo a prezentace). Nástroje: mapa aktérů, harmonogram, matice rizik, rozpočet, KPI.
 - **Krok 1:** co jsme po mentoringu změnili: fotka talíře místo jen kbelíku, jeden pás místo tří, gastroodpad místo bioodpadu, pilot 6 týdnů.
 
+
+## Doplněk 1. 11. (po mentoringu, druhé kolo)
+- **01 titul, krok 1:** místo 3D pásu vpravo tečky obědů jedné školy (500 žáků), samy přibývají: 1 den 500 → 2 týdny 5 000 → měsíc 10 000 → rok 95 000 (asi 190 školních dní). 31 % teček oranžově jako přirovnání, ne počet vyhozených talířů.
+- **06a (tečky za prototypem):** nahradí kolega dashboardem.
+- **07 opatření:** jen dvě (ubrat, co děti nechávají; změnit jídla, která se nejí). Nevyzvednuté obědy pryč.
+- **08b zapojení:** „Data pro jídelnu. Zpětná vazba pro děti.“ 1 primárně data a úspora, 2 druhotně děti uvidí grafy před a po (web školy, obrazovka v jídelně). Krok 1: Hejčín (jídelně se to líbí, zatím bez potvrzení) a Brno 80 → 19 kg.
+- **09 konkurence:** vlevo šedě Winnow, Orbisk, Leanpath, KITRO a IKEA −50 %; krok 1 „Čím jsme jiní“: levní, jsme tady (oni míří na hotely a catering, na české jídelny nemají kapacitu, naše úvaha), víme co, ne jen kolik.
+- **09a pilot od dat k výsledku (nový):** týden 1–2 sbíráme data → týden 3 analýza → doporučení → týden 4–6 výsledek; krok 1 KPI zbytky z talířů na strávníka a den, odhad −30 % = až 180 000 Kč ročně. Pak 09c harmonogram s riziky a závěr se škálováním.
