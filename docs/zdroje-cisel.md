@@ -43,7 +43,7 @@ Typy čísel:
 |---|---|---|
 | 150 g (ukázkový talíř s knedlíkem) | 3, 6 | Ilustrační příklad |
 | 152 g zbytků (talíř 1), 1 g (talíř 2) | 5 | **Náš záznam** z 1. 11. 2026: váha 352 g a 201 g, talíř 200 g. Složky (jablko ≈ 69 g, mrkev ≈ 50 g, croissant ≈ 33 g) podle podílů z jedné analýzy Claude Opus 5.5 (`prezentace/assets/analyza-opus.json`). |
-| 412 talířů za den, 34 kg, 337 kg, 672 kg | 5 | Vymyšlený měsíc pro demo (`demo/data/month.json`, `synthetic: true`). Na slajdu je štítek „Ukázková data“. |
+| Přehled pro jídelnu: 672 kg za měsíc, 38 % dojedených talířů, 82 g na strávníka a den, 62 160 Kč, návrhy (≈ 2 500 Kč za špenát, −60 kg polévky, ≈ 25 porcí denně) | 5 | Vymyšlený měsíc pro demo (`demo/data/month.json`, `synthetic: true`), 412 talířů denně, 92,5 Kč/kg. Na slajdu je štítek „Ukázková data“ a u návrhů „odhad“. |
 | 34 000 Kč | 9 | Náš rozpočet. Ceny s odkazem na e-shopy (OVĚŘENO), zbytek odhad. Položky jsou v `prezentace/OBSAH.md` a ve slajdu 99. |
 | 6 týdnů, leden 2027, 30. 3. 2027, 10. 5. 2027 | 10 | Náš harmonogram pilotu |
 
