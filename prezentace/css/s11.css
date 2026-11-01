@@ -56,9 +56,9 @@
 
 #s-zaver .z-ikea { font-size: 48px; line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; color: var(--text2); }
 #s-zaver .z-veta { margin-top: 18px; max-width: 1400px; font-size: 84px; line-height: 1.08; font-weight: 700; letter-spacing: -0.025em; text-wrap: balance; }
-#s-zaver .z-znacka { margin-top: 64px; display: flex; align-items: baseline; gap: 22px; font-size: 40px; line-height: 1.2; }
+#s-zaver .z-znacka { margin-top: 64px; display: flex; align-items: baseline; justify-content: center; gap: 22px; font-size: 56px; line-height: 1.2; }
 #s-zaver .z-znacka b { font-weight: 800; letter-spacing: -0.02em; color: var(--zelena); }
-#s-zaver .z-znacka span { font-weight: 600; color: var(--text3); }
+#s-zaver .z-znacka span { font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
 
 #s-zaver .z-dekujeme { position: absolute; right: var(--okraj-x); bottom: 60px; font-size: 34px; font-weight: 700; color: var(--text3); }
 #s-zaver .z-dekujeme[data-krok] { transition-delay: 1400ms; }
