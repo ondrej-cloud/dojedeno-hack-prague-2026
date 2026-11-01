@@ -1,6 +1,6 @@
 /* 06a · dva talíře → data. Krok 1 sken talíře 1 → analýza, 2 talíř 2 → dojedeno, 3 oba talíře jako dvě tečky (nic se nehýbe),
-   4 kolem dvou teček (naše talíře, stojí na místě) pomalu doroste den (412 talířů), 5 den se zmenší do políčka kalendáře
-   a přibudou dny 2–10 (canvas), 6 dny 11–20 + rámečky dnů se špenátem.
+   4 kolem dvou teček (naše talíře, stojí na místě) pomalu doroste den (412 talířů), 5 tečky dne se přelijí do prvního
+   proužku souvislé plochy a zleva přirůstají dny 2–10 (canvas), 6 dny 11–20 + rámečky dnů se špenátem.
    Třídy na sekci: t2, skenuje, detekce, v1, v2, spoj, den, tydny, siroka, tecky-hned. Skok/tisk = konečný stav bez animace. */
 (function () {
   'use strict';
@@ -51,8 +51,10 @@
   const KC_KG = 92.5, TALIRU = 412, DOJEDENO = 0.38;
   /* den: 26 × 16 teček; naše dva talíře stojí uprostřed a ostatní dorůstají od nich do stran */
   const tecky = s.querySelector('.dr-tecky'), SL = 26, RA = 16, P1 = 7 * SL + 12, P2 = 8 * SL + 12;
-  const zelena = (i, den) => den === 0 ? ((i * 7919) % 100) < DOJEDENO * 100
-    : ((((i + den * 977) * 7919) % 100) < 100 - (100 - DOJEDENO * 100) * DNY[den] / DNY[0]);
+  /* barvy teček promíchané hashem (bez pruhů); den 1 má stejné barvy v mřížce i v proužku, ostatní podíl zbytků podle kg dne */
+  const hash = (i, den) => { let h = Math.imul(i + 1, 0x9E3779B1) ^ Math.imul(den + 7, 0x85EBCA6B); h ^= h >>> 15; h = Math.imul(h, 0xC2B2AE35); h ^= h >>> 13; return (h >>> 0) % 100; };
+  const zelena = (i, den) => den === 0 ? hash(i, 0) < DOJEDENO * 100
+    : hash(i, den) < 100 - (100 - DOJEDENO * 100) * DNY[den] / DNY[0];
   let h = '';
   for (let i = 0; i < TALIRU; i++) {
     if (i === P1) { h += '<i class="prvni p1"></i>'; continue; }
@@ -73,68 +75,90 @@
     });
   }
 
-  /* kroky 5–6: kalendář 5 × 4 políček (Po–Pá, 4 týdny), každé políčko = jeden den = 412 teček ve stejném rozvržení jako den.
-     Geometrie v px plochy 1180 × 700; políčko je den zmenšený faktorem M (proto plynulé převzetí z DOM mřížky). */
-  const MEZ = 7, TD = (800 - (SL - 1) * MEZ) / SL, KROK_T = TD + MEZ, DEN_V = RA * TD + (RA - 1) * MEZ;
-  const M = 0.26, BW = 800 * M, BH = DEN_V * M, BG = 16, KX = (1180 - (5 * BW + 4 * BG)) / 2, KY = 84;
-  const blok = b => ({ x: KX + (b % 5) * (BW + BG), y: KY + Math.floor(b / 5) * (BH + BG) });
-  tecky.style.setProperty('--do-bloku', `translate(${blok(0).x - 40}px, ${blok(0).y - 105}px) scale(${M})`);
+  /* kroky 5–6: jedna souvislá plocha teček. Každý den = proužek 7 × 59 teček (412 talířů) hned vedle předchozího,
+     pod proužky jen dny v týdnu a týdny. Krok 5: tečky dne se plynule přelijí ze čtverce do prvního proužku a zleva
+     doprava přirůstají dny 2–10; krok 6 dny 11–20 a rámečky dnů se špenátem. Geometrie v px plochy 1180 × 700. */
+  const MEZ = 7, TD = (800 - (SL - 1) * MEZ) / SL, KROK_T = TD + MEZ;
+  const SC = 7, SR = Math.ceil(TALIRU / SC), PT = 8, R_MALE = 3, PX = 30, PY = 92, PRUH = SC * PT;
   const SPENAT = [6, 11, 18]; /* dny 7, 12 a 19 (demo/data/month.json) */
-  const kal = s.querySelector('.dr-kal');
-  kal.innerHTML = ['Po', 'Út', 'St', 'Čt', 'Pá'].map((d, i) => `<p class="dr-den-tydne" style="left:${blok(i).x}px;width:${BW}px">${d}</p>`).join('') +
-    SPENAT.map((b, i) => `<div class="dr-spenat" style="left:${blok(b).x - 6}px;top:${blok(b).y - 6}px;width:${BW + 12}px;height:${BH + 12}px;--zpozdeni:${1900 + i * 180}ms"><b>Špenát</b></div>`).join('');
+  const kal = s.querySelector('.dr-kal'), DNY_T = ['Po', 'Út', 'St', 'Čt', 'Pá'];
+  kal.innerHTML = DNY.map((_, d) => `<p class="dr-den" style="left:${PX + d * PRUH}px;top:${PY + SR * PT + 12}px;width:${PRUH}px">${DNY_T[d % 5]}</p>`).join('') +
+    [0, 1, 2, 3].map(t => `<p class="dr-tyden" style="left:${PX + t * 5 * PRUH + 4}px;top:${PY + SR * PT + 48}px;width:${5 * PRUH - 8}px">${t + 1}.&nbsp;týden</p>`).join('') +
+    SPENAT.map((d, i) => `<div class="dr-spenat" style="left:${PX + d * PRUH - 4}px;top:${PY - 6}px;width:${PRUH + 8}px;height:${SR * PT + 12}px;--zpozdeni:${1500 + i * 160}ms"><b>Špenát</b></div>`).join('');
+  const popisDnu = [...kal.querySelectorAll('.dr-den')], popisTydnu = [...kal.querySelectorAll('.dr-tyden')];
   const platno = s.querySelector('.dr-mesic'), ctx = platno.getContext('2d'), DPR = 2;
   platno.width = 1180 * DPR; platno.height = 700 * DPR;
   const css = n => getComputedStyle(s).getPropertyValue(n).trim();
-  /* pozice a barvy všech teček všech dní předpočítané: [x, y, barva(0 oranž, 1 zelená, 2 talíř 1), zpoždění v ms] */
+  /* tečky: [cílové x, y, barva (0 oranž, 1 zelená, 2 talíř 1), globální sloupec, řádek, výchozí x, y (jen den 1 = pozice ve čtverci)] */
   const TECKY = DNY.map((_, den) => {
-    const o = blok(den), out = [];
+    const out = [];
     for (let i = 0; i < TALIRU; i++) {
-      const r = Math.floor(i / SL), c = i % SL;
+      const c = i % SC, r = Math.floor(i / SC);
       const barva = den === 0 && i === P1 ? 2 : den === 0 && i === P2 ? 1 : zelena(i, den) ? 1 : 0;
-      out.push([o.x + (c * KROK_T + TD / 2) * M, o.y + (r * KROK_T + TD / 2) * M, barva, Math.hypot(c - 12, r - 7.5) * 16]);
+      out.push([PX + den * PRUH + c * PT + PT / 2, PY + r * PT + PT / 2, barva, den * SC + c, r,
+        40 + (i % SL) * KROK_T + TD / 2, 105 + Math.floor(i / SL) * KROK_T + TD / 2]);
     }
     return out;
   });
   let anim = null;
-  const pruh = (t, z, delka) => { const x = Math.min(1, Math.max(0, (t - z) / delka)); return 1 - Math.pow(1 - x, 3); };
-  function kresliMesic(zacatky, t) {
-    const barvy = [css('--oranz2'), css('--zelena-zivá'), css('--oranz')], R = TD / 2 * M;
+  const omez = x => Math.min(1, Math.max(0, x));
+  const ven = x => 1 - Math.pow(1 - x, 3), plynule = x => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  /* plan[den]: null = není, 'je' = hotový, {prelij: t} = den 1 se přelévá ze čtverce, {od: t, sl0} = přirůstá ve vlně zleva */
+  function kresliMesic(plan, t) {
+    const barvy = [css('--oranz2'), css('--zelena-zivá'), css('--oranz')];
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.clearRect(0, 0, 1180, 700);
     let hotovo = true;
     for (let barva = 0; barva < 3; barva++) {
       ctx.beginPath();
-      zacatky.forEach((z, den) => {
-        if (z === null) return;
-        for (const [x, y, b, zp] of TECKY[den]) {
+      plan.forEach((pl, den) => {
+        if (!pl) return;
+        for (const [x, y, b, gc, r, sx, sy] of TECKY[den]) {
           if (b !== barva) continue;
-          const e = z === -1 ? 1 : pruh(t, z + zp, 380);
-          if (e < 1) hotovo = false;
-          if (e <= 0) continue;
-          ctx.moveTo(x + R * e, y); ctx.arc(x, y, R * e, 0, Math.PI * 2);
+          let px = x, py = y, rad = R_MALE;
+          if (pl.prelij !== undefined) {
+            const e = plynule(omez((t - pl.prelij - (r * SC) * 0.45) / 1150));
+            if (e < 1) hotovo = false;
+            px = sx + (x - sx) * e; py = sy + (y - sy) * e; rad = TD / 2 + (R_MALE - TD / 2) * e;
+          } else if (pl.od !== undefined) {
+            const e = ven(omez((t - pl.od - (gc - pl.sl0) * 15 - r * 2.5) / 320));
+            if (e < 1) hotovo = false;
+            if (e <= 0) continue;
+            rad = R_MALE * e;
+          }
+          ctx.moveTo(px + rad, py); ctx.arc(px, py, rad, 0, Math.PI * 2);
         }
       });
       ctx.fillStyle = barvy[barva]; ctx.fill();
     }
     return hotovo;
   }
-  /* zacatky[den]: null = není, -1 = už je, číslo = ms od začátku animace */
-  function mesic(zacatky) {
+  function mesic(plan) {
     if (anim) cancelAnimationFrame(anim.raf);
     const t0 = performance.now();
     anim = { raf: 0 };
-    const snimek = () => { if (!kresliMesic(zacatky, performance.now() - t0)) anim.raf = requestAnimationFrame(snimek); };
+    const snimek = () => { if (!kresliMesic(plan, performance.now() - t0)) anim.raf = requestAnimationFrame(snimek); };
     snimek();
   }
   function stavMesice(k, hned, odkud) {
-    const z = DNY.map(() => null);
+    const dnu = k >= 6 ? 20 : k >= 5 ? 10 : 0;
+    const plan = DNY.map((_, d) => d < dnu ? 'je' : null);
+    let start = -1, zacatek = 0;
+    if (!hned && k === 5 && odkud === 4) { plan[0] = { prelij: 0 }; start = 1; zacatek = 900; }
+    if (!hned && k === 6 && odkud === 5) { start = 10; zacatek = 150; }
+    if (start > 0) for (let d = start; d < dnu; d++) plan[d] = { od: zacatek, sl0: start * SC };
+    /* popisky dnů a týdnů naskakují se svými proužky */
+    popisDnu.forEach((p, d) => {
+      const vlna = start > 0 && d >= start ? zacatek + (d - start) * SC * 15 + 150 : 0;
+      p.style.transitionDelay = hned ? '0ms' : vlna + 'ms'; p.classList.toggle('je', d < dnu);
+    });
+    popisTydnu.forEach((p, t) => {
+      const d = t * 5, vlna = start > 0 && d + 4 >= start ? zacatek + Math.max(0, d + 2 - start) * SC * 15 + 150 : 0;
+      p.style.transitionDelay = hned ? '0ms' : vlna + 'ms'; p.classList.toggle('je', d < dnu);
+    });
     if (k < 5) { if (anim) cancelAnimationFrame(anim.raf); ctx.clearRect(0, 0, platno.width, platno.height); return; }
-    const dnu = k >= 6 ? 20 : 10;
-    for (let d = 0; d < dnu; d++) z[d] = -1;
-    if (!hned && k === 5 && odkud === 4) { z[0] = 900; for (let d = 1; d < 10; d++) z[d] = 1000 + (d - 1) * 120; }
-    if (!hned && k === 6 && odkud === 5) for (let d = 10; d < 20; d++) z[d] = 200 + (d - 10) * 120;
-    mesic(z);
+    mesic(plan);
   }
+
   const kgEl = s.querySelector('.dr-kg'), kcEl = s.querySelector('.dr-kc');
   const soucet = n => DNY.slice(0, n).reduce((a, b) => a + b, 0);
   const KG = { 3: 0, 4: 34, 5: soucet(10), 6: soucet(20) };

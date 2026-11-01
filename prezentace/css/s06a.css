@@ -112,8 +112,8 @@
 #s-dva-talire.den .dr-tecky i:not(.prvni) { animation: s06a-tecka 700ms var(--ven) both; animation-delay: var(--d); }
 #s-dva-talire.tecky-hned .dr-tecky i:not(.prvni) { animation: none; opacity: 1; transform: none; }
 @keyframes s06a-tecka { to { opacity: 1; transform: none; } }
-/* krok 5: den se zmenší přesně do prvního políčka kalendáře (--do-bloku z JS), pak ho převezme canvas */
-#s-dva-talire.tydny .dr-tecky { transform: var(--do-bloku); opacity: 0; transition: transform 900ms var(--ven), opacity 1ms linear 900ms; }
+/* krok 5: den převezme canvas na stejných pozicích (tečky se pak přelijí do proužku) */
+#s-dva-talire.tydny .dr-tecky { opacity: 0; transition: none; }
 
 /* popisky dvou teček: v kroku 3 a 4 (ukazují, kde jsou naše dva talíře mezi ostatními) */
 #s-dva-talire .dr-popisek { position: absolute; z-index: 2; margin: 0; display: flex; align-items: baseline; gap: 12px; padding: 8px 20px 10px; border-radius: 999px; background: var(--karta); box-shadow: var(--stin); font-size: 26px; font-weight: 600; color: var(--text2); white-space: nowrap; opacity: 0; transition: opacity 500ms var(--ven); }
@@ -128,10 +128,12 @@
 #s-dva-talire .dr-mesic { position: absolute; left: 0; top: 0; width: 1180px; height: 700px; opacity: 0; pointer-events: none; }
 #s-dva-talire.tydny .dr-mesic { opacity: 1; }
 #s-dva-talire .dr-kal { position: absolute; inset: 0; pointer-events: none; }
-#s-dva-talire .dr-den-tydne { position: absolute; top: 34px; margin: 0; font-size: 22px; font-weight: 700; color: var(--text3); text-align: center; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0; transition: opacity 400ms var(--ven); }
-#s-dva-talire.tydny .dr-den-tydne { opacity: 1; transition-delay: 900ms; }
-#s-dva-talire .dr-spenat { position: absolute; border-radius: 14px; box-shadow: 0 0 0 4px var(--oranz); opacity: 0; transform: scale(1.06); transition: opacity 500ms var(--ven), transform 600ms var(--ven); }
-#s-dva-talire .dr-spenat b { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); box-shadow: 0 2px 10px rgba(0,0,0,.18); padding: 3px 12px 5px; border-radius: 999px; background: var(--oranz); color: #fff; font-size: 20px; font-weight: 700; white-space: nowrap; }
+#s-dva-talire .dr-den, #s-dva-talire .dr-tyden { position: absolute; margin: 0; text-align: center; opacity: 0; transition: opacity 400ms var(--ven); }
+#s-dva-talire .dr-den { font-size: 20px; font-weight: 600; color: var(--text3); }
+#s-dva-talire .dr-tyden { padding-top: 6px; border-top: 2px solid var(--linka); font-size: 22px; font-weight: 700; color: var(--text2); }
+#s-dva-talire .dr-den.je, #s-dva-talire .dr-tyden.je { opacity: 1; }
+#s-dva-talire .dr-spenat { position: absolute; border-radius: 10px; box-shadow: 0 0 0 3px var(--oranz); opacity: 0; transform: scaleY(1.04); transition: opacity 500ms var(--ven), transform 600ms var(--ven); }
+#s-dva-talire .dr-spenat b { position: absolute; left: 50%; top: -44px; transform: translateX(-50%); box-shadow: 0 2px 10px rgba(0,0,0,.18); padding: 3px 12px 5px; border-radius: 999px; background: var(--oranz); color: #fff; font-size: 20px; font-weight: 700; white-space: nowrap; }
 #s-dva-talire[data-k="6"] .dr-spenat { opacity: 1; transform: none; transition-delay: var(--zpozdeni, 1800ms); }
 
 /* vpravo: počítadlo (od kroku 4) a v kroku 6 karta „nejčastěji se vrací“ */
@@ -156,7 +158,7 @@
 #s-dva-talire .dr-talire .zel { background: var(--zelena-zivá); }
 #s-dva-talire.tydny .dr-talire { opacity: 0; }
 #s-dva-talire .dr-legenda { position: absolute; margin: 0; display: flex; align-items: center; gap: 12px; font-size: 26px; font-weight: 600; color: var(--text2); opacity: 0; transition: opacity 400ms var(--ven); }
-#s-dva-talire .dr-legenda .ctverec { width: 26px; height: 20px; border-radius: 5px; background: radial-gradient(circle, var(--oranz2) 1.6px, transparent 2px) 0 0 / 5px 5px; box-shadow: inset 0 0 0 1px var(--linka); }
+#s-dva-talire .dr-legenda .ctverec { width: 12px; height: 30px; border-radius: 3px; background: radial-gradient(circle, var(--oranz2) 1.6px, transparent 2px) 0 0 / 4px 4px; }
 #s-dva-talire.tydny .dr-legenda { position: static; margin-top: 26px; opacity: 1; transition-delay: 600ms; }
 #s-dva-talire .dr-nej { position: absolute; left: 1010px; right: var(--okraj-x); top: 724px; padding: 24px 30px; border-radius: var(--r); background: var(--oranz-svetla); opacity: 0; transform: translateY(16px); transition: opacity 500ms var(--ven), transform 500ms var(--ven); }
 #s-dva-talire[data-k="6"] .dr-nej { opacity: 1; transform: none; transition-delay: 900ms; }
