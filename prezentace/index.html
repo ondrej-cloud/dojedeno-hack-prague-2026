@@ -695,6 +695,480 @@
   <script type="application/json" class="poznamky-data">["1:55–2:55 · Ondra · živá ukázka prototypu (demo z http://localhost:8080)", "[PŘED PITCHEM] cd ~/Documents/hack-prague-2026/demo && python3 tools/serve.py, demo na krok 1 (R). Technické ovládání dema je pod klávesou S.", "Demo je zavřené: mezerník ho přeskočí. [klik na náhled] otevře demo přes celou obrazovku, klikr pak ovládá demo. Křížek vpravo nahoře ho zavře.", "Teď prototyp. Ráno kuchařka vyfotí plnou porci: guláš s knedlíkem.", "Po obědě přijde talíř se zbytkem: váha přičte gramy a vidíme, kolik dítě snědlo.", "Z talířů je celý den. Za měsíc je jasné, co se nejí, tady špenát. Jsou to ukázková data. A z toho opatření a obrazovka pro děti.", "[mezerník po posledním kroku dema] Prezentace jde sama dál.", "Vždy říkat „prototyp“ a „ukázková data“.", "Zdroje: prototyp rozhraní; den a měsíc jsou ukázková data."]</script>
 </section>
 
+<!-- 08 · kdo z toho co má: tři hlavní (městská část jako budoucí plátce), krok 1 proč do toho jídelna půjde; kuchařky, žáci a rodiče jsou na 08b -->
+<section class="slajd" id="s-kdo" data-nazev="Oponentura · kdo z toho co má" data-kroky="1" data-zaloha>
+  <h1>Kdo z&nbsp;toho co má.</h1>
+
+  <div class="hlavni rozbal">
+    <div class="karta osoba">
+      <span class="kruh"><svg class="ilu" aria-hidden="true"><use href="#i-graf"/></svg></span>
+      <p class="role">Vedoucí jídelny</p>
+      <h2>Ví, kolik čeho vařit.</h2>
+      <p class="stitek">Data místo odhadu, každý den.</p>
+    </div>
+    <div class="karta osoba">
+      <span class="kruh"><svg class="ilu" aria-hidden="true"><use href="#i-skola"/></svg></span>
+      <p class="role">Ředitel</p>
+      <h2>Úspora a&nbsp;ekologická výchova.</h2>
+      <p class="stitek">Měřitelný výsledek pro školu i&nbsp;rodiče.</p>
+    </div>
+    <div class="karta osoba platce">
+      <span class="kruh"><svg class="ilu" aria-hidden="true"><use href="#i-mesto"/></svg></span>
+      <span class="odznak">budoucí plátce</span>
+      <p class="role">Městská část</p>
+      <h2>Srovná své školy.</h2>
+      <p class="stitek">Praha&nbsp;4 už jídelny zapojila do Zachraň oběd.</p>
+    </div>
+  </div>
+
+  <div class="proc-jidelna" data-krok="1">
+    <p class="proc-titul">Proč do toho jídelna půjde</p>
+    <ul>
+      <li style="--n:0">pilot zdarma</li><li style="--n:1">kuchařky nic navíc</li><li style="--n:2">ví, co děti nejedí</li>
+      <li style="--n:3">ušetří za suroviny</li><li style="--n:4">podklad pro Zachraň oběd</li><li style="--n:5">ekologický projekt školy</li>
+    </ul>
+  </div>
+
+  <script type="application/json" class="poznamky-data">["3:20–3:40 · Tobias", "Vedoucí jídelny ví, kolik čeho vařit. Ředitel ušetří a má ekologickou výchovu v praxi. Městská část může srovnat své školy, proto ji vidíme jako plátce.", "[mezerník] A jídelna do toho půjde, protože pilot je zdarma a konečně ví, co děti nejedí.", "Zdroje: Praha 4 a Zachraň oběd (Z6). Plátce je náš předpoklad."]</script>
+</section>
+
+<!-- 05 · návrh pilotní sestavy: tři patra pásu a snímání talířů před vysypáním; váha pod samostatným kbelíkem. -->
+<section class="slajd" id="s-qa-three" data-nazev="Dotazy · model se třemi pásy" data-zaloha data-bez-prubehu data-kroky="3">
+  <h1>Rozšíření: tři pásy a souběhy.</h1>
+  <p class="navrh-modelu bez-vstupu">Oponentura · návrh pro složitější provoz</p>
+
+  <div class="model3d bez-vstupu" data-model3d data-model-variant="three" role="img" aria-label="Návrh sestavy: kamery snímají talíře na třech patrech pásu před vysypáním, samostatný kbelík stojí na váze"></div>
+
+  <div class="sestava" role="img" aria-label="Schéma tří pásů se snímáním talířů, samostatného váženého kbelíku a přiřazení fotky k přírůstku váhy; nejisté případy zůstávají společnou dávkou">
+    <svg class="kresba" viewBox="0 0 1000 720" width="1000" height="720" aria-hidden="true">
+      <ellipse class="stin-podlahy" cx="485" cy="690" rx="430" ry="13"/>
+      <g class="cast-drzak"><path class="obrys" pathLength="1" d="M95 125v540m430-540v540M80 665h35m395 0h30"/></g>
+      <g transform="translate(0 0)">
+        <g class="cast-pasy">
+          <rect class="obrys vypln" pathLength="1" x="80" y="194" width="460" height="30" rx="15"/>
+          <path class="zebro" d="M100 208h420"/>
+          <circle class="obrys" pathLength="1" cx="100" cy="209" r="7"/><circle class="obrys" pathLength="1" cx="520" cy="209" r="7"/>
+          <path class="smer-pasu" d="M130 242h56m-10-7 10 7-10 7"/>
+          <text class="popis-schematu" x="202" y="249">pás 1</text>
+        </g>
+        <g class="cast-talire">
+          <rect class="tac" x="250" y="180" width="185" height="13" rx="6"/>
+          <ellipse class="obrys vypln" pathLength="1" cx="345" cy="170" rx="64" ry="19"/>
+          <ellipse class="talir-vnitrek" cx="345" cy="168" rx="44" ry="12"/>
+          <ellipse class="zbytek" cx="330" cy="167" rx="19" ry="7"/><ellipse class="priloha" cx="365" cy="168" rx="12" ry="6"/>
+        </g>
+        <g class="zorne-pole"><polygon class="kuzel" points="447,104 294,169 395,169"/><path class="paprsek" d="M447 104 294 169M447 104 395 169"/></g>
+        <g class="cast-telefon">
+          <path class="obrys" pathLength="1" d="M528 157V86h-51"/>
+          <rect class="obrys vypln" pathLength="1" x="414" y="74" width="66" height="29" rx="8"/>
+          <rect class="displej" x="422" y="80" width="50" height="10" rx="4"/>
+          <circle class="tecka-mereni" cx="447" cy="102" r="5"/>
+        </g>
+      </g>
+      <g transform="translate(0 170)">
+        <g class="cast-pasy">
+          <rect class="obrys vypln" pathLength="1" x="80" y="194" width="460" height="30" rx="15"/>
+          <path class="zebro" d="M100 208h420"/>
+          <circle class="obrys" pathLength="1" cx="100" cy="209" r="7"/><circle class="obrys" pathLength="1" cx="520" cy="209" r="7"/>
+          <path class="smer-pasu" d="M130 242h56m-10-7 10 7-10 7"/>
+          <text class="popis-schematu" x="202" y="249">pás 2</text>
+        </g>
+        <g class="cast-talire">
+          <rect class="tac" x="250" y="180" width="185" height="13" rx="6"/>
+          <ellipse class="obrys vypln" pathLength="1" cx="345" cy="170" rx="64" ry="19"/>
+          <ellipse class="talir-vnitrek" cx="345" cy="168" rx="44" ry="12"/>
+          <ellipse class="zbytek" cx="330" cy="167" rx="19" ry="7"/><ellipse class="priloha" cx="365" cy="168" rx="12" ry="6"/>
+        </g>
+        <g class="zorne-pole"><polygon class="kuzel" points="447,104 294,169 395,169"/><path class="paprsek" d="M447 104 294 169M447 104 395 169"/></g>
+        <g class="cast-telefon">
+          <path class="obrys" pathLength="1" d="M528 157V86h-51"/>
+          <rect class="obrys vypln" pathLength="1" x="414" y="74" width="66" height="29" rx="8"/>
+          <rect class="displej" x="422" y="80" width="50" height="10" rx="4"/>
+          <circle class="tecka-mereni" cx="447" cy="102" r="5"/>
+        </g>
+      </g>
+      <g transform="translate(0 340)">
+        <g class="cast-pasy">
+          <rect class="obrys vypln" pathLength="1" x="80" y="194" width="460" height="30" rx="15"/>
+          <path class="zebro" d="M100 208h420"/>
+          <circle class="obrys" pathLength="1" cx="100" cy="209" r="7"/><circle class="obrys" pathLength="1" cx="520" cy="209" r="7"/>
+          <path class="smer-pasu" d="M130 242h56m-10-7 10 7-10 7"/>
+          <text class="popis-schematu" x="202" y="249">pás 3</text>
+        </g>
+        <g class="cast-talire">
+          <rect class="tac" x="250" y="180" width="185" height="13" rx="6"/>
+          <ellipse class="obrys vypln" pathLength="1" cx="345" cy="170" rx="64" ry="19"/>
+          <ellipse class="talir-vnitrek" cx="345" cy="168" rx="44" ry="12"/>
+          <ellipse class="zbytek" cx="330" cy="167" rx="19" ry="7"/><ellipse class="priloha" cx="365" cy="168" rx="12" ry="6"/>
+        </g>
+        <g class="zorne-pole"><polygon class="kuzel" points="447,104 294,169 395,169"/><path class="paprsek" d="M447 104 294 169M447 104 395 169"/></g>
+        <g class="cast-telefon">
+          <path class="obrys" pathLength="1" d="M528 157V86h-51"/>
+          <rect class="obrys vypln" pathLength="1" x="414" y="74" width="66" height="29" rx="8"/>
+          <rect class="displej" x="422" y="80" width="50" height="10" rx="4"/>
+          <circle class="tecka-mereni" cx="447" cy="102" r="5"/>
+        </g>
+      </g>
+      <path class="presun-talire" d="M555 536c30-20 46-92 86-113m-8-4 10 2-3 10"/>
+      <text class="popis-schematu" x="635" y="382">vysypání</text>
+      <g class="cast-kbelik">
+        <path class="obrys vypln" pathLength="1" d="M646 425h202l-17 187q-2 13-15 13H678q-13 0-15-13z"/>
+        <ellipse class="obrys vypln" pathLength="1" cx="747" cy="425" rx="108" ry="23"/>
+        <ellipse class="zbytky-kbelik" cx="747" cy="426" rx="90" ry="15"/>
+        <path class="zebro" d="M700 462l5 134m42-134v134m47-134-5 134"/>
+      </g>
+      <g class="cast-vaha">
+        <rect class="obrys vypln" pathLength="1" x="610" y="627" width="282" height="47" rx="13"/>
+        <rect class="displej-vahy" x="692" y="637" width="118" height="28" rx="6"/>
+        <text class="cislo-vahy" x="751" y="657" text-anchor="middle">+150 g</text>
+        <path class="obrys" pathLength="1" d="M633 674v10m236-10v10"/>
+      </g>
+      <path class="cast-spojeni" d="M540 87h70M892 649h58V323"/>
+      <g class="cast-prehled" transform="translate(610 42)">
+        <rect class="karta-svg" width="350" height="274" rx="24"/>
+        <circle class="logo-kruh" cx="33" cy="39" r="13"/><circle class="logo-oblouk" cx="33" cy="39" r="7" pathLength="100"/>
+        <text class="nadpis-karty" x="57" y="47">Přiřazení událostí</text>
+        <line class="linka" x1="22" y1="71" x2="328" y2="71"/>
+        <text class="radek" x="24" y="106">Fotka + čas + váha</text>
+        <text class="cas" x="24" y="140">Návrh přiřazení k talíři</text>
+        <line class="linka" x1="22" y1="165" x2="328" y2="165"/>
+        <text class="radek" x="24" y="204">Při nejistotě:</text>
+        <text class="radek dojedeno" x="24" y="240">společná dávka</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="popisky">
+    <div class="popisek p1" data-krok="1">
+      <div class="kruh"><svg class="ilu"><use href="#i-kamera"/></svg></div>
+      <div><h2>Snímáme každé patro.</h2><p class="stitek">fotka talíře ještě před vysypáním</p></div>
+    </div>
+    <div class="popisek p2" data-krok="2">
+      <div class="kruh"><svg class="ilu"><use href="#i-vaha"/></svg></div>
+      <div><h2>Vážíme, co přibylo.</h2><p class="stitek">skutečný přírůstek v&nbsp;kbelíku</p></div>
+    </div>
+    <div class="popisek p3" data-krok="3">
+      <div class="kruh"><svg class="ilu"><use href="#i-ai"/></svg></div>
+      <div><h2>AI navrhne přiřazení.</h2><p class="stitek">sledujeme cestu talíře a čas vysypání<br>při souběhu společná dávka</p></div>
+    </div>
+    <p class="pointa" data-krok="3"><svg class="ilu"><use href="#i-kuchar"/></svg>Cíl: bez zastavování talířů</p>
+  </div>
+
+  <script type="application/json" class="poznamky-data">["Oponentura · záložní slajd po závěru", "Tohle je možné rozšíření základní jednopásové sestavy pro složitější provoz se třemi pásy. Talíře se vyfotí cestou, ještě před vysypáním. Kbelík stojí zvlášť na váze.", "[mezerník] Kamery: chceme zachytit talíře automaticky bez zastavování. Záběr pro každé patro, umístění a potřebný počet kamer musíme ověřit v jídelně; model je schéma, nikoli hotová instalace.", "[mezerník] Váha: skutečná hmotnost pochází z přírůstku váhy kbelíku. Jeden talíř může být vyškrábnutý vícekrát a více talířů může skončit v jedné dávce.", "[mezerník] AI rozpozná zbytky a navrhne přiřazení fotek k přírůstkům podle sledované cesty talíře a času vysypání. Samotné pořadí příjezdu ani vizuální odhad hmotnosti nestačí. Nejde o jisté pořadí napříč třemi pásy. Při souběhu nebo nejistotě necháme společnou dávku, případně hmotnost bez přiřazení k talíři.", "Bez zastavování talířů je cíl návrhu. Průchodnost, zakrývání talířů a správnost přiřazení ověříme v pilotu. Odhad z fotky nesmí nahradit naměřenou hmotnost. Současné živé demo váží talíř přímo; párování pásů s váhou kbelíku ještě není implementované.", "Zdroje: vlastní návrh pilotní sestavy a párování událostí. Model nepředstavuje ověřenou přesnost ani potvrzené finální vybavení."]</script>
+</section>
+
+<!-- 04 · ruční měření: školní rok jako 40 týdnů, data má jen jeden; krok 1: Brno 80 kg → 19 kg a pointa -->
+<section class="slajd" id="s-mereni" data-nazev="Oponentura · ruční vážení a Brno" data-kroky="1" data-zaloha>
+  <h1>Kolik se čeho vyhodí, se dnes zjišťuje ručně</h1>
+
+  <div class="rada rozbal">
+    <div class="karta kalendar-karta">
+      <p class="stitek">Výzkumníci vážili ručně, asi týden na každé škole</p>
+      <div class="kalendar" role="img" aria-label="Školní rok září až červen, 40 týdnů, data má jen jeden týden">
+        <!-- 10 měsíců × 4 týdny, týden s daty na přelomu roku (leden, 1. týden) -->
+        <div class="mesic"><span>zář</span><i></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>říj</span><i></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>lis</span><i></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>pro</span><i></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>led</span><i class="data"></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>úno</span><i></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>bře</span><i></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>dub</span><i></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>kvě</span><i></i><i></i><i></i><i></i></div>
+        <div class="mesic"><span>čer</span><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="vyklad">
+        <p><span class="vzorek data"></span><span><b>1&nbsp;týden</b> s&nbsp;daty</span></p>
+        <p><span class="vzorek"></span><span>zbytek školního roku bez dat</span></p>
+      </div>
+    </div>
+
+    <div class="karta brno" data-krok="1">
+      <p class="stitek">Brno · čočka nakyselo</p>
+      <div class="sloupce" role="img" aria-label="Běžný den 80 kg, den, kdy děti vážily, 19 kg">
+        <div class="s">
+          <p class="hodnota oranz"><span data-pocitej="80" data-od="0">80</span><small>kg</small></p>
+          <div class="tyc oranz-tyc" style="height: 240px"></div>
+          <p class="popis">běžný den</p>
+        </div>
+        <div class="s">
+          <p class="hodnota zelena"><span data-pocitej="19" data-od="80">19</span><small>kg</small></p>
+          <div class="tyc zelena-tyc" style="height: 57px"></div>
+          <p class="popis">den, kdy děti vážily</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="pointa" data-krok="1">Když se měří, <span class="zelena">vyhazuje se méně.</span></p>
+
+  <p class="zdroj">Zdroje: Prague Food Waste 2024 (Zachraň jídlo, Mendelova univerzita); Mendelova univerzita: Jak šetřit jídlem ve školních jídelnách (2025), s. 19.</p>
+
+  <script type="application/json" class="poznamky-data">["1:25–1:50 · Tobias", "Kdo to dnes ví? I výzkumníci museli vážit ručně, asi týden na každé škole. Zbytek roku žádná data. Podle nás jídelny dnes nevědí, co přesně vyhazují.", "[mezerník] Karta Brno: sloupce 80 kg a 19 kg a věta dole.", "A přitom měření samo funguje. V jedné brněnské škole běžně zbude osmdesát kilo čočky. V den, kdy děti odpad samy vážily, zbylo devatenáct. Když se měří, vyhazuje se méně.", "Asi 60 slov. „Jídelny nevědí, co vyhazují“ je naše úvaha, ne fakt ze zdroje, proto „podle nás“. Kalendář je ilustrace: jeden týden měření na školu z 40 týdnů školního roku.", "Zdroje: Prague Food Waste, tisková zpráva 25. 6. 2024 (ruční vážení, 2 zkušební dny a týden měření na škole); Mendelova univerzita: Jak šetřit jídlem ve školních jídelnách (2025), s. 19 (Brno: čočka nakyselo 80 kg, v den vážení 19 kg)."]</script>
+</section>
+
+<!-- 04b · lidé a příroda (šablona organizátorů, 02 Challenge): dva sloupce People / Enviro, každý tři krátké body;
+     krok 1 odkryje body People, krok 2 body Enviro (hlavičky sloupců jsou vidět hned) -->
+<section class="slajd" id="s-lide-priroda" data-nazev="Oponentura · lidé a příroda" data-kroky="2" data-zaloha>
+  <p class="nadtitul velke-pismo">Lidé a příroda</p>
+  <h1>Na plýtvání doplácí lidé i&nbsp;příroda.</h1>
+
+  <div class="sloupce-lp rozbal">
+    <div class="karta sloupec lide">
+      <div class="hlava-sl">
+        <span class="kruh"><svg class="ilu" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-rodina"/></svg></span>
+        <div><p class="velke-pismo">People challenge</p><h2>Lidé</h2></div>
+      </div>
+      <ul class="body" data-krok="1">
+        <li><b>Děti nedojí.</b> Nechutná, nebo je porce velká. Ze špenátu zbude skoro polovina.</li>
+        <li><b>Kuchařky vaří naslepo.</b> Nevědí, co se nejí.</li>
+        <li><b>Rodiče platí suroviny.</b> Jen zbytky z&nbsp;talířů stojí <span class="oranz">600&nbsp;000&nbsp;Kč ročně</span> (škola s&nbsp;500 žáky).</li>
+      </ul>
+    </div>
+    <div class="karta sloupec priroda">
+      <div class="hlava-sl">
+        <span class="kruh"><svg class="ilu" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-list"/></svg></span>
+        <div><p class="velke-pismo">Enviro challenge</p><h2>Příroda</h2></div>
+      </div>
+      <ul class="body" data-krok="2">
+        <li><b>Gastroodpad, ne jen bio.</b> Maso, omáčky a&nbsp;tuky se hůř zpracují, odváží je specializovaná firma.</li>
+        <li><b>Suroviny nadarmo.</b> Vypěstované, dovezené i&nbsp;uvařené zbytečně.</li>
+        <li><b>Když se nic nezmění,</b> <span class="oranz">31&nbsp;% uvařeného jídla</span> dál skončí v&nbsp;koši.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="zdroj">Zdroje: Prague Food Waste 2024 (Zachraň jídlo, Mendelova univerzita), výsledky studie (Echo24, Blesk). Špenát „skoro polovina“ je náš výpočet: 190 g z porce kolem 400 g.</p>
+
+  <script type="application/json" class="poznamky-data">["~0:25 · Tobias", "Na plýtvání doplácí lidé i příroda.", "[mezerník] Lidé: Děti nedojí, protože jim nechutná nebo je porce velká. Ze špenátu zbude skoro polovina. Kuchařky vaří naslepo, nevědí, co se nejí. A rodiče platí suroviny: jen zbytky z talířů stojí školu s pěti sty žáky šest set tisíc ročně.", "[mezerník] Příroda: Nejde jen o bioodpad. Je to gastroodpad, maso, omáčky a tuky, který se hůř zpracovává a musí ho odvézt specializovaná firma. Suroviny se vypěstují, dovezou a uvaří nadarmo. A když se nic nezmění, třicet jedna procent uvařeného jídla dál skončí v koši.", "Zdroje: Prague Food Waste 2024 (Z1), Echo24 (Z2), Blesk (Z3). Špenát 47 % je výpočet 190 / 400 g."]</script>
+</section>
+
+<!-- 06 · jak to funguje (jeden pás, přiřazení podle pořadí): osa se 4 uzly, kroky 1–4 odkryjí karty a zelená čára dojede k uzlu; krok 5 gastronádoby a pilulka „Živá ukázka prototypu“ (další slajd = vložené demo) -->
+<section class="slajd" id="s-jak" data-nazev="Oponentura · jak se talíř zapíše" data-kroky="5" data-zaloha>
+  <h1>Každý talíř se zapíše sám.</h1>
+
+  <div class="osa bez-vstupu" aria-hidden="true">
+    <div class="kolej"><div class="postup"></div></div>
+    <div class="uzel u1">1</div>
+    <div class="uzel u2">2</div>
+    <div class="uzel u3">3</div>
+    <div class="uzel u4">4</div>
+  </div>
+
+  <div class="karty">
+    <div class="karta k1" data-krok="1">
+      <div class="obraz">
+        <div class="pred-po">
+          <figure>
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="okraj-kbeliku" cx="60" cy="60" r="54"/>
+              <path class="zbytek z-a" d="M34 66c4-10 18-12 24-6s2 18-10 18-18-4-14-12z"/>
+              <path class="zbytek z-b" d="M66 40c8-4 20 0 20 10s-12 12-18 8-10-14-2-18z"/>
+            </svg>
+            <figcaption>na pásu</figcaption>
+          </figure>
+          <svg class="ilu sipka-mala" aria-hidden="true"><use href="#i-sipka"/></svg>
+          <figure>
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="okraj-kbeliku" cx="60" cy="60" r="54"/>
+              <path class="zbytek z-a" d="M34 66c4-10 18-12 24-6s2 18-10 18-18-4-14-12z"/>
+              <path class="zbytek z-b" d="M66 40c8-4 20 0 20 10s-12 12-18 8-10-14-2-18z"/>
+              <path class="zbytek novy" d="M60 74c6-6 22-6 26 2s-4 18-14 18-18-12-12-20z"/>
+              <circle class="detekce" cx="73" cy="83" r="20"/>
+            </svg>
+            <figcaption>co zbylo</figcaption>
+          </figure>
+        </div>
+      </div>
+      <h2>Kamera vyfotí talíř</h2>
+      <p class="stitek">Na pásu, ještě před vysypáním: vidí, co zbylo.</p>
+    </div>
+
+    <div class="karta k2" data-krok="2">
+      <div class="obraz">
+        <div class="vaha-displej"><span class="plus">+</span><span data-pocitej="150" data-od="0" data-trvani="900">150</span><small>g</small></div>
+      </div>
+      <h2>Váha přičte gramy</h2>
+      <p class="stitek">Kuchařka vysype talíř do kbelíku.</p>
+    </div>
+
+    <div class="karta k3" data-krok="3">
+      <div class="obraz">
+        <div class="menu">
+          <p class="menu-titul">Dnešní menu</p>
+          <span class="volba vybrana"><svg class="ilu" aria-hidden="true"><use href="#i-fajfka"/></svg>Segedínský guláš</span>
+          <span class="volba">Kuřecí rizoto</span>
+        </div>
+      </div>
+      <h2>AI pozná jídlo</h2>
+      <p class="stitek">Z&nbsp;dnešního menu, i&nbsp;jeho část: knedlík, omáčku, maso.</p>
+    </div>
+
+    <div class="karta k4" data-krok="4">
+      <div class="obraz">
+        <div class="oznameni">
+          <div class="appka" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="20"/><circle class="oblouk" cx="32" cy="32" r="20" pathLength="100"/></svg></div>
+          <div class="obsah-oznameni">
+            <p class="hlavicka"><span>Dojezeno</span><span>12:41</span></p>
+            <p class="co">Segedínský guláš – knedlík</p>
+            <p class="kolik">150&nbsp;g</p>
+          </div>
+        </div>
+      </div>
+      <h2>Spojí se podle pořadí</h2>
+      <p class="stitek">talíř ↔ přírůstek váhy · nejisté = společná dávka</p>
+    </div>
+  </div>
+
+  <div class="dole" data-krok="5">
+    <p class="gastro"><svg class="ilu" aria-hidden="true"><use href="#i-gastro"/></svg><span>Nádoby z&nbsp;výdeje se zváží zvlášť a&nbsp;zapíšou se jako <b>nevydané porce</b>.</span></p>
+    <p class="pilulka zive"><span class="tecka"></span>Živá ukázka prototypu</p>
+  </div>
+
+  <script type="application/json" class="poznamky-data">["2:10–3:20 · Ondra (z toho asi 50–60 s živá ukázka prototypu)", "Jak to funguje u jednoho talíře?", "[mezerník] Uzel 1, talíř na pásu: Kamera nad pásem vyfotí talíř ještě před vysypáním a vidí, co na něm zbylo.", "[mezerník] Uzel 2, váha naskočí na +150 g: Kuchařka talíř vysype do kbelíku a váha přičte gramy.", "[mezerník] Uzel 3, menu: Umělá inteligence pozná jídlo z dnešního menu.", "[mezerník] Uzel 4: Fotku a přírůstek váhy spojíme podle pořadí: guláš, knedlík, 150 gramů. Když si pořadím nejsme jistí, uložíme to jako společnou dávku. Pod deset gramů je talíř dojedený, o tom rozhoduje váha, ne AI.", "[mezerník] Nádoby z výdeje se zváží zvlášť jako nevydané porce. Teď vám ukážu prototyp, jak to bude v jídelně vypadat.", "Asi 60 slov řeči na slajdu (27 s).", "[mezerník] Další stisk otevře živou ukázku přímo v prezentaci (další slajd), žádné Cmd+Tab. Vždy říkat „prototyp“ a u měsíce „ukázková data“.", "Zdroje: vlastní návrh; práh 10 g pro dojedený talíř je naše nastavení."]</script>
+</section>
+
+<!-- 01b · kdo jsme (šablona organizátorů, 01 Úvod): projekt v jedné větě, štítky výzva / místo / pro koho;
+     krok 1: řada členů týmu (jména a role doplníme, karty mají třídu .doplnit) -->
+<section class="slajd" id="s-kdo-jsme" data-nazev="Oponentura · kdo jsme" data-kroky="1" data-zaloha>
+  <p class="nadtitul velke-pismo">Kdo jsme</p>
+  <h1>Měříme, co děti ve&nbsp;školní jídelně nedojí. A&nbsp;pomáháme vařit tak, aby se méně vyhazovalo.</h1>
+
+  <div class="stitky rozbal">
+    <div class="karta stitek-karta">
+      <svg class="ilu ikona zelena" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-list"/></svg>
+      <p class="velke-pismo">Výzva</p>
+      <p class="hodnota">Vlastní téma · městská udržitelnost</p>
+      <p class="pod">gastroodpad ve&nbsp;školních jídelnách</p>
+    </div>
+    <div class="karta stitek-karta">
+      <svg class="ilu ikona zelena" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-skola"/></svg>
+      <p class="velke-pismo">Místo</p>
+      <p class="hodnota">Pilot u&nbsp;nás ve škole</p>
+      <p class="pod">Olomouc-Hejčín · pak Praha</p>
+    </div>
+    <div class="karta stitek-karta">
+      <svg class="ilu ikona zelena" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-kuchar"/></svg>
+      <p class="velke-pismo">Pro koho</p>
+      <p class="hodnota">Školní jídelny</p>
+      <p class="pod">vedoucí a&nbsp;kuchařky, žáci, zřizovatelé</p>
+    </div>
+  </div>
+
+  <div class="tym" data-krok="1">
+    <div class="clen doplnit"><span class="monogram">?</span><div><p class="jmeno">Jméno Příjmení</p><p class="role">Role</p></div></div>
+    <div class="clen doplnit"><span class="monogram">?</span><div><p class="jmeno">Jméno Příjmení</p><p class="role">Role</p></div></div>
+    <div class="clen doplnit"><span class="monogram">?</span><div><p class="jmeno">Jméno Příjmení</p><p class="role">Role</p></div></div>
+    <div class="clen doplnit"><span class="monogram">?</span><div><p class="jmeno">Jméno Příjmení</p><p class="role">Role</p></div></div>
+  </div>
+
+  <script type="application/json" class="poznamky-data">["~0:20 · Ondra", "Jsme tým z naší školy v Olomouci-Hejčíně. Dojezeno měří, co děti ve školní jídelně nedojí, a pomáhá jídelně vařit tak, aby se méně vyhazovalo.", "Je to naše vlastní téma z městské udržitelnosti: gastroodpad ve školních jídelnách. Pilot začne u nás, pak chceme do Prahy.", "[mezerník] Řada týmu: každý řekne jméno a co dělá (DOPLNIT jména, role a monogramy na slajdu, karty mají třídu .doplnit).", "Zdroje: vlastní projekt."]</script>
+</section>
+
+<!-- 03 · dva zdroje odpadu: pruh 100 % (43 nevydané, 48 talíře, 9 příprava) se vykreslí při vstupu,
+     krok 1 zvýrazní 43 % a kartu „uvaří se víc“, krok 2 zvýrazní 48 % a talíř se špenátem (zbude 47 %) -->
+<section class="slajd" id="s-zdroje" data-nazev="Oponentura · dva zdroje odpadu" data-kroky="2" data-zaloha>
+  <h1>Jídlo končí v&nbsp;koši ze dvou důvodů</h1>
+
+  <div class="pruh-blok">
+    <div class="pruh" role="img" aria-label="Celý odpad: 43 % nevydané pokrmy, 48 % zbytky z talířů, 9 % příprava">
+      <div class="seg nevydane" style="flex: 43"><span>43&nbsp;%</span></div>
+      <div class="seg talire" style="flex: 48"><span>48&nbsp;%</span></div>
+      <div class="seg priprava" style="flex: 9"><span>9&nbsp;%</span></div>
+    </div>
+    <div class="legenda">
+      <p class="l-nevydane" style="flex: 43">nevydané pokrmy</p>
+      <p class="l-talire" style="flex: 48">zbytky z&nbsp;talířů</p>
+      <p class="l-priprava" style="flex: 9">příprava</p>
+    </div>
+  </div>
+
+  <div class="karty">
+    <div class="karta karta-1" data-krok="1">
+      <svg class="ilu ikona oranz" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-gastro"/></svg>
+      <h2>Uvaří se víc, než se vydá</h2>
+      <p class="pod"><b>5–9&nbsp;% žáků</b> si zaplacený oběd vůbec nevyzvedne.</p>
+    </div>
+    <div class="karta karta-2" data-krok="2">
+      <svg class="talir" viewBox="0 0 200 200" role="img" aria-label="Talíř se špenátem: zbude 47 % porce">
+        <circle cx="100" cy="100" r="92" fill="#fff" stroke="#1d1d1f" stroke-width="3"/>
+        <circle cx="100" cy="100" r="66" fill="none" stroke="#e5e5ea" stroke-width="2"/>
+        <circle class="kolac" cx="100" cy="100" r="30" fill="none" stroke-width="60" transform="rotate(-90 100 100)"/>
+      </svg>
+      <div class="text-2">
+        <h2>Děti nedojí</h2>
+        <p class="pod">Špenát s&nbsp;bramborem a&nbsp;vejcem: zbude <b class="oranz">skoro polovina porce</b>, 190&nbsp;g&nbsp;z&nbsp;~400&nbsp;g.</p>
+        <p class="pod mensi">Polévku jí jen <b>pětina žáků</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <p class="zdroj">Zdroje: Prague Food Waste 2024 (Zachraň jídlo, Mendelova univerzita), výsledky studie (Echo24, Blesk). Podíl špenátu je náš výpočet: 190 g z porce kolem 400 g.</p>
+
+  <script type="application/json" class="poznamky-data">["0:55–1:25 · Tobias", "Proč se to děje? Vezměte celý odpad jako sto procent. Čtyřicet tři procent je jídlo, které se vůbec nevydalo. Čtyřicet osm procent zbude na talířích. Zbytek je příprava.", "[mezerník] Zvýrazní se 43 % a karta vlevo.", "První důvod: uvaří se víc, než se vydá. Pět až devět procent žáků si zaplacený oběd ani nevyzvedne.", "[mezerník] Zvýrazní se 48 % a talíř se špenátem.", "Druhý důvod: děti nedojí. Ze špenátu s bramborem a vejcem zbude skoro polovina porce. A polévku jí jen pětina žáků.", "Asi 70 slov. „Skoro polovina“ je náš výpočet: 190 g zbytku z porce kolem 400 g, tedy asi 47 %.", "Zdroje: Prague Food Waste, tisková zpráva 25. 6. 2024 (rozdělení 48/43/9, 5–9 % nevyzvednutých obědů); Echo24 a Blesk (špenát 190 g, porce kolem 400 g, polévku jí zhruba pětina žáků)."]</script>
+</section>
+
+<!-- 10 · timeline (šablona: Timeline): osa listopad 2026 → gala 30. 3. 2027 → evaluace 10. 5. 2027 (kreslí se při vstupu);
+     krok 1: přiblížení 6 týdnů pilotu (týdny 1–2 měření, 3 úpravy, 4–6 měření po úpravě); krok 2: iterace, dokud KPI klesá -->
+<section class="slajd" id="s-pilot" data-nazev="Oponentura · timeline pilotu" data-kroky="2" data-zaloha>
+  <h1>Pilot u&nbsp;nás v&nbsp;Hejčíně: leden 2027.</h1>
+
+  <ol class="t-osa" aria-label="Časová osa pilotu">
+    <li style="--n:0"><span class="t-bod"></span><p class="t-kdy">listopad–prosinec 2026</p><h3>Příprava</h3><p>souhlasy, hygiena a&nbsp;GDPR, instalace, test na tácech</p></li>
+    <li class="t-hlavni" style="--n:1"><span class="t-bod"></span><p class="t-kdy">leden–únor 2027</p><h3>Pilot 6 týdnů</h3><p>měření → úpravy → měření</p></li>
+    <li style="--n:2"><span class="t-bod"></span><p class="t-kdy">únor–březen 2027</p><h3>Iterace</h3><p>další kola úprav, dokud odpad klesá</p></li>
+    <li style="--n:3"><span class="t-bod t-gala"></span><p class="t-kdy">30. 3. 2027</p><h3>Gala</h3><p>výsledky pilotu</p></li>
+    <li style="--n:4"><span class="t-bod"></span><p class="t-kdy">do 10. 5. 2027</p><h3>Evaluace</h3><p>zpráva, další jídelna v&nbsp;Olomouci, Praha</p></li>
+  </ol>
+
+  <div class="t-tydny" data-krok="1" aria-label="Šest týdnů pilotu">
+    <p class="stitek">6 týdnů v&nbsp;jedné jídelně</p>
+    <div class="t-pas">
+      <div class="t-tyden t-mereni" style="--n:0"><b>1</b><span>měříme</span></div>
+      <div class="t-tyden t-mereni" style="--n:1"><b>2</b><span>měříme</span></div>
+      <div class="t-tyden t-uprava" style="--n:2"><b>3</b><span>data → úpravy</span></div>
+      <div class="t-tyden t-po" style="--n:3"><b>4</b><span>měříme znovu</span></div>
+      <div class="t-tyden t-po" style="--n:4"><b>5</b><span>měříme znovu</span></div>
+      <div class="t-tyden t-po" style="--n:5"><b>6</b><span>porovnání</span></div>
+    </div>
+    <p class="t-legenda"><span class="l-mereni"></span>výchozí stav bez zásahu <span class="l-uprava"></span>s&nbsp;vedoucí jídelny upravíme porce složek, recepty, polévky <span class="l-po"></span>po úpravě</p>
+  </div>
+
+  <div class="t-smycka" data-krok="2">
+    <svg class="ilu" viewBox="0 0 64 64" aria-hidden="true"><path d="M50 22a20 20 0 1 0 4 14" vector-effect="non-scaling-stroke"/><path d="M52 10v13H39" vector-effect="non-scaling-stroke"/></svg>
+    <p><b>Iterujeme:</b> úprava → 2&nbsp;týdny měření → znovu, dokud odpad z&nbsp;talířů klesá. Počítáme se 2&nbsp;koly do galavečera.</p>
+  </div>
+
+  <script type="application/json" class="poznamky-data">["~0:25 · Ondra", "Pilot spustíme v lednu 2027 u nás ve škole v Hejčíně. V listopadu a prosinci připravíme souhlasy, hygienu a instalaci a ověříme měření na ručně zvážených tácech.", "[mezerník] Samotný pilot má šest týdnů: dva týdny jen měříme výchozí stav, ve třetím s vedoucí jídelny navrhneme úpravy a další tři týdny měříme, co se změnilo.", "[mezerník] A pak iterujeme: úprava, dva týdny měření, dokud odpad z talířů klesá. Do galavečera 30. března počítáme se dvěma koly, evaluace do 10. května.", "Úpravy jen v rámci výživových norem; v přípravě zjistíme, co se dnes děje s nevydanými porcemi.", "Zdroje: termíny podle šablony Hack Prague (gala 30. 3. 2027, evaluace 10. 5. 2027); délka pilotu podle doporučení mentora."]</script>
+</section>
+
+<!-- 09c · realizace (kritérium Realizovatelnost): časová osa listopad 2026 → evaluace 10. 5. 2027 (kreslí se při vstupu),
+     krok 1 tři největší rizika s opatřením. Podrobná osa, matice rizik a KPI jsou v záloze (96, 97, 98). -->
+<section class="slajd" id="s-realizace" data-nazev="Oponentura · harmonogram a rizika" data-kroky="1" data-zaloha>
+  <h1>Pilot u&nbsp;nás v&nbsp;Hejčíně: leden 2027.</h1>
+
+  <ol class="r-osa" aria-label="Harmonogram pilotu">
+    <li style="--n:0"><span class="r-bod"></span><p class="r-kdy">listopad–prosinec</p><h3>Příprava</h3><p>souhlas ředitele, hygiena a&nbsp;GDPR, instalace</p></li>
+    <li class="r-hlavni" style="--n:1"><span class="r-bod"></span><p class="r-kdy">leden–únor</p><h3>Pilot 6&nbsp;týdnů</h3><p>měřit → upravit → měřit znovu</p></li>
+    <li style="--n:2"><span class="r-bod"></span><p class="r-kdy">únor–březen</p><h3>Iterace</h3><p>další kolo úprav, dokud odpad klesá</p></li>
+    <li style="--n:3"><span class="r-bod"></span><p class="r-kdy">30. 3. 2027</p><h3>Gala</h3><p>výsledky pilotu</p></li>
+    <li style="--n:4"><span class="r-bod"></span><p class="r-kdy">do 10. 5. 2027</p><h3>Evaluace</h3><p>zpráva, další jídelna</p></li>
+  </ol>
+
+  <div class="r-rizika" data-krok="1">
+    <p class="r-titul">Tři největší rizika</p>
+    <div class="r-trojice">
+      <div class="karta r-riziko"><h3>Škola odmítne</h3><p>Pilot zdarma, kuchařky nic navíc, data patří jídelně.</p></div>
+      <div class="karta r-riziko"><h3>Hygiena a&nbsp;GDPR</h3><p>Kamera jen na pás, bez obličejů. Kryty mimo přípravu jídla.</p></div>
+      <div class="karta r-riziko"><h3>Rychlý výdej</h3><p>Při nejistotě společná dávka. Celková váha sedí vždy.</p></div>
+    </div>
+  </div>
+
+  <p class="zdroj">Matice všech rizik, položkový rozpočet a&nbsp;KPI jsou v&nbsp;příloze.</p>
+
+  <script type="application/json" class="poznamky-data">["~0:25 · Ondra", "V listopadu a prosinci získáme souhlas ředitele, vyřešíme hygienu a GDPR a nainstalujeme pás. V lednu začne šestitýdenní pilot: dva týdny měříme, pak s vedoucí jídelny upravíme porce a měříme znovu. Do galavečera 30. března stihneme ještě jedno kolo, evaluace do 10. května.", "[mezerník] Tři největší rizika: škola odmítne, proto je pilot zdarma a kuchařky nedělají nic navíc. Hygiena a GDPR, proto kamera míří jen na pás. A rychlý výdej: když si nejsme jistí, uložíme talíře jako společnou dávku, celková váha sedí vždycky.", "Na dotaz: matice rizik (záloha), KPI a dopad (záloha), položkový rozpočet (záloha).", "Zdroje: termíny podle šablony Hack Prague (gala 30. 3. 2027, evaluace 10. 5. 2027); délka pilotu podle doporučení mentora; rizika z vlastní analýzy."]</script>
+</section>
+
 <!-- 10b · rizika (šablona „Rizika“): vlevo matice pravděpodobnost × dopad se 6 body (čísla z OBSAH.md, doplněk 31. 10.),
      vpravo „riziko → opatření“. Kroky 1–3 zvýrazní tři největší rizika, krok 4 ukáže tři menší. Body jdou najet nebo klepnout
      (js/s10b.js): bublina s opatřením; klepnutí slajd neposune (data-interaktivni, button). -->
@@ -757,6 +1231,86 @@
     "[mezerník] Menší rizika: hlad, pocit kontroly u kuchařek a Wi-Fi v kuchyni. I na ně máme odpověď.",
     "Asi 75 slov. Na dotaz poroty lze najet nebo klepnout myší na bod v matici: ukáže se opatření (klepnutí slajd neposune). Když se nestíhá, krok 4 jen ukázat.",
     "Zdroje: vlastní analýza rizik (OBSAH.md, doplněk 31. 10.). Hodnocení P a D je náš odhad."
+  ]</script>
+</section>
+
+<!-- 10c · KPI a dopad (šablona „KPI a dopad“): krok 0 hlavní KPI (gastroodpad z talířů na strávníka a den, výchozí stav
+     změříme v týdnech 1–2, cíl −10 % jako příklad), krok 1 další dvě KPI (nevydané porce rozdělené na nevyzvednuté a navíc,
+     úspora za suroviny) a řádek o kvalitě měření, krok 2 impakt a udržitelnost: dopad, co zůstane, replikace.
+     Čísla jen z OBSAH.md (doplněk 31. 10.): žádné vlastní výchozí gramy. -->
+<section class="slajd" id="s-kpi" data-nazev="Oponentura · KPI a dopad" data-kroky="2" data-zaloha>
+  <h1>Co budeme měřit a&nbsp;co se změní.</h1>
+
+  <div class="k-karty rozbal">
+    <article class="karta k-hlavni">
+      <p class="k-stitek"><span class="k-pilulka">Hlavní KPI</span></p>
+      <div class="k-hlava">
+        <svg class="ilu k-ikona" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-talir"/></svg>
+        <div><h2>Gastroodpad z&nbsp;talířů</h2><p class="k-jednotka">gramy na strávníka a&nbsp;den</p></div>
+      </div>
+      <div class="k-dvojice">
+        <div class="k-vychozi">
+          <p class="velke-pismo">Výchozí stav</p>
+          <p class="k-hodnota"><span class="k-otaznik">?&nbsp;g</span></p>
+          <p class="k-pod">změříme v&nbsp;týdnech 1–2</p>
+        </div>
+        <svg class="k-sipka" viewBox="0 0 120 40" aria-hidden="true"><path d="M6 20h96M88 8l14 12-14 12"/></svg>
+        <div class="k-cil">
+          <p class="velke-pismo">Cíl</p>
+          <p class="k-hodnota zelena">−<span data-pocitej="10" data-od="0">10</span>&nbsp;%</p>
+          <p class="k-pod"><span class="k-priklad">příklad</span></p>
+        </div>
+      </div>
+    </article>
+
+    <article class="karta k-porce" data-krok="1">
+      <p class="k-stitek velke-pismo">Nevydané porce za den</p>
+      <div class="k-vetev">
+        <svg class="ilu k-ikona-m" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-clovek"/></svg>
+        <div><b>Objednané, nevyzvednuté</b><span>5–9&nbsp;% žáků · jídelna je musí uvařit</span><em>→ darovat přes Zachraň oběd</em></div>
+      </div>
+      <div class="k-vetev">
+        <svg class="ilu k-ikona-m" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-gastro"/></svg>
+        <div><b>Uvařené navíc</b><span>to, co se uvaří nad objednávky</span><em>→ vařit podle dat</em></div>
+      </div>
+    </article>
+
+    <article class="karta k-penize" data-krok="1">
+      <p class="k-stitek velke-pismo">Vedlejší: úspora za suroviny</p>
+      <svg class="ilu k-ikona-m k-mince" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-graf"/></svg>
+      <p class="cislo male"><span data-pocitej="60000" data-od="0">60&nbsp;000</span><small>Kč</small></p>
+      <p class="k-pod-cislo">ročně při −10&nbsp;% · škola s&nbsp;500 žáky</p>
+      <p class="k-poznamka"><span class="k-priklad">příklad</span> jen suroviny, skutečná úspora je vyšší</p>
+    </article>
+  </div>
+
+  <p class="k-kvalita" data-krok="1"><svg class="ilu" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-fajfka"/></svg><b>Kvalita měření:</b>&nbsp;podíl táců správně přiřazených k&nbsp;váze · ověříme ručním vážením</p>
+
+  <div class="k-impakt" data-krok="2">
+    <p class="k-impakt-stitek velke-pismo">Impakt a&nbsp;udržitelnost</p>
+    <div class="k-sloupce">
+      <div class="k-sloupec">
+        <svg class="ilu k-ikona-s" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-kbelik"/></svg>
+        <div><h3>Dopad</h3><p>Méně gastroodpadu. Jídelna konečně ví, co děti nejedí.</p></div>
+      </div>
+      <div class="k-sloupec">
+        <svg class="ilu k-ikona-s" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-skola"/></svg>
+        <div><h3>Co zůstane</h3><p>Systém, data a&nbsp;návyky v&nbsp;jídelně. Další krok: žáci a&nbsp;učitelé, soutěž tříd.</p></div>
+      </div>
+      <div class="k-sloupec">
+        <svg class="ilu k-ikona-s" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-svet"/></svg>
+        <div><h3>Replikace</h3><p><b class="zelena"><span data-pocitej="8891" data-od="0">8&nbsp;891</span> jídelen</b> v&nbsp;ČR. Další jídelna v&nbsp;Olomouci, pak Praha.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" class="poznamky-data">[
+    "~0:30 · Tobias",
+    "Co budeme měřit? Hlavní číslo je gastroodpad z talířů na strávníka a den. Výchozí stav změříme v prvních dvou týdnech pilotu, cíl je třeba minus deset procent. To je příklad, ne slib.",
+    "[mezerník] Nevydané porce rozdělíme: objednané obědy, které si žák nevyzvedne, jídelna uvařit musí. Ty chceme darovat přes Zachraň oběd. Zbytek je vaření navíc a ten upraví data. Vedlejší efekt jsou peníze: deset procent je u školy s pěti sty žáky šedesát tisíc ročně, jen za suroviny.",
+    "[mezerník] A co zůstane? Systém, data a návyky v jídelně. A dá se to zopakovat: v Česku je 8 891 jídelen.",
+    "Asi 90 slov. Kdyby se porota ptala, proč hlavní KPI není celkový odpad: nevydané porce jídelna musí uvařit podle objednávek, to, kolik děti nedojí, ovlivnit jde. Pozor: 600 000 Kč (a tedy 60 000 Kč) je jen za talíře a jen suroviny.",
+    "Zdroje: Z1 Prague Food Waste 2024 (5–9 % nevyzvednutých obědů), Z1–Z3 (600 000 Kč ročně, 1 200 Kč na žáka, jen suroviny), Z4 sborník From Plate To Waste 2025 (8 891 jídelen), Z5 Zachraň jídlo (Zachraň oběd), Z6 Praha 4. Výpočet 10 % = 60 000 Kč je příklad."
   ]</script>
 </section>
 
