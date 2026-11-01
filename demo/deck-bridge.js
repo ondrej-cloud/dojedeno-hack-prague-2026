@@ -15,11 +15,14 @@
     if (!st) return { faze, stav: 'ceka' };
     if (st.status !== 'done') return { faze, stav: st.status === 'error' ? 'chyba' : 'analyzuje' };
     const r = st.result || {}, m = liveAnalysis.measure(faze) || {};
-    const alok = Array.isArray(m.allocation) ? m.allocation : null;
+    if(!m.valid||!r.plateDetected)return {faze,stav:'chyba',platne:false};
+    const alok = m.components || [];
     const slozky = (alok || r.components || []).map(c => ({ nazev: c.name, g: c.estimatedGrams != null ? Math.round(c.estimatedGrams) : null }));
     return { faze, stav: 'hotovo', jidlo: r.dishName || 'Obsah talíře', slozky, netto: m.net != null ? Math.round(m.net) : null, platne: !!m.valid };
   }
+  let spojeni = null;
   setInterval(() => {
+    if(rezim==='kamera'&&typeof remoteFresh==='function'){const fresh=isLiveAnalysis()&&remoteFresh();if(fresh!==spojeni){spojeni=fresh;window.parent.postMessage({dojedeno:'kamera',pripojeno:fresh},'*');}}
     for (const faze of ['reference', 'leftover']) {
       const v = vysledek(faze);
       if (!v) continue;
@@ -29,7 +32,8 @@
   }, 300);
   addEventListener('message', e => {
     const d = e.data;
-    if (!d || typeof d !== 'object') return;
+    if (e.source!==window.parent||!d || typeof d !== 'object') return;
+    if(d.dojedeno==='aktivita'&&typeof config!=='undefined'&&config){if(!d.aktivni)pauseAuto();else{autoEnabled=config.detection?.enabled!==false;captureGate?.reset();detector?.pause();updateAutoButton();}}
     if (d.dojedeno === 'qr') document.getElementById('phone-button')?.click();
     if (d.dojedeno === 'reset' && window.demo) { window.demo.go(1); posledni = {}; }
   });
