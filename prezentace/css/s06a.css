@@ -98,9 +98,10 @@
 #s-dva-talire.den .dt-k1, #s-dva-talire.den .dt-k2 { opacity: 0; transform: none; transition: opacity 500ms var(--ven); }
 
 /* plocha s daty */
-#s-dva-talire .dr-plocha { position: absolute; left: var(--okraj-x); top: 252px; width: 880px; height: 700px; background: var(--karta); border-radius: var(--r); box-shadow: var(--stin-velky); overflow: hidden; opacity: 0; transition: opacity 600ms var(--ven) 150ms; }
+#s-dva-talire .dr-plocha { position: absolute; left: var(--okraj-x); top: 252px; width: 880px; height: 700px; background: var(--karta); border-radius: var(--r); box-shadow: var(--stin-velky); overflow: hidden; opacity: 0; transition: opacity 600ms var(--ven) 150ms, width 800ms var(--ven); }
+#s-dva-talire.siroka .dr-plocha { width: 1180px; }
 #s-dva-talire.spoj .dr-plocha { opacity: 1; }
-#s-dva-talire .dr-tecky { position: absolute; left: 40px; right: 40px; top: 38px; display: grid; grid-template-columns: repeat(23, 1fr); gap: 8px; transform-origin: left bottom; transition: opacity 600ms var(--ven), transform 700ms var(--ven); }
+#s-dva-talire .dr-tecky { position: absolute; left: 40px; top: 105px; width: 800px; display: grid; grid-template-columns: repeat(26, 1fr); gap: 7px; transform-origin: 0 0; transition: opacity 1ms linear, transform 900ms var(--ven); }
 #s-dva-talire .dr-tecky i { aspect-ratio: 1; border-radius: 50%; background: var(--oranz2); opacity: 0; transform: scale(0.2); }
 #s-dva-talire .dr-tecky i.z { background: var(--zelena-zivá); }
 #s-dva-talire .dr-tecky i.p1 { background: var(--oranz); color: var(--oranz); }
@@ -111,7 +112,8 @@
 #s-dva-talire.den .dr-tecky i:not(.prvni) { animation: s06a-tecka 700ms var(--ven) both; animation-delay: var(--d); }
 #s-dva-talire.tecky-hned .dr-tecky i:not(.prvni) { animation: none; opacity: 1; transform: none; }
 @keyframes s06a-tecka { to { opacity: 1; transform: none; } }
-#s-dva-talire.tydny .dr-tecky { opacity: 0; transform: scale(0.05, 0.85); }
+/* krok 5: den se zmenší přesně do prvního políčka kalendáře (--do-bloku z JS), pak ho převezme canvas */
+#s-dva-talire.tydny .dr-tecky { transform: var(--do-bloku); opacity: 0; transition: transform 900ms var(--ven), opacity 1ms linear 900ms; }
 
 /* popisky dvou teček: v kroku 3 a 4 (ukazují, kde jsou naše dva talíře mezi ostatními) */
 #s-dva-talire .dr-popisek { position: absolute; z-index: 2; margin: 0; display: flex; align-items: baseline; gap: 12px; padding: 8px 20px 10px; border-radius: 999px; background: var(--karta); box-shadow: var(--stin); font-size: 26px; font-weight: 600; color: var(--text2); white-space: nowrap; opacity: 0; transition: opacity 500ms var(--ven); }
@@ -120,19 +122,26 @@
 #s-dva-talire .dr-popisek b.zelena { color: var(--zelena); }
 #s-dva-talire.spoj .dr-popisek { opacity: 1; transition-delay: 900ms; }
 #s-dva-talire.spoj .dr-popisek.l2 { transition-delay: 1100ms; }
-#s-dva-talire.tydny .dr-popisek { opacity: 0; transition-delay: 0ms; }
+#s-dva-talire.tydny .dr-popisek, #s-dva-talire.tydny .dr-popisek.l2 { opacity: 0; transition: opacity 150ms linear 0ms; }
 
-/* sloupce dnů ve stejné ploše */
-#s-dva-talire .dr-graf { position: absolute; left: 0; top: 0; width: 880px; height: 700px; overflow: visible; }
-#s-dva-talire .dr-graf rect { fill: var(--oranz2); transform-box: fill-box; transform-origin: bottom; transform: scaleY(0); transition: transform 700ms var(--ven); }
-#s-dva-talire .dr-graf rect.je { transform: none; }
-#s-dva-talire .dr-graf line { stroke: var(--linka); stroke-width: 2; opacity: 0; transition: opacity 400ms var(--ven); }
-#s-dva-talire .dr-graf text { font: 600 22px var(--pismo); fill: var(--text3); opacity: 0; transition: opacity 400ms var(--ven); }
-#s-dva-talire.tydny .dr-graf line, #s-dva-talire.tydny .dr-graf text { opacity: 1; transition-delay: 300ms; }
+/* kroky 5–6: kalendář dnů (canvas), nad ním dny v týdnu a rámečky dnů se špenátem */
+#s-dva-talire .dr-mesic { position: absolute; left: 0; top: 0; width: 1180px; height: 700px; opacity: 0; pointer-events: none; }
+#s-dva-talire.tydny .dr-mesic { opacity: 1; }
+#s-dva-talire .dr-kal { position: absolute; inset: 0; pointer-events: none; }
+#s-dva-talire .dr-den-tydne { position: absolute; top: 34px; margin: 0; font-size: 22px; font-weight: 700; color: var(--text3); text-align: center; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0; transition: opacity 400ms var(--ven); }
+#s-dva-talire.tydny .dr-den-tydne { opacity: 1; transition-delay: 900ms; }
+#s-dva-talire .dr-spenat { position: absolute; border-radius: 14px; box-shadow: 0 0 0 4px var(--oranz); opacity: 0; transform: scale(1.06); transition: opacity 500ms var(--ven), transform 600ms var(--ven); }
+#s-dva-talire .dr-spenat b { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); box-shadow: 0 2px 10px rgba(0,0,0,.18); padding: 3px 12px 5px; border-radius: 999px; background: var(--oranz); color: #fff; font-size: 20px; font-weight: 700; white-space: nowrap; }
+#s-dva-talire[data-k="6"] .dr-spenat { opacity: 1; transform: none; transition-delay: var(--zpozdeni, 1800ms); }
 
 /* vpravo: počítadlo (od kroku 4) a v kroku 6 karta „nejčastěji se vrací“ */
 #s-dva-talire .dr-pocitadlo { position: absolute; left: 1010px; right: var(--okraj-x); top: 276px; opacity: 0; pointer-events: none; transition: opacity 600ms var(--ven); }
 #s-dva-talire.den .dr-pocitadlo { opacity: 1; transition-delay: 350ms; }
+/* krok 5+: počítadlo se přesune vpravo od širší plochy (zmizí a objeví se na novém místě) */
+#s-dva-talire.siroka .dr-pocitadlo, #s-dva-talire.siroka .dr-nej { left: 1320px; }
+#s-dva-talire.siroka .dr-pocitadlo { animation: s06a-objev 700ms var(--ven) both; }
+#s-dva-talire.siroka .dr-cislo { font-size: 190px; }
+@keyframes s06a-objev { 0%, 30% { opacity: 0; } }
 #s-dva-talire .dr-obdobi { position: relative; height: 40px; margin: 0; font-size: 30px; font-weight: 800; color: var(--zelena); text-transform: uppercase; letter-spacing: 0.06em; }
 #s-dva-talire .dr-obdobi span { position: absolute; left: 0; top: 0; opacity: 0; transition: opacity 400ms var(--ven); }
 #s-dva-talire[data-k="4"] .o4, #s-dva-talire[data-k="3"] .o4, #s-dva-talire[data-k="5"] .o5, #s-dva-talire[data-k="6"] .o6 { opacity: 1; }
@@ -146,6 +155,9 @@
 #s-dva-talire .dr-talire .ora { background: var(--oranz2); }
 #s-dva-talire .dr-talire .zel { background: var(--zelena-zivá); }
 #s-dva-talire.tydny .dr-talire { opacity: 0; }
+#s-dva-talire .dr-legenda { position: absolute; margin: 0; display: flex; align-items: center; gap: 12px; font-size: 26px; font-weight: 600; color: var(--text2); opacity: 0; transition: opacity 400ms var(--ven); }
+#s-dva-talire .dr-legenda .ctverec { width: 26px; height: 20px; border-radius: 5px; background: radial-gradient(circle, var(--oranz2) 1.6px, transparent 2px) 0 0 / 5px 5px; box-shadow: inset 0 0 0 1px var(--linka); }
+#s-dva-talire.tydny .dr-legenda { position: static; margin-top: 26px; opacity: 1; transition-delay: 600ms; }
 #s-dva-talire .dr-nej { position: absolute; left: 1010px; right: var(--okraj-x); top: 724px; padding: 24px 30px; border-radius: var(--r); background: var(--oranz-svetla); opacity: 0; transform: translateY(16px); transition: opacity 500ms var(--ven), transform 500ms var(--ven); }
 #s-dva-talire[data-k="6"] .dr-nej { opacity: 1; transform: none; transition-delay: 900ms; }
 #s-dva-talire .dr-nej-nad { margin: 0; font-size: 22px; font-weight: 700; color: var(--oranz); text-transform: uppercase; letter-spacing: 0.06em; }

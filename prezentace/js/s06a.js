@@ -1,6 +1,7 @@
 /* 06a · dva talíře → data. Krok 1 sken talíře 1 → analýza, 2 talíř 2 → dojedeno, 3 oba talíře jako dvě tečky (nic se nehýbe),
-   4 kolem dvou teček (naše talíře, stojí na místě) pomalu doroste den (412 talířů), 5 sloupce dnů 1–10, 6 dny 11–20 + co se vrací nejvíc.
-   Třídy na sekci: t2, skenuje, detekce, v1, v2, spoj, den, tydny. Skok/tisk = konečný stav bez animace. */
+   4 kolem dvou teček (naše talíře, stojí na místě) pomalu doroste den (412 talířů), 5 den se zmenší do políčka kalendáře
+   a přibudou dny 2–10 (canvas), 6 dny 11–20 + rámečky dnů se špenátem.
+   Třídy na sekci: t2, skenuje, detekce, v1, v2, spoj, den, tydny, siroka, tecky-hned. Skok/tisk = konečný stav bez animace. */
 (function () {
   'use strict';
   const s = document.getElementById('s-dva-talire');
@@ -46,15 +47,17 @@
   /* data: den = 412 talířů (38 % dojedeno), dny = kg zbytků z talířů (ukázková data, demo/data/month.json), 92,5 Kč/kg */
   const DNY = [32.9, 27.8, 35.1, 37.0, 32.1, 30.2, 37.0, 38.9, 37.3, 28.3, 29.6, 30.2, 37.6, 34.4, 34.3, 32.8, 39.4, 29.9, 29.9, 37.3];
   const KC_KG = 92.5, TALIRU = 412, DOJEDENO = 0.38;
-  /* den: 23 × 18 teček; naše dva talíře stojí uprostřed (řádek 8 a 9, sloupec 11) a ostatní dorůstají od nich do stran */
-  const tecky = s.querySelector('.dr-tecky'), SLOUPCU = 23, P1 = 8 * SLOUPCU + 11, P2 = 9 * SLOUPCU + 11;
+  /* den: 26 × 16 teček; naše dva talíře stojí uprostřed a ostatní dorůstají od nich do stran */
+  const tecky = s.querySelector('.dr-tecky'), SL = 26, RA = 16, P1 = 7 * SL + 12, P2 = 8 * SL + 12;
+  const zelena = (i, den) => den === 0 ? ((i * 7919) % 100) < DOJEDENO * 100
+    : ((((i + den * 977) * 7919) % 100) < 100 - (100 - DOJEDENO * 100) * DNY[den] / DNY[0]);
   let h = '';
   for (let i = 0; i < TALIRU; i++) {
     if (i === P1) { h += '<i class="prvni p1"></i>'; continue; }
     if (i === P2) { h += '<i class="prvni p2"></i>'; continue; }
-    const r = Math.floor(i / SLOUPCU), c = i % SLOUPCU, vzd = Math.hypot(c - 11, r - 8.5);
+    const r = Math.floor(i / SL), c = i % SL, vzd = Math.hypot(c - 12, r - 7.5);
     const d = Math.round(250 + vzd * 165 + ((i * 2654435761) % 997) / 997 * 260);
-    h += `<i style="--d:${d}ms" class="${((i * 7919) % 100) < DOJEDENO * 100 ? 'z' : ''}"></i>`;
+    h += `<i style="--d:${d}ms" class="${zelena(i, 0) ? 'z' : ''}"></i>`;
   }
   tecky.innerHTML = h;
   const prvni = [...tecky.querySelectorAll('.prvni')], popisky = [...s.querySelectorAll('.dr-popisek')];
@@ -64,17 +67,72 @@
       /* talíř 1 vlevo od své tečky, talíř 2 vpravo, ať se popisky nepřekrývají */
       const l = popisky[i], vlevo = tecky.offsetLeft + t.offsetLeft;
       const x = i === 0 ? vlevo - 22 - l.offsetWidth : vlevo + t.offsetWidth + 22, y = tecky.offsetTop + t.offsetTop + t.offsetHeight / 2;
-      popisky[i].style.left = x + 'px'; popisky[i].style.top = (y - popisky[i].offsetHeight / 2) + 'px';
+      l.style.left = x + 'px'; l.style.top = (y - l.offsetHeight / 2) + 'px';
     });
   }
-  /* sloupce: 20 dnů v ploše 880 × 700 */
-  const svg = s.querySelector('.dr-graf'), X0 = 40, W = 800, H = 480, Y0 = 90, MAX = 40, sirka = W / DNY.length;
-  svg.innerHTML = `<line x1="${X0}" x2="${X0 + W}" y1="${Y0 + H}" y2="${Y0 + H}"/>` + DNY.map((kg, i) => {
-    const v = kg / MAX * H;
-    return `<rect x="${X0 + i * sirka + 6}" y="${Y0 + H - v}" width="${sirka - 12}" height="${v}" rx="6"/>` +
-      (i % 5 === 4 ? `<text x="${X0 + i * sirka + sirka / 2}" y="${Y0 + H + 40}" text-anchor="middle">${i + 1}. den</text>` : '');
-  }).join('');
-  const sloupce = [...svg.querySelectorAll('rect')];
+
+  /* kroky 5–6: kalendář 5 × 4 políček (Po–Pá, 4 týdny), každé políčko = jeden den = 412 teček ve stejném rozvržení jako den.
+     Geometrie v px plochy 1180 × 700; políčko je den zmenšený faktorem M (proto plynulé převzetí z DOM mřížky). */
+  const MEZ = 7, TD = (800 - (SL - 1) * MEZ) / SL, KROK_T = TD + MEZ, DEN_V = RA * TD + (RA - 1) * MEZ;
+  const M = 0.26, BW = 800 * M, BH = DEN_V * M, BG = 16, KX = (1180 - (5 * BW + 4 * BG)) / 2, KY = 84;
+  const blok = b => ({ x: KX + (b % 5) * (BW + BG), y: KY + Math.floor(b / 5) * (BH + BG) });
+  tecky.style.setProperty('--do-bloku', `translate(${blok(0).x - 40}px, ${blok(0).y - 105}px) scale(${M})`);
+  const SPENAT = [6, 11, 18]; /* dny 7, 12 a 19 (demo/data/month.json) */
+  const kal = s.querySelector('.dr-kal');
+  kal.innerHTML = ['Po', 'Út', 'St', 'Čt', 'Pá'].map((d, i) => `<p class="dr-den-tydne" style="left:${blok(i).x}px;width:${BW}px">${d}</p>`).join('') +
+    SPENAT.map((b, i) => `<div class="dr-spenat" style="left:${blok(b).x - 6}px;top:${blok(b).y - 6}px;width:${BW + 12}px;height:${BH + 12}px;--zpozdeni:${1900 + i * 180}ms"><b>Špenát</b></div>`).join('');
+  const platno = s.querySelector('.dr-mesic'), ctx = platno.getContext('2d'), DPR = 2;
+  platno.width = 1180 * DPR; platno.height = 700 * DPR;
+  const css = n => getComputedStyle(s).getPropertyValue(n).trim();
+  /* pozice a barvy všech teček všech dní předpočítané: [x, y, barva(0 oranž, 1 zelená, 2 talíř 1), zpoždění v ms] */
+  const TECKY = DNY.map((_, den) => {
+    const o = blok(den), out = [];
+    for (let i = 0; i < TALIRU; i++) {
+      const r = Math.floor(i / SL), c = i % SL;
+      const barva = den === 0 && i === P1 ? 2 : den === 0 && i === P2 ? 1 : zelena(i, den) ? 1 : 0;
+      out.push([o.x + (c * KROK_T + TD / 2) * M, o.y + (r * KROK_T + TD / 2) * M, barva, Math.hypot(c - 12, r - 7.5) * 16]);
+    }
+    return out;
+  });
+  let anim = null;
+  const pruh = (t, z, delka) => { const x = Math.min(1, Math.max(0, (t - z) / delka)); return 1 - Math.pow(1 - x, 3); };
+  function kresliMesic(zacatky, t) {
+    const barvy = [css('--oranz2'), css('--zelena-zivá'), css('--oranz')], R = TD / 2 * M;
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.clearRect(0, 0, 1180, 700);
+    let hotovo = true;
+    for (let barva = 0; barva < 3; barva++) {
+      ctx.beginPath();
+      zacatky.forEach((z, den) => {
+        if (z === null) return;
+        for (const [x, y, b, zp] of TECKY[den]) {
+          if (b !== barva) continue;
+          const e = z === -1 ? 1 : pruh(t, z + zp, 380);
+          if (e < 1) hotovo = false;
+          if (e <= 0) continue;
+          ctx.moveTo(x + R * e, y); ctx.arc(x, y, R * e, 0, Math.PI * 2);
+        }
+      });
+      ctx.fillStyle = barvy[barva]; ctx.fill();
+    }
+    return hotovo;
+  }
+  /* zacatky[den]: null = není, -1 = už je, číslo = ms od začátku animace */
+  function mesic(zacatky) {
+    if (anim) cancelAnimationFrame(anim.raf);
+    const t0 = performance.now();
+    anim = { raf: 0 };
+    const snimek = () => { if (!kresliMesic(zacatky, performance.now() - t0)) anim.raf = requestAnimationFrame(snimek); };
+    snimek();
+  }
+  function stavMesice(k, hned, odkud) {
+    const z = DNY.map(() => null);
+    if (k < 5) { if (anim) cancelAnimationFrame(anim.raf); ctx.clearRect(0, 0, platno.width, platno.height); return; }
+    const dnu = k >= 6 ? 20 : 10;
+    for (let d = 0; d < dnu; d++) z[d] = -1;
+    if (!hned && k === 5 && odkud === 4) { z[0] = 900; for (let d = 1; d < 10; d++) z[d] = 1000 + (d - 1) * 120; }
+    if (!hned && k === 6 && odkud === 5) for (let d = 10; d < 20; d++) z[d] = 200 + (d - 10) * 120;
+    mesic(z);
+  }
   const kgEl = s.querySelector('.dr-kg'), kcEl = s.querySelector('.dr-kc');
   const soucet = n => DNY.slice(0, n).reduce((a, b) => a + b, 0);
   const KG = { 3: 0, 4: 34, 5: soucet(10), 6: soucet(20) };
@@ -137,9 +195,8 @@
     stav.textContent = k >= 2 ? 'Kamera nad pásem · talíř 2' : 'Kamera nad pásem · talíř 1';
     const ukaz1 = () => { s.classList.add('v1'); kruh.style.strokeDasharray = `${snedeno} 100`; pocitej(c1, hned); pocitej(cp, hned); };
     const ukaz2 = () => { s.classList.add('v2'); pocitej(c2, hned); };
-    /* sloupce: dny podle kroku, při postupu dopředu postupně */
-    const dnu = k >= 6 ? 20 : k >= 5 ? 10 : 0;
-    sloupce.forEach((r, i) => { r.style.transitionDelay = hned ? '0ms' : `${Math.max(0, i - (k >= 6 ? 10 : 0)) * 70 + 300}ms`; r.classList.toggle('je', i < dnu); });
+    s.classList.toggle('siroka', k >= 5);
+    stavMesice(k, hned, byl);
     if (k >= 4) pocitadlo(kgEl, hned ? KG[k] : KG[byl] || 0, KG[k], hned), pocitadlo(kcEl, hned ? KG[k] * KC_KG : (KG[byl] || 0) * KC_KG, KG[k] * KC_KG, hned);
     if (k < 4) s.classList.remove('tecky-hned'); else if (hned) s.classList.add('tecky-hned');
     umistiPopisky();
