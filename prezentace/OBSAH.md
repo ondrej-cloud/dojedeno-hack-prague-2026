@@ -93,7 +93,7 @@
     - ubrat, co děti nechávají (zbývá knedlík → méně knedlíku, přídavek na požádání),
     - změnit jídla, která se nejí (špenát: zbude skoro polovina porce),
     - nevyzvednuté obědy darovat přes Zachraň oběd (5–9 % se nevyzvedne).
-- **Poslední krok:** jeden řádek „Příklad: o 30 % méně zbytků z talířů = 180 000 Kč ročně na školu“. Bez posuvníku.
+- **Poslední krok:** jeden řádek bez štítku „Například o 30 % méně zbytků z talířů znamená pro školu až 180 000 Kč ročně“. Bez posuvníku.
 
 ### 08 · `s-kdo` · 3:45–4:05
 - **Nadpis:** „Kdo z toho co má.“
