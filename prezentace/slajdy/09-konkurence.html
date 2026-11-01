@@ -1,53 +1,28 @@
-<!-- 09 · konkurence: vlevo tabulka čtyř firem (řádky nastupují po 90 ms), vpravo důkaz −50 % (IKEA Zličín);
-     krok 1: pod tabulkou přijede zelený řádek Dojezeno a věta, že ve školních jídelnách jsme automatické měření nenašli -->
-<section class="slajd" id="s-konkurence" data-nazev="Konkurence" data-kroky="1">
+<!-- 09 · konkurence: vlevo jen jména firem a kam míří (šedě), pod nimi IKEA −50 %; krok 1 vpravo tři body, čím jsme jiní -->
+<section class="slajd" id="s-konkurence" data-nazev="Konkurence: čím jsme jiní" data-kroky="1">
   <h1>Ve světě to funguje. Do&nbsp;školních jídelen u&nbsp;nás zatím ne.</h1>
 
-  <div class="k-radek rozbal">
-    <div class="k-levy">
-    <div class="karta k-tabulka" role="table" aria-label="Firmy, které měří odpad kamerou a váhou u koše">
-      <div class="k-hlava" role="row">
-        <span role="columnheader">Kdo</span><span role="columnheader">Kde</span><span role="columnheader">Jak měří</span>
-      </div>
-      <div class="k-firma" role="row" style="--n:0">
-        <span role="cell"><b>Winnow</b><small>Velká Británie</small></span>
-        <span role="cell">IKEA, i&nbsp;Zličín</span>
-        <span role="cell" class="tlumene">kamera nad košem, váha pod ním</span>
-      </div>
-      <div class="k-firma" role="row" style="--n:1">
-        <span role="cell"><b>Orbisk</b><small>Nizozemsko</small></span>
-        <span role="cell">restaurace a&nbsp;catering</span>
-        <span role="cell" class="tlumene">personál drží jídlo pod kamerou</span>
-      </div>
-      <div class="k-firma" role="row" style="--n:2">
-        <span role="cell"><b>Leanpath</b><small>USA</small></span>
-        <span role="cell">Sodexo</span>
-        <span role="cell" class="tlumene">váha a&nbsp;tablet</span>
-      </div>
-      <div class="k-firma" role="row" style="--n:3">
-        <span role="cell"><b>KITRO</b><small>Švýcarsko</small></span>
-        <span role="cell">hotely a&nbsp;hotelové školy</span>
-        <span role="cell" class="tlumene">váha pod kbelíkem, kamera shora</span>
-      </div>
-    </div>
-    <div class="k-my" data-krok="1">
-      <div class="k-my-bunka k-my-jmeno">
-        <span class="k-my-znak"><svg class="ilu" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-talir"/></svg></span>
-        <span><b>Dojezeno</b><small>Olomouc · Praha</small></span>
-      </div>
-      <div class="k-my-bunka">školní jídelny</div>
-      <div class="k-my-bunka k-my-jak">talíř na pásu řekne co, váha kolik</div>
-    </div>
-    <p class="k-veta" data-krok="1">V&nbsp;českých školních jídelnách jsme automatické měření nenašli.</p>
-    </div>
-
-    <div class="karta k-dukaz">
-      <svg class="ilu k-dukaz-ikona" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-kbelik"/></svg>
-      <p class="cislo stredni zelena"><span class="k-minus">−</span><span data-pocitej="50" data-od="0">50</span><small>%</small></p>
-      <p class="pod-cislo">kuchyňského odpadu v&nbsp;IKEA&nbsp;Česko, i&nbsp;na&nbsp;Zličíně</p>
-      <p class="mala k-dukaz-pata">kamera a váha u&nbsp;koše, Winnow</p>
-    </div>
+  <div class="kj-svet rozbal">
+    <p class="kj-nad">Ve světě</p>
+    <ul class="kj-firmy">
+      <li style="--n:0"><b>Winnow</b><span>IKEA, kuchyně</span></li>
+      <li style="--n:1"><b>Orbisk</b><span>restaurace, catering</span></li>
+      <li style="--n:2"><b>Leanpath</b><span>Sodexo</span></li>
+      <li style="--n:3"><b>KITRO</b><span>hotely</span></li>
+    </ul>
+    <p class="kj-ikea"><span class="zelena">−50&nbsp;%</span> odpadu v&nbsp;IKEA na Zličíně</p>
   </div>
 
-  <script type="application/json" class="poznamky-data">["3:40–4:10 · Tobias", "Ve světě to funguje: Winnow, Orbisk, Leanpath nebo KITRO. A IKEA na Zličíně s tím snížila kuchyňský odpad o polovinu.", "[mezerník] Ve školních jídelnách jsme automatické měření nenašli. My fotíme talíř, takže víme, co se nejí.", "Na dotaz, proč to školy nekupují (naše úvaha): za suroviny platí rodiče, takže úspora se v rozpočtu školy neukáže; systémy míří na hotely a catering; kbelík řekne kolik, ne co; instalace, hygiena a GDPR jsou pro malou jídelnu moc.", "Naše úvaha, ne fakt. Neříkat „v Česku to nikdo nedělá“.", "Zdroje: Z7 Springwise (Orbisk); Z8 Bloomberg (AI koše); IKEA Česko newsroom, ekonews.cz; kitro.ch."]</script>
+  <div class="kj-my" data-krok="1">
+    <p class="kj-nad zelena">Čím jsme jiní</p>
+    <ol class="kj-body">
+      <li style="--n:0"><span class="kj-c">1</span><div><b>Levní.</b><span>Stačí kamera a&nbsp;váha.</span></div></li>
+      <li style="--n:1"><span class="kj-c">2</span><div><b>Jsme tady.</b><span>Oni míří na hotely a&nbsp;catering, na české jídelny nemají kapacitu.</span></div></li>
+      <li style="--n:2"><span class="kj-c">3</span><div><b>Víme co, ne jen kolik.</b><span>Fotíme talíř, ne jen kbelík.</span></div></li>
+    </ol>
+  </div>
+
+  <p class="zdroj">Zdroje: Springwise (Orbisk), Bloomberg 2024, IKEA Česko, kitro.ch. Zaměření a kapacita konkurence: naše úvaha.</p>
+
+  <script type="application/json" class="poznamky-data">["3:40–4:10 · Tobias", "Ve světě to funguje: Winnow, Orbisk, Leanpath nebo KITRO. IKEA na Zličíně s tím snížila kuchyňský odpad o polovinu.", "[mezerník] Čím jsme jiní: jsme levní, stačí kamera a váha. Jsme tady: ty firmy míří na hotely a catering a na tisíce českých školních jídelen nemají kapacitu. A víme co, ne jen kolik, protože fotíme talíř.", "Kapacita a zaměření konkurence je naše úvaha, ne fakt. Neříkat „v Česku to nikdo nedělá“, říkat „ve školních jídelnách jsme automatické měření nenašli“.", "Na dotaz, proč to školy nekupují (naše úvaha): za suroviny platí rodiče; systémy míří na hotely a catering s předplatným a zahraničním servisem; kbelík řekne kolik, ne co; instalace, hygiena a GDPR jsou pro malou jídelnu moc.", "Zdroje: Z7 Springwise (Orbisk); Z8 Bloomberg (AI koše); IKEA Česko newsroom, ekonews.cz; kitro.ch."]</script>
 </section>
