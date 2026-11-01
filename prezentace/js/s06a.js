@@ -142,7 +142,51 @@
     });
   }
 
+  /* kroužek sleduje talíř ve videu. Polohy středu talíře (px videa 464 × 832) jsme odečetli ze snímků po 0,1–0,25 s,
+     stop = kdy se talíř zastaví (pak se kroužek zvýrazní a vyjede analýza). Mezi body vede hladká křivka (Catmull-Rom). */
+  const STOPY = [
+    { stop: 1.55, body: [[0.17, 600, 360], [0.3, 480, 336], [0.45, 418, 312], [0.6, 378, 310], [0.75, 330, 312], [0.9, 294, 316], [1.05, 266, 320], [1.2, 254, 323], [1.35, 242, 326], [1.5, 222, 330], [1.62, 221, 330], [99, 221, 330]] },
+    { stop: 1.6, body: [[0.13, 600, 312], [0.2, 544, 314], [0.3, 480, 314], [0.4, 425, 312], [0.5, 378, 310], [0.6, 342, 312], [0.7, 330, 314], [0.85, 302, 316], [1.0, 278, 320], [1.15, 264, 324], [1.3, 247, 328], [1.45, 232, 332], [1.6, 228, 332], [1.75, 226, 332], [99, 226, 332]] }
+  ];
+  const obrys = s.querySelector('.dt-obrys circle');
+  let smycka = 0;
+  function polohaTaliru(i, t) {
+    const b = STOPY[i].body;
+    if (t < b[0][0]) return null;
+    let n = 0;
+    while (n < b.length - 2 && t > b[n + 1][0]) n++;
+    const P0 = b[Math.max(0, n - 1)], P1 = b[n], P2 = b[n + 1], P3 = b[Math.min(b.length - 1, n + 2)];
+    const u = Math.min(1, Math.max(0, (t - P1[0]) / (P2[0] - P1[0])));
+    const cr = (a, b1, c1, d) => 0.5 * (2 * b1 + (c1 - a) * u + (2 * a - 5 * b1 + 4 * c1 - d) * u * u + (3 * b1 - a - 3 * c1 + d) * u * u * u);
+    return [cr(P0[1], P1[1], P2[1], P3[1]), cr(P0[2], P1[2], P2[2], P3[2])];
+  }
+  function umistiObrys(i, t) {
+    const v = zaznamy[i], p = polohaTaliru(i, t);
+    if (!p) { s.classList.remove('sleduje'); return; }
+    const vw = v.videoWidth || 464, vh = v.videoHeight || 832, m = Math.min(880 / vw, 700 / vh);
+    obrys.setAttribute('cx', ((880 - vw * m) / 2 + p[0] * m).toFixed(1));
+    obrys.setAttribute('cy', ((700 - vh * m) / 2 + p[1] * m).toFixed(1));
+    obrys.setAttribute('r', (146 * m).toFixed(1));
+    s.classList.add('sleduje');
+  }
+  /* během přehrávání: kroužek jede s talířem; jakmile čas dojde k zastavení, zavolá poZastaveni (jednou) */
+  function sleduj(i, poZastaveni) {
+    cancelAnimationFrame(smycka);
+    const v = zaznamy[i];
+    let hotovo = false;
+    const zastav = () => { if (hotovo) return; hotovo = true; umistiObrys(i, 99); poZastaveni(); };
+    const snimek = () => {
+      umistiObrys(i, v.currentTime);
+      if (v.currentTime >= STOPY[i].stop) zastav();
+      if (!hotovo || !v.paused) smycka = requestAnimationFrame(snimek);
+    };
+    snimek();
+    pozdeji(zastav, (STOPY[i].stop + 1.2) * 1000);
+  }
+
   function stavKroku(k, hned) {
+    cancelAnimationFrame(smycka);
+    s.classList.remove('sleduje', 'zachyceno');
     aktualniK = k;
     zrus();
     s.classList.remove('skenuje', 'detekce');
@@ -153,8 +197,9 @@
     stav.textContent = (s.classList.contains('ma-zaznam') && !s.classList.contains('live') ? 'Záznam z kamery' : 'Kamera nad pásem') + (k >= 2 ? ' · talíř 2' : ' · talíř 1');
     prehraj(k, hned);
     s.querySelector('.dt-vaha-g').textContent = k >= 2 ? talir2().vaha ?? '' : talir1().vaha ?? '';
-    const ukaz1 = () => { s.classList.add('v1'); pocitej(c1, hned); };
-    const ukaz2 = () => { s.classList.add('v2'); pocitej(c2, hned); };
+    /* výsledek talíře se počítá jen při prvním zobrazení; v dalších krocích už číslo stojí */
+    const ukaz1 = () => { const uz = s.classList.contains('v1'); s.classList.add('v1'); pocitej(c1, hned || uz); };
+    const ukaz2 = () => { const uz = s.classList.contains('v2'); s.classList.add('v2'); pocitej(c2, hned || uz); };
     /* čísla v dlaždicích naskočí, až se tečky rozvinou */
     if (k >= 4 && byl < 4 && !hned) cisla.forEach(e => { e.dataset.od = 0; e.textContent = '0'; pozdeji(() => pocitej(e, false), 800); });
     else if (k >= 4) cisla.forEach(e => pocitej(e, true));
@@ -163,15 +208,20 @@
     if (k < 1) { s.classList.remove('v1', 'v2', 'vazi'); return; }
     if (k < 2) s.classList.remove('v2');
     if (hned || k >= 3) s.classList.add('vazi');
+    if (hned && (k === 1 || k === 2) && s.classList.contains('ma-zaznam') && !s.classList.contains('live')) { umistiObrys(k - 1, 99); s.classList.add('zachyceno'); }
     if (hned || k >= 4) { ukaz1(); if (k >= 2) ukaz2(); return; }
     const maVysledek = f => !pripojeno || !zive[f] || zive[f].stav === 'hotovo';
-    /* natočené video: talíř se nejdřív položí (délka klipu), pak sken a výsledek */
-    const vid = i => (s.classList.contains('ma-zaznam') && !s.classList.contains('live') && zaznamy[i].duration) ? Math.round(zaznamy[i].duration * 1000) : 0;
-    const z1 = k === 1 ? vid(0) : 0, z2 = k === 2 ? vid(1) : 0;
+    /* natočené video: kroužek sleduje talíř, při zastavení se zvýrazní, ukáže se váha a za chvíli analýza */
+    const zaznam = s.classList.contains('ma-zaznam') && !s.classList.contains('live');
     s.classList.remove('vazi');
-    if (k === 1 || k === 2) pozdeji(() => s.classList.add('vazi'), Math.max(0, (k === 1 ? z1 : z2) - 250));
-    if (k === 1) { s.classList.remove('v1'); pozdeji(() => s.classList.add('skenuje'), z1); pozdeji(() => s.classList.add('detekce'), z1 + 700); pozdeji(() => { if (maVysledek('reference')) ukaz1(); cekani(); }, z1 + 1300); }
-    if (k === 2) { ukaz1(); pozdeji(() => s.classList.add('skenuje'), z2 || 500); pozdeji(() => s.classList.add('detekce'), (z2 || 500) + 700); pozdeji(() => { if (maVysledek('leftover')) ukaz2(); cekani(); }, (z2 || 500) + 1300); }
+    if ((k === 1 || k === 2) && zaznam) {
+      const i = k - 1, faze = i ? 'leftover' : 'reference', ukaz = i ? ukaz2 : ukaz1;
+      if (k === 1) s.classList.remove('v1'); else ukaz1();
+      sleduj(i, () => { s.classList.add('zachyceno', 'vazi'); pozdeji(() => { if (maVysledek(faze)) ukaz(); cekani(); }, 700); });
+    } else {
+      if (k === 1) { s.classList.remove('v1'); s.classList.add('skenuje'); pozdeji(() => { if (maVysledek('reference')) ukaz1(); cekani(); }, 1300); }
+      if (k === 2) { ukaz1(); pozdeji(() => s.classList.add('skenuje'), 500); pozdeji(() => { if (maVysledek('leftover')) ukaz2(); cekani(); }, 1800); }
+    }
     /* záloha: když živá analýza do 20 s nedoběhne (mobil nepřipojen), ukážou se připravená čísla */
     const zaloha = (f, ukaz) => pozdeji(() => { if (!maVysledek(f)) { zive[f] = null; vykresliKarty(); s.querySelector(f === 'reference' ? '.dt-k1' : '.dt-k2').classList.remove('ceka'); ukaz(); } }, 20000);
     if (k === 1) zaloha('reference', ukaz1);
@@ -181,6 +231,6 @@
   s.addEventListener('krok', e => stavKroku(e.detail.k, e.detail.hned));
   addEventListener('resize', umistiPopisky);
   s.addEventListener('vstup', () => {kamera.contentWindow?.postMessage({dojedeno:'aktivita',aktivni:true},'*');});
-  s.addEventListener('odchod', () => {zrus();zaznamy.forEach(v => v.pause());kamera.contentWindow?.postMessage({dojedeno:'aktivita',aktivni:false},'*');qrOkno.hidden=true;qrOkno.querySelector('iframe').removeAttribute('src');});
+  s.addEventListener('odchod', () => {zrus();cancelAnimationFrame(smycka);zaznamy.forEach(v => v.pause());kamera.contentWindow?.postMessage({dojedeno:'aktivita',aktivni:false},'*');qrOkno.hidden=true;qrOkno.querySelector('iframe').removeAttribute('src');});
   s.addEventListener('tisk', () => stavKroku(5, true));
 })();
