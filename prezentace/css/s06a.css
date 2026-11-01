@@ -167,3 +167,12 @@
 
 #s-dva-talire.hned * { transition: none !important; }
 @media (prefers-reduced-motion: reduce) { #s-dva-talire.den .dr-tecky i:not(.prvni) { animation-duration: 1ms; animation-delay: 0ms; } }
+
+/* záloha bez živé kamery: klipy z mobilu (třída ma-zaznam z JS, jen když se soubor načte) */
+#s-dva-talire .dt-zaznam { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 500ms var(--ven); background: #232325; }
+#s-dva-talire.ma-zaznam:not(.live) .dt-zaznam.z1.ok { opacity: 1; }
+#s-dva-talire.ma-zaznam:not(.live).t2 .dt-zaznam.z1 { opacity: 0; }
+#s-dva-talire.ma-zaznam:not(.live).t2 .dt-zaznam.z2.ok { opacity: 1; }
+#s-dva-talire.ma-zaznam:not(.live) .dt-placeholder { visibility: hidden; }
+#s-dva-talire.ma-zaznam:not(.live) .dt-sken { display: block; z-index: 2; }
+#s-dva-talire .dt-stav { z-index: 3; }

@@ -31,8 +31,8 @@
     const max = Math.max(1, ...t1.slozky.map(y => y.g));
     s.querySelector('.dt-slozky').innerHTML = t1.slozky.map(x =>
       `<div class="dt-slozka"><span>${esc(x.nazev)}</span><i style="--podil:${x.g / max}"></i><b>${t1.zive ? '≈ ' : ''}${x.g} g</b></div>`).join('');
-    s.querySelectorAll('.dt-k1 .dt-zdroj').forEach(e => { e.textContent = t1.zive ? 'živě' : 'ukázková data'; });
-    s.querySelectorAll('.dt-k2 .dt-zdroj').forEach(e => { e.textContent = t2.zive ? 'živě' : 'ukázková data'; });
+    s.querySelectorAll('.dt-k1 .dt-zdroj').forEach(e => { e.textContent = t1.zive ? 'živě' : s.classList.contains('ma-zaznam') ? 'záznam' : 'ukázková data'; });
+    s.querySelectorAll('.dt-k2 .dt-zdroj').forEach(e => { e.textContent = t2.zive ? 'živě' : s.classList.contains('ma-zaznam') ? 'záznam' : 'ukázková data'; });
     const prazdny = g2 < 10;
     s.querySelector('.dt-h2').textContent = prazdny ? 'Prázdný talíř' : 'Zbytek na talíři';
     s.querySelector('.dt-verdikt').innerHTML = prazdny ? 'pod 10&nbsp;g = <span class="zelena">dojedeno</span>' : 'zbylo na talíři';
@@ -184,6 +184,24 @@
   });
   s.querySelector('.dt-qr-zavrit').addEventListener('click', () => { qrOkno.hidden = true; qrOkno.querySelector('iframe').removeAttribute('src'); window.focus(); });
 
+  /* záloha: klipy (nebo jen fotky) z mobilu; použijí se, jen když se opravdu načtou a živá kamera neběží */
+  const zaznamy = [...s.querySelectorAll('.dt-zaznam')];
+  const maZaznam = v => { v.classList.add('ok'); if (!s.classList.contains('ma-zaznam')) { s.classList.add('ma-zaznam'); vykresliKarty(); if (!s.classList.contains('live')) stav.textContent = stav.textContent.replace('Kamera nad pásem', 'Záznam z kamery'); } };
+  zaznamy.forEach(v => {
+    v.addEventListener('loadeddata', () => maZaznam(v));
+    const foto = new Image(); foto.onload = () => maZaznam(v); foto.src = v.getAttribute('poster');
+  });
+  function prehraj(k, hned) {
+    zaznamy.forEach((v, i) => {
+      const muj = i === (k >= 2 ? 1 : 0);
+      try {
+        if (!muj || k >= 3 || s.classList.contains('live')) { v.pause(); return; }
+        if (hned || k === 0) { v.pause(); v.currentTime = hned && v.duration ? Math.max(0, v.duration - 0.05) : 0; return; }
+        v.currentTime = 0; const p = v.play(); if (p) p.catch(() => {});
+      } catch (e) {}
+    });
+  }
+
   function stavKroku(k, hned) {
     aktualniK = k;
     zrus();
@@ -192,7 +210,8 @@
     s.classList.toggle('spoj', k >= 3);
     s.classList.toggle('den', k >= 4);
     s.classList.toggle('tydny', k >= 5);
-    stav.textContent = k >= 2 ? 'Kamera nad pásem · talíř 2' : 'Kamera nad pásem · talíř 1';
+    stav.textContent = (s.classList.contains('ma-zaznam') && !s.classList.contains('live') ? 'Záznam z kamery' : 'Kamera nad pásem') + (k >= 2 ? ' · talíř 2' : ' · talíř 1');
+    prehraj(k, hned);
     const ukaz1 = () => { s.classList.add('v1'); kruh.style.strokeDasharray = `${snedeno} 100`; pocitej(c1, hned); pocitej(cp, hned); };
     const ukaz2 = () => { s.classList.add('v2'); pocitej(c2, hned); };
     s.classList.toggle('siroka', k >= 5);
@@ -216,6 +235,6 @@
   s.addEventListener('krok', e => stavKroku(e.detail.k, e.detail.hned));
   addEventListener('resize', umistiPopisky);
   s.addEventListener('vstup', () => {pripoj();kamera.contentWindow?.postMessage({dojedeno:'aktivita',aktivni:true},'*');});
-  s.addEventListener('odchod', () => {zrus();kamera.contentWindow?.postMessage({dojedeno:'aktivita',aktivni:false},'*');qrOkno.hidden=true;qrOkno.querySelector('iframe').removeAttribute('src');});
+  s.addEventListener('odchod', () => {zrus();zaznamy.forEach(v => v.pause());kamera.contentWindow?.postMessage({dojedeno:'aktivita',aktivni:false},'*');qrOkno.hidden=true;qrOkno.querySelector('iframe').removeAttribute('src');});
   s.addEventListener('tisk', () => stavKroku(6, true));
 })();
