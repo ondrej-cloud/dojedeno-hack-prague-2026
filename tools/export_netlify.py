@@ -59,7 +59,7 @@ def build():
         if (ROOT / 'prezentace/assets' / name).is_file():
             copy('prezentace/assets/' + name, 'assets/' + name)
     copy('demo/screenshots/step-4.png', 'demo/screenshots/step-4.png')
-    for name in ['index.html', 'dojedeno-onepager.pdf', 'nahled.png']:
+    for name in ['index.html', 'dojedeno-onepager.pdf', 'dojezeno-onepager.pdf', 'nahled.png', 'talir.jpg', 'prehled.png']:
         copy('materialy/onepager/' + name, 'onepager/' + name)
 
     html = (ROOT / 'prezentace/index.html').read_text()

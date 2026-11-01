@@ -57,8 +57,8 @@ Hlavní návrh používá **jeden pás, fotografii talíře před vysypáním a 
 Hlavní KPI jsou gramy vráceného potravinového gastroodpadu na skutečně vydaný oběd ve stejné sledované části provozu. Návrhový cíl −10 % není dosažený výsledek. Nevydané pokrmy sledujeme odděleně včetně dalšího využití; nemusí všechny skončit jako odpad. Finanční přínos je vedlejší a musí se prokázat zvlášť: 60 000 Kč je modelová hodnota 10 % z odhadovaných surovin ve zbytcích, nikoli automatická úspora nákupů.
 
 - [Obsah obnovené prezentace](prezentace/OBSAH.md)
-- [One-pager v PDF](materialy/onepager/dojedeno-onepager.pdf), [HTML pro tisk](materialy/onepager/index.html)
-- [Prezentace online](https://dojezeno.netlify.app), [one-pager online](https://dojezeno.netlify.app/onepager/dojedeno-onepager.pdf)
+- [One-pager v PDF](materialy/onepager/dojezeno-onepager.pdf), [HTML pro tisk](materialy/onepager/index.html)
+- [Prezentace online](https://dojezeno.netlify.app), [one-pager online](https://dojezeno.netlify.app/onepager/dojezeno-onepager.pdf)
 
 Dosud není potvrzen souhlas školy, přesný termín, jednopásové místo ani dodavatelské ceny. Podporu Hack Prague mimo Prahu musí potvrdit organizátoři. Kokoza a Zachraň jídlo jsou organizace, které chceme oslovit. Chybí skutečná citace člověka z jídelny a úplná obsahová šablona organizátorů; netvrdíme úplnou shodu se šablonou ani hotovou produkční instalaci.
 

@@ -6,7 +6,7 @@
   const s = document.getElementById('s-dva-talire');
   if (!s) return;
   /* natočené demo: výsledek analýzy Claude Opus 5.5 (assets/analyza-opus.json), gramy = váha − talíř */
-  let data = { talir1: { jidlo: 'Ovoce, zelenina a croissant', slozky: [{ nazev: 'Nakousnuté jablko', g: 69 }, { nazev: 'Mrkev', g: 50 }, { nazev: 'Croissant', g: 33 }], vaha_g: 352, talir_g: 200 }, talir2: { jidlo: 'Prázdný talíř', vaha_g: 201, talir_g: 200 } };
+  let data = { talir1: { jidlo: 'Ovoce, zelenina a croissant', slozky: [{ nazev: 'Nakousnuté jablko', g: 84 }, { nazev: 'Mrkev', g: 42 }, { nazev: 'Croissant', g: 26 }], vaha_g: 352, talir_g: 200 }, talir2: { jidlo: 'Prázdný talíř', vaha_g: 201, talir_g: 200 } };
   try { data = JSON.parse(s.querySelector('.dt-data').textContent); } catch (e) {}
   const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const nastav = (sel, v) => { const e = s.querySelector(sel); e.dataset.pocitej = v; e.dataset.od = 0; return e; };
