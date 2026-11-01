@@ -6,42 +6,44 @@
   'use strict';
   const s = document.getElementById('s-dva-talire');
   if (!s) return;
-  let data = { talir1: { slozky: [{ nazev: 'Knedlík', g: 90 }, { nazev: 'Guláš', g: 60 }], porce_g: 400 }, talir2: { g: 4 } };
+  /* natočené demo: výsledek analýzy Claude Opus 5.5 (assets/analyza-opus.json), gramy = váha − talíř */
+  let data = { talir1: { jidlo: 'Ovoce, zelenina a croissant', slozky: [{ nazev: 'Nakousnuté jablko', g: 69 }, { nazev: 'Mrkev', g: 50 }, { nazev: 'Croissant', g: 33 }], vaha_g: 352, talir_g: 200 }, talir2: { jidlo: 'Prázdný talíř', vaha_g: 201, talir_g: 200 } };
   try { data = JSON.parse(s.querySelector('.dt-data').textContent); } catch (e) {}
   const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const nastav = (sel, v) => { const e = s.querySelector(sel); e.dataset.pocitej = v; e.dataset.od = 0; return e; };
-  const c1 = nastav('.dt-g1', 0), c2 = nastav('.dt-g2', 0), cp = nastav('.dt-snedeno', 0);
-  let g1 = 0, g2 = 0, snedeno = 0;
+  const c1 = nastav('.dt-g1', 0), c2 = nastav('.dt-g2', 0);
+  let g1 = 0, g2 = 0;
   /* talíř 1 a 2: živě z dema (deck-bridge.js), jinak záložní čísla z .dt-data */
   const zive = { reference: null, leftover: null };
   function talir1() {
     const z = zive.reference;
     if (z && z.stav === 'hotovo') return { jidlo: z.jidlo, slozky: (z.slozky || []).filter(x => x.g != null), g: z.netto ?? 0, zive: true };
-    return { jidlo: 'Segedínský guláš s knedlíkem', slozky: data.talir1.slozky, g: data.talir1.slozky.reduce((a, x) => a + x.g, 0), zive: false };
+    return { jidlo: data.talir1.jidlo, slozky: data.talir1.slozky, g: data.talir1.vaha_g - data.talir1.talir_g, vaha: data.talir1.vaha_g, talir: data.talir1.talir_g, zive: false };
   }
   function talir2() {
     const z = zive.leftover;
     if (z && z.stav === 'hotovo') return { g: z.netto ?? 0, zive: true };
-    return { g: data.talir2.g, zive: false };
+    return { g: data.talir2.vaha_g - data.talir2.talir_g, vaha: data.talir2.vaha_g, zive: false };
   }
   function vykresliKarty() {
     const t1 = talir1(), t2 = talir2();
-    g1 = t1.g; g2 = t2.g; snedeno = Math.max(0, Math.min(100, Math.round((1 - g1 / data.talir1.porce_g) * 100)));
+    g1 = t1.g; g2 = t2.g;
+    if (t1.vaha != null) { s.querySelector('.dt-v1').textContent = t1.vaha; s.querySelector('.dt-t1').textContent = t1.talir; }
+    s.querySelector('.dt-vypocet').hidden = t1.vaha == null;
     s.querySelector('.dt-jidlo').textContent = t1.jidlo;
     const max = Math.max(1, ...t1.slozky.map(y => y.g));
     s.querySelector('.dt-slozky').innerHTML = t1.slozky.map(x =>
-      `<div class="dt-slozka"><span>${esc(x.nazev)}</span><i style="--podil:${x.g / max}"></i><b>${t1.zive ? '≈ ' : ''}${x.g} g</b></div>`).join('');
+      `<div class="dt-slozka"><span>${esc(x.nazev)}</span><i style="--podil:${x.g / max}"></i><b>≈ ${x.g} g</b></div>`).join('');
     s.querySelectorAll('.dt-k1 .dt-zdroj').forEach(e => { e.textContent = t1.zive ? 'živě' : s.classList.contains('ma-zaznam') ? 'záznam' : 'ukázková data'; });
     s.querySelectorAll('.dt-k2 .dt-zdroj').forEach(e => { e.textContent = t2.zive ? 'živě' : s.classList.contains('ma-zaznam') ? 'záznam' : 'ukázková data'; });
     const prazdny = g2 < 10;
     s.querySelector('.dt-h2').textContent = prazdny ? 'Prázdný talíř' : 'Zbytek na talíři';
     s.querySelector('.dt-verdikt').innerHTML = prazdny ? 'pod 10&nbsp;g = <span class="zelena">dojedeno</span>' : 'zbylo na talíři';
-    [[c1, g1], [c2, g2], [cp, snedeno]].forEach(([e, v]) => { e.dataset.pocitej = v; });
+    [[c1, g1], [c2, g2]].forEach(([e, v]) => { e.dataset.pocitej = v; });
     s.querySelector('.dr-l1').textContent = `${g1}\u00a0g zbytků`;
     s.querySelector('.dr-l2').textContent = prazdny ? 'dojedeno' : `${g2}\u00a0g zbytků`;
   }
   vykresliKarty();
-  const kruh = s.querySelector('.kruh-hodnota');
   const stav = s.querySelector('.dt-stav-text');
 
   /* data: den = 412 talířů (38 % dojedeno), dny = kg zbytků z talířů (ukázková data, demo/data/month.json), 92,5 Kč/kg */
@@ -171,9 +173,9 @@
     const ceka = f => pripojeno && zive[f] && zive[f].stav !== 'hotovo';
     k1.classList.toggle('ceka', aktualniK >= 1 && ceka('reference'));
     k2.classList.toggle('ceka', aktualniK >= 2 && ceka('leftover'));
-    if (aktualniK >= 1 && zive.reference?.stav === 'hotovo' && !s.classList.contains('v1')) { s.classList.add('v1'); pocitej(c1, false); pocitej(cp, false); kruh.style.strokeDasharray = `${snedeno} 100`; }
+    if (aktualniK >= 1 && zive.reference?.stav === 'hotovo' && !s.classList.contains('v1')) { s.classList.add('v1'); pocitej(c1, false); }
     if (aktualniK >= 2 && zive.leftover?.stav === 'hotovo' && !s.classList.contains('v2')) { s.classList.add('v2'); pocitej(c2, false); }
-    if (s.classList.contains('v1')) { pocitej(c1, true); pocitej(cp, true); kruh.style.strokeDasharray = `${snedeno} 100`; }
+    if (s.classList.contains('v1')) pocitej(c1, true);
     if (s.classList.contains('v2')) pocitej(c2, true);
   }
   /* QR pairing page does not load the demo or run any analysis. */
@@ -212,7 +214,8 @@
     s.classList.toggle('tydny', k >= 5);
     stav.textContent = (s.classList.contains('ma-zaznam') && !s.classList.contains('live') ? 'Záznam z kamery' : 'Kamera nad pásem') + (k >= 2 ? ' · talíř 2' : ' · talíř 1');
     prehraj(k, hned);
-    const ukaz1 = () => { s.classList.add('v1'); kruh.style.strokeDasharray = `${snedeno} 100`; pocitej(c1, hned); pocitej(cp, hned); };
+    s.querySelector('.dt-vaha-g').textContent = k >= 2 ? talir2().vaha ?? '' : talir1().vaha ?? '';
+    const ukaz1 = () => { s.classList.add('v1'); pocitej(c1, hned); };
     const ukaz2 = () => { s.classList.add('v2'); pocitej(c2, hned); };
     s.classList.toggle('siroka', k >= 5);
     stavMesice(k, hned, byl);
@@ -220,12 +223,18 @@
     if (k < 4) s.classList.remove('tecky-hned'); else if (hned) s.classList.add('tecky-hned');
     umistiPopisky();
     byl = k;
-    if (k < 1) { s.classList.remove('v1', 'v2'); kruh.style.strokeDasharray = '0 100'; return; }
+    if (k < 1) { s.classList.remove('v1', 'v2', 'vazi'); return; }
     if (k < 2) s.classList.remove('v2');
+    if (hned || k >= 3) s.classList.add('vazi');
     if (hned || k >= 4) { ukaz1(); if (k >= 2) ukaz2(); return; }
     const maVysledek = f => !pripojeno || !zive[f] || zive[f].stav === 'hotovo';
-    if (k === 1) { s.classList.remove('v1'); s.classList.add('skenuje'); pozdeji(() => s.classList.add('detekce'), 700); pozdeji(() => { if (maVysledek('reference')) ukaz1(); cekani(); }, 1300); }
-    if (k === 2) { ukaz1(); pozdeji(() => s.classList.add('skenuje'), 500); pozdeji(() => s.classList.add('detekce'), 1200); pozdeji(() => { if (maVysledek('leftover')) ukaz2(); cekani(); }, 1800); }
+    /* natočené video: talíř se nejdřív položí (délka klipu), pak sken a výsledek */
+    const vid = i => (s.classList.contains('ma-zaznam') && !s.classList.contains('live') && zaznamy[i].duration) ? Math.round(zaznamy[i].duration * 1000) : 0;
+    const z1 = k === 1 ? vid(0) : 0, z2 = k === 2 ? vid(1) : 0;
+    s.classList.remove('vazi');
+    if (k === 1 || k === 2) pozdeji(() => s.classList.add('vazi'), Math.max(0, (k === 1 ? z1 : z2) - 250));
+    if (k === 1) { s.classList.remove('v1'); pozdeji(() => s.classList.add('skenuje'), z1); pozdeji(() => s.classList.add('detekce'), z1 + 700); pozdeji(() => { if (maVysledek('reference')) ukaz1(); cekani(); }, z1 + 1300); }
+    if (k === 2) { ukaz1(); pozdeji(() => s.classList.add('skenuje'), z2 || 500); pozdeji(() => s.classList.add('detekce'), (z2 || 500) + 700); pozdeji(() => { if (maVysledek('leftover')) ukaz2(); cekani(); }, (z2 || 500) + 1300); }
     /* záloha: když živá analýza do 20 s nedoběhne (mobil nepřipojen), ukážou se připravená čísla */
     const zaloha = (f, ukaz) => pozdeji(() => { if (!maVysledek(f)) { zive[f] = null; vykresliKarty(); s.querySelector(f === 'reference' ? '.dt-k1' : '.dt-k2').classList.remove('ceka'); ukaz(); } }, 20000);
     if (k === 1) zaloha('reference', ukaz1);
@@ -234,7 +243,7 @@
   }
   s.addEventListener('krok', e => stavKroku(e.detail.k, e.detail.hned));
   addEventListener('resize', umistiPopisky);
-  s.addEventListener('vstup', () => {pripoj();kamera.contentWindow?.postMessage({dojedeno:'aktivita',aktivni:true},'*');});
+  s.addEventListener('vstup', () => {kamera.contentWindow?.postMessage({dojedeno:'aktivita',aktivni:true},'*');});
   s.addEventListener('odchod', () => {zrus();zaznamy.forEach(v => v.pause());kamera.contentWindow?.postMessage({dojedeno:'aktivita',aktivni:false},'*');qrOkno.hidden=true;qrOkno.querySelector('iframe').removeAttribute('src');});
   s.addEventListener('tisk', () => stavKroku(6, true));
 })();

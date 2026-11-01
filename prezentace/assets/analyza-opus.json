@@ -1,0 +1,89 @@
+{
+ "pozn": "Jednorázová analýza snímků z videí assets/talir1.mp4 a talir2.mp4 modelem claude-opus-5-5 (effort high) přes demo/tools/claude_client.py, 1. 11. 2026. Hmotnost: váha 352 g a 201 g, talíř 200 g (displej ve videu nečitelný, zadáno ručně).",
+ "talir1": {
+  "frame": "v28_3.48.jpg",
+  "grossGrams": 352,
+  "plateTareGrams": 200,
+  "result": {
+   "plateDetected": true,
+   "dishName": "Ovoce, zelenina a croissant",
+   "components": [
+    {
+     "name": "Nakousnuté jablko",
+     "estimatedGrams": 161,
+     "estimatedMassShare": 0.45,
+     "amountDescription": "asi polovina jablka, okousaná"
+    },
+    {
+     "name": "Mrkev",
+     "estimatedGrams": 118,
+     "estimatedMassShare": 0.33,
+     "amountDescription": "3 kousky"
+    },
+    {
+     "name": "Croissant s moučkovým cukrem",
+     "estimatedGrams": 78,
+     "estimatedMassShare": 0.22,
+     "amountDescription": "1 kus, nakousnutý"
+    }
+   ],
+   "massEstimateConfidence": "low",
+   "estimatedTotalGrams": null,
+   "remainingPercent": null,
+   "comparableToReference": false,
+   "confidence": "medium",
+   "notes": "Na talíři je nakousnuté jablko, tři kousky mrkve a nakousnutý croissant. Jídlo neodpovídá nabídce jídelníčku.",
+   "scaleReading": {
+    "visible": true,
+    "grams": 357,
+    "confidence": "low"
+   }
+  },
+  "model": "claude-opus-5-5",
+  "usage": {
+   "input_tokens": 3743,
+   "output_tokens": 611
+  },
+  "ocrRescue": {
+   "attempted": false,
+   "used": false
+  }
+ },
+ "talir2": {
+  "frame": "v30_2.35.jpg",
+  "grossGrams": 201,
+  "plateTareGrams": 200,
+  "result": {
+   "plateDetected": true,
+   "dishName": "Téměř prázdný talíř se zbytky drobků",
+   "components": [
+    {
+     "name": "drobné zbytky jídla",
+     "estimatedGrams": null,
+     "estimatedMassShare": null,
+     "amountDescription": "několik drobných drobků"
+    }
+   ],
+   "massEstimateConfidence": "low",
+   "estimatedTotalGrams": null,
+   "remainingPercent": null,
+   "comparableToReference": false,
+   "confidence": "medium",
+   "notes": "Talíř je téměř prázdný, zůstalo jen několik drobků. Číslice na displeji váhy nejsou na snímku dostatečně čitelné.",
+   "scaleReading": {
+    "visible": true,
+    "grams": null,
+    "confidence": "low"
+   }
+  },
+  "model": "claude-opus-5-5",
+  "usage": {
+   "input_tokens": 3743,
+   "output_tokens": 469
+  },
+  "ocrRescue": {
+   "attempted": false,
+   "used": false
+  }
+ }
+}
