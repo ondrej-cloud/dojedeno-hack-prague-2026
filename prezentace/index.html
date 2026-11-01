@@ -381,37 +381,23 @@
 <section class="slajd" id="s-zapojeni" data-nazev="Kdo se zapojí a co z toho má" data-kroky="1">
   <h1>Kdo se zapojí a&nbsp;co z&nbsp;toho má.</h1>
 
-  <div class="z-skupiny rozbal">
-    <div class="karta z-skupina">
-      <p class="z-kdo">Vedoucí a&nbsp;kuchařky</p>
-      <h2>Ví, co děti nejedí.</h2>
-    </div>
-    <div class="karta z-skupina">
-      <p class="z-kdo">Ředitel</p>
-      <h2>Ušetří za suroviny.</h2>
-    </div>
-    <div class="karta z-skupina">
-      <p class="z-kdo">Žáci a&nbsp;učitelé</p>
-      <h2>Soutěž tříd.</h2>
-    </div>
-    <div class="karta z-skupina z-platce">
-      <span class="z-odznak">plátce</span>
-      <p class="z-kdo">Městská část</p>
-      <h2>Srovná své školy.</h2>
-    </div>
-  </div>
+  <ol class="z-cesta rozbal" aria-label="Kdo se zapojí, od jídelny po městskou část">
+    <li style="--n:0"><span class="z-uzel"><svg class="ilu" aria-hidden="true"><use href="#i-kuchar"/></svg></span>
+      <p class="z-kdo">Vedoucí a&nbsp;kuchařky</p><p class="z-co">Ví, co děti nejedí.</p></li>
+    <li style="--n:1"><span class="z-uzel"><svg class="ilu" aria-hidden="true"><use href="#i-dite"/></svg></span>
+      <p class="z-kdo">Žáci a&nbsp;učitelé</p><p class="z-co">Soutěží třídy.</p></li>
+    <li style="--n:2"><span class="z-uzel"><svg class="ilu" aria-hidden="true"><use href="#i-skola"/></svg></span>
+      <p class="z-kdo">Ředitel</p><p class="z-co">Ušetří za suroviny.</p></li>
+    <li style="--n:3" class="z-platce"><span class="z-uzel"><svg class="ilu" aria-hidden="true"><use href="#i-mesto"/></svg></span>
+      <p class="z-kdo">Městská část · plátce</p><p class="z-co">Srovná své školy.</p></li>
+  </ol>
 
-  <div class="z-dukazy" data-krok="1">
-    <div class="karta z-brno">
-      <div>
-        <p class="z-kdo">Brno · den, kdy děti vážily samy</p>
-        <p class="z-veta">Když děti vidí, co vyhodí, vyhodí míň.</p>
-      </div>
-      <p class="z-cisla"><span class="oranz">80<small>kg</small></span><span class="z-sipka" aria-hidden="true">→</span><span class="zelena">19<small>kg</small></span></p>
-    </div>
-    <div class="karta z-hejcin">
-      <p class="z-kdo zelena">Už jsme volali</p>
-      <h2>Jídelně v&nbsp;Hejčíně to zní dobře.</h2>
+  <div class="z-dukaz" data-krok="1">
+    <p class="z-cisla"><span class="oranz">80<small>kg</small></span><span class="z-sipka" aria-hidden="true">→</span><span class="zelena">19<small>kg</small></span></p>
+    <div class="z-veta-blok">
+      <p class="z-veta">Když děti vidí, co vyhodí, vyhodí míň.</p>
+      <p class="z-pod">Brno, v&nbsp;den kdy děti vážily samy</p>
+      <p class="z-hejcin"><b>Už jsme volali:</b> jídelně v&nbsp;Hejčíně to zní dobře.</p>
     </div>
   </div>
 

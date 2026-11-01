@@ -1,21 +1,25 @@
-/* 08b · zapojení lidí: čtyři skupiny od y 272 (výška 330), krok 1 dva důkazy od y 640 */
-#s-zapojeni .z-skupiny { position: absolute; left: var(--okraj-x); right: var(--okraj-x); top: var(--obsah-y); display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
-#s-zapojeni .z-skupina { display: flex; flex-direction: column; height: 200px; padding: 34px 34px 32px; }
-#s-zapojeni .z-kdo { font-size: 22px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; }
-#s-zapojeni .z-skupina h2 { margin-top: 14px; font-size: 44px; line-height: 1.08; letter-spacing: -0.02em; }
-#s-zapojeni .z-co { margin-top: auto; font-size: 26px; line-height: 1.35; }
+/* 08b · kdo se zapojí: jedna zelená linka se čtyřmi kroužky (cesta dat od jídelny po městskou část), bez karet;
+   krok 1 pod ní Brno jako velké číslo a jedna věta o Hejčíně, oddělené jen vlasovou čarou */
+#s-zapojeni .z-cesta { position: absolute; left: var(--okraj-x); right: var(--okraj-x); top: 300px; margin: 0; padding: 0; list-style: none;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+#s-zapojeni .z-cesta::before { content: ""; position: absolute; left: 48px; right: 362px; top: 47px; height: 3px; border-radius: 3px; background: var(--zelena); opacity: 0.35; }
+#s-zapojeni .z-cesta li { position: relative; }
+#s-zapojeni .z-uzel { position: relative; display: grid; place-items: center; width: 96px; height: 96px; border-radius: 50%; background: #fff;
+  box-shadow: 0 0 0 3px var(--zelena), var(--stin); color: var(--zelena); }
+#s-zapojeni .z-uzel .ilu { width: 52px; height: 52px; }
+#s-zapojeni .z-platce .z-uzel { background: var(--zelena); color: #fff; }
+#s-zapojeni .z-kdo { margin-top: 30px; font-size: 22px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; }
+#s-zapojeni .z-co { margin-top: 10px; font-size: 44px; font-weight: 700; line-height: 1.08; letter-spacing: -0.02em; }
+#s-zapojeni .z-cesta.je li { animation: s08b-uzel 600ms var(--ven) both; animation-delay: calc(var(--n) * 120ms); }
+@keyframes s08b-uzel { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+#s-zapojeni.hned .z-cesta li { animation: none; }
 
-#s-zapojeni .z-dukazy { position: absolute; left: var(--okraj-x); right: var(--okraj-x); top: 540px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
-#s-zapojeni .z-brno, #s-zapojeni .z-hejcin { height: 300px; padding: 34px 40px; }
-#s-zapojeni .z-brno { display: flex; flex-direction: column; justify-content: space-between; }
-#s-zapojeni .z-veta { margin-top: 12px; font-size: 38px; line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; }
-#s-zapojeni .z-cisla { display: flex; align-items: baseline; gap: 28px; font-weight: 800; font-size: 104px; line-height: 0.9; letter-spacing: -0.035em; font-variant-numeric: tabular-nums; }
-#s-zapojeni .z-cisla small { font-size: 0.4em; font-weight: 600; margin-left: 0.08em; }
-#s-zapojeni .z-sipka { font-size: 0.55em; font-weight: 600; color: var(--text3); }
-#s-zapojeni .z-hejcin { display: flex; flex-direction: column; justify-content: center; box-shadow: var(--stin), inset 0 0 0 3px var(--zelena); }
-#s-zapojeni .z-hejcin h2 { margin-top: 14px; font-size: 44px; line-height: 1.1; letter-spacing: -0.02em; }
-
-/* městská část: odznak „budoucí plátce“ */
-#s-zapojeni .z-platce { box-shadow: var(--stin), inset 0 0 0 3px var(--zelena); }
-#s-zapojeni .z-platce { position: relative; }
-#s-zapojeni .z-odznak { position: absolute; top: 30px; right: 30px; padding: 4px 14px 6px; border-radius: var(--pilulka); background: var(--zelena-svetla); color: var(--zelena); font-size: 18px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+#s-zapojeni .z-dukaz { position: absolute; left: var(--okraj-x); right: var(--okraj-x); top: 660px; padding-top: 44px; border-top: 1px solid var(--linka2);
+  display: flex; align-items: center; gap: 64px; }
+#s-zapojeni .z-cisla { flex: none; display: flex; align-items: baseline; gap: 30px; font-weight: 800; font-size: 168px; line-height: 0.85; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+#s-zapojeni .z-cisla small { font-size: 0.32em; font-weight: 600; margin-left: 0.06em; letter-spacing: 0; }
+#s-zapojeni .z-sipka { font-size: 0.45em; font-weight: 500; color: var(--text3); }
+#s-zapojeni .z-veta { font-size: 44px; font-weight: 700; line-height: 1.12; letter-spacing: -0.02em; }
+#s-zapojeni .z-pod { margin-top: 10px; font-size: 24px; color: var(--text3); }
+#s-zapojeni .z-hejcin { margin-top: 26px; font-size: 28px; line-height: 1.3; }
+#s-zapojeni .z-hejcin b { color: var(--zelena); }
