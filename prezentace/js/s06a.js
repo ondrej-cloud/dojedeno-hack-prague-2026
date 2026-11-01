@@ -1,5 +1,5 @@
-/* 06a · dva talíře → data. Krok 1 sken talíře 1 → analýza, 2 talíř 2 → dojedeno, 3 spojení do dvou teček,
-   4 tečky přeletí do mřížky a naroste den (412 talířů), 5 sloupce dnů 1–10, 6 dny 11–20 + co se vrací nejvíc.
+/* 06a · dva talíře → data. Krok 1 sken talíře 1 → analýza, 2 talíř 2 → dojedeno, 3 oba talíře jako dvě tečky (nic se nehýbe),
+   4 kolem dvou teček (naše talíře, stojí na místě) pomalu doroste den (412 talířů), 5 sloupce dnů 1–10, 6 dny 11–20 + co se vrací nejvíc.
    Třídy na sekci: t2, skenuje, detekce, v1, v2, spoj, den, tydny. Skok/tisk = konečný stav bez animace. */
 (function () {
   'use strict';
@@ -9,7 +9,7 @@
   try { data = JSON.parse(s.querySelector('.dt-data').textContent); } catch (e) {}
   const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const nastav = (sel, v) => { const e = s.querySelector(sel); e.dataset.pocitej = v; e.dataset.od = 0; return e; };
-  const c1 = nastav('.dt-g1', 0), c2 = nastav('.dt-g2', 0), cs = nastav('.dt-gs', 0), cp = nastav('.dt-snedeno', 0);
+  const c1 = nastav('.dt-g1', 0), c2 = nastav('.dt-g2', 0), cp = nastav('.dt-snedeno', 0);
   let g1 = 0, g2 = 0, snedeno = 0;
   /* talíř 1 a 2: živě z dema (deck-bridge.js), jinak záložní čísla z .dt-data */
   const zive = { reference: null, leftover: null };
@@ -35,7 +35,9 @@
     const prazdny = g2 < 10;
     s.querySelector('.dt-h2').textContent = prazdny ? 'Prázdný talíř' : 'Zbytek na talíři';
     s.querySelector('.dt-verdikt').innerHTML = prazdny ? 'pod 10&nbsp;g = <span class="zelena">dojedeno</span>' : 'zbylo na talíři';
-    [[c1, g1], [c2, g2], [cs, g1 + g2], [cp, snedeno]].forEach(([e, v]) => { e.dataset.pocitej = v; });
+    [[c1, g1], [c2, g2], [cp, snedeno]].forEach(([e, v]) => { e.dataset.pocitej = v; });
+    s.querySelector('.dr-l1').textContent = `${g1}\u00a0g zbytků`;
+    s.querySelector('.dr-l2').textContent = prazdny ? 'dojedeno' : `${g2}\u00a0g zbytků`;
   }
   vykresliKarty();
   const kruh = s.querySelector('.kruh-hodnota');
@@ -44,16 +46,33 @@
   /* data: den = 412 talířů (38 % dojedeno), dny = kg zbytků z talířů (ukázková data, demo/data/month.json), 92,5 Kč/kg */
   const DNY = [32.9, 27.8, 35.1, 37.0, 32.1, 30.2, 37.0, 38.9, 37.3, 28.3, 29.6, 30.2, 37.6, 34.4, 34.3, 32.8, 39.4, 29.9, 29.9, 37.3];
   const KC_KG = 92.5, TALIRU = 412, DOJEDENO = 0.38;
-  const tecky = s.querySelector('.dr-tecky');
-  let h = '<i class="prvni p1" style="--n:0"></i><i class="prvni p2" style="--n:1"></i>';
-  for (let i = 2; i < TALIRU; i++) h += `<i style="--n:${i}" class="${((i * 7919) % 100) < DOJEDENO * 100 ? 'z' : ''}"></i>`;
+  /* den: 23 × 18 teček; naše dva talíře stojí uprostřed (řádek 8 a 9, sloupec 11) a ostatní dorůstají od nich do stran */
+  const tecky = s.querySelector('.dr-tecky'), SLOUPCU = 23, P1 = 8 * SLOUPCU + 11, P2 = 9 * SLOUPCU + 11;
+  let h = '';
+  for (let i = 0; i < TALIRU; i++) {
+    if (i === P1) { h += '<i class="prvni p1"></i>'; continue; }
+    if (i === P2) { h += '<i class="prvni p2"></i>'; continue; }
+    const r = Math.floor(i / SLOUPCU), c = i % SLOUPCU, vzd = Math.hypot(c - 11, r - 8.5);
+    const d = Math.round(250 + vzd * 165 + ((i * 2654435761) % 997) / 997 * 260);
+    h += `<i style="--d:${d}ms" class="${((i * 7919) % 100) < DOJEDENO * 100 ? 'z' : ''}"></i>`;
+  }
   tecky.innerHTML = h;
-  const prvni = [...tecky.querySelectorAll('.prvni')], bodySouhrnu = [...s.querySelectorAll('.dt-souhrn .dt-bod')];
-  const svg = s.querySelector('.dr-graf'), W = 1040, H = 290, Y0 = 230, MAX = 40, sirka = W / DNY.length;
-  svg.innerHTML = DNY.map((kg, i) => {
+  const prvni = [...tecky.querySelectorAll('.prvni')], popisky = [...s.querySelectorAll('.dr-popisek')];
+  function umistiPopisky() {
+    prvni.forEach((t, i) => {
+      if (!t.offsetWidth) return;
+      /* talíř 1 vlevo od své tečky, talíř 2 vpravo, ať se popisky nepřekrývají */
+      const l = popisky[i], vlevo = tecky.offsetLeft + t.offsetLeft;
+      const x = i === 0 ? vlevo - 22 - l.offsetWidth : vlevo + t.offsetWidth + 22, y = tecky.offsetTop + t.offsetTop + t.offsetHeight / 2;
+      popisky[i].style.left = x + 'px'; popisky[i].style.top = (y - popisky[i].offsetHeight / 2) + 'px';
+    });
+  }
+  /* sloupce: 20 dnů v ploše 880 × 700 */
+  const svg = s.querySelector('.dr-graf'), X0 = 40, W = 800, H = 480, Y0 = 90, MAX = 40, sirka = W / DNY.length;
+  svg.innerHTML = `<line x1="${X0}" x2="${X0 + W}" y1="${Y0 + H}" y2="${Y0 + H}"/>` + DNY.map((kg, i) => {
     const v = kg / MAX * H;
-    return `<rect x="${i * sirka + 6}" y="${Y0 + H - v}" width="${sirka - 12}" height="${v}" rx="6"/>` +
-      (i % 5 === 4 ? `<text x="${i * sirka + sirka / 2}" y="${Y0 + H + 34}" text-anchor="middle">${i + 1}. den</text>` : '');
+    return `<rect x="${X0 + i * sirka + 6}" y="${Y0 + H - v}" width="${sirka - 12}" height="${v}" rx="6"/>` +
+      (i % 5 === 4 ? `<text x="${X0 + i * sirka + sirka / 2}" y="${Y0 + H + 40}" text-anchor="middle">${i + 1}. den</text>` : '');
   }).join('');
   const sloupce = [...svg.querySelectorAll('rect')];
   const kgEl = s.querySelector('.dr-kg'), kcEl = s.querySelector('.dr-kc');
@@ -65,20 +84,6 @@
   const pozdeji = (f, ms) => casovace.push(setTimeout(f, ms));
   const pocitej = (e, hned) => window.pocitejCz && window.pocitejCz(e, hned);
   function pocitadlo(el, od, cil, hned) { el.dataset.od = Math.round(od); el.dataset.pocitej = Math.round(cil); pocitej(el, hned); }
-
-  /* FLIP: první dvě tečky mřížky začnou na místě teček ze souhrnu a doletí na své místo */
-  function preletTecky() {
-    const meritko = s.getBoundingClientRect().width / 1920 || 1;
-    prvni.forEach((t, i) => {
-      t.style.transition = 'none'; t.style.transform = 'none';
-      const a = bodySouhrnu[i].getBoundingClientRect(), b = t.getBoundingClientRect();
-      const dx = (a.left + a.width / 2 - (b.left + b.width / 2)) / meritko, dy = (a.top + a.height / 2 - (b.top + b.height / 2)) / meritko;
-      const sk = a.width / Math.max(1, b.width);
-      t.style.transform = `translate(${dx}px, ${dy}px) scale(${sk})`;
-      t.getBoundingClientRect();
-      t.style.transition = ''; t.style.transform = '';
-    });
-  }
 
   /* živé spojení: demo z localhost:8080 (z Netlify ../demo/) v režimu ?mode=live&vlozeno=kamera */
   const DEMO = location.protocol === 'file:' ? 'http://localhost:8080/' : new URL('../demo/', location.href).href;
@@ -136,11 +141,12 @@
     const dnu = k >= 6 ? 20 : k >= 5 ? 10 : 0;
     sloupce.forEach((r, i) => { r.style.transitionDelay = hned ? '0ms' : `${Math.max(0, i - (k >= 6 ? 10 : 0)) * 70 + 300}ms`; r.classList.toggle('je', i < dnu); });
     if (k >= 4) pocitadlo(kgEl, hned ? KG[k] : KG[byl] || 0, KG[k], hned), pocitadlo(kcEl, hned ? KG[k] * KC_KG : (KG[byl] || 0) * KC_KG, KG[k] * KC_KG, hned);
-    if (k === 4 && byl === 3 && !hned) preletTecky();
+    if (k < 4) s.classList.remove('tecky-hned'); else if (hned) s.classList.add('tecky-hned');
+    umistiPopisky();
     byl = k;
     if (k < 1) { s.classList.remove('v1', 'v2'); kruh.style.strokeDasharray = '0 100'; return; }
     if (k < 2) s.classList.remove('v2');
-    if (hned || k >= 4) { ukaz1(); if (k >= 2) ukaz2(); if (k >= 3) pocitej(cs, true); return; }
+    if (hned || k >= 4) { ukaz1(); if (k >= 2) ukaz2(); return; }
     const maVysledek = f => !pripojeno || !zive[f] || zive[f].stav === 'hotovo';
     if (k === 1) { s.classList.remove('v1'); s.classList.add('skenuje'); pozdeji(() => s.classList.add('detekce'), 700); pozdeji(() => { if (maVysledek('reference')) ukaz1(); cekani(); }, 1300); }
     if (k === 2) { ukaz1(); pozdeji(() => s.classList.add('skenuje'), 500); pozdeji(() => s.classList.add('detekce'), 1200); pozdeji(() => { if (maVysledek('leftover')) ukaz2(); cekani(); }, 1800); }
@@ -148,9 +154,10 @@
     const zaloha = (f, ukaz) => pozdeji(() => { if (!maVysledek(f)) { zive[f] = null; vykresliKarty(); s.querySelector(f === 'reference' ? '.dt-k1' : '.dt-k2').classList.remove('ceka'); ukaz(); } }, 20000);
     if (k === 1) zaloha('reference', ukaz1);
     if (k === 2) zaloha('leftover', ukaz2);
-    if (k === 3) { ukaz1(); ukaz2(); pozdeji(() => pocitej(cs, false), 450); }
+    if (k === 3) { ukaz1(); ukaz2(); }
   }
   s.addEventListener('krok', e => stavKroku(e.detail.k, e.detail.hned));
+  addEventListener('resize', umistiPopisky);
   s.addEventListener('vstup', () => {pripoj();kamera.contentWindow?.postMessage({dojedeno:'aktivita',aktivni:true},'*');});
   s.addEventListener('odchod', () => {zrus();kamera.contentWindow?.postMessage({dojedeno:'aktivita',aktivni:false},'*');qrOkno.hidden=true;qrOkno.querySelector('iframe').removeAttribute('src');});
   s.addEventListener('tisk', () => stavKroku(6, true));
