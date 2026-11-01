@@ -1,0 +1,5 @@
+/* Pairing only: no camera frames, presence detector or paid analysis here. */
+(()=>{'use strict';let busy=false,notified=false;
+async function refresh(){if(busy)return;busy=true;const c=new AbortController(),timer=setTimeout(()=>c.abort(),5000);try{const r=await(window.demoApiFetch||fetch)('/api/status',{signal:c.signal,cache:'no-store'});if(!r.ok)throw Error();const s=await r.json();const link=new URL(s.phoneUrl);if(link.protocol!=='https:'&&link.hostname!=='localhost')throw Error();renderPhoneQR(link.href);const a=document.querySelector('#pair-link');a.href=link.href;a.hidden=false;document.querySelector('#pair-status').textContent=s.connected?'Mobil připojený. Zavřete toto okno a položte talíř.':'Čekám na mobil · zapněte kameru na telefonu';if(s.connected&&!notified){notified=true;parent.postMessage({dojedeno:'mobil-pripojen'},'*');}}catch{document.querySelector('#pair-status').textContent='Živé spojení není dostupné. Spusťte server a tunel na Macu.';}finally{clearTimeout(timer);busy=false;}}
+document.querySelector('#pair-retry').onclick=refresh;refresh();setInterval(refresh,2000);
+})();

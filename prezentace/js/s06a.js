@@ -30,8 +30,8 @@
     const max = Math.max(1, ...t1.slozky.map(y => y.g));
     s.querySelector('.dt-slozky').innerHTML = t1.slozky.map(x =>
       `<div class="dt-slozka"><span>${esc(x.nazev)}</span><i style="--podil:${x.g / max}"></i><b>${t1.zive ? '≈ ' : ''}${x.g} g</b></div>`).join('');
-    s.querySelectorAll('.dt-k1 .dt-zdroj').forEach(e => { e.textContent = t1.zive ? 'živě' : 'rozpoznáno'; });
-    s.querySelectorAll('.dt-k2 .dt-zdroj').forEach(e => { e.textContent = t2.zive ? 'živě' : 'rozpoznáno'; });
+    s.querySelectorAll('.dt-k1 .dt-zdroj').forEach(e => { e.textContent = t1.zive ? 'živě' : 'ukázková data'; });
+    s.querySelectorAll('.dt-k2 .dt-zdroj').forEach(e => { e.textContent = t2.zive ? 'živě' : 'ukázková data'; });
     const prazdny = g2 < 10;
     s.querySelector('.dt-h2').textContent = prazdny ? 'Prázdný talíř' : 'Zbytek na talíři';
     s.querySelector('.dt-verdikt').innerHTML = prazdny ? 'pod 10&nbsp;g = <span class="zelena">dojedeno</span>' : 'zbylo na talíři';
@@ -86,14 +86,18 @@
   let pripojeno = false, aktualniK = 0;
   function pripoj() {
     fetch(DEMO, { mode: 'no-cors', cache: 'no-store' }).then(() => {
-      pripojeno = true;
+      // The frame itself reports whether actual mobile pixels are arriving.
       if (!kamera.getAttribute('src')) { const u = new URL(DEMO); u.searchParams.set('mode', 'live'); u.searchParams.set('vlozeno', 'kamera'); kamera.setAttribute('src', u.href); }
-      s.classList.add('live');
+
     }).catch(() => { pripojeno = false; s.classList.remove('live'); });
   }
   addEventListener('message', e => {
     const d = e.data;
-    if (!d || typeof d !== 'object' || d.dojedeno !== 'talir' || e.source !== kamera.contentWindow) return;
+    if(!d||typeof d!=='object')return;
+    if(e.source===qrOkno.querySelector('iframe').contentWindow&&d.dojedeno==='mobil-pripojen'){if(!pripojeno){kamera.removeAttribute('src');pripoj();}return;}
+    if(e.source!==kamera.contentWindow)return;
+    if(d.dojedeno==='kamera'){pripojeno=!!d.pripojeno;s.classList.toggle('live',pripojeno);return;}
+    if(d.dojedeno!=='talir'||!['reference','leftover'].includes(d.faze))return;
     zive[d.faze] = d;
     vykresliKarty();
     cekani();
@@ -109,10 +113,10 @@
     if (s.classList.contains('v1')) { pocitej(c1, true); pocitej(cp, true); kruh.style.strokeDasharray = `${snedeno} 100`; }
     if (s.classList.contains('v2')) pocitej(c2, true);
   }
-  /* QR párování mobilu: overlay s demem (?phone=1 otevře QR) */
+  /* QR pairing page does not load the demo or run any analysis. */
   const qrOkno = s.querySelector('.dt-qr-okno');
   s.querySelector('.dt-qr').addEventListener('click', () => {
-    const u = new URL(DEMO); u.searchParams.set('mode', 'live'); u.searchParams.set('phone', '1'); u.searchParams.set('vlozeno', 'qr');
+    const u = new URL('pair.html', DEMO);
     qrOkno.querySelector('iframe').setAttribute('src', u.href); qrOkno.hidden = false;
   });
   s.querySelector('.dt-qr-zavrit').addEventListener('click', () => { qrOkno.hidden = true; qrOkno.querySelector('iframe').removeAttribute('src'); window.focus(); });
@@ -147,7 +151,7 @@
     if (k === 3) { ukaz1(); ukaz2(); pozdeji(() => pocitej(cs, false), 450); }
   }
   s.addEventListener('krok', e => stavKroku(e.detail.k, e.detail.hned));
-  s.addEventListener('vstup', pripoj);
-  s.addEventListener('odchod', zrus);
+  s.addEventListener('vstup', () => {pripoj();kamera.contentWindow?.postMessage({dojedeno:'aktivita',aktivni:true},'*');});
+  s.addEventListener('odchod', () => {zrus();kamera.contentWindow?.postMessage({dojedeno:'aktivita',aktivni:false},'*');qrOkno.hidden=true;qrOkno.querySelector('iframe').removeAttribute('src');});
   s.addEventListener('tisk', () => stavKroku(6, true));
 })();

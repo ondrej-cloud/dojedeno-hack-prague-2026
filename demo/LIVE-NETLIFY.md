@@ -46,3 +46,5 @@ Velké číslo je hmotnost jídla po odečtení talíře (výchozí 216 g). Pod 
 Přenos posílá nejnovější JPEG maximálně osmkrát za sekundu, bez fronty starých snímků. Skutečná plynulost závisí na připojení. Během analýzy zůstává zachycený snímek velký a živý obraz běží v malém náhledu.
 
 Při nedostupném serveru nebo tunelu se i po volbě živého režimu automaticky otevře ukázka s viditelnou informací o výpadku. Šipky zůstanou funkční; po obnovení spojení zvolte **Živé měření** znovu.
+
+Slajd „Ukázka: dva talíře“ vkládá pouze obraz kamery (`vlozeno=kamera`); výsledky vykresluje přímo prezentace. „Připojit mobil“ otevírá samostatnou stránku `pair.html` s QR, která nečte obraz ani nevolá analýzu. Při odchodu ze slajdu se automatické snímání pozastaví.

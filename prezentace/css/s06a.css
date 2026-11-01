@@ -148,3 +148,14 @@
 #s-dva-talire .dt-karta.ceka { opacity: 1; transform: none; }
 #s-dva-talire .dt-karta.ceka > * { opacity: 0.25; }
 #s-dva-talire .dt-karta.ceka::after { content: "Analyzuji…"; position: absolute; left: 34px; top: 30px; font: 800 34px var(--pismo); color: var(--zelena); animation: pulz 1.4s ease-in-out infinite; opacity: 1; }
+
+/* The card contains only camera pixels; pairing lives in its own small page. */
+#s-dva-talire .dt-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:60px}
+#s-dva-talire .dt-placeholder svg{width:70px;height:70px;color:#a6cfaf;margin-bottom:20px}
+#s-dva-talire .dt-placeholder p{font-size:32px;font-weight:700;margin:0 0 12px}
+#s-dva-talire .dt-placeholder span{font-size:22px;color:#c2cec3}
+#s-dva-talire.live .dt-placeholder{visibility:hidden}
+#s-dva-talire .dt-detekce,#s-dva-talire .dt-sken{display:none}
+#s-dva-talire .dt-qr-okno[hidden]{display:none}
+
+#s-dva-talire .dt-slozka{grid-template-columns:150px 1fr 140px}#s-dva-talire .dt-slozka b{white-space:nowrap}#s-dva-talire .dt-placeholder p{color:#fff}

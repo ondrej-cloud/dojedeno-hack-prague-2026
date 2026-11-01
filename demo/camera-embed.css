@@ -1,0 +1,9 @@
+/* A viewport for the camera engine, never a miniature application. */
+html[data-embed="kamera"],html[data-embed="kamera"] body{margin:0!important;width:100%;height:100%;overflow:hidden;background:#232325!important}
+html[data-embed="kamera"] #stage{position:absolute!important;inset:0!important;transform:none!important;width:100%!important;height:100%!important;padding:0!important;background:#232325!important}
+html[data-embed="kamera"] header,html[data-embed="kamera"] footer,html[data-embed="kamera"] aside,html[data-embed="kamera"] .title-row,html[data-embed="kamera"] #results,html[data-embed="kamera"] .under-camera,html[data-embed="kamera"] .capture-now,html[data-embed="kamera"] .camera-label,html[data-embed="kamera"] .camera-box>img{display:none!important}
+html[data-embed="kamera"] main,html[data-embed="kamera"] .enter,html[data-embed="kamera"] .live-layout,html[data-embed="kamera"] .camera-column{position:static!important;display:block!important;width:100%!important;height:100%!important;padding:0!important;margin:0!important;transform:none!important;animation:none!important}
+html[data-embed="kamera"] .camera-box{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;border-radius:0!important;box-shadow:none!important;background:#232325!important}
+html[data-embed="kamera"] .camera-box video,html[data-embed="kamera"] .camera-box canvas{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:contain!important;border:0!important;border-radius:0!important}
+html[data-embed="kamera"] .camera-box.has-snapshot video,html[data-embed="kamera"] .camera-box.has-snapshot .remote-live,html[data-embed="kamera"] .camera-box::after{display:none!important}
+html[data-embed="kamera"] .camera-caption{font:500 16px/1.4 system-ui,sans-serif;left:16px;bottom:16px;max-width:calc(100% - 32px)}
