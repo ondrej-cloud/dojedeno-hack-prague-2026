@@ -111,3 +111,18 @@ main{padding-top:8px!important}
 .dk-karta h2{font-size:42px}.dk-karta p{font-size:28px}
 .dk-souhrn{margin-top:36px;padding:30px 40px}.dk-souhrn strong{font-size:68px}
 .dk-graf svg{max-height:520px}
+
+/* vložení do prezentace (deck-bridge.js): jen živý obraz kamery přes celé okno, bez rámu dema */
+body.vlozeno-kamera, body.vlozeno-kamera #stage { background: transparent !important; }
+body.vlozeno-kamera header, body.vlozeno-kamera footer, body.vlozeno-kamera .title-row, body.vlozeno-kamera #results,
+body.vlozeno-kamera .under-camera, body.vlozeno-kamera .panel.results, body.vlozeno-kamera .steps, body.vlozeno-kamera .flow { display: none !important; }
+body.vlozeno-kamera main { padding: 0 !important; height: 1080px !important; }
+body.vlozeno-kamera .camera-box { position: fixed !important; inset: 0 !important; width: 100vw !important; height: 100vh !important; border-radius: 0 !important; box-shadow: none !important; }
+body.vlozeno-qr header, body.vlozeno-qr footer { display: none !important; }
+/* vložení: stage bez škálování, kamera přes celé okno; QR jen panel párování uprostřed */
+body.vlozeno-kamera #stage { transform: none !important; left: 0 !important; top: 0 !important; width: 100vw !important; height: 100vh !important; padding: 0 !important; }
+body.vlozeno-kamera .camera-box { position: fixed !important; inset: 0 !important; width: 100vw !important; height: 100vh !important; max-width: none !important; }
+body.vlozeno-kamera .camera-box video, body.vlozeno-kamera .camera-box img, body.vlozeno-kamera .camera-box canvas { width: 100% !important; height: 100% !important; object-fit: cover !important; }
+body.vlozeno-qr { background: #f5f5f7 !important; }
+body.vlozeno-qr main, body.vlozeno-qr header, body.vlozeno-qr footer { visibility: hidden !important; }
+body.vlozeno-qr #phone-help { visibility: visible !important; }
