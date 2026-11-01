@@ -14,8 +14,8 @@
     <video class="dt-zaznam z1" src="assets/talir1.mp4" poster="assets/talir1.jpg" muted playsinline preload="auto" aria-hidden="true"></video>
     <video class="dt-zaznam z2" src="assets/talir2.mp4" poster="assets/talir2.jpg" muted playsinline preload="auto" aria-hidden="true"></video>
     <iframe class="dt-live" title="Živá kamera nad pásem" allow="camera; autoplay" tabindex="-1"></iframe>
-    <!-- obkroužení talíře ve videu (souřadnice rámečku 880 × 700; video 464 × 832 zmenšené na výšku 700, odsazené o 245 px) -->
-    <svg class="dt-obrys" viewBox="0 0 880 700" aria-hidden="true"><circle class="o1" cx="431" cy="278" r="126" pathLength="100"/><circle class="o2" cx="435" cy="279" r="126" pathLength="100"/></svg>
+    <!-- kroužek sleduje talíř ve videu (polohy v js/s06a.js, STOPY); jakmile se talíř zastaví, zvýrazní se -->
+    <svg class="dt-obrys" viewBox="0 0 880 700" aria-hidden="true"><circle cx="-200" cy="-200" r="122"/></svg>
     <div class="dt-sken" aria-hidden="true"></div>
     <div class="dt-detekce" aria-hidden="true"></div>
     <p class="dt-stav"><span class="tecka"></span><span class="dt-stav-text">Kamera nad pásem</span></p>

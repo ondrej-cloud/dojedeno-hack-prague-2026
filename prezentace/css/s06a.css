@@ -224,10 +224,10 @@
 #s-dva-talire .dt-vypocet b { font-size: 36px; font-weight: 800; min-width: 130px; }
 #s-dva-talire .dt-vypocet p + p b { color: var(--text3); }
 
-/* místo skenovacího pruhu se talíř ve videu obkrouží zeleným kruhem, pak vyjede analýza */
+/* kroužek sleduje talíř: tenký, dokud se talíř hýbe (třída sleduje), při zastavení se zvýrazní (zachyceno) */
 #s-dva-talire .dt-obrys { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; overflow: visible; }
-#s-dva-talire .dt-obrys circle { fill: none; stroke: var(--zelena-zivá); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; opacity: 0;
-  transform-box: fill-box; transform-origin: center; transform: rotate(-90deg); filter: drop-shadow(0 0 10px rgba(48, 209, 88, 0.55)); }
-#s-dva-talire.skenuje:not(.t2) .dt-obrys .o1, #s-dva-talire.skenuje.t2 .dt-obrys .o2 { opacity: 1; animation: s06a-obkrouzi 1000ms var(--plynule) forwards; }
-@keyframes s06a-obkrouzi { to { stroke-dashoffset: 0; } }
+#s-dva-talire .dt-obrys circle { fill: none; stroke: var(--zelena-zivá); stroke-width: 2.5; opacity: 0; transition: opacity 250ms linear, stroke-width 350ms var(--ven), filter 350ms var(--ven); }
+#s-dva-talire.sleduje .dt-obrys circle { opacity: 0.9; }
+#s-dva-talire.zachyceno .dt-obrys circle { opacity: 1; stroke-width: 7; filter: drop-shadow(0 0 12px rgba(48, 209, 88, 0.7)); animation: s06a-zachyt 600ms var(--ven); }
+@keyframes s06a-zachyt { 0% { stroke-width: 2.5; } 40% { stroke-width: 11; } 100% { stroke-width: 7; } }
 #s-dva-talire.live .dt-obrys { display: none; }
