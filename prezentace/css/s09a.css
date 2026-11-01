@@ -1,5 +1,5 @@
 /* 09a · pilot od dat k výsledku: osa se čtyřmi očíslovanými kroky, pod ní v kroku 1 řádek s KPI a odhadem */
-#s-pilot-tok .pt-osa { position: absolute; left: var(--okraj-x); right: var(--okraj-x); top: 300px; margin: 0; padding: 0; list-style: none;
+#s-pilot-tok .pt-osa { position: absolute; left: var(--okraj-x); right: var(--okraj-x); top: 400px; margin: 0; padding: 0; list-style: none;
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
 #s-pilot-tok .pt-osa::before { content: ""; position: absolute; left: 36px; right: 362px; top: 35px; height: 3px; border-radius: 3px; background: var(--zelena); opacity: 0.35; }
 #s-pilot-tok .pt-osa li { position: relative; }

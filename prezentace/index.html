@@ -26,6 +26,7 @@
 <link rel="stylesheet" href="css/s09a.css">
 <link rel="stylesheet" href="css/s09b.css">
 <link rel="stylesheet" href="css/s09c.css">
+<link rel="stylesheet" href="css/s09d.css">
 <link rel="stylesheet" href="css/s10.css">
 <link rel="stylesheet" href="css/s10b.css">
 <link rel="stylesheet" href="css/s10c.css">
@@ -59,9 +60,10 @@
   <p class="kino-titulek bez-vstupu" data-od="9.0">Téměř třetina uvařeného jídla skončí v&nbsp;koši.</p>
 
   <!-- vpravo místo 3D pásu: obědy jedné školy (500 žáků) jako tečky, které přibývají: den → 2 týdny → měsíc → rok (js/s01c.js) -->
-  <div class="tecky-rok bez-vstupu" data-krok="1" role="img" aria-label="Obědy ve škole s 500 žáky: za den 500, za dva týdny 5 000, za měsíc 10 000, za školní rok 95 000">
+  <div class="tecky-rok bez-vstupu" data-krok="1" role="img" aria-label="Obědy ve škole s 500 žáky, jedna tečka je 10 obědů: za den 500, za dva týdny 5 000, za měsíc 10 000, za školní rok 95 000; zelené dojedeno, oranžové v koši">
     <canvas width="1800" height="1300"></canvas>
     <p class="tr-popis"><span class="tr-obdobi">1 den</span><span class="tr-cislo"><b>500</b> obědů</span><span class="tr-pod">škola s&nbsp;500 žáky</span></p>
+    <p class="tr-legenda"><span class="tr-z"></span>dojedeno <span class="tr-o"></span>v&nbsp;koši (31&nbsp;%) · 1&nbsp;tečka = 10&nbsp;obědů</p>
   </div>
 
   <div class="karta-sceny bez-vstupu" data-krok="1" aria-hidden="true"></div>
@@ -133,7 +135,7 @@
 
   <p class="akce mala bez-vstupu" data-krok="1">Hack Prague 2026</p>
 
-  <script type="application/json" class="poznamky-data">["0:00–0:30 · Ondra", "[šipka] Spustí se asi 13 s film. Mluví titulky, jen klidně dočíst nahlas: Tohle je jeden školní oběd. (pauza) Jídelna jich denně vydá stovky. (pauza) Téměř třetina skončí v koši.", "[po filmu, sám] Titul Dojezeno, 31 %. Vpravo samy přibývají obědy jedné školy s 500 žáky: den, dva týdny, měsíc, rok.", "Jsme Dojezeno. Chceme, aby každá školní jídelna věděla, co a kolik vyhazuje. Každý den, automaticky. První pilot chystáme u nás v Hejčíně.", "Rok = asi 190 školních dní × 500 obědů = 95 000. Oranžových je 31 % teček: tolik jídla skončí v koši (jako každý třetí oběd), je to přirovnání, ne počet vyhozených talířů.", "Mezerník během filmu přeskočí rovnou na titul.", "Zdroje: Prague Food Waste 2024 (31 % hmotnosti uvařeného: talíře + nevydané pokrmy), jídelny pro 400–600 žáků."]</script>
+  <script type="application/json" class="poznamky-data">["0:00–0:30 · Ondra", "[šipka] Spustí se asi 13 s film. Mluví titulky, jen klidně dočíst nahlas: Tohle je jeden školní oběd. (pauza) Jídelna jich denně vydá stovky. (pauza) Téměř třetina skončí v koši.", "[po filmu, sám] Titul Dojezeno, 31 %. Vpravo samy přibývají obědy jedné školy s 500 žáky: den, dva týdny, měsíc, rok.", "Jsme Dojezeno. Chceme, aby každá školní jídelna věděla, co a kolik vyhazuje. Každý den, automaticky. První pilot chystáme u nás v Hejčíně.", "Rok = asi 190 školních dní × 500 obědů = 95 000. 1 tečka = 10 obědů. Zelené dojedeno, oranžových 31 %: tolik jídla skončí v koši (jako každý třetí oběd), je to přirovnání, ne počet vyhozených talířů.", "Mezerník během filmu přeskočí rovnou na titul.", "Zdroje: Prague Food Waste 2024 (31 % hmotnosti uvařeného: talíře + nevydané pokrmy), jídelny pro 400–600 žáků."]</script>
 </section>
 
 <!-- 02 · problém: obří 600 000 Kč (jen zbytky z talířů), krok 1: 8 891 jídelen jako pole teček (js/s02.js) -->
@@ -437,9 +439,8 @@
   <script type="application/json" class="poznamky-data">["3:40–4:10 · Tobias", "Ve světě to funguje: Winnow, Orbisk, Leanpath nebo KITRO. IKEA na Zličíně s tím snížila kuchyňský odpad o polovinu.", "[mezerník] Čím jsme jiní: jsme levní, stačí kamera a váha. Jsme tady: ty firmy míří na hotely a catering a na tisíce českých školních jídelen nemají kapacitu. A víme co, ne jen kolik, protože fotíme talíř.", "Kapacita a zaměření konkurence je naše úvaha, ne fakt. Neříkat „v Česku to nikdo nedělá“, říkat „ve školních jídelnách jsme automatické měření nenašli“.", "Na dotaz, proč to školy nekupují (naše úvaha): za suroviny platí rodiče; systémy míří na hotely a catering s předplatným a zahraničním servisem; kbelík řekne kolik, ne co; instalace, hygiena a GDPR jsou pro malou jídelnu moc.", "Zdroje: Z7 Springwise (Orbisk); Z8 Bloomberg (AI koše); IKEA Česko newsroom, ekonews.cz; kitro.ch."]</script>
 </section>
 
-<!-- 09a · pilot od dat k výsledku: jedna osa se čtyřmi kroky (týdny 1–2 data, týden 3 analýza a doporučení, týdny 4–6 efekt),
-     krok 1 pod osou hlavní KPI a odhad (−30 % = až 180 000 Kč ročně, výslovně odhad) -->
-<section class="slajd" id="s-pilot-tok" data-nazev="První pilot: od dat k výsledku" data-kroky="1">
+<!-- 09a · pilot od dat k výsledku: jedna osa se čtyřmi kroky (týdny 1–2 data, týden 3 analýza a doporučení, týdny 4–6 efekt) -->
+<section class="slajd" id="s-pilot-tok" data-nazev="První pilot: od dat k výsledku" data-kroky="0">
   <h1>První pilot: od dat k&nbsp;výsledku.</h1>
 
   <ol class="pt-osa rozbal" aria-label="Průběh pilotu po týdnech">
@@ -449,14 +450,10 @@
     <li style="--n:3" class="pt-posledni"><span class="pt-bod">4</span><p class="pt-kdy">Týden 4–6</p><h2>Výsledek.</h2><p class="pt-co">Měříme znovu a&nbsp;porovnáme.</p></li>
   </ol>
 
-  <div class="pt-kpi" data-krok="1">
-    <p class="pt-kpi-nad">KPI · zbytky z&nbsp;talířů na strávníka a&nbsp;den</p>
-    <p class="pt-kpi-radek"><span class="pt-odhad">odhad</span><b class="zelena">−30&nbsp;%</b><span class="pt-rovna">=</span><b class="zelena">až 180&nbsp;000&nbsp;Kč</b><span class="pt-rocne">ročně pro školu</span></p>
-  </div>
 
-  <p class="zdroj">Odhad, ne slib: výchozí stav změříme v&nbsp;týdnech 1–2. 180&nbsp;000&nbsp;Kč = 30&nbsp;% z&nbsp;600&nbsp;000&nbsp;Kč (zbytky z&nbsp;talířů, škola s&nbsp;500 žáky, jen suroviny).</p>
+  <p class="zdroj">Leden–únor 2027 u&nbsp;nás v&nbsp;Hejčíně. Výsledky na galavečeru 30.&nbsp;3.&nbsp;2027, evaluace do 10.&nbsp;5.&nbsp;2027.</p>
 
-  <script type="application/json" class="poznamky-data">["~0:30 · Ondra", "První pilot poběží u nás v Hejčíně šest týdnů. První dva týdny jen sbíráme data, nic neměníme, to je výchozí stav.", "Ve třetím týdnu data rozebereme: co děti nejedí a kterou část porce nechávají. Z toho s vedoucí jídelny navrhneme úpravy porcí a receptů.", "Od čtvrtého týdne měříme znovu a porovnáme s výchozím stavem.", "[mezerník] Měřítko úspěchu je jedno: gramy zbytků z talířů na strávníka a den. Náš odhad je minus třicet procent, to je pro školu s pěti sty žáky až sto osmdesát tisíc korun ročně. Je to odhad, výchozí stav změříme v pilotu.", "Zdroje: 600 000 Kč ročně za suroviny ze zbytků na talířích, škola s 500 žáky (Z1–Z3); −30 % je náš odhad, ne slib (Brno: v den vážení 80 → 19 kg)."]</script>
+  <script type="application/json" class="poznamky-data">["~0:30 · Ondra", "První pilot poběží v lednu a únoru u nás v Hejčíně, šest týdnů. První dva týdny jen sbíráme data, nic neměníme, to je výchozí stav.", "Ve třetím týdnu data rozebereme: co děti nejedí a kterou část porce nechávají. Z toho s vedoucí jídelny navrhneme úpravy porcí a receptů.", "Od čtvrtého týdne měříme znovu a porovnáme s výchozím stavem.", "Zdroje: 600 000 Kč ročně za suroviny ze zbytků na talířích, škola s 500 žáky (Z1–Z3); −30 % je náš odhad, ne slib (Brno: v den vážení 80 → 19 kg)."]</script>
 </section>
 
 <!-- 09b · rozpočet (šablona: Rozpočet): 34 000 Kč pro 1 jídelnu, kategorie jako pruhy (nakreslí se při vstupu). Podrobné položky: záložní slajd 99. -->
@@ -481,31 +478,21 @@
   <script type="application/json" class="poznamky-data">["4:10–4:30 · Ondra", "Pilot v jedné jídelně stojí 34 000 Kč. Víc než polovina je vybavení: kamera nad pás a váha, která posílá data do počítače. Zbytek ruční ověření, AI a propagace mezi žáky, deset procent rezerva.", "Podrobné položky a timeline jsou v záloze, ukázat jen na dotaz.", "Zdroje: rozpocet_pilotu.xlsx (ceny s odkazy), přepočteno na 1 jídelnu; ODHAD = náš odhad."]</script>
 </section>
 
-<!-- 09c · realizace (kritérium Realizovatelnost): časová osa listopad 2026 → evaluace 10. 5. 2027 (kreslí se při vstupu),
-     krok 1 tři největší rizika s opatřením. Podrobná osa, matice rizik a KPI jsou v záloze (96, 97, 98). -->
-<section class="slajd" id="s-realizace" data-nazev="Realizace: harmonogram a rizika" data-kroky="1">
-  <h1>Pilot u&nbsp;nás v&nbsp;Hejčíně: leden 2027.</h1>
+<!-- 09c · co pilot přinese: tři velká čísla (odhad pro školu s 500 žáky), oddělená vlasovými čarami, bez karet.
+     Harmonogram s riziky je v příloze (96a). -->
+<section class="slajd" id="s-vysledky" data-nazev="Co pilot přinese" data-kroky="0">
+  <h1>Co pilot přinese.</h1>
+  <p class="vy-nad">Odhad pro školu s&nbsp;500 žáky</p>
 
-  <ol class="r-osa" aria-label="Harmonogram pilotu">
-    <li style="--n:0"><span class="r-bod"></span><p class="r-kdy">listopad–prosinec</p><h3>Příprava</h3><p>souhlas ředitele, hygiena a&nbsp;GDPR, instalace</p></li>
-    <li class="r-hlavni" style="--n:1"><span class="r-bod"></span><p class="r-kdy">leden–únor</p><h3>Pilot 6&nbsp;týdnů</h3><p>měřit → upravit → měřit znovu</p></li>
-    <li style="--n:2"><span class="r-bod"></span><p class="r-kdy">únor–březen</p><h3>Iterace</h3><p>další kolo úprav, dokud odpad klesá</p></li>
-    <li style="--n:3"><span class="r-bod"></span><p class="r-kdy">30. 3. 2027</p><h3>Gala</h3><p>výsledky pilotu</p></li>
-    <li style="--n:4"><span class="r-bod"></span><p class="r-kdy">do 10. 5. 2027</p><h3>Evaluace</h3><p>zpráva, další jídelna</p></li>
-  </ol>
+  <ul class="vy-kpi rozbal">
+    <li style="--n:0"><p class="vy-cislo zelena">−30&nbsp;%</p><p class="vy-co">zbytků z&nbsp;talířů</p><p class="vy-pod">hlavní KPI, na strávníka a&nbsp;den</p></li>
+    <li style="--n:1"><p class="vy-cislo zelena">180&nbsp;000<small>Kč</small></p><p class="vy-co">ušetřeno ročně</p><p class="vy-pod">jen suroviny</p></li>
+    <li style="--n:2"><p class="vy-cislo">500</p><p class="vy-co">dětí uvidí svá data</p><p class="vy-pod">web školy a&nbsp;obrazovka v&nbsp;jídelně</p></li>
+  </ul>
 
-  <div class="r-rizika" data-krok="1">
-    <p class="r-titul">Tři největší rizika</p>
-    <div class="r-trojice">
-      <div class="karta r-riziko"><h3>Škola odmítne</h3><p>Pilot zdarma, kuchařky nic navíc, data patří jídelně.</p></div>
-      <div class="karta r-riziko"><h3>Hygiena a&nbsp;GDPR</h3><p>Kamera jen na pás, bez obličejů. Kryty mimo přípravu jídla.</p></div>
-      <div class="karta r-riziko"><h3>Rychlý výdej</h3><p>Při nejistotě společná dávka. Celková váha sedí vždy.</p></div>
-    </div>
-  </div>
+  <p class="zdroj">Odhady, ne sliby. Výchozí stav změříme v&nbsp;týdnech 1–2 pilotu. 180&nbsp;000&nbsp;Kč = 30&nbsp;% z&nbsp;600&nbsp;000&nbsp;Kč (zbytky z&nbsp;talířů, jen suroviny).</p>
 
-  <p class="zdroj">Matice všech rizik, položkový rozpočet a&nbsp;KPI jsou v&nbsp;příloze.</p>
-
-  <script type="application/json" class="poznamky-data">["~0:25 · Ondra", "V listopadu a prosinci získáme souhlas ředitele, vyřešíme hygienu a GDPR a nainstalujeme pás. V lednu začne šestitýdenní pilot: dva týdny měříme, pak s vedoucí jídelny upravíme porce a měříme znovu. Do galavečera 30. března stihneme ještě jedno kolo, evaluace do 10. května.", "[mezerník] Tři největší rizika: škola odmítne, proto je pilot zdarma a kuchařky nedělají nic navíc. Hygiena a GDPR, proto kamera míří jen na pás. A rychlý výdej: když si nejsme jistí, uložíme talíře jako společnou dávku, celková váha sedí vždycky.", "Na dotaz: matice rizik (záloha), KPI a dopad (záloha), položkový rozpočet (záloha).", "Zdroje: termíny podle šablony Hack Prague (gala 30. 3. 2027, evaluace 10. 5. 2027); délka pilotu podle doporučení mentora; rizika z vlastní analýzy."]</script>
+  <script type="application/json" class="poznamky-data">["~0:25 · Ondra", "Co pilot přinese, odhad pro školu s pěti sty žáky: o třicet procent méně zbytků z talířů.", "To je až sto osmdesát tisíc korun ročně jen za suroviny.", "A pět set dětí uvidí, co se vyhazuje, a začne s tím něco dělat.", "Všechno jsou odhady. Výchozí stav změříme v prvních dvou týdnech pilotu a výsledky ukážeme na galavečeru.", "Na dotaz rizika: škola odmítne (pilot zdarma, kuchařky nic navíc), hygiena a GDPR (kamera jen na pás), rychlý výdej (společná dávka). Matice rizik a harmonogram jsou v příloze.", "Zdroje: 600 000 Kč (Z1–Z3) × 30 % = 180 000 Kč, náš odhad; Brno 80 → 19 kg (Mendelu 2025, s. 19)."]</script>
 </section>
 
 <!-- 10 · jak jsme pracovali (kritérium Provázanost s dovednostmi): vlevo tým a nástroje projektového řízení,
@@ -1143,6 +1130,33 @@
   </div>
 
   <script type="application/json" class="poznamky-data">["~0:25 · Ondra", "Pilot spustíme v lednu 2027 u nás ve škole v Hejčíně. V listopadu a prosinci připravíme souhlasy, hygienu a instalaci a ověříme měření na ručně zvážených tácech.", "[mezerník] Samotný pilot má šest týdnů: dva týdny jen měříme výchozí stav, ve třetím s vedoucí jídelny navrhneme úpravy a další tři týdny měříme, co se změnilo.", "[mezerník] A pak iterujeme: úprava, dva týdny měření, dokud odpad z talířů klesá. Do galavečera 30. března počítáme se dvěma koly, evaluace do 10. května.", "Úpravy jen v rámci výživových norem; v přípravě zjistíme, co se dnes děje s nevydanými porcemi.", "Zdroje: termíny podle šablony Hack Prague (gala 30. 3. 2027, evaluace 10. 5. 2027); délka pilotu podle doporučení mentora."]</script>
+</section>
+
+<!-- 09c · realizace (kritérium Realizovatelnost): časová osa listopad 2026 → evaluace 10. 5. 2027 (kreslí se při vstupu),
+     krok 1 tři největší rizika s opatřením. Podrobná osa, matice rizik a KPI jsou v záloze (96, 97, 98). -->
+<section class="slajd" id="s-realizace" data-nazev="Oponentura · harmonogram a rizika" data-kroky="1" data-zaloha>
+  <h1>Pilot u&nbsp;nás v&nbsp;Hejčíně: leden 2027.</h1>
+
+  <ol class="r-osa" aria-label="Harmonogram pilotu">
+    <li style="--n:0"><span class="r-bod"></span><p class="r-kdy">listopad–prosinec</p><h3>Příprava</h3><p>souhlas ředitele, hygiena a&nbsp;GDPR, instalace</p></li>
+    <li class="r-hlavni" style="--n:1"><span class="r-bod"></span><p class="r-kdy">leden–únor</p><h3>Pilot 6&nbsp;týdnů</h3><p>měřit → upravit → měřit znovu</p></li>
+    <li style="--n:2"><span class="r-bod"></span><p class="r-kdy">únor–březen</p><h3>Iterace</h3><p>další kolo úprav, dokud odpad klesá</p></li>
+    <li style="--n:3"><span class="r-bod"></span><p class="r-kdy">30. 3. 2027</p><h3>Gala</h3><p>výsledky pilotu</p></li>
+    <li style="--n:4"><span class="r-bod"></span><p class="r-kdy">do 10. 5. 2027</p><h3>Evaluace</h3><p>zpráva, další jídelna</p></li>
+  </ol>
+
+  <div class="r-rizika" data-krok="1">
+    <p class="r-titul">Tři největší rizika</p>
+    <div class="r-trojice">
+      <div class="karta r-riziko"><h3>Škola odmítne</h3><p>Pilot zdarma, kuchařky nic navíc, data patří jídelně.</p></div>
+      <div class="karta r-riziko"><h3>Hygiena a&nbsp;GDPR</h3><p>Kamera jen na pás, bez obličejů. Kryty mimo přípravu jídla.</p></div>
+      <div class="karta r-riziko"><h3>Rychlý výdej</h3><p>Při nejistotě společná dávka. Celková váha sedí vždy.</p></div>
+    </div>
+  </div>
+
+  <p class="zdroj">Matice všech rizik, položkový rozpočet a&nbsp;KPI jsou v&nbsp;příloze.</p>
+
+  <script type="application/json" class="poznamky-data">["~0:25 · Ondra", "V listopadu a prosinci získáme souhlas ředitele, vyřešíme hygienu a GDPR a nainstalujeme pás. V lednu začne šestitýdenní pilot: dva týdny měříme, pak s vedoucí jídelny upravíme porce a měříme znovu. Do galavečera 30. března stihneme ještě jedno kolo, evaluace do 10. května.", "[mezerník] Tři největší rizika: škola odmítne, proto je pilot zdarma a kuchařky nedělají nic navíc. Hygiena a GDPR, proto kamera míří jen na pás. A rychlý výdej: když si nejsme jistí, uložíme talíře jako společnou dávku, celková váha sedí vždycky.", "Na dotaz: matice rizik (záloha), KPI a dopad (záloha), položkový rozpočet (záloha).", "Zdroje: termíny podle šablony Hack Prague (gala 30. 3. 2027, evaluace 10. 5. 2027); délka pilotu podle doporučení mentora; rizika z vlastní analýzy."]</script>
 </section>
 
 <!-- 10b · rizika (šablona „Rizika“): vlevo matice pravděpodobnost × dopad se 6 body (čísla z OBSAH.md, doplněk 31. 10.),
