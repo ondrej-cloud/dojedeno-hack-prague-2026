@@ -1,0 +1,10 @@
+/* 01 · titul vpravo: tečky obědů jedné školy, přibývají den → 2 týdny → měsíc → rok (js/s01c.js) */
+#s-uvod .tecky-rok { position: absolute; left: 900px; top: 150px; width: 900px; height: 820px; }
+#s-uvod .tecky-rok canvas { position: absolute; left: 0; top: 0; width: 900px; height: 650px; }
+#s-uvod .tr-popis { position: absolute; left: 0; top: 690px; display: flex; align-items: baseline; gap: 28px; }
+#s-uvod .tr-obdobi { font-size: 30px; font-weight: 700; color: var(--oranz); text-transform: uppercase; letter-spacing: 0.06em; min-width: 150px; }
+#s-uvod .tr-cislo { font-size: 30px; font-weight: 600; }
+#s-uvod .tr-cislo b { font-size: 64px; font-weight: 800; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; margin-right: 6px; }
+#s-uvod .tr-pod { font-size: 24px; color: var(--text3); }
+/* bez WebGL se na kroku 1 nezobrazuje 2D scéna vpravo, místo ní tečky */
+#s-uvod:not(.kino)[data-k="1"] .scena, #s-uvod:not(.kino)[data-k="1"] .karta-sceny { visibility: hidden; }
