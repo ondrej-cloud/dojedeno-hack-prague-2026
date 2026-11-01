@@ -54,6 +54,10 @@ def build():
     for name in ['plate-full.jpg', 'plate-leftover.jpg']:
         copy('demo/assets/' + name, 'demo/assets/' + name)
     copy('demo/data/month.json', 'demo/data/month.json')
+    # záznam z mobilu pro slajd „dva talíře“ (záloha za živou kameru), jen pokud existuje
+    for name in ['talir1.mp4', 'talir1.jpg', 'talir2.mp4', 'talir2.jpg']:
+        if (ROOT / 'prezentace/assets' / name).is_file():
+            copy('prezentace/assets/' + name, 'assets/' + name)
     copy('demo/screenshots/step-4.png', 'demo/screenshots/step-4.png')
     for name in ['index.html', 'dojedeno-onepager.pdf', 'nahled.png']:
         copy('materialy/onepager/' + name, 'onepager/' + name)

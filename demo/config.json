@@ -96,7 +96,7 @@
   "exampleReduction": 0.1,
   "referencePortionKg": 0.4,
   "measurement": {
-    "plateTareGrams": 216,
+    "plateTareGrams": 200,
     "subtractPlate": true
   }
 }
