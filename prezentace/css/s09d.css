@@ -1,12 +1,12 @@
 /* 09c · co pilot přinese: tři velká čísla vedle sebe, oddělená vlasovými čarami */
-#s-vysledky .vy-nad { margin-top: 18px; font-size: 26px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; }
+#s-vysledky .vy-nad { margin-top: 18px; font-size: 30px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; }
 #s-vysledky .vy-kpi { position: absolute; left: var(--okraj-x); right: var(--okraj-x); top: 470px; margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); }
 #s-vysledky .vy-kpi li { padding: 0 48px; border-left: 1px solid var(--linka2); }
 #s-vysledky .vy-kpi li:first-child { padding-left: 0; border-left: none; }
 #s-vysledky .vy-cislo { font-size: 150px; font-weight: 800; line-height: 0.9; letter-spacing: -0.045em; font-variant-numeric: tabular-nums; white-space: nowrap; }
 #s-vysledky .vy-cislo small { font-size: 0.32em; font-weight: 700; margin-left: 0.08em; letter-spacing: 0; }
 #s-vysledky .vy-co { margin-top: 26px; font-size: 40px; font-weight: 700; line-height: 1.1; letter-spacing: -0.02em; }
-#s-vysledky .vy-pod { margin-top: 12px; font-size: 26px; color: var(--text3); }
+#s-vysledky .vy-pod { margin-top: 12px; font-size: 30px; color: var(--text3); }
 #s-vysledky .vy-kpi.je li { animation: s09d-kpi 700ms var(--ven) both; animation-delay: calc(var(--n) * 160ms); }
 @keyframes s09d-kpi { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 #s-vysledky.hned .vy-kpi li { animation: none; }

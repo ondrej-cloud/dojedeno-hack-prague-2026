@@ -2,18 +2,18 @@
 #s-rozpocet .r-souhrn { position: absolute; left: var(--okraj-x); top: var(--obsah-y); width: 640px; }
 #s-rozpocet .r-souhrn .cislo { font-size: 168px; color: var(--zelena); }
 #s-rozpocet .r-souhrn .cislo small { color: var(--zelena); opacity: 0.75; }
-#s-rozpocet .r-souhrn .pod-cislo { margin-top: 22px; font-size: 34px; color: var(--text); }
-#s-rozpocet .r-odhad { margin-top: 26px; font-size: 22px; color: var(--text3); max-width: 520px; }
+#s-rozpocet .r-souhrn .pod-cislo { margin-top: 22px; font-size: 40px; color: var(--text); }
+#s-rozpocet .r-odhad { margin-top: 26px; font-size: 26px; color: var(--text3); max-width: 520px; }
 
-#s-rozpocet .r-kategorie { position: absolute; left: 800px; right: var(--okraj-x); top: calc(var(--obsah-y) - 6px); margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 22px; }
+#s-rozpocet .r-kategorie { position: absolute; left: 800px; right: var(--okraj-x); top: calc(var(--obsah-y) - 6px); margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 26px; }
 #s-rozpocet .r-kategorie li { display: grid; gap: 8px; }
-#s-rozpocet .r-radek { display: flex; justify-content: space-between; align-items: baseline; font-size: 32px; }
+#s-rozpocet .r-radek { display: flex; justify-content: space-between; align-items: baseline; font-size: 38px; }
 #s-rozpocet .r-radek b { font-weight: 700; }
 #s-rozpocet .r-kc { font-weight: 800; font-variant-numeric: tabular-nums; }
 #s-rozpocet .r-pruh { height: 18px; border-radius: 999px; background: var(--linka); overflow: hidden; }
 #s-rozpocet .r-pruh i { display: block; height: 100%; width: var(--podil); border-radius: 999px; background: var(--zelena); transform-origin: left center; }
 #s-rozpocet .r-rezerva .r-pruh i { background: var(--seda); }
-#s-rozpocet .r-kategorie p { font-size: 22px; color: var(--text2); line-height: 1.3; }
+#s-rozpocet .r-kategorie p { font-size: 27px; color: var(--text2); line-height: 1.3; }
 #s-rozpocet.kresli .r-pruh i { animation: s09b-roste 900ms var(--ven) calc(200ms + var(--n) * 120ms) both; }
 @keyframes s09b-roste { from { transform: scaleX(0); } to { transform: none; } }
 

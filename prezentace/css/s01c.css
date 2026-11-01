@@ -12,3 +12,4 @@
 #s-uvod .tr-o { background: var(--oranz); margin-left: 14px; }
 /* bez WebGL se na kroku 1 nezobrazuje 2D scéna vpravo, místo ní tečky */
 #s-uvod:not(.kino)[data-k="1"] .scena, #s-uvod:not(.kino)[data-k="1"] .karta-sceny { visibility: hidden; }
+#s-uvod .zdroj-uvod { left: 900px; right: 80px; bottom: 24px; }

@@ -57,7 +57,7 @@ b, strong { font-weight: 700; }
 .oranz { color: var(--oranz); }
 .velke-pismo { text-transform: uppercase; letter-spacing: 0.06em; font-size: 22px; font-weight: 700; }
 /* jediný řádek zdroje na slajdu (jen u tvrdých čísel): dole, drobně */
-.zdroj { position: absolute; left: var(--okraj-x); right: 360px; bottom: 30px; font-size: 18px; line-height: 1.3; color: var(--text3); }
+.zdroj { position: absolute; left: var(--okraj-x); right: 360px; bottom: 30px; font-size: 20px; line-height: 1.3; color: var(--text3); }
 
 /* velká čísla: číslo tučně, jednotka tlumeně */
 .cislo { margin: 0; font-weight: 800; font-size: 200px; line-height: 0.9; letter-spacing: -0.035em; font-variant-numeric: tabular-nums; }
