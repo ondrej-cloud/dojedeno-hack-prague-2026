@@ -1,18 +1,18 @@
 /* 08b · zapojení lidí: čtyři skupiny od y 272 (výška 330), krok 1 dva důkazy od y 640 */
 #s-zapojeni .z-skupiny { position: absolute; left: var(--okraj-x); right: var(--okraj-x); top: var(--obsah-y); display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
-#s-zapojeni .z-skupina { display: flex; flex-direction: column; height: 320px; padding: 34px 34px 32px; }
+#s-zapojeni .z-skupina { display: flex; flex-direction: column; height: 200px; padding: 34px 34px 32px; }
 #s-zapojeni .z-kdo { font-size: 22px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; }
 #s-zapojeni .z-skupina h2 { margin-top: 14px; font-size: 44px; line-height: 1.08; letter-spacing: -0.02em; }
 #s-zapojeni .z-co { margin-top: auto; font-size: 26px; line-height: 1.35; }
 
-#s-zapojeni .z-dukazy { position: absolute; left: var(--okraj-x); right: var(--okraj-x); top: 632px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+#s-zapojeni .z-dukazy { position: absolute; left: var(--okraj-x); right: var(--okraj-x); top: 540px; display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
 #s-zapojeni .z-brno, #s-zapojeni .z-hejcin { height: 300px; padding: 34px 40px; }
 #s-zapojeni .z-brno { display: flex; flex-direction: column; justify-content: space-between; }
 #s-zapojeni .z-veta { margin-top: 12px; font-size: 38px; line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; }
 #s-zapojeni .z-cisla { display: flex; align-items: baseline; gap: 28px; font-weight: 800; font-size: 104px; line-height: 0.9; letter-spacing: -0.035em; font-variant-numeric: tabular-nums; }
 #s-zapojeni .z-cisla small { font-size: 0.4em; font-weight: 600; margin-left: 0.08em; }
 #s-zapojeni .z-sipka { font-size: 0.55em; font-weight: 600; color: var(--text3); }
-#s-zapojeni .z-hejcin { display: flex; flex-direction: column; box-shadow: var(--stin), inset 0 0 0 3px var(--zelena); }
+#s-zapojeni .z-hejcin { display: flex; flex-direction: column; justify-content: center; box-shadow: var(--stin), inset 0 0 0 3px var(--zelena); }
 #s-zapojeni .z-hejcin h2 { margin-top: 14px; font-size: 44px; line-height: 1.1; letter-spacing: -0.02em; }
 
 /* městská část: odznak „budoucí plátce“ */
