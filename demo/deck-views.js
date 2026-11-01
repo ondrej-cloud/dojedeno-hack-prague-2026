@@ -1,4 +1,4 @@
-/* Dojedeno · jednodušší obrazovky dema ve stylu prezentace: přepíše dayView, monthView a solutionView z app.js
+/* Dojezeno · jednodušší obrazovky dema ve stylu prezentace: přepíše dayView, monthView a solutionView z app.js
    (stejná data z config.json a data/month.json, jen jedna velká myšlenka na obrazovku). Klávesa S ukáže technické ovládání. */
 (function () {
   'use strict';

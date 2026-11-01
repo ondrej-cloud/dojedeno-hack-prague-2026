@@ -1,4 +1,4 @@
-/* Dojedeno · ovládání decku (podle decku z Děčína): slajdy a kroky, škálování plochy, vstup prvků po 70 ms, počítadla čísel,
+/* Dojezeno · ovládání decku (podle decku z Děčína): slajdy a kroky, škálování plochy, vstup prvků po 70 ms, počítadla čísel,
    talíř jako ukazatel průběhu, poznámky řečníka se stopkami (N), černá (B), celá obrazovka (F), tisk do PDF, adresa #slajd.krok.
    Slajdové skripty (js/sNN.js) poslouchají na své sekci události: 'vstup' {dopredu}, 'krok' {k, hned}, 'odchod', 'tisk'. Bez knihoven. */
 (function () {

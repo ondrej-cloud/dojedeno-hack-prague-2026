@@ -1,6 +1,6 @@
 > Modely: úvod #1.1 i pátý slajd #5 používají jeden pás a jeden vážený kbelík. Třípásová varianta je až za závěrem (#13) pro oponenturu. Hlavní část má 12 slajdů, demo je #7.
 
-# Obsah prezentace Dojedeno: závazná čísla a obsah slajdů
+# Obsah prezentace Dojezeno: závazná čísla a obsah slajdů
 
 **Používej jen čísla z tohoto souboru.** Ondra je ověřil (Z1–Z8) a každé je tu se zdrojem. Kdykoli je u čísla poznámka „výpočet“ nebo „příklad“, musí to tak zaznít i na slajdu nebo v poznámkách řečníka.
 
@@ -46,7 +46,7 @@
 ### 01 · `s-uvod` · 0:00–0:25 · otevření a titul (bez talíře vpravo nahoře: `data-bez-prubehu`)
 - **Krok 0:** uprostřed velká ilustrace gastronádoby (hrnce) plné uvařeného jídla a vedle kbelík. Pod ní skleněná věta: „Tohle je oběd ve školní jídelně.“
 - **Automaticky (asi 4 s, mezerník přeskočí):** 31 % obsahu se přelije do kbelíku (oranžově) a počítadlo běží 0 → 31 %.
-- **Krok 1:** scéna se zmenší doprava, vlevo nápis **Dojedeno** a velké „31 %“ s textem „uvařeného jídla skončí v koši“.
+- **Krok 1:** scéna se zmenší doprava, vlevo nápis **Dojezeno** a velké „31 %“ s textem „uvařeného jídla skončí v koši“.
 
 ### 02 · `s-problem` · 0:25–0:55
 - **Nadpis:** „Škola s 500 žáky vyhodí jen z talířů suroviny za“, který plynule přechází do čísla.
@@ -68,7 +68,7 @@
 - **Pointa:** „Když se měří, vyhazuje se méně.“ U argumentu, že jídelny nevědí, co vyhazují, v poznámkách říkat „podle nás“.
 
 ### 05 · `s-reseni` · 1:50–2:10
-- **Nadpis:** „Dojedeno: kamery, váha a AI.“
+- **Nadpis:** „Dojezeno: kamery, váha a AI.“
 - **Hlavní prvek:** základní sestava: jeden pás, snímání talířů před vysypáním a jeden samostatný kbelík na váze. Stejný model je v titulním kroku 1.1. Počet a umístění kamer ověříme v provozu.
 - **Kroky 1–3, popisky:** „Fotíme talíře na pásu.“ / „Vážíme, co přibylo.“ / „AI navrhne přiřazení.“
 - **Přiřazení:** čas, pořadí a odhad z fotky jsou vodítka; přesné gramy na talíř nejsou zaručené. Při nejistotě zůstává společná dávka, bez vymyšleného rozdělení hmotnosti. Ukázkových +150 g v animaci není výsledek pilotu.
@@ -113,7 +113,7 @@
   - Orbisk: personál drží jídlo pod kamerou.
   - Leanpath: Sodexo.
   - KITRO: váha + kamera, hotelové školy.
-  - Dojedeno: školní jídelny, každý talíř zvlášť, za cenu mobilu a váhy.
+  - Dojezeno: školní jídelny, každý talíř zvlášť, za cenu mobilu a váhy.
 - **Krok 1:** zvýrazní se náš řádek.
 
 ### 10 · `s-pilot` · 4:25–4:45
@@ -134,7 +134,7 @@
 - **Nadpis:** „8 891 jídelen. 1,6 milionu dětí denně.“
 - **Schody rozšíření:** škola v Hejčíně, Olomouc → 3 jídelny (plán rozšíření) → městská část → Praha → celá ČR.
 - **Krok 1, závěrečná věta:** „IKEA na Zličíně snížila odpad o polovinu. My to dáme každé školní jídelně, za cenu mobilu a váhy.“
-- **Na konci:** „Dojedeno“ a „Děkujeme“. Bez sloganu.
+- **Na konci:** „Dojezeno“ a „Děkujeme“. Bez sloganu.
 
 ---
 

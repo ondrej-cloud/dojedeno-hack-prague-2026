@@ -1,4 +1,4 @@
-/* Dojedeno · demo ve stylu prezentace (prezentace/css/base.css): světlé plátno #f5f5f7, bílé karty, jeden roh 22 px, jeden stín,
+/* Dojezeno · demo ve stylu prezentace (prezentace/css/base.css): světlé plátno #f5f5f7, bílé karty, jeden roh 22 px, jeden stín,
    zelená = snědeno, oranžová = vyhozeno, velké písmo, minimum textu. Technické ovládání je schované, ukáže ho klávesa S. */
 :root{
   --stranka:#f5f5f7;--karta:#fff;--text:#1d1d1f;--text2:#6e6e73;--text3:#86868b;--linka:#e5e5ea;--linka2:#d2d2d7;

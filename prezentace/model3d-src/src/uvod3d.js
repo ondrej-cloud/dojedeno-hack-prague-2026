@@ -1,4 +1,4 @@
-/* Dojedeno · filmové otevření slajdu 01 (Three.js). Krok 0 běží sám asi 13 s:
+/* Dojezeno · filmové otevření slajdu 01 (Three.js). Krok 0 běží sám asi 13 s:
    1) tma, reflektor se rozsvítí na jeden školní oběd, kamera pomalu najíždí;
    2) kamera se zvedne a odjede, odhalí jídelnu (336 táců na 21 stolech, čtyři různá jídla), rozsvítí se stropní světla;
    3) ze třetiny talířů odletí jídlo obloukem do kbelíku vepředu, kbelík se plní, počítadlo 0 → 31 %.

@@ -1,4 +1,4 @@
-# Dojedeno
+# Dojezeno
 
 Prototyp pro Hack Prague 2026: měření zbytků jídla ve školních jídelnách pomocí kamery, váhy a AI. Repozitář obsahuje prezentační deck, demo a projektové podklady.
 

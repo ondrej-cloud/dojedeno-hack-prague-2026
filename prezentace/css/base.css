@@ -1,4 +1,4 @@
-/* Dojedeno · základ decku. Plocha 1920 × 1080 (16:9) škálovaná na okno, světlé plátno jako deck z Děčína.
+/* Dojezeno · základ decku. Plocha 1920 × 1080 (16:9) škálovaná na okno, světlé plátno jako deck z Děčína.
    Geometrie: nadpis má na každém slajdu pruh 164 px (dva řádky 76 px), obsah začíná všude na 272 px (64 + 164 + 44).
    Zelená = snědeno a úspora, oranžová = vyhozeno. Jeden roh (22 px), jeden stín, čára ilustrací 3 px. Slajdové styly: css/sNN.css. */
 

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dojedeno</title>
-<meta name="description" content="Dojedeno: automatické měření zbytků jídla ve školních jídelnách. Prezentace pro Hack Prague 2026.">
+<title>Dojezeno</title>
+<meta name="description" content="Dojezeno: automatické měření zbytků jídla ve školních jídelnách. Prezentace pro Hack Prague 2026.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23fff' stroke='%23d2d2d7' stroke-width='2'/%3E%3Ccircle cx='32' cy='32' r='20' fill='none' stroke='%23248a3d' stroke-width='7' stroke-dasharray='94 126' transform='rotate(-90 32 32)' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/s01.css">
@@ -45,7 +45,7 @@
 <!-- 01 · otevření. Když běží WebGL (třída .kino z js/uvod3d.js): krok 0 je asi 13 s film ve 3D (tma, jeden oběd v reflektoru,
      odjezd kamery na jídelnu, jídlo z třetiny talířů odletí do kbelíku, 0 → 31 %), krok 1 přechod do světla, vlevo titul,
      vpravo 3D točna produktu. Bez WebGL zůstává 2D otevření: gastronádoba se přelije do kbelíku (js/s01.js). -->
-<section class="slajd" id="s-uvod" data-nazev="Dojedeno · otevření" data-kroky="1" data-bez-prubehu>
+<section class="slajd" id="s-uvod" data-nazev="Dojezeno · otevření" data-kroky="1" data-bez-prubehu>
   <div class="kino3d bez-vstupu" aria-hidden="true"></div>
   <div class="kino-vineta bez-vstupu" aria-hidden="true"></div>
   <button class="kino-spust bez-vstupu" type="button">Spustit úvod <span aria-hidden="true">→</span></button>
@@ -55,7 +55,7 @@
   <p class="kino-titulek bez-vstupu" data-od="5.0" data-do="8.2">Jídelna jich denně vydá stovky.</p>
   <p class="kino-titulek bez-vstupu" data-od="9.0">Téměř třetina uvařeného jídla skončí v&nbsp;koši.</p>
 
-  <div class="produkt3d bez-vstupu" data-krok="1" aria-label="Návrh sestavy Dojedeno: třípatrový pás, snímání talířů před vysypáním a samostatný kbelík na váze"></div>
+  <div class="produkt3d bez-vstupu" data-krok="1" aria-label="Návrh sestavy Dojezeno: třípatrový pás, snímání talířů před vysypáním a samostatný kbelík na váze"></div>
 
   <p class="produkt-navrh bez-vstupu" data-krok="1">Návrh pilotní sestavy · snímání talířů + váha</p>
 
@@ -120,7 +120,7 @@
         <circle cx="46" cy="46" r="26" fill="none" stroke="#e5e5ea" stroke-width="2"/>
         <circle cx="46" cy="46" r="34" fill="none" stroke="#248a3d" stroke-width="8" stroke-linecap="round" stroke-dasharray="160 214" transform="rotate(-90 46 46)"/>
       </svg>
-      <h1>Dojedeno</h1>
+      <h1>Dojezeno</h1>
     </div>
     <p class="cislo oranz"><span data-pocitej="31" data-od="0">31</span><small>%</small></p>
     <p class="pod-cislo">uvařeného jídla ve školních jídelnách skončí v&nbsp;koši</p>
@@ -128,7 +128,7 @@
 
   <p class="akce mala bez-vstupu" data-krok="1">Hack Prague 2026</p>
 
-  <script type="application/json" class="poznamky-data">["0:00–0:30 · Ondra", "[šipka] Spustí se asi 13 s film. Mluví titulky, jen klidně dočíst nahlas: Tohle je jeden školní oběd. (pauza) Jídelna jich denně vydá stovky. (pauza) Téměř třetina skončí v koši.", "[po filmu, sám] Titul Dojedeno, 31 %, vpravo naše sestava.", "Jsme Dojedeno. Chceme, aby každá školní jídelna věděla, co a kolik vyhazuje. Každý den, automaticky. První pilot chystáme u nás v Hejčíně.", "Mezerník během filmu přeskočí rovnou na titul.", "Zdroje: Prague Food Waste 2024 (31 % hmotnosti uvařeného: talíře + nevydané pokrmy), jídelny pro 400–600 žáků."]</script>
+  <script type="application/json" class="poznamky-data">["0:00–0:30 · Ondra", "[šipka] Spustí se asi 13 s film. Mluví titulky, jen klidně dočíst nahlas: Tohle je jeden školní oběd. (pauza) Jídelna jich denně vydá stovky. (pauza) Téměř třetina skončí v koši.", "[po filmu, sám] Titul Dojezeno, 31 %, vpravo naše sestava.", "Jsme Dojezeno. Chceme, aby každá školní jídelna věděla, co a kolik vyhazuje. Každý den, automaticky. První pilot chystáme u nás v Hejčíně.", "Mezerník během filmu přeskočí rovnou na titul.", "Zdroje: Prague Food Waste 2024 (31 % hmotnosti uvařeného: talíře + nevydané pokrmy), jídelny pro 400–600 žáků."]</script>
 </section>
 
 <!-- 02 · problém: obří 600 000 Kč (jen zbytky z talířů), krok 1: 8 891 jídelen jako pole teček (js/s02.js) -->
@@ -392,7 +392,7 @@
 </section>
 
 <!-- 09 · konkurence: vlevo tabulka čtyř firem (řádky nastupují po 90 ms), vpravo důkaz −50 % (IKEA Zličín);
-     krok 1: pod tabulkou přijede zelený řádek Dojedeno a věta, že ve školních jídelnách jsme automatické měření nenašli -->
+     krok 1: pod tabulkou přijede zelený řádek Dojezeno a věta, že ve školních jídelnách jsme automatické měření nenašli -->
 <section class="slajd" id="s-konkurence" data-nazev="Konkurence" data-kroky="1">
   <h1>Ve světě to funguje. Do&nbsp;školních jídelen u&nbsp;nás zatím ne.</h1>
 
@@ -426,7 +426,7 @@
     <div class="k-my" data-krok="1">
       <div class="k-my-bunka k-my-jmeno">
         <span class="k-my-znak"><svg class="ilu" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-talir"/></svg></span>
-        <span><b>Dojedeno</b><small>Olomouc · Praha</small></span>
+        <span><b>Dojezeno</b><small>Olomouc · Praha</small></span>
       </div>
       <div class="k-my-bunka">školní jídelny</div>
       <div class="k-my-bunka k-my-jak">talíř na pásu řekne co, váha kolik</div>
@@ -522,7 +522,7 @@
 </section>
 
 <!-- 11 · závěr: krok 0 obří čísla (8 891 jídelen, 1,6 milionu dětí denně, počítadla) a schody rozšíření, které rostou zleva;
-     krok 1 vyčistí plochu a na prázdné scéně se dokreslí dojedený talíř, závěrečná věta, Dojedeno, Děkujeme -->
+     krok 1 vyčistí plochu a na prázdné scéně se dokreslí dojedený talíř, závěrečná věta, Dojezeno, Děkujeme -->
 <section class="slajd" id="s-zaver" data-nazev="Rozšíření a závěr" data-kroky="1">
   <div class="z-faze0 po-kroku rozbal">
     <h1 class="z-cisla">
@@ -553,11 +553,11 @@
     </svg>
     <p class="z-ikea">IKEA na Zličíně snížila odpad o&nbsp;polovinu.</p>
     <p class="z-veta">My to dáme každé školní jídelně, za&nbsp;cenu levné kamery a&nbsp;váhy.</p>
-    <p class="z-znacka"><b>Dojedeno</b></p>
+    <p class="z-znacka"><b>Dojezeno</b></p>
   </div>
   <p class="z-dekujeme" data-krok="1">Děkujeme</p>
 
-  <script type="application/json" class="poznamky-data">["4:30–4:55 · Ondra", "V Česku je 8 891 školních jídelen a každý den vaří pro 1,6 milionu dětí. Začneme v lednu u nás v Hejčíně, šest týdnů, pak další jídelny.", "[mezerník] Každý talíř, který se dojí, je jídlo, které se nevypěstovalo, nedovezlo a neuvařilo nadarmo, a gastroodpad, který nemusí odvážet specializovaná firma. IKEA na Zličíně snížila odpad o polovinu. My to dáme každé školní jídelně, za cenu levné kamery a váhy. Jsme Dojedeno. (dvě vteřiny ticho) Děkujeme.", "Zdroje: Z4 sborník From Plate To Waste 2025; IKEA Česko newsroom, ekonews.cz."]</script>
+  <script type="application/json" class="poznamky-data">["4:30–4:55 · Ondra", "V Česku je 8 891 školních jídelen a každý den vaří pro 1,6 milionu dětí. Začneme v lednu u nás v Hejčíně, šest týdnů, pak další jídelny.", "[mezerník] Každý talíř, který se dojí, je jídlo, které se nevypěstovalo, nedovezlo a neuvařilo nadarmo, a gastroodpad, který nemusí odvážet specializovaná firma. IKEA na Zličíně snížila odpad o polovinu. My to dáme každé školní jídelně, za cenu levné kamery a váhy. Jsme Dojezeno. (dvě vteřiny ticho) Děkujeme.", "Zdroje: Z4 sborník From Plate To Waste 2025; IKEA Česko newsroom, ekonews.cz."]</script>
 </section>
 
 <!-- 06b · živá ukázka: zavřená je to obyčejný slajd s náhledem, mezerník ho přeskočí. Klepnutí na náhled otevře demo
@@ -566,10 +566,10 @@
 <section class="slajd" id="s-ukazka" data-nazev="Oponentura · živé demo" data-kroky="0" data-demo data-zaloha>
   <h1>Živá ukázka prototypu.</h1>
   <button class="otevrit" type="button" aria-label="Spustit živé demo">
-    <img class="nahled" src="../demo/screenshots/step-4.png" alt="Prototyp Dojedeno: výsledek talíře, zbylo 150 g, snědeno 63 %">
+    <img class="nahled" src="../demo/screenshots/step-4.png" alt="Prototyp Dojezeno: výsledek talíře, zbylo 150 g, snědeno 63 %">
     <span class="pilulka svetla"><span class="hraj" aria-hidden="true"></span>Spustit demo</span>
   </button>
-  <iframe class="demo bez-vstupu" title="Prototyp Dojedeno" allow="camera; fullscreen; autoplay" tabindex="0"></iframe>
+  <iframe class="demo bez-vstupu" title="Prototyp Dojezeno" allow="camera; fullscreen; autoplay" tabindex="0"></iframe>
   <button class="zavrit bez-vstupu" type="button" aria-label="Zavřít demo">×</button>
   <div class="demo-chyba bez-vstupu" hidden>
     <p class="nadpis">Demo zatím neběží</p>
@@ -894,7 +894,7 @@
         <div class="oznameni">
           <div class="appka" aria-hidden="true"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="20"/><circle class="oblouk" cx="32" cy="32" r="20" pathLength="100"/></svg></div>
           <div class="obsah-oznameni">
-            <p class="hlavicka"><span>Dojedeno</span><span>12:41</span></p>
+            <p class="hlavicka"><span>Dojezeno</span><span>12:41</span></p>
             <p class="co">Segedínský guláš – knedlík</p>
             <p class="kolik">150&nbsp;g</p>
           </div>
@@ -947,7 +947,7 @@
     <div class="clen doplnit"><span class="monogram">?</span><div><p class="jmeno">Jméno Příjmení</p><p class="role">Role</p></div></div>
   </div>
 
-  <script type="application/json" class="poznamky-data">["~0:20 · Ondra", "Jsme tým z naší školy v Olomouci-Hejčíně. Dojedeno měří, co děti ve školní jídelně nedojí, a pomáhá jídelně vařit tak, aby se méně vyhazovalo.", "Je to naše vlastní téma z městské udržitelnosti: gastroodpad ve školních jídelnách. Pilot začne u nás, pak chceme do Prahy.", "[mezerník] Řada týmu: každý řekne jméno a co dělá (DOPLNIT jména, role a monogramy na slajdu, karty mají třídu .doplnit).", "Zdroje: vlastní projekt."]</script>
+  <script type="application/json" class="poznamky-data">["~0:20 · Ondra", "Jsme tým z naší školy v Olomouci-Hejčíně. Dojezeno měří, co děti ve školní jídelně nedojí, a pomáhá jídelně vařit tak, aby se méně vyhazovalo.", "Je to naše vlastní téma z městské udržitelnosti: gastroodpad ve školních jídelnách. Pilot začne u nás, pak chceme do Prahy.", "[mezerník] Řada týmu: každý řekne jméno a co dělá (DOPLNIT jména, role a monogramy na slajdu, karty mají třídu .doplnit).", "Zdroje: vlastní projekt."]</script>
 </section>
 
 <!-- 03 · dva zdroje odpadu: pruh 100 % (43 nevydané, 48 talíře, 9 příprava) se vykreslí při vstupu,

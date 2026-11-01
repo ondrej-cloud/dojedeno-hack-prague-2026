@@ -1,4 +1,4 @@
-/* Dojedeno · návrh pilotní sestavy (jeden pás, snímání talířů a samostatně vážený kbelík; volitelně tři patra) jako produktová fotka v prohlížeči.
+/* Dojezeno · návrh pilotní sestavy (jeden pás, snímání talířů a samostatně vážený kbelík; volitelně tři patra) jako produktová fotka v prohlížeči.
    Kroky slajdu: 0 celek, 1 fotka na pásu, 2 přírůstek váhy při vysypání, 3 návrh přiřazení. Animace je ilustrativní.
    Připojení: prvek s atributem data-model3d uvnitř .slajd; poslouchá události slajdu 'vstup', 'krok', 'odchod', 'tisk'.
    Sestavuje se esbuildem do js/model3d.js (IIFE, funguje z file://). Bez sítě. */

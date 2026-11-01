@@ -1,4 +1,4 @@
-/* Dojedeno · čtyři školní obědy pro 3D scény (úvodní film i model pásu). Souřadnice jsou v místních jednotkách talíře
+/* Dojezeno · čtyři školní obědy pro 3D scény (úvodní film i model pásu). Souřadnice jsou v místních jednotkách talíře
    s poloměrem 0,138 m (úvodní film); model pásu má talíř 1,25× větší a skupinu jen zvětší. */
 import * as THREE from 'three';
 import { mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
