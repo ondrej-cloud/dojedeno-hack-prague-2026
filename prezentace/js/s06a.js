@@ -7,12 +7,37 @@
   if (!s) return;
   let data = { talir1: { slozky: [{ nazev: 'Knedlík', g: 90 }, { nazev: 'Guláš', g: 60 }], porce_g: 400 }, talir2: { g: 4 } };
   try { data = JSON.parse(s.querySelector('.dt-data').textContent); } catch (e) {}
-  const g1 = data.talir1.slozky.reduce((a, x) => a + x.g, 0), g2 = data.talir2.g;
-  const snedeno = Math.round((1 - g1 / data.talir1.porce_g) * 100);
-  s.querySelector('.dt-slozky').innerHTML = data.talir1.slozky.map(x =>
-    `<div class="dt-slozka"><span>${x.nazev}</span><i style="--podil:${x.g / Math.max(...data.talir1.slozky.map(y => y.g))}"></i><b>${x.g} g</b></div>`).join('');
+  const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const nastav = (sel, v) => { const e = s.querySelector(sel); e.dataset.pocitej = v; e.dataset.od = 0; return e; };
-  const c1 = nastav('.dt-g1', g1), c2 = nastav('.dt-g2', g2), cs = nastav('.dt-gs', g1 + g2), cp = nastav('.dt-snedeno', snedeno);
+  const c1 = nastav('.dt-g1', 0), c2 = nastav('.dt-g2', 0), cs = nastav('.dt-gs', 0), cp = nastav('.dt-snedeno', 0);
+  let g1 = 0, g2 = 0, snedeno = 0;
+  /* talíř 1 a 2: živě z dema (deck-bridge.js), jinak záložní čísla z .dt-data */
+  const zive = { reference: null, leftover: null };
+  function talir1() {
+    const z = zive.reference;
+    if (z && z.stav === 'hotovo') return { jidlo: z.jidlo, slozky: (z.slozky || []).filter(x => x.g != null), g: z.netto ?? 0, zive: true };
+    return { jidlo: 'Segedínský guláš s knedlíkem', slozky: data.talir1.slozky, g: data.talir1.slozky.reduce((a, x) => a + x.g, 0), zive: false };
+  }
+  function talir2() {
+    const z = zive.leftover;
+    if (z && z.stav === 'hotovo') return { g: z.netto ?? 0, zive: true };
+    return { g: data.talir2.g, zive: false };
+  }
+  function vykresliKarty() {
+    const t1 = talir1(), t2 = talir2();
+    g1 = t1.g; g2 = t2.g; snedeno = Math.max(0, Math.min(100, Math.round((1 - g1 / data.talir1.porce_g) * 100)));
+    s.querySelector('.dt-jidlo').textContent = t1.jidlo;
+    const max = Math.max(1, ...t1.slozky.map(y => y.g));
+    s.querySelector('.dt-slozky').innerHTML = t1.slozky.map(x =>
+      `<div class="dt-slozka"><span>${esc(x.nazev)}</span><i style="--podil:${x.g / max}"></i><b>${t1.zive ? '≈ ' : ''}${x.g} g</b></div>`).join('');
+    s.querySelectorAll('.dt-k1 .dt-zdroj').forEach(e => { e.textContent = t1.zive ? 'živě' : 'rozpoznáno'; });
+    s.querySelectorAll('.dt-k2 .dt-zdroj').forEach(e => { e.textContent = t2.zive ? 'živě' : 'rozpoznáno'; });
+    const prazdny = g2 < 10;
+    s.querySelector('.dt-h2').textContent = prazdny ? 'Prázdný talíř' : 'Zbytek na talíři';
+    s.querySelector('.dt-verdikt').innerHTML = prazdny ? 'pod 10&nbsp;g = <span class="zelena">dojedeno</span>' : 'zbylo na talíři';
+    [[c1, g1], [c2, g2], [cs, g1 + g2], [cp, snedeno]].forEach(([e, v]) => { e.dataset.pocitej = v; });
+  }
+  vykresliKarty();
   const kruh = s.querySelector('.kruh-hodnota');
   const stav = s.querySelector('.dt-stav-text');
 
@@ -55,7 +80,45 @@
     });
   }
 
+  /* živé spojení: demo z localhost:8080 (z Netlify ../demo/) v režimu ?mode=live&vlozeno=kamera */
+  const DEMO = location.protocol === 'file:' ? 'http://localhost:8080/' : new URL('../demo/', location.href).href;
+  const kamera = s.querySelector('.dt-live');
+  let pripojeno = false, aktualniK = 0;
+  function pripoj() {
+    fetch(DEMO, { mode: 'no-cors', cache: 'no-store' }).then(() => {
+      pripojeno = true;
+      if (!kamera.getAttribute('src')) { const u = new URL(DEMO); u.searchParams.set('mode', 'live'); u.searchParams.set('vlozeno', 'kamera'); kamera.setAttribute('src', u.href); }
+      s.classList.add('live');
+    }).catch(() => { pripojeno = false; s.classList.remove('live'); });
+  }
+  addEventListener('message', e => {
+    const d = e.data;
+    if (!d || typeof d !== 'object' || d.dojedeno !== 'talir' || e.source !== kamera.contentWindow) return;
+    zive[d.faze] = d;
+    vykresliKarty();
+    cekani();
+  });
+  /* krok 1/2 v živém režimu: dokud AI nedoběhne, karta ukazuje „Analyzuji…“ */
+  function cekani() {
+    const k1 = s.querySelector('.dt-k1'), k2 = s.querySelector('.dt-k2');
+    const ceka = f => pripojeno && zive[f] && zive[f].stav !== 'hotovo';
+    k1.classList.toggle('ceka', aktualniK >= 1 && ceka('reference'));
+    k2.classList.toggle('ceka', aktualniK >= 2 && ceka('leftover'));
+    if (aktualniK >= 1 && zive.reference?.stav === 'hotovo' && !s.classList.contains('v1')) { s.classList.add('v1'); pocitej(c1, false); pocitej(cp, false); kruh.style.strokeDasharray = `${snedeno} 100`; }
+    if (aktualniK >= 2 && zive.leftover?.stav === 'hotovo' && !s.classList.contains('v2')) { s.classList.add('v2'); pocitej(c2, false); }
+    if (s.classList.contains('v1')) { pocitej(c1, true); pocitej(cp, true); kruh.style.strokeDasharray = `${snedeno} 100`; }
+    if (s.classList.contains('v2')) pocitej(c2, true);
+  }
+  /* QR párování mobilu: overlay s demem (?phone=1 otevře QR) */
+  const qrOkno = s.querySelector('.dt-qr-okno');
+  s.querySelector('.dt-qr').addEventListener('click', () => {
+    const u = new URL(DEMO); u.searchParams.set('mode', 'live'); u.searchParams.set('phone', '1'); u.searchParams.set('vlozeno', 'qr');
+    qrOkno.querySelector('iframe').setAttribute('src', u.href); qrOkno.hidden = false;
+  });
+  s.querySelector('.dt-qr-zavrit').addEventListener('click', () => { qrOkno.hidden = true; qrOkno.querySelector('iframe').removeAttribute('src'); window.focus(); });
+
   function stavKroku(k, hned) {
+    aktualniK = k;
     zrus();
     s.classList.remove('skenuje', 'detekce');
     s.classList.toggle('t2', k >= 2);
@@ -74,11 +137,17 @@
     if (k < 1) { s.classList.remove('v1', 'v2'); kruh.style.strokeDasharray = '0 100'; return; }
     if (k < 2) s.classList.remove('v2');
     if (hned || k >= 4) { ukaz1(); if (k >= 2) ukaz2(); if (k >= 3) pocitej(cs, true); return; }
-    if (k === 1) { s.classList.remove('v1'); s.classList.add('skenuje'); pozdeji(() => s.classList.add('detekce'), 700); pozdeji(ukaz1, 1300); }
-    if (k === 2) { ukaz1(); pozdeji(() => s.classList.add('skenuje'), 500); pozdeji(() => s.classList.add('detekce'), 1200); pozdeji(ukaz2, 1800); }
+    const maVysledek = f => !pripojeno || !zive[f] || zive[f].stav === 'hotovo';
+    if (k === 1) { s.classList.remove('v1'); s.classList.add('skenuje'); pozdeji(() => s.classList.add('detekce'), 700); pozdeji(() => { if (maVysledek('reference')) ukaz1(); cekani(); }, 1300); }
+    if (k === 2) { ukaz1(); pozdeji(() => s.classList.add('skenuje'), 500); pozdeji(() => s.classList.add('detekce'), 1200); pozdeji(() => { if (maVysledek('leftover')) ukaz2(); cekani(); }, 1800); }
+    /* záloha: když živá analýza do 20 s nedoběhne (mobil nepřipojen), ukážou se připravená čísla */
+    const zaloha = (f, ukaz) => pozdeji(() => { if (!maVysledek(f)) { zive[f] = null; vykresliKarty(); s.querySelector(f === 'reference' ? '.dt-k1' : '.dt-k2').classList.remove('ceka'); ukaz(); } }, 20000);
+    if (k === 1) zaloha('reference', ukaz1);
+    if (k === 2) zaloha('leftover', ukaz2);
     if (k === 3) { ukaz1(); ukaz2(); pozdeji(() => pocitej(cs, false), 450); }
   }
   s.addEventListener('krok', e => stavKroku(e.detail.k, e.detail.hned));
+  s.addEventListener('vstup', pripoj);
   s.addEventListener('odchod', zrus);
   s.addEventListener('tisk', () => stavKroku(6, true));
 })();

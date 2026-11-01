@@ -133,3 +133,18 @@
 /* přelet dvou teček pomaleji a plynule; ostatní tečky dorůstají až po přistání */
 #s-dva-talire .dr-tecky i.prvni { transition: transform 1300ms var(--plynule); }
 #s-dva-talire.den .dr-tecky i:not(.prvni) { animation-delay: calc(1100ms + var(--n) * 2ms); }
+
+/* živá kamera z dema (deck-bridge.js) přes rámeček kamery; bez spojení zůstane kreslený talíř */
+#s-dva-talire .dt-live { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; opacity: 0; pointer-events: none; transition: opacity 500ms var(--ven); background: #232325; }
+#s-dva-talire.live .dt-live { opacity: 1; }
+#s-dva-talire.live .dt-snimek { opacity: 0 !important; }
+#s-dva-talire .dt-qr { position: absolute; right: 64px; bottom: 34px; z-index: 6; display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px 12px; border: 0; border-radius: 999px; background: var(--karta); box-shadow: var(--stin); font: 700 22px var(--pismo); color: var(--text2); cursor: pointer; opacity: 0.75; transition: opacity 200ms; }
+#s-dva-talire .dt-qr:hover { opacity: 1; }
+#s-dva-talire .dt-qr svg { width: 28px; height: 28px; }
+#s-dva-talire.live .dt-qr { color: var(--zelena); }
+#s-dva-talire .dt-qr-okno { position: absolute; inset: 0; z-index: 20; background: rgba(245, 245, 247, 0.96); }
+#s-dva-talire .dt-qr-okno iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+#s-dva-talire .dt-qr-zavrit { position: absolute; right: 40px; top: 30px; width: 64px; height: 64px; border: 0; border-radius: 50%; background: var(--text); color: #fff; font-size: 40px; line-height: 1; cursor: pointer; }
+#s-dva-talire .dt-karta.ceka { opacity: 1; transform: none; }
+#s-dva-talire .dt-karta.ceka > * { opacity: 0.25; }
+#s-dva-talire .dt-karta.ceka::after { content: "Analyzuji…"; position: absolute; left: 34px; top: 30px; font: 800 34px var(--pismo); color: var(--zelena); animation: pulz 1.4s ease-in-out infinite; opacity: 1; }

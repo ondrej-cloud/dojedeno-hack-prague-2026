@@ -270,6 +270,7 @@
       </svg>
       <img class="dt-foto" src="assets/talir2.jpg" alt="" onerror="this.remove()">
     </div>
+    <iframe class="dt-live" title="Živá kamera nad pásem" allow="camera; autoplay" tabindex="-1"></iframe>
     <div class="dt-sken" aria-hidden="true"></div>
     <div class="dt-detekce" aria-hidden="true"></div>
     <p class="dt-stav"><span class="tecka"></span><span class="dt-stav-text">Kamera nad pásem</span></p>
@@ -278,7 +279,7 @@
   <div class="dt-vysledky">
     <p class="dt-ceka"><span class="tecka"></span>Čekám na talíř…</p>
     <article class="dt-karta dt-k1">
-      <p class="dt-nad">Talíř 1 · rozpoznáno</p>
+      <p class="dt-nad">Talíř 1 · <span class="dt-zdroj">rozpoznáno</span></p>
       <h2 class="dt-jidlo">Segedínský guláš s&nbsp;knedlíkem</h2>
       <div class="dt-slozky"></div>
       <div class="dt-spodek">
@@ -288,9 +289,12 @@
     </article>
     <article class="dt-karta dt-k2">
       <span class="dt-fajfka" aria-hidden="true"><svg class="ilu" viewBox="0 0 64 64"><use href="#i-fajfka"/></svg></span>
-      <div><p class="dt-nad">Talíř 2 · rozpoznáno</p><h2>Prázdný talíř</h2><p class="dt-pod"><b><span class="dt-g2">0</span>&nbsp;g</b> · pod 10&nbsp;g = <span class="zelena">dojedeno</span></p></div>
+      <div><p class="dt-nad">Talíř 2 · <span class="dt-zdroj">rozpoznáno</span></p><h2 class="dt-h2">Prázdný talíř</h2><p class="dt-pod"><b><span class="dt-g2">0</span>&nbsp;g</b> · <span class="dt-verdikt">pod 10&nbsp;g = <span class="zelena">dojedeno</span></span></p></div>
     </article>
   </div>
+
+  <button class="dt-qr bez-vstupu" type="button" data-interaktivni aria-label="Připojit mobilní kameru přes QR"><svg class="ilu" viewBox="0 0 64 64" aria-hidden="true"><use href="#i-telefon"/></svg>Připojit mobil</button>
+  <div class="dt-qr-okno bez-vstupu" data-interaktivni hidden><iframe title="Párování mobilu" allow="camera; autoplay"></iframe><button class="dt-qr-zavrit" type="button" aria-label="Zavřít párování">×</button></div>
 
   <div class="dt-souhrn bez-vstupu">
     <span class="dt-bod oranz"></span><span class="dt-bod zelena"></span>
@@ -317,7 +321,7 @@
   </div>
 
   <script type="application/json" class="dt-data">{"talir1":{"slozky":[{"nazev":"Knedlík","g":90},{"nazev":"Guláš","g":60}],"porce_g":400},"talir2":{"g":4}}</script>
-  <script type="application/json" class="poznamky-data">["1:55–2:50 · Ondra · ukázka: dva natočené talíře a z nich data", "Takhle to vypadá v jídelně. Kamera nad pásem vidí talíř.", "[mezerník] Talíř 1: AI pozná guláš s knedlíkem, váha řekne sto padesát gramů. Zbyl hlavně knedlík.", "[mezerník] Talíř 2 je prázdný: čtyři gramy, to je dojedeno.", "[mezerník] Z těchhle dvou talířů začínají data.", "[mezerník] Tečky přeletí do mřížky a naroste celý den: čtyři sta dvanáct talířů, třicet čtyři kila zbytků.", "[mezerník] Za dva týdny už vidíme vzorce.", "[mezerník] A za měsíc je jasné, co se nejí: špenát se vrací ze čtyřiceti sedmi procent. Z toho navrhneme opatření.", "Fotky z natočeného běhu: prezentace/assets/talir1.jpg a talir2.jpg, čísla v JSON .dt-data. Den a měsíc jsou ukázková data. Živé demo je v příloze.", "Zdroje: prototyp; den a měsíc ukázková data (demo/data/month.json); špenát ~47 % (Z2, Z3)."]</script>
+  <script type="application/json" class="poznamky-data">["1:55–2:50 · Ondra · ukázka: dva natočené talíře a z nich data", "Takhle to vypadá v jídelně. Kamera nad pásem vidí talíř.", "[mezerník] Talíř 1 (živě: položit pod kameru, automatika ho vyfotí a pošle do AI): AI pozná jídlo a složky, váha řekne gramy.", "[mezerník] Talíř 2 (prázdný, položit pod kameru): pod deset gramů, to je dojedeno.", "[mezerník] Z těchhle dvou talířů začínají data.", "[mezerník] Tečky přeletí do mřížky a naroste celý den: čtyři sta dvanáct talířů, třicet čtyři kila zbytků.", "[mezerník] Za dva týdny už vidíme vzorce.", "[mezerník] A za měsíc je jasné, co se nejí: špenát se vrací ze čtyřiceti sedmi procent. Z toho navrhneme opatření.", "[PŘED PITCHEM] python3 tools/open_live_demo.py (nebo demo/tools/serve.py), vpravo dole Připojit mobil → QR, na mobilu zapnout kameru, prázdné místo pod kamerou. Bez spojení slajd ukáže připravená čísla (ukázka).", "Záložní čísla v JSON .dt-data. Den a měsíc jsou ukázková data. Živé demo je v příloze.", "Zdroje: prototyp; den a měsíc ukázková data (demo/data/month.json); špenát ~47 % (Z2, Z3)."]</script>
 </section>
 
 <!-- 07 · co jídelna dostane: měření → (krok 1) analýza → (krok 2) opatření; krok 3 jeden řádek: příklad −30 % = 180 000 Kč ročně (výslovně příklad) -->
