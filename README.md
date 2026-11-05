@@ -1,6 +1,31 @@
 # Dojezeno
 
-Prototyp pro Hack Prague 2026: měření zbytků jídla ve školních jídelnách pomocí kamery, váhy a AI. Repozitář obsahuje prezentační deck, demo a projektové podklady.
+**Jídelna konečně uvidí, co děti nejedí.** Kamera nad výdejním pásem vyfotí talíř, váha pod kbelíkem zjistí, kolik se vyhodilo, a AI z toho udělá přehled a návrhy pro kuchařky a vedoucí jídelny.
+
+[![1. místo, Hack Prague 2026](https://img.shields.io/badge/Hack_Prague_2026-1._m%C3%ADsto-c9a227?style=flat-square)](https://moderniobec.cz/studenti-z-olomouce-navrhli-jak-s-pomoci-umele-inteligence-omezit-plytvani-jidlem/)
+[![Web](https://img.shields.io/badge/web-dojezeno.netlify.app-2e9e4f?style=flat-square)](https://dojezeno.netlify.app)
+[![One-pager](https://img.shields.io/badge/one--pager-PDF-1d1d1f?style=flat-square)](https://dojezeno.netlify.app/onepager/dojezeno-onepager.pdf)
+
+<p align="center">
+  <img src="materialy/onepager/prehled.png" width="100%" alt="Přehled Dojezeno pro jídelnu: zbytky z talířů za měsíc, nejčastěji vracená jídla a návrhy pro kuchařky, vedoucí a ředitele (ukázková data)">
+</p>
+
+S tímhle projektem jsme **vyhráli Hack Prague 2026**, který pořádala [Kokoza](https://www.kokoza.cz/projekty/hack-prague-od-napadu-k-zivejsimu-mestu/) od 30. října do 1. listopadu 2026. Soutěžilo 39 mladých lidí v osmi týmech a my jsme porotě ukázali celý řetězec: problém podložený čísly, živé demo, které rozpozná talíř z fotky z mobilu, pilot, rozpočet a rizika. Za první místo jsme získali **50 000 Kč na realizaci**, takže Dojezeno **opravdu postavíme**: šestitýdenní pilot v jídelně naší školy v Olomouci-Hejčíně začne v **lednu 2027**.
+
+📰 Psali o nás: [Moderní obec – Studenti z Olomouce navrhli, jak s pomocí umělé inteligence omezit plýtvání jídlem](https://moderniobec.cz/studenti-z-olomouce-navrhli-jak-s-pomoci-umele-inteligence-omezit-plytvani-jidlem/)
+
+**[Web a prezentace](https://dojezeno.netlify.app)** · **[One-pager](https://dojezeno.netlify.app/onepager/dojezeno-onepager.pdf)** · **[Obsah prezentace a zdroje čísel](prezentace/OBSAH.md)**
+
+## Proč
+
+| | |
+|---|---|
+| Kolik uvařeného jídla školní jídelny vyhodí | **téměř třetinu (31 %)** |
+| Z toho zbytky z talířů | **48 %** |
+| Škola s 500 žáky vyhodí jen ze zbytků na talířích jídlo za | **asi 600 000 Kč ročně** (jen suroviny) |
+| Nejméně dojídané jídlo: špenát s bramborem a vejcem | **zbude skoro polovina porce** |
+
+Zdroj: Prague Food Waste 2024 (Zachraň jídlo, Mendelova univerzita). Výzkumníci museli vážit ručně, jen asi týden. Dojezeno měří každý den automaticky. Všechna čísla i se zdroji jsou v [OBSAH.md](prezentace/OBSAH.md).
 
 ## Spuštění dema
 
@@ -75,3 +100,16 @@ node demo/tools/test_presence.cjs
 ```
 
 Browser testy `demo/tools/verify_*.cjs` používají lokální Chrome na macOS a Playwright (balíček lze zadat proměnnou `PLAYWRIGHT_MODULE`). Testy Claude používají náhradní odpovědi, neúčtují API požadavky. **`benchmark_models.py` naopak výslovně volá placené API** nad dodanou fotografií.
+
+## Tým
+
+| | Na čem dělal |
+|---|---|
+| **Ondra** ([ondrej-cloud](https://github.com/ondrej-cloud)) | prototyp, živé demo a prezentace |
+| **Tobias** ([tobiaszlobias](https://github.com/tobiaszlobias)) | research a data, mentoři, technické řešení |
+
+Díky Kokoze, mentorům a porotě Hack Prague za zadání, rady a podporu realizace.
+
+---
+
+**In English.** Winning project of Hack Prague 2026 (organized by Kokoza, 30 Oct – 1 Nov 2026, 39 participants in 8 teams). Dojezeno measures plate waste in school canteens: a camera above the tray belt photographs each plate, a scale under the bin weighs what was thrown away, and AI turns it into daily and monthly reports with concrete suggestions for cooks and canteen managers. The first prize of 50 000 CZK funds a six-week pilot in our school canteen in Olomouc-Hejčín starting January 2027.
