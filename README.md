@@ -38,7 +38,7 @@ Zdroj: Prague Food Waste 2024 (Zachraň jídlo, Mendelova univerzita). Výzkumn�
 3. **Fotku a vážení spojíme podle pořadí.** Kde si systém není jistý, zapíše společnou dávku, nic si nevymýšlí.
 4. Z toho vznikne **denní a měsíční přehled** pro jídelnu a návrhy, co upravit (porce, recepty, polévky).
 
-V pilotu poběží kamera na Raspberry Pi (Zero 2 W + Camera Module 3) a pod kbelíkem bude USB váha. V demu místo ní slouží mobil. Model si můžete otočit v [prezentaci](https://dojezeno.netlify.app).
+V pilotu poběží kamera na Raspberry Pi (Zero 2 W + Camera Module 3) a pod kbelíkem bude USB váha. V demu místo ní slouží mobil. Animovaný model je v [prezentaci](https://dojezeno.netlify.app) na slajdu 4.
 
 ## Spuštění dema
 
