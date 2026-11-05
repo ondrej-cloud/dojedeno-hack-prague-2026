@@ -27,6 +27,19 @@ S tímhle projektem jsme **vyhráli Hack Prague 2026**, který pořádala [Kokoz
 
 Zdroj: Prague Food Waste 2024 (Zachraň jídlo, Mendelova univerzita). Výzkumníci museli vážit ručně, jen asi týden. Dojezeno měří každý den automaticky. Všechna čísla i se zdroji jsou v [OBSAH.md](prezentace/OBSAH.md).
 
+## Jak to funguje
+
+<p align="center">
+  <img src="docs/readme/model3d.webp" width="100%" alt="3D model pilotní sestavy z prezentace: kamera nad výdejním pásem fotí talíře, vedle stojí kbelík na váze s displejem 150 g">
+</p>
+
+1. **Kamera nad pásem vyfotí talíř** ještě předtím, než se vysype. AI podle dnešního jídelníčku pozná, co na talíři zbylo.
+2. **Váha pod kbelíkem změří, kolik přibylo.** Celková hmotnost je vždy skutečné měření, ne odhad.
+3. **Fotku a vážení spojíme podle pořadí.** Kde si systém není jistý, zapíše společnou dávku, nic si nevymýšlí.
+4. Z toho vznikne **denní a měsíční přehled** pro jídelnu a návrhy, co upravit (porce, recepty, polévky).
+
+V pilotu poběží kamera na Raspberry Pi (Zero 2 W + Camera Module 3) a pod kbelíkem bude USB váha. V demu místo ní slouží mobil. Model si můžete otočit v [prezentaci](https://dojezeno.netlify.app).
+
 ## Spuštění dema
 
 Vyžaduje Python 3.9+, OpenSSL a moderní prohlížeč. Webové rozhraní nevyžaduje build ani instalaci JavaScriptových knihoven.
