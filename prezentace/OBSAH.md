@@ -172,7 +172,7 @@
 | do 10. 5. 2027 | Evaluace | Zpráva a návrh rozšíření (další jídelna v Olomouci, Praha). |
 
 ### Rozpočet pilotu: 1 jídelna, celkem 34 000 Kč (vše z Hack Prague)
-Ceny jsou včetně DPH. **OVĚŘENO** = cena z odkazu v `rozpocet_pilotu.xlsx` od Codexu, **ODHAD** = náš odhad.
+Ceny jsou včetně DPH. **OVĚŘENO** = cena z odkazu v `rozpocet_pilotu.xlsx` ze zdrojů s odkazy, **ODHAD** = náš odhad.
 
 | Kategorie | Položka | Ks | Kč/ks | Kč | Stav |
 |---|---|---|---|---|---|

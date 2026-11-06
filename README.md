@@ -54,7 +54,7 @@ Na počítači otevřete http://localhost:8080. V prezentaci klikněte na **Mobi
 
 Po vložení talíře aplikace odešle snímek do Claude API, rozpozná jídlo a přečte čitelný displej váhy. Váhu před každým měřením vytárujte s prázdným talířem. Druhý snímek porovná s referenční porcí. **Celková hmotnost pochází z váhy; gramy jednotlivých složek jsou označené odhady AI z fotky, nikoli samostatná měření.** Živá analýza vyžaduje API kredit a internet; API chyby nenahrazuje připravenými výsledky.
 
-Podrobnosti: [ovládání a implementace](demo/README.md), [Claude API](demo/CLAUDE.md).
+Podrobnosti: [ovládání a implementace](demo/README.md), [AI analýza talíře](demo/AI-ANALYZA.md).
 
 ## Prezentace
 
@@ -65,7 +65,7 @@ cd prezentace
 python3 build.py
 ```
 
-`index.html` je sestavený soubor; upravujte `slajdy/`, `css/`, `js/` a `index.template.html`. Zdrojové 3D scény jsou v `model3d-src/src/`, sestavené bundly už jsou součástí repozitáře. K jejich změně je potřeba nainstalovat závislosti z `model3d-src/package-lock.json` a postupovat podle [předávky](docs/HANDOFF-codex.md).
+`index.html` je sestavený soubor; upravujte `slajdy/`, `css/`, `js/` a `index.template.html`. Zdrojové 3D scény jsou v `model3d-src/src/`, sestavené bundly už jsou součástí repozitáře. K jejich změně je potřeba nainstalovat závislosti z `model3d-src/package-lock.json`.
 
 ## Netlify Drop
 
@@ -100,7 +100,7 @@ Hlavní KPI jsou gramy vráceného potravinového gastroodpadu na skutečně vyd
 
 Dosud není potvrzen souhlas školy, přesný termín, jednopásové místo ani dodavatelské ceny. Podporu Hack Prague mimo Prahu musí potvrdit organizátoři. Kokoza a Zachraň jídlo jsou organizace, které chceme oslovit. Chybí skutečná citace člověka z jídelny a úplná obsahová šablona organizátorů; netvrdíme úplnou shodu se šablonou ani hotovou produkční instalaci.
 
-Denní a měsíční přehledy dema jsou **ukázková data**: 92,5 Kč/kg, ukázkový den 70 kg, bez emisních přepočtů. Zadání těchto oprav je v [codex-oprava-dat.md](docs/codex-oprava-dat.md).
+Denní a měsíční přehledy dema jsou **ukázková data**: 92,5 Kč/kg, ukázkový den 70 kg, bez emisních přepočtů.
 
 ## Testy
 
@@ -126,3 +126,7 @@ Díky Kokoze, mentorům a porotě Hack Prague za zadání, rady a podporu realiz
 ---
 
 **In English.** Winning project of Hack Prague 2026 (organized by Kokoza, 30 Oct – 1 Nov 2026, 39 participants in 8 teams). Dojezeno measures plate waste in school canteens: a camera above the tray belt photographs each plate, a scale under the bin weighs what was thrown away, and AI turns it into daily and monthly reports with concrete suggestions for cooks and canteen managers. The first prize of 50 000 CZK funds a six-week pilot in our school canteen in Olomouc-Hejčín starting January 2027.
+
+## Licence
+
+© 2026 Ondřej Novotný a Tobias Chlápek. Všechna práva vyhrazena, repozitář je zveřejněný jen k nahlédnutí. Viz [LICENSE](LICENSE).
